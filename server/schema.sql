@@ -235,3 +235,10 @@ CREATE TABLE IF NOT EXISTS notification_reads (
   PRIMARY KEY (user_id, notification_id)
 );
 
+-- Игровой слой: аватар, питомец, М-коины, маршрут по кампусу
+CREATE TABLE IF NOT EXISTS play_state (
+  student_id INTEGER PRIMARY KEY REFERENCES students(id),
+  state TEXT NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+
