@@ -61,3 +61,21 @@ function current() {
     <div class="disc-grid">${g.current.slice().sort((a, b) => (a.status === 'risk' ? -1 : 0) - (b.status === 'risk' ? -1 : 0)).map(discCard).join('')}</div>`;
 }
 
+function sessionTab() {
+  const s = g.session;
+  const ex = s.exams;
+  const first = ex.find((x) => x.inDays >= 0 && x.kind !== 'consult');
+  return `<div class="grid g-main">
+    <div class="card"><div class="card-head"><div><div class="card-title">Зачёты и экзамены</div><div class="card-sub">Сессия ${esc(dayShort(s.start))} — ${esc(dayShort(s.end))}</div></div></div>
+      ${ex.map((x) => `<div class="exam-row ${x.kind === 'consult' ? 'consult' : ''}"><span class="exam-date"><b>${dateNum(x.date)}</b><span>${monthShort(x.date)}, ${esc(weekdayShort(x.date))}</span></span>
+        <div><b style="font-weight:500">${esc(x.discipline)}</b><div class="small muted">${esc(x.kindLabel)} · ${x.time} · ${/^\d+$/.test(x.room) ? 'ауд. ' : ''}${esc(x.room)}${x.teacher ? ' · ' + esc(x.teacher) : ''}</div></div>
+        <span class="badge ${x.kind === 'consult' ? 'badge-gray' : x.kind === 'exam' ? 'badge-navy' : 'badge-soft'}">${x.inDays < 0 ? 'прошло' : x.inDays === 0 ? 'сегодня' : `через ${x.inDays} ${plural(x.inDays, ['день', 'дня', 'дней'])}`}</span></div>`).join('')}
+    </div>
+    <div class="col" style="gap:20px">
+      <div class="card ${s.admitted ? '' : 'card-gold'}"><div class="card-title">${s.admitted ? 'Допуск к сессии — идёт по плану' : 'Допуск под вопросом'}</div>
+        <p class="muted mt-8">${s.admitted ? 'Рисков и долгов нет. Допуск ставится автоматически после последней контрольной точки.' : 'Закройте риски и долги — тогда допуск поставят автоматически.'}</p>
+        ${first ? `<div class="note mt-16">${icon('calendar', 18)}<span>Первое испытание — «${esc(first.discipline)}», ${esc(dayShort(first.date))} в ${first.time}</span></div>` : ''}</div>
+      <div class="card"><div class="card-title">Если заболели</div><p class="muted mt-8">Перенос экзамена оформляется заявлением на индивидуальный график — без похода в деканат.</p><a class="btn btn-primary mt-16" href="#/requests/new/individual">${icon('doc', 18)} Подать заявление</a></div>
+    </div></div>`;
+}
+
