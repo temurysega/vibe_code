@@ -226,3 +226,10 @@ function head(c, skin, sh, h) {
   );
 }
 
+// Голова со спины: уши, затылок и причёска
+function headBack(c, skin, sh, h) {
+  return `<ellipse cx="58" cy="96" rx="7" ry="10" fill="${skin}"/><ellipse cx="142" cy="96" rx="7" ry="10" fill="${skin}"/>` +
+    `<ellipse cx="100" cy="90" rx="42" ry="45" fill="${skin}"/>` + hairNape(c.hair, h) +
+    (c.hair === 'afro' ? `<circle cx="100" cy="82" r="50" fill="${h}"/>` : '');
+}
+
