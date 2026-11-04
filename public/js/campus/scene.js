@@ -189,3 +189,21 @@ function library() {
   return s;
 }
 
+// Студклубы: трибуна и флажки клубов (условные цвета, не флаги стран)
+function clubs() {
+  const t = top(2), b = SURF[2];
+  let s = room(2, 'l', '#EEF0FF', '#D9DDF5');
+  ['#1E3A7B', '#C9A646', '#3BAE8A', '#E0735A', '#8E6CC4', '#5B8DEF', '#7A8699'].forEach((c, i) => {
+    const x = 100 + i * 30;
+    s += `<path d="M${x} ${t + 24} V${t + 84}" stroke="#6B7280" stroke-width="2"/><path d="M${x} ${t + 26} h22 l-5 9 5 9 h-22 Z" fill="${c}"/>`;
+  });
+  s += `<text x="100" y="${t + 112}" font-family="Onest, Arial" font-size="13" font-weight="600" fill="${INK}">Модель ООН · дебаты · волонтёры · спорт</text>`;
+  s += hot('podium',
+    `<rect x="350" y="${b - 92}" width="66" height="76" rx="6" fill="${NAVY}"/><rect x="344" y="${b - 100}" width="78" height="12" rx="6" fill="${INK}"/>` +
+    `<circle cx="383" cy="${b - 58}" r="16" fill="none" stroke="${GOLD}" stroke-width="3"/><path d="M367 ${b - 58} h32 M383 ${b - 74} c8 8 8 24 0 32 c-8 -8 -8 -24 0 -32" fill="none" stroke="${GOLD}" stroke-width="2"/>` +
+    `<path d="M383 ${b - 100} V${b - 118}" stroke="${INK}" stroke-width="3"/><circle cx="383" cy="${b - 120}" r="4" fill="${INK}"/>`,
+    [340, b - 126, 86, 112]);
+  s += `<rect x="452" y="${b - 46}" width="80" height="10" rx="5" fill="#C9D3E6"/><path d="M460 ${b - 36} V${b - 16} M524 ${b - 36} V${b - 16}" stroke="#9AA5B8" stroke-width="4"/>`;
+  return s;
+}
+
