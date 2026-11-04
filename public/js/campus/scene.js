@@ -259,3 +259,22 @@ function npcs() {
   return s;
 }
 
+// ---------- сцена ----------
+export class Campus {
+  constructor(stage, state, opts) {
+    this.stage = stage;
+    this.state = state;
+    this.opts = opts || {};
+    const last = Campus.pos || { floor: 0, x: 520 };
+    this.p = { floor: last.floor, x: last.x, y: SURF[last.floor], dir: 1, ride: null };
+    this.pet = { x: last.x - 50, dir: 1 };
+    this.path = [];
+    this.keys = {};
+    this.zone = zoneAt(this.p.floor, this.p.x);
+    this.render();
+    this.bind();
+    this.last = 0;
+    this.tick = this.tick.bind(this);
+    this.raf = requestAnimationFrame(this.tick);
+  }
+
