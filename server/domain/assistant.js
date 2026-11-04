@@ -8,3 +8,22 @@ import { listFor } from './notifications.js';
 import { applyPlans, publicRequest, STATUS } from './requests.js';
 import { msk, addDays, DAY } from './time.js';
 
+// Куда помощник может отправить студента: только разделы кабинета
+export const LINKS = {
+  '#/schedule': 'Расписание',
+  '#/grades': 'Успеваемость',
+  '#/grades/session': 'Сессия',
+  '#/requests': 'Мои заявки',
+  '#/requests/new/study': 'Справка об обучении',
+  '#/requests/new/visa': 'Справка для посольства',
+  '#/requests/new/military': 'Справка для военкомата',
+  '#/requests/new/transcript': 'Выписка оценок',
+  '#/requests/new/stipend': 'Справка о стипендии',
+  '#/requests/new/absence': 'Заявление о пропуске',
+  '#/requests/new/retake': 'Запись на пересдачу',
+  '#/requests/new/exchange': 'Программа обмена',
+  '#/requests/new/aid': 'Материальная помощь',
+  '#/notifications': 'Уведомления',
+  '#/profile': 'Профиль и безопасность',
+};
+
