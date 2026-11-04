@@ -113,3 +113,25 @@ function history() {
     </div>`;
 }
 
+function body() {
+  return `<div class="seg" style="margin-bottom:22px">${[['current', 'Текущий семестр'], ['session', 'Сессия'], ['history', 'Зачётка']].map(([id, n]) => `<a href="#/grades${id === 'current' ? '' : '/' + id}" class="${tab === id ? 'on' : ''}">${n}</a>`).join('')}</div>
+    ${tab === 'session' ? sessionTab() : tab === 'history' ? history() : current()}`;
+}
+
+function discModal(c) {
+  modal.open({
+    label: c.name,
+    size: 'wide',
+    html: `<span class="eyebrow">${esc(c.controlLabel)} · ${c.credits} ЗЕ</span><div class="modal-title mt-8">${esc(c.name)}</div>
+      <div class="row-wrap mt-12">${c.teacher ? `<button class="chip" data-teacher>${icon('user', 16)} ${esc(c.teacher.name)}</button>` : ''}${c.attendance != null ? `<span class="badge badge-gray">посещаемость ${c.attendance}%</span>` : ''}</div>
+      <div class="card mt-20" style="padding:20px"><div class="row space"><span class="h3">${c.earned} <span class="muted" style="font-size:16px">из ${c.gradedMax} возможных на сегодня</span></span><span class="badge badge-soft">прогноз ${c.forecast ?? '—'}</span></div>
+        <div class="mt-16">${scale(c)}</div><div class="disc-advice" style="margin-top:28px">${icon('target', 16)}<span>${esc(c.advice)}</span></div></div>
+      <div class="grid g-3 mt-16" style="gap:10px">${c.targets.map((t) => `<div class="stat" style="background:var(--surface)"><div class="stat-v">${t.need ? '+' + t.need : '✓'}</div><div class="stat-l">${t.min === 60 ? (c.control === 'credit' ? 'до зачёта' : 'до «удовл.»') : t.min === 75 ? 'до «хорошо»' : 'до «отлично»'}${t.need && !t.reachable ? ' · уже недостижимо' : ''}</div></div>`).join('')}</div>
+      <div class="tbl-wrap mt-20"><table class="tbl items-tbl"><thead><tr><th>Контрольная точка</th><th class="num">Дата</th><th class="num">Баллы</th></tr></thead><tbody>
+        ${c.items.map((a) => `<tr><td>${esc(a.title)}</td><td class="num muted">${a.date ? esc(dayShort(a.date).split(', ')[1]) : 'сессия'}</td><td class="num"><span class="pts ${a.points == null ? 'none' : ''}">${a.points == null ? '—' : a.points} / ${a.max}</span></td></tr>`).join('')}
+      </tbody></table></div>
+      <div class="modal-foot"><button class="btn btn-secondary btn-lg" data-close>Закрыть</button></div>`,
+    onMount(el) { const t = el.querySelector('[data-teacher]'); if (t) t.onclick = () => teacherModal(Object.assign({ department: '', title: '' }, c.teacher)); },
+  });
+}
+
