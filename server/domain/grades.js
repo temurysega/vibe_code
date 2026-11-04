@@ -20,3 +20,21 @@ export function verdictOf(points, control) {
   return { passed: points >= 60, label: g.word, letter: g.letter, grade: g.grade };
 }
 
+const sum = (list, f) => list.reduce((a, x) => a + f(x), 0);
+
+// Карточка дисциплины текущего семестра с прогнозом «что нужно, чтобы…»
+function current(d, items) {
+  const graded = items.filter((a) => a.points != null);
+  const left = items.filter((a) => a.points == null);
+  const earned = sum(graded, (a) => a.points);
+  const gradedMax = sum(graded, (a) => a.max_points);
+  const remaining = sum(left, (a) => a.max_points);
+  const pace = gradedMax ? earned / gradedMax : null;
+  const forecast = pace == null ? null : Math.min(100, Math.round(earned + pace * remaining));
+  const targets = [60, 75, 90].map((min) => ({ min, need: Math.max(0, min - earned), reachable: min - earned <= remaining }));
+  const att = items.filter((a) => a.kind === 'attendance' && a.points != null);
+  let status = 'ok';
+  if (forecast != null && forecast >= 90) status = 'excellent';
+  else if (forecast != null && forecast >= 75) status = 'good';
+  if (pace != null && (pace < 0.6 || forecast < 60)) status = 'risk';
+
