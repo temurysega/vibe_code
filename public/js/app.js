@@ -46,3 +46,14 @@ const $tab = document.getElementById('tabbar');
 const $foot = document.getElementById('foot');
 const $ask = document.getElementById('ask');
 
+const isStudent = () => !!(session.user && session.user.role === 'student');
+const homeOf = () => (session.user && session.user.role === 'dean' ? '#/dean' : '#/home');
+
+// ---------- оформление ----------
+function paintConcept() {
+  $concept.innerHTML = `<div class="container">
+    <span class="concept-text"><b>Концепт для конкурса</b><span>· не официальный сервис МГИМО · все люди и данные вымышлены</span></span>
+    <span class="concept-links"><button data-about>${icon('shieldOk', 15)} <span class="hide-s">Как защищены данные</span><span class="show-s">Безопасность</span></button>${session.user ? `<button data-tour>${icon('play', 15)} Демо-тур</button>` : ''}</span>
+  </div>`;
+}
+
