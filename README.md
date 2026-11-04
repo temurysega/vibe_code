@@ -61,3 +61,9 @@ npm test
 
 18 автотестов проверяют требования по безопасности и основные сценарии.
 
+### Публикация по ссылке
+
+- **Render**: New → Blueprint → этот репозиторий. Настройки уже в `render.yaml`; ключ ИИ задаётся в панели как `ANTHROPIC_API_KEY`.
+- **Docker**: `docker build -t mgimo-mania . && docker run -p 3000:3000 mgimo-mania`.
+- Любой VPS с Node.js: `npm ci --omit=dev && NODE_ENV=production node server/index.js` за HTTPS-прокси.
+
