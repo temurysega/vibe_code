@@ -89,3 +89,10 @@
 .walk-status .z-ic { background: var(--gold); color: var(--navy-ink); }
 .campus-prompt { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); background: var(--ink); color: #fff; border-radius: var(--pill); padding: 10px 12px 10px 18px; display: flex; align-items: center; gap: 12px; font-size: 15px; box-shadow: var(--shadow-lg); animation: toastIn .2s ease both; white-space: nowrap; max-width: calc(100% - 32px); }
 .campus-prompt .btn-primary { background: var(--gold); color: var(--navy-ink); }
+.zone-cards { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+.zone { background: var(--surface); border-radius: 16px; padding: 14px; border: 0; cursor: pointer; text-align: left; display: flex; flex-direction: column; gap: 8px; transition: background .15s, transform .15s; position: relative; }
+.zone:hover { background: var(--surface-2); transform: translateY(-2px); }
+.zone.here { background: var(--navy-3); }
+.zone-ic { width: 36px; height: 36px; border-radius: 10px; background: #fff; display: grid; place-items: center; color: var(--navy); }
+.zone b { font-weight: 500; font-size: 15px; line-height: 1.25; }
+.zone .stamp-ok { position: absolute; top: 12px; right: 12px; width: 22px; height: 22px; border-radius: 50%; background: var(--navy); color: var(--gold-2); display: grid; place-items: center; }
