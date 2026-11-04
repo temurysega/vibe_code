@@ -19,3 +19,13 @@ export async function hashPassword(password) {
   return ['scrypt', N, R, P, salt.toString('base64'), key.toString('base64')].join('$');
 }
 
+// Сравнение за постоянное время: по времени ответа нельзя угадать совпавшие байты
+export async function verifyPassword(password, stored) {
+  const parts = String(stored || '').split('$');
+  if (parts.length !== 6 || parts[0] !== 'scrypt') return false;
+  const [, n, r, p, salt, hash] = parts;
+  const expected = Buffer.from(hash, 'base64');
+  const key = await derive(password, Buffer.from(salt, 'base64'), Number(n), Number(r), Number(p));
+  return key.length === expected.length && timingSafeEqual(key, expected);
+}
+
