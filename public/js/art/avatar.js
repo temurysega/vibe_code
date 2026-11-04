@@ -572,3 +572,13 @@ export const BACKDROPS = {
   aurora: { name: 'Северное сияние', c1: '#E9D7A0', c2: '#2F5BC4', c3: '#86DDB6', sym: '#FFFFFF', ink: 'dark', anim: true },
 };
 
+const SYM = {
+  dots: () => `<circle r="2.6"/>`,
+  globes: () => `<circle r="5.6" fill="none" stroke-width="1.6"/><path d="M-5.6 0 h11.2 M0 -5.6 C3 -2.5 3 2.5 0 5.6 C-3 2.5 -3 -2.5 0 -5.6" fill="none" stroke-width="1.3"/>`,
+  leaves: () => `<path d="M0 -6.5 C5.5 -3 5.5 3 0 6.5 C-5.5 3 -5.5 -3 0 -6.5 Z"/>`,
+  rings: () => `<circle r="5" fill="none" stroke-width="2.4"/><circle r="1.4"/>`,
+  books: () => `<path d="M-6 -4.5 h5 v9 h-5 Z M1 -4.5 h5 v9 h-5 Z"/>`,
+  sparks: () => `<path d="M0 -7 Q1 -1 7 0 Q1 1 0 7 Q-1 1 -7 0 Q-1 -1 0 -7 Z"/>`,
+  stars: () => `<path d="M0 -6.5 L1.9 -2 L6.6 -1.8 L3 1.2 L4.2 5.8 L0 3.2 L-4.2 5.8 L-3 1.2 L-6.6 -1.8 L-1.9 -2 Z"/>`,
+};
+
