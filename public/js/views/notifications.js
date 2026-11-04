@@ -28,3 +28,11 @@ function items() {
   }).join('')}</div>`;
 }
 
+function prefs() {
+  const p = session.play ? session.play.prefs : {};
+  const row = (k, t, d) => `<label class="pref-row"><span class="grow"><b>${t}</b><span class="small muted">${d}</span></span><span class="switch"><input type="checkbox" data-pref="${k}" ${p[k] ? 'checked' : ''}><i></i></span></label>`;
+  return `<div class="card"><div class="card-title">Куда присылать</div><div class="card-sub">В кабинете уведомления видны всегда</div>
+    <div class="mt-12">${row('push', 'Push на телефон', 'Когда кабинет установлен как приложение')}${row('email', 'Почта', 'Короткое письмо о важном')}${row('telegram', 'Telegram-бот', 'Концепт: бот деканата МГИМО Мании')}${row('quietHours', 'Тихие часы 23:00–08:00', 'Ночью — только срочное')}</div>
+    <div class="note mt-12">${icon('info', 18)}<span>В демо каналы — переключатели концепта: письма и сообщения не отправляются</span></div></div>`;
+}
+
