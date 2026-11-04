@@ -559,3 +559,16 @@ export function pet(type, color, opt) {
   return `<svg class="pet ${opt.cls || ''}" viewBox="0 0 120 100"${size} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${opt.shadow === false ? '' : shadow}${flip}${s}</g></svg>`;
 }
 
+// ---------- фон профиля: радиальный градиент и узор кольцами ----------
+export const BACKDROPS = {
+  navy: { name: 'Синий МГИМО', c1: '#3D63B8', c2: '#0F2D69', sym: '#C9A646', ink: 'light' },
+  sky: { name: 'Небо', c1: '#DDEBFF', c2: '#7FAAF0', sym: '#2457B8', ink: 'dark' },
+  violet: { name: 'Аметист', c1: '#E2D3F5', c2: '#8E6CC4', sym: '#5E3A87', ink: 'light' },
+  mint: { name: 'Мята', c1: '#DDF8EA', c2: '#76D3A6', sym: '#2F9467', ink: 'dark' },
+  peach: { name: 'Персик', c1: '#FFE7D7', c2: '#FF9E6E', sym: '#D9662F', ink: 'dark' },
+  graphite: { name: 'Графит', c1: '#5A5A5F', c2: '#1F1F21', sym: '#C9A646', ink: 'light' },
+  rose: { name: 'Роза', c1: '#FFE3EC', c2: '#F28AAE', sym: '#C94C77', ink: 'dark' },
+  gold: { name: 'Золото', c1: '#FFF4D1', c2: '#D9B65A', sym: '#8A6A17', ink: 'dark' },
+  aurora: { name: 'Северное сияние', c1: '#E9D7A0', c2: '#2F5BC4', c3: '#86DDB6', sym: '#FFFFFF', ink: 'dark', anim: true },
+};
+
