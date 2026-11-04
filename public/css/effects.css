@@ -1,0 +1,6 @@
+/* ---------- Эффекты ---------- */
+.fly-coin { position: fixed; z-index: 500; pointer-events: none; will-change: transform, opacity; }
+.confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 450; }
+.pop { animation: popIn .35s cubic-bezier(.2, .9, .3, 1.4) both; }
+.float { animation: float 3.2s ease-in-out infinite; }
+
