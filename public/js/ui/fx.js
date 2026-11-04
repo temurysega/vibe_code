@@ -44,3 +44,33 @@ export function countUp(el, from, to, ms = 600) {
   })(t0);
 }
 
+// М-коины летят от кнопки к балансу в шапке, затем счётчик досчитывает
+export function flyCoins(fromRect, from, to) {
+  const target = document.querySelector('[data-bal]');
+  if (!target || quiet()) { if (target && from != null) countUp(target.querySelector('.bal-num'), from, to); return; }
+  const tr = target.getBoundingClientRect();
+  const sx = fromRect.left + fromRect.width / 2, sy = fromRect.top + fromRect.height / 2;
+  const tx = tr.left + 18, ty = tr.top + tr.height / 2;
+  for (let i = 0; i < 10; i++) {
+    const el = document.createElement('div');
+    el.className = 'fly-coin';
+    el.innerHTML = '<span class="coin" style="width:24px;height:24px;font-size:12px">М</span>';
+    el.style.left = sx - 12 + 'px';
+    el.style.top = sy - 12 + 'px';
+    document.body.appendChild(el);
+    const dx = (Math.random() - 0.5) * 140, dy = -40 - Math.random() * 90;
+    el.animate([
+      { transform: 'translate(0,0) scale(.6)', opacity: 0 },
+      { transform: `translate(${dx}px,${dy}px) scale(1.1)`, opacity: 1, offset: 0.3 },
+      { transform: `translate(${tx - sx}px,${ty - sy}px) scale(.55)`, opacity: 0.9 },
+    ], { duration: 900 + i * 45, easing: 'cubic-bezier(.3,.1,.2,1)', fill: 'forwards' }).onfinish = () => el.remove();
+  }
+  setTimeout(() => {
+    const t = document.querySelector('[data-bal]');
+    if (!t) return;
+    t.classList.remove('bump'); void t.offsetWidth; t.classList.add('bump');
+    const n = t.querySelector('.bal-num');
+    if (n && from != null) countUp(n, from, to, 700);
+  }, 900);
+}
+
