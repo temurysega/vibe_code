@@ -336,3 +336,15 @@ function arms(c, skin, pose) {
   return one(true) + one(false);
 }
 
+function shoe(type, color, L) {
+  const x = L ? 64 : 101;
+  const c = col(color, CLOTH.gray);
+  switch (type) {
+    case 'boots': return `<rect x="${x + 1}" y="268" width="33" height="31" rx="9" fill="${c}"/><rect x="${x + 1}" y="293" width="33" height="7" rx="3.5" fill="${dk(c, 0.35)}"/><path d="M${x + 11} 274 h13 M${x + 11} 280 h13" stroke="${lt(c, 0.25)}" stroke-width="1.6" stroke-linecap="round"/>`;
+    case 'loafers': return `<rect x="${x}" y="285" width="35" height="14" rx="7" fill="${c}"/><rect x="${x + 9}" y="286.5" width="17" height="3.6" rx="1.8" fill="${lt(c, 0.28)}"/>`;
+    case 'hightops': return `<rect x="${x}" y="272" width="35" height="27" rx="9" fill="${c}"/><rect x="${x}" y="292" width="35" height="7" rx="3.5" fill="#fff"/><path d="M${x + 10} 278 h15 M${x + 10} 284 h15" stroke="#fff" stroke-width="2" stroke-linecap="round"/>`;
+    case 'runners': return `<rect x="${x}" y="283" width="35" height="16" rx="8" fill="#fff" stroke="#DADDE1"/><path d="M${x + 4} 291 Q${x + 17} 284 ${x + 31} 287" stroke="${GOLD}" stroke-width="4" fill="none" stroke-linecap="round"/><rect x="${x}" y="294" width="35" height="6" rx="3" fill="${CLOTH.navy}"/>`;
+    default: return `<rect x="${x}" y="283" width="35" height="16" rx="8" fill="#fff" stroke="#DADDE1"/><rect x="${x}" y="294" width="35" height="6" rx="3" fill="${c}"/><circle cx="${x + 14}" cy="288.5" r="1.4" fill="#C9CDD3"/><circle cx="${x + 21}" cy="288.5" r="1.4" fill="#C9CDD3"/>`;
+  }
+}
+
