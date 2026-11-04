@@ -121,3 +121,11 @@ export function gradesFor(store, student) {
   const attendance = attItems.length ? Math.round((sum(attItems, (a) => a.points) / sum(attItems, (a) => a.max_points)) * 100) : null;
   const rank = groupRank(student.group_code, avg ?? (semPace ? 3 + semPace * 2 : 4));
 
+  // Сессия: экзамены и зачёты группы
+  const exams = store.all(
+    `SELECT x.*, d.name, d.short, d.color, t.short_name AS t_short FROM exams x JOIN disciplines d ON d.id = x.discipline_id LEFT JOIN teachers t ON t.id = x.teacher_id
+     WHERE x.group_code = ? ORDER BY x.date, x.time`, student.group_code,
+  ).map((x) => ({ id: x.id, kind: x.kind, kindLabel: x.kind === 'consult' ? 'Консультация' : CONTROL[x.kind], discipline: x.name, short: x.short, color: x.color, date: x.date, time: x.time, room: x.room, teacher: x.t_short, inDays: daysBetween(now.date, x.date) }));
+  const s = semesterOf(now.date);
+  const admitted = risk.length === 0 && !debts.length;
+
