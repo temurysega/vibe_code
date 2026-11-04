@@ -210,3 +210,19 @@ export function claimSteps(s, ctx) {
   return { coins: FIRST_STEPS.coins };
 }
 
+export function setPrefs(s, body) {
+  ['quiet', 'noConfetti', 'email', 'telegram', 'push', 'quietHours'].forEach((k) => { if (typeof body[k] === 'boolean') s.prefs[k] = body[k]; });
+}
+
+// ---------- забег «Бегом на пару»: время считает сервер ----------
+export function gameStart(store, studentId) {
+  const left = gameLeft(store, studentId);
+  if (left < 2) fail(429, 'На сегодня 5 минут забега закончились — возвращайтесь завтра', { left: 0 });
+  const now = Date.now();
+  // Незавершённые забеги закрываются: время уже засчитано
+  store.run('UPDATE game_runs SET finished_at = ?, played_ms = MIN(? - started_at, allowed_ms), score = 0, coins = 0 WHERE student_id = ? AND finished_at IS NULL', now, now, studentId);
+  const id = randomBytes(16).toString('hex');
+  store.run('INSERT INTO game_runs (id, student_id, day, started_at, allowed_ms) VALUES (?, ?, ?, ?, ?)', id, studentId, msk().date, now, left * 1000);
+  return { run: id, left };
+}
+
