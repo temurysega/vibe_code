@@ -41,3 +41,25 @@ const SYSTEM = `Ты — помощник деканата в концепте �
 - Долги закрываются пересдачей: запись онлайн в разделе «Заявки».
 - Безопасность: в профиле видны активные сеансы, чужой компьютер можно отключить; пароль меняется там же.`;
 
+const fmtDate = (d) => new Date(d + 'T12:00:00Z').toLocaleDateString('ru-RU', { weekday: 'short', day: 'numeric', month: 'long', timeZone: 'UTC' });
+const fmtTime = (t) => new Date(t).toLocaleString('ru-RU', { timeZone: config.timeZone, day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
+
+// Снимок данных студента: только его собственные пары, баллы, дедлайны и заявки
+export function snapshot(store, user, s) {
+  applyPlans(store, s.id);
+  const now = msk();
+  const week = buildWeek(store, s.group_code, now.date);
+  const next = buildWeek(store, s.group_code, addDays(now.date, 7));
+  const days = [...week.days, ...next.days].filter((d) => d.date >= now.date).slice(0, 3);
+  const grades = gradesFor(store, s);
+  const requests = store.all('SELECT * FROM requests WHERE student_id = ? ORDER BY created_at DESC LIMIT 8', s.id).map((r) => publicRequest(store, r, s.faculty));
+  const deadlines = store.all(
+    'SELECT title, due_at FROM deadlines WHERE (group_code = ? OR student_id = ?) AND due_at > ? AND due_at < ? ORDER BY due_at',
+    s.group_code, s.id, Date.now(), Date.now() + 14 * DAY,
+  );
+  return {
+    now, student: s, upcoming: upcoming(store, s.group_code, now), days, changes: week.changes, grades, requests, deadlines,
+    notifications: listFor(store, user.id, s, 5),
+  };
+}
+
