@@ -164,3 +164,14 @@ function eyes(t) {
   return E(84, t, -1) + E(116, t, 1);
 }
 
+function mouth(t, fem) {
+  const line = fem ? '#B5485A' : MOUTH;
+  switch (t) {
+    case 'grin': return `<path d="M89 112 Q100 128 111 112 Z" fill="${MOUTH}"/><path d="M93.5 120.5 Q100 125 106.5 120.5 Q100 117.6 93.5 120.5 Z" fill="#FF8C9E"/>`;
+    case 'open': return `<ellipse cx="100" cy="117" rx="5" ry="6" fill="${MOUTH}"/><ellipse cx="100" cy="120.2" rx="3.2" ry="2.2" fill="#FF8C9E"/>`;
+    case 'calm': return `<path d="M93 116 Q100 119.5 107 116" stroke="${line}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+    case 'smirk': return `<path d="M92 117 Q102 120 109 112" stroke="${line}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+    default: return `<path d="M90.5 113 Q100 123 109.5 113" stroke="${line}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+  }
+}
+
