@@ -16,3 +16,10 @@
 .logo-mark { width: 34px; height: 34px; }
 .logo-word { font-size: 23px; line-height: 1; letter-spacing: -0.03em; white-space: nowrap; color: var(--navy); }
 .logo-word b { font-weight: 700; }
+.logo-word i { font-weight: 500; font-style: italic; margin-left: 2px; color: var(--ink); }
+.logo-tag { display: block; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: 3px; font-style: normal; font-weight: 500; }
+.nav { display: flex; gap: 2px; flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+.nav::-webkit-scrollbar { display: none; }
+.nav a { height: 38px; padding: 0 12px; display: inline-flex; align-items: center; border-radius: var(--pill); font-size: 15px; white-space: nowrap; color: var(--ink); transition: background .15s; }
+.nav a:hover { background: var(--surface); }
+.nav a.on { background: var(--navy-3); color: var(--navy-ink); font-weight: 500; }
