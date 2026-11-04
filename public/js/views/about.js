@@ -37,3 +37,11 @@ const STEPS = [
 ];
 let tour = null;
 
+function stopTour() {
+  if (!tour) return;
+  clearTimeout(tour.timer);
+  document.querySelectorAll('.demo-hl').forEach((x) => x.classList.remove('demo-hl'));
+  tour.bar.remove();
+  tour = null;
+}
+
