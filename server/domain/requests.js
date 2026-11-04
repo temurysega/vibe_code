@@ -186,3 +186,27 @@ export function setStatus(store, req, status, comment, actor) {
   });
 }
 
+// Статусы только движутся вперёд: автоматика не откатит решение, которое уже принял деканат
+export const RANK = { submitted: 0, in_work: 1, ready: 2, approved: 2, issued: 3, rejected: 9, cancelled: 9 };
+
+// Автоматические шаги демо, срок которых наступил
+export function applyPlans(store, studentId) {
+  const rows = studentId
+    ? store.all("SELECT * FROM requests WHERE student_id = ? AND plan IS NOT NULL AND plan != '[]'", studentId)
+    : store.all("SELECT * FROM requests WHERE plan IS NOT NULL AND plan != '[]'");
+  const now = Date.now();
+  rows.forEach((r) => {
+    let plan = JSON.parse(r.plan || '[]');
+    let changed = false;
+    while (plan.length && plan[0].at <= now) {
+      const step = plan.shift();
+      changed = true;
+      if (FINAL.includes(r.status)) { plan = []; break; }
+      if (RANK[step.status] <= RANK[r.status]) continue;
+      setStatus(store, r, step.status, step.comment, 'system');
+      r.status = step.status;
+    }
+    if (changed) store.run('UPDATE requests SET plan = ? WHERE id = ?', JSON.stringify(plan), r.id);
+  });
+}
+
