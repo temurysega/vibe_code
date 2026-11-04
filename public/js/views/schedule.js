@@ -91,3 +91,40 @@ function bellsModal() {
   });
 }
 
+export default {
+  title: 'Расписание',
+  render() {
+    const u = session.user;
+    return `<div class="container">
+      <div class="page-head"><div><h1 class="h1">Расписание</h1><p class="lead">Группа ${esc(u.group)} · ${u.course} курс · изменения подсвечены цветом</p></div></div>
+      <div data-body>${skeleton(1, 60)}<div class="skel mt-20" style="height:420px"></div></div>
+    </div>`;
+  },
+  async mount(el, params) {
+    const box = el.querySelector('[data-body]');
+    const q = params[0] && /^\d{4}-W\d{2}$/.test(params[0]) ? `?week=${params[0]}` : '';
+    try {
+      week = await get('/api/schedule' + q);
+      picked = null;
+      box.innerHTML = body();
+    } catch (e) {
+      if (e.status !== 401) box.innerHTML = errorBox(e);
+      return null;
+    }
+    // Шаг «Первых шагов»: расписание на неделю открыто
+    if (session.play && session.play.newcomer && !session.play.steps.schedule) post('/api/play/mark', { step: 'schedule' }).then((r) => setPlay(r.play)).catch(() => {});
+
+    const find = (key) => week.days.flatMap((d) => d.items).find((x) => x.key === key);
+    el.addEventListener('click', (e) => {
+      if (e.target.closest('[data-retry]')) { location.reload(); return; }
+      if (e.target.closest('[data-bells]')) { bellsModal(); return; }
+      const p = e.target.closest('[data-pick]');
+      if (p) { picked = p.dataset.pick; box.innerHTML = body(); return; }
+      const l = e.target.closest('[data-lesson]');
+      if (l) { const it = find(l.dataset.lesson); if (it) lessonModal(it); }
+    });
+    // Каждую минуту обновляем отметку «идёт сейчас»
+    const t = setInterval(() => { if (!document.querySelector('.modal-overlay')) box.innerHTML = body(); }, 60e3);
+    return () => clearInterval(t);
+  },
+};
