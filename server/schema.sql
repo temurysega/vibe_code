@@ -157,3 +157,15 @@ CREATE TABLE IF NOT EXISTS assessments (
 );
 CREATE INDEX IF NOT EXISTS assessments_student ON assessments(student_id, semester);
 
+-- Расписание сессии и консультаций
+CREATE TABLE IF NOT EXISTS exams (
+  id INTEGER PRIMARY KEY,
+  group_code TEXT NOT NULL REFERENCES groups(code),
+  discipline_id INTEGER NOT NULL REFERENCES disciplines(id),
+  kind TEXT NOT NULL CHECK (kind IN ('exam', 'credit', 'graded', 'consult')),
+  date TEXT NOT NULL,
+  time TEXT NOT NULL,
+  room TEXT NOT NULL,
+  teacher_id INTEGER REFERENCES teachers(id)
+);
+
