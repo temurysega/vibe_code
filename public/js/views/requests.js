@@ -130,3 +130,34 @@ function qr(code) {
   return `<svg viewBox="-1 -1 ${N + 2} ${N + 2}" shape-rendering="crispEdges" aria-hidden="true"><rect x="-1" y="-1" width="${N + 2}" height="${N + 2}" fill="#fff"/>${s}${finder(0, 0)}${finder(N - 7, 0)}${finder(0, N - 7)}</svg>`;
 }
 
+function docView(d, grades) {
+  const fio = `${d.student.lastName} ${d.student.firstName} ${d.student.middleName || ''}`.trim();
+  const f = d.student.gender === 'f';
+  const en = d.lang === 'en';
+  let text;
+  if (en) {
+    const name = translit(`${d.student.firstName} ${d.student.lastName}`);
+    text = `<p>This is to certify that <b>${esc(name)}</b> is a full-time ${d.course}${['st', 'nd', 'rd'][d.course - 1] || 'th'}-year student of the ${esc(FAC_EN[d.faculty] || translit(d.faculty))}, bachelor's programme «${esc(programEn(d.program))}», academic year ${esc(d.academicYear)}.</p>
+      <p>Expected graduation: ${d.graduationYear}. ${d.type === 'visa' ? `The certificate is issued for submission to the consular office for a trip to ${esc(countryEn(d.payload.country))}${d.payload.dates ? ` (${esc(d.payload.dates)})` : ''}. The student is granted academic leave for the period of travel.` : 'The certificate is issued upon request.'}</p>`;
+  } else {
+    text = `<p>Дана <b>${esc(fio)}</b> в том, что ${f ? 'она' : 'он'} действительно является ${f ? 'студенткой' : 'студентом'} ${d.course} курса (${esc(d.faculty.toLowerCase())}), направление подготовки «${esc(d.program)}», профиль «${esc(d.profile)}», форма обучения — ${esc(d.studyForm)}, основа — ${esc(d.funding === 'бюджет' ? 'бюджетная' : 'договорная')}.</p>
+      <p>Срок обучения: ${d.admissionYear}–${d.graduationYear}. Номер зачётной книжки: ${esc(d.recordBook)}.</p>
+      ${d.type === 'stipend' ? '<p>Справка подтверждает назначение академической стипендии в текущем семестре (демо-данные).</p>' : ''}
+      ${d.payload.place ? `<p>Справка выдана для предоставления: ${esc(d.payload.place)}.</p>` : '<p>Справка выдана по месту требования.</p>'}`;
+  }
+  if (d.type === 'transcript' && grades) {
+    text += `<table class="tbl" style="font-size:13px;margin-top:14px"><thead><tr><th>${en ? 'Course' : 'Дисциплина'}</th><th class="num">${en ? 'Term' : 'Семестр'}</th><th class="num">${en ? 'Points' : 'Баллы'}</th><th class="num">ECTS</th></tr></thead><tbody>${grades.history.flatMap((h) => h.list.map((x) => `<tr><td>${esc(en ? translit(x.name) : x.name)}</td><td class="num">${h.semester}</td><td class="num">${x.points}</td><td class="num">${x.verdict.letter}</td></tr>`)).join('')}</tbody></table>`;
+  }
+  return `<div class="doc-wrap">
+    <div class="doc-actions"><button class="btn btn-primary" data-print>${icon('print', 18)} Скачать PDF или распечатать</button><a class="btn btn-secondary" href="#/requests/${location.hash.split('/')[2]}">${icon('back', 18)} К заявке</a></div>
+    <article class="doc" aria-label="Электронная справка (демо)">
+      <div class="doc-head">${logoMark()}<div class="doc-org"><b>МГИМО Мания — демонстрационный концепт</b><br>${en ? 'Sample of an electronic certificate · not an official document' : 'Образец электронной справки · не является официальным документом'}</div></div>
+      <div class="doc-title">${en ? 'Certificate' : 'Справка'}</div>
+      <div class="doc-no">№ ${esc(d.number)} ${en ? 'of' : 'от'} ${esc(en ? new Date(d.issuedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : dateLong(new Date(d.issuedAt).toISOString().slice(0, 10)))}</div>
+      ${text}
+      <div class="doc-foot"><div class="doc-sign">${en ? 'Dean’s office' : 'Специалист деканата'}<span class="line"></span><span class="small">${en ? 'e-signature' : 'электронная подпись'}</span></div>
+        <div class="doc-qr">${qr(d.verifyCode)}<span>${en ? 'Verify' : 'Проверка подлинности'}:<br><b style="font-size:14px;letter-spacing:.08em">${esc(d.verifyCode)}</b><br>#/verify/${esc(d.verifyCode)}</span></div></div>
+      <div class="doc-stamp">МГИМО Мания<br>демо<br>образец</div>
+    </article></div>`;
+}
+
