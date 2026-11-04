@@ -43,3 +43,39 @@ export const TEACHERS = [
   ['zaitsev', 'Зайцев Михаил Борисович', 'Зайцев М. Б.', 'профессор, д. ю. н.', 'Кафедра уголовного права', 'вт 15:20–16:40, каф. 3036'],
 ];
 
+export const PALETTE = ['#1F4FA8', '#5B8DEF', '#C9A646', '#8E6CC4', '#3BAE8A', '#E0735A', '#C98A4B', '#D2618F', '#2F9CB3', '#7A8699'];
+
+// Учебный план текущего семестра: [дисциплина, форма контроля, ЗЕ, преподаватель, сила студента в предмете 0..1]
+// и регулярные пары: [день, пара, чётность, вид, аудитория]
+export const PLAN = {
+  'МО-25-03': [
+    { name: 'История международных отношений', short: 'История МО', control: 'exam', credits: 5, teacher: 'sokolov', lessons: [[1, 1, 'all', 'lecture', '1001'], [3, 2, 'all', 'seminar', '2007']] },
+    { name: 'Теория международных отношений', short: 'Теория МО', control: 'exam', credits: 4, teacher: 'ershova', lessons: [[2, 2, 'all', 'lecture', '1023'], [4, 3, 'odd', 'seminar', '2014']] },
+    { name: 'Английский язык', short: 'Английский', control: 'graded', credits: 6, teacher: 'clark', lessons: [[1, 3, 'all', 'language', '4018'], [3, 3, 'all', 'language', '4018'], [5, 2, 'all', 'language', '4022']] },
+    { name: 'Арабский язык', short: 'Арабский', control: 'exam', credits: 6, teacher: 'nazarova', lessons: [[2, 3, 'all', 'language', '4031'], [4, 1, 'all', 'language', '4031'], [5, 3, 'all', 'language', '4031']] },
+    { name: 'Мировая экономика', short: 'Мировая эк.', control: 'credit', credits: 3, teacher: 'gusev', lessons: [[4, 2, 'all', 'lecture', '1001'], [6, 1, 'even', 'seminar', '1036']] },
+    { name: 'Международное публичное право', short: 'МПП', control: 'exam', credits: 4, teacher: 'tarasova', lessons: [[3, 1, 'all', 'lecture', '1023'], [5, 1, 'all', 'seminar', '3008']] },
+    { name: 'Философия', short: 'Философия', control: 'credit', credits: 2, teacher: 'belkin', lessons: [[6, 2, 'all', 'seminar', '2019']] },
+    { name: 'Дипломатический протокол и этикет', short: 'Протокол', control: 'credit', credits: 2, teacher: 'orlova', lessons: [[2, 4, 'all', 'seminar', '2033']] },
+    { name: 'Физическая культура', short: 'Физкультура', control: 'credit', credits: 2, teacher: 'kravets', lessons: [[4, 4, 'all', 'sport', 'Спорткомплекс']] },
+  ],
+  'МЭО-26-07': [
+    { name: 'Микроэкономика', short: 'Микроэкономика', control: 'exam', credits: 5, teacher: 'kovalchuk', lessons: [[1, 2, 'all', 'lecture', '1001'], [3, 3, 'all', 'seminar', '1019']] },
+    { name: 'Высшая математика', short: 'Математика', control: 'exam', credits: 6, teacher: 'remizova', lessons: [[1, 3, 'all', 'lecture', '1023'], [2, 2, 'all', 'seminar', '1044'], [4, 2, 'odd', 'seminar', '1044']] },
+    { name: 'Английский язык', short: 'Английский', control: 'graded', credits: 6, teacher: 'clark', lessons: [[2, 3, 'all', 'language', '4016'], [4, 3, 'all', 'language', '4016'], [5, 1, 'all', 'language', '4016']] },
+    { name: 'Китайский язык', short: 'Китайский', control: 'exam', credits: 6, teacher: 'wang', lessons: [[1, 4, 'all', 'language', '4035'], [3, 2, 'all', 'language', '4035'], [5, 2, 'all', 'language', '4035']] },
+    { name: 'Экономическая история', short: 'Эк. история', control: 'credit', credits: 3, teacher: 'shirokova', lessons: [[2, 1, 'all', 'lecture', '1036'], [5, 3, 'even', 'seminar', '1027']] },
+    { name: 'Основы российской государственности', short: 'ОРГ', control: 'credit', credits: 2, teacher: 'fomin', lessons: [[3, 4, 'all', 'seminar', '2022']] },
+    { name: 'Физическая культура', short: 'Физкультура', control: 'credit', credits: 2, teacher: 'kravets', lessons: [[4, 4, 'all', 'sport', 'Спорткомплекс']] },
+  ],
+  'МП-23-02': [
+    { name: 'Международное частное право', short: 'МЧП', control: 'exam', credits: 5, teacher: 'shevchenko', lessons: [[1, 2, 'all', 'lecture', '3001'], [3, 2, 'all', 'seminar', '3015']] },
+    { name: 'Международное уголовное право', short: 'Межд. уголовное', control: 'exam', credits: 4, teacher: 'zaitsev', lessons: [[2, 1, 'all', 'lecture', '3001'], [4, 2, 'odd', 'seminar', '3036']] },
+    { name: 'Право международных организаций', short: 'Право МО', control: 'exam', credits: 4, teacher: 'tarasova', lessons: [[2, 3, 'all', 'seminar', '3021']] },
+    { name: 'Французский язык (профессиональный)', short: 'Французский', control: 'graded', credits: 4, teacher: 'lefebvre', lessons: [[1, 3, 'all', 'language', '4044'], [4, 3, 'all', 'language', '4044']] },
+    { name: 'Английский язык для юристов', short: 'Legal English', control: 'graded', credits: 4, teacher: 'melnikova', lessons: [[3, 3, 'all', 'language', '4020'], [5, 2, 'all', 'language', '4020']] },
+    { name: 'Международный арбитраж', short: 'Арбитраж', control: 'credit', credits: 3, teacher: 'shevchenko', lessons: [[5, 3, 'all', 'practice', '3015']] },
+    { name: 'Научно-исследовательский семинар', short: 'НИС', control: 'credit', credits: 2, teacher: 'polyakova', lessons: [[3, 4, 'even', 'seminar', '3028']] },
+  ],
+};
+
