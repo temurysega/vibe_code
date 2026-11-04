@@ -66,3 +66,17 @@ export const TYPES = [
 const SHOP_TYPE = { id: 'merch', group: 'shop', icon: 'bag', title: 'Мерч из Лавки', days: 1, delivery: ['paper'], fields: [] };
 export const typeOf = (id) => TYPES.find((t) => t.id === id) || (id === 'merch' ? SHOP_TYPE : null);
 
+const PICKUP = (f) => `Деканат ${f.short}, ауд. ${f.dean_office}, ${f.hours}`;
+
+// Даты пересдач: ближайшие будни через неделю
+function slots() {
+  const out = [];
+  let d = addDays(msk().date, 7);
+  while (out.length < 3) {
+    const w = new Date(d + 'T12:00:00Z').getUTCDay();
+    if (w !== 0 && w !== 6) out.push(d);
+    d = addDays(d, 2);
+  }
+  return out;
+}
+
