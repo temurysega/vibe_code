@@ -207,3 +207,20 @@ function clubs() {
   return s;
 }
 
+// Лавка МГИМО: прилавок и стойка с мерчем
+function shop() {
+  const t = top(2), b = SURF[2];
+  let s = room(2, 'r', '#FFF7F0', '#F0E2D4');
+  let rack = `<path d="M676 ${t + 52} H806 M680 ${t + 52} V${b - 16} M802 ${t + 52} V${b - 16}" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>`;
+  [[NAVY, 696], [GOLD, 728], [NAVY, 760], ['#fff', 788]].forEach(([c, x]) => {
+    rack += `<path d="M${x} ${t + 52} v6" stroke="#6B7280" stroke-width="2"/><path d="M${x - 14} ${t + 66} L${x - 6} ${t + 58} H${x + 6} L${x + 14} ${t + 66} L${x + 10} ${t + 72} L${x + 8} ${t + 70} V${t + 112} H${x - 8} V${t + 70} L${x - 10} ${t + 72} Z" fill="${c}" stroke="#C9D3E6"/>`;
+  });
+  s += rack;
+  s += hot('counter',
+    `<rect x="${830}" y="${t + 26}" width="120" height="34" rx="17" fill="${NAVY}"/><text x="890" y="${t + 48}" text-anchor="middle" font-family="Onest, Arial" font-size="14" font-weight="700" fill="#E9D7A0">Лавка</text>` +
+    `<rect x="826" y="${b - 66}" width="150" height="50" rx="10" fill="#fff" stroke="#DEDFE1" stroke-width="2"/><rect x="820" y="${b - 74}" width="162" height="12" rx="6" fill="${INK}"/>` +
+    `<rect x="842" y="${b - 98}" width="30" height="24" rx="4" fill="${NAVY}"/><circle cx="857" cy="${b - 86}" r="5" fill="${GOLD}"/><rect x="886" y="${b - 94}" width="24" height="20" rx="4" fill="${GOLD}"/><rect x="920" y="${b - 104}" width="26" height="30" rx="4" fill="#5B8DEF"/>`,
+    [816, t + 22, 170, ROOM_H - 36]);
+  return s;
+}
+
