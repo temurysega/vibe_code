@@ -322,3 +322,34 @@ export class Campus {
     if (this.opts.onTarget) this.opts.onTarget(t.label || (z ? ROOMS.find((r) => r.id === z).name : 'Лифт'));
   }
 
+  bind() {
+    this.onClick = (e) => {
+      const npc = e.target.closest('[data-npc]');
+      const hotEl = e.target.closest('[data-hot]');
+      if (npc) {
+        const z = npc.dataset.npc;
+        const x = NPC[z].x;
+        this.goTo({ floor: floorOf(z), x: x + (x > this.p.x ? -52 : 52), kind: 'npc', id: z, label: NPC[z].name });
+      } else if (hotEl) {
+        const h = HOTS.find((x) => x.id === hotEl.dataset.hot);
+        this.goTo({ floor: floorOf(h.zone), x: h.x, kind: 'hot', id: h.id, act: h.act, label: h.label });
+      } else {
+        const pt = this.toSvg(e);
+        const f = [0, 1, 2].find((k) => pt.y >= top(k) && pt.y <= SURF[k] + 6);
+        if (f != null && pt.x >= LX[0] && pt.x <= RX[1]) this.goTo({ floor: f, x: pt.x, kind: 'walk' });
+      }
+    };
+    this.svg.addEventListener('click', this.onClick);
+    this.onKeyDown = (e) => {
+      if (this.blocked(e)) return;
+      const k = e.code;
+      if (['ArrowLeft', 'ArrowRight', 'KeyA', 'KeyD'].includes(k)) { this.keys[k] = true; this.path = []; if (this.target) { this.target = null; this.mark(null); } e.preventDefault(); }
+      if (['ArrowUp', 'KeyW'].includes(k)) { e.preventDefault(); this.ride(this.p.floor + 1); }
+      if (['ArrowDown', 'KeyS'].includes(k)) { e.preventDefault(); this.ride(this.p.floor - 1); }
+      if (['KeyE', 'Enter'].includes(k) && this.near) { e.preventDefault(); this.arrive(this.near); }
+    };
+    this.onKeyUp = (e) => { delete this.keys[e.code]; };
+    window.addEventListener('keydown', this.onKeyDown);
+    window.addEventListener('keyup', this.onKeyUp);
+  }
+
