@@ -1,0 +1,8 @@
+/* ---------- Расписание ---------- */
+.week-bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+.week-nav { display: inline-flex; align-items: center; gap: 6px; }
+.week-label { font-weight: 500; font-size: 17px; min-width: 190px; text-align: center; }
+.week-label small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
+.week-tools { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+.changes-strip { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: thin; padding-bottom: 4px; margin-bottom: 20px; }
+.change-pill { flex: none; display: flex; align-items: flex-start; gap: 10px; background: var(--warn-2); border-radius: 14px; padding: 12px 14px; max-width: 320px; font-size: 14px; border: 0; text-align: left; cursor: pointer; }
