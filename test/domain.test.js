@@ -36,3 +36,29 @@ test('хеширование паролей и требования к ново�
   assert.equal(passwordProblems('Длинный-пароль-2026', 'a.morozova').length, 0);
 });
 
+test('сценарий: справка подана, деканат взял в работу, студент получил уведомление', async () => {
+  const st = client(app.base);
+  const dean = client(app.base);
+  await st.login('a.morozova');
+  await dean.login('dekanat.mo');
+  const bad = await st.req('POST', '/api/requests', { type: 'visa', fields: {} });
+  assert.equal(bad.status, 422);
+  assert.ok(bad.data.fields.country);
+  const r = await st.req('POST', '/api/requests', { type: 'visa', delivery: 'electronic', lang: 'en', fields: { country: 'Сербия', dates: '12–20 января' } });
+  assert.equal(r.status, 201);
+  const id = r.data.request.id;
+  assert.equal(r.data.request.payload.country, 'Сербия');
+  const dup = await st.req('POST', '/api/requests', { type: 'visa', delivery: 'electronic', lang: 'en', fields: { country: 'Сербия', dates: '12–20 января' } });
+  assert.equal(dup.status, 409);
+  assert.equal((await dean.req('PATCH', `/api/dean/requests/${id}`, { status: 'in_work', comment: 'Готовим' })).status, 200);
+  assert.equal((await dean.req('PATCH', `/api/dean/requests/${id}`, { status: 'rejected', comment: 'коротко' })).status, 422);
+  assert.equal((await dean.req('PATCH', `/api/dean/requests/${id}`, { status: 'ready' })).status, 200);
+  const n = (await st.req('GET', '/api/notifications')).data.list;
+  assert.ok(n.some((x) => x.kind === 'request' && x.link === `#/requests/${id}`));
+  const doc = await st.req('GET', `/api/requests/${id}/document`);
+  assert.equal(doc.status, 200);
+  const v = await fetch(`${app.base}/api/verify/${doc.data.document.verifyCode}`).then((x) => x.json());
+  assert.equal(v.valid, true);
+  assert.equal(v.holder, 'А. Д. М.');
+});
+
