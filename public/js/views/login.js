@@ -30,3 +30,13 @@ function hero() {
   </section>`;
 }
 
+function accounts(demo) {
+  if (!demo || !demo.accounts || !demo.accounts.length) return '';
+  return `<div class="auth-or"><span>или тестовый аккаунт</span></div>
+    <div class="acc-list">${demo.accounts.map((a) => `<button class="acc" type="button" data-login="${esc(a.login)}">
+      <span class="acc-dean" style="${a.role === 'student' ? 'background:var(--navy-3);color:var(--navy)' : ''}">${icon(a.role === 'dean' ? 'building' : 'cap', 20)}</span>
+      <span class="grow"><span class="acc-top"><b>${esc(a.who)}</b>${a.role === 'dean' ? '<span class="badge badge-gold">Деканат</span>' : ''}</span><small>${esc(a.note)}</small></span>
+      ${icon('arrow', 18)}</button>`).join('')}</div>
+    <div class="demo-hint">${icon('key', 15)} Пароль всех демо-аккаунтов: <code>${esc(demo.password)}</code></div>`;
+}
+
