@@ -108,3 +108,23 @@ function plant(x, b, k) {
     `<ellipse cx="${x}" cy="${b - 62 * k}" rx="${8 * k}" ry="${22 * k}" fill="#4BA176"/>`;
 }
 
+// Гардероб: вешалки с номерками и зеркало
+function cloakroom() {
+  const t = top(0), b = SURF[0];
+  let s = room(0, 'l', '#EEF3FC', '#D9E2F2');
+  let hooks = `<rect x="104" y="${t + 34}" width="140" height="8" rx="4" fill="${INK}"/>`;
+  [['#1E3A7B', 116], ['#C9A646', 140], ['#8E6CC4', 164], ['#E0735A', 188], ['#3BAE8A', 212], ['#7A8699', 232]].forEach(([c, x]) => {
+    hooks += `<path d="M${x} ${t + 42} v6" stroke="#6B7280" stroke-width="2"/><path d="M${x - 11} ${t + 56} L${x - 4} ${t + 48} H${x + 4} L${x + 11} ${t + 56} L${x + 9} ${t + 118} H${x - 9} Z" fill="${c}"/>`;
+  });
+  hooks += `<rect x="104" y="${b - 66}" width="140" height="50" rx="8" fill="#fff" stroke="#C9D3E6" stroke-width="2"/>`;
+  [0, 1, 2, 3, 4].forEach((i) => { hooks += `<circle cx="${122 + i * 26}" cy="${b - 41}" r="8" fill="${GOLD}"/><text x="${122 + i * 26}" y="${b - 37.5}" text-anchor="middle" font-family="Onest, Arial" font-size="8" font-weight="700" fill="${INK}">${114 + i}</text>`; });
+  s += hot('hooks', hooks, [100, t + 30, 148, ROOM_H - 44]);
+  s += hot('mirror',
+    `<path d="M300 ${b - 18} V${t + 66} Q300 ${t + 36} 331 ${t + 36} Q362 ${t + 36} 362 ${t + 66} V${b - 18} Z" fill="url(#cp-mirror)" stroke="${GOLD}" stroke-width="6"/>` +
+    `<path d="M312 ${t + 70} L324 ${t + 56} M312 ${t + 86} L336 ${t + 60}" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".9"/>`,
+    [297, t + 33, 68, ROOM_H - 48]);
+  s += `<rect x="388" y="${b - 60}" width="120" height="44" rx="8" fill="${INK}"/><rect x="380" y="${b - 68}" width="136" height="12" rx="6" fill="#16346F"/>`;
+  s += plant(530, b - 14, 0.8);
+  return s;
+}
+
