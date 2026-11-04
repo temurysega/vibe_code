@@ -124,3 +124,28 @@ export function upcoming(store, group, now = msk()) {
   return null;
 }
 
+export function dayOf(store, group, date) {
+  const week = buildWeek(store, group, date);
+  return week.days.find((d) => d.date === date) || { date, weekday: 7, holiday: 'Воскресенье', items: [] };
+}
+
+// Календарь .ics на четыре недели вперёд — подключается в Google, Яндекс или Apple Календарь
+export function icsFor(store, group, groupTitle) {
+  const now = msk();
+  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//MGIMO Mania concept//RU', 'CALSCALE:GREGORIAN', `X-WR-CALNAME:Расписание ${groupTitle}`, 'X-WR-TIMEZONE:Europe/Moscow'];
+  const esc = (s) => String(s || '').replace(/[\\;,]/g, (c) => '\\' + c).replace(/\n/g, '\\n');
+  const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d+/, '');
+  for (let w = 0; w < 4; w++) {
+    const week = buildWeek(store, group, addDays(mondayOf(now.date), w * 7));
+    week.days.forEach((d) => d.items.forEach((it) => {
+      if (it.status === 'cancelled' || it.status === 'moved') return;
+      const dt = (t) => `${d.date.replace(/-/g, '')}T${t.replace(':', '')}00`;
+      lines.push('BEGIN:VEVENT', `UID:${it.key.replace(/:/g, '-')}@mgimo-mania.demo`, `DTSTAMP:${stamp}`,
+        `DTSTART;TZID=Europe/Moscow:${dt(it.start)}`, `DTEND;TZID=Europe/Moscow:${dt(it.end)}`,
+        `SUMMARY:${esc(`${it.discipline} · ${it.kindLabel}`)}`, `LOCATION:${esc('ауд. ' + it.room)}`,
+        `DESCRIPTION:${esc(it.teacher ? it.teacher.name : '')}`, 'END:VEVENT');
+    }));
+  }
+  lines.push('END:VCALENDAR');
+  return lines.join('\r\n');
+}
