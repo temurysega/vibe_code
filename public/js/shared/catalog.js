@@ -120,3 +120,10 @@ export const ROOMS = [
   { id: 'shop', name: 'Лавка МГИМО', floor: 2, side: 'r', icon: 'bag', desc: 'Мерч и вещи для аватара за М-коины', link: '#/shop' },
 ];
 
+// Мерч: реальная вещь в Лавке и её цифровая копия для аватара
+export const KITS = [
+  { id: 'kit-cap', name: 'Кепка МГИМО', price: 600, twin: 'hat:mgimo-cap', sizes: ['One size'], desc: 'Синяя кепка с золотой вышивкой и её цифровой двойник', stock: 24 },
+  { id: 'kit-tee', name: 'Футболка МГИМО', price: 1200, twin: 'top:mgimo-tee', sizes: ['XS', 'S', 'M', 'L', 'XL'], desc: 'Хлопковая футболка и её цифровой двойник', stock: 17 },
+  { id: 'kit-hoodie', name: 'Худи МГИМО', price: 2500, twin: 'top:mgimo-hoodie', sizes: ['XS', 'S', 'M', 'L', 'XL'], desc: 'Тёплое худи с вышивкой и его цифровой двойник', stock: 6 },
+];
+
