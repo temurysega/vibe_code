@@ -45,3 +45,26 @@ function stopTour() {
   tour = null;
 }
 
+function step(i) {
+  if (!tour) return;
+  if (i >= STEPS.length) { stopTour(); return; }
+  tour.i = i;
+  const [hash, sel, text] = STEPS[i];
+  if (location.hash !== hash) location.hash = hash;
+  tour.bar.querySelector('.demo-t').textContent = text;
+  tour.bar.querySelector('.demo-n').textContent = `${i + 1} / ${STEPS.length}`;
+  const bar = tour.bar.querySelector('.demo-p i');
+  bar.style.transition = 'none'; bar.style.width = '0%'; void bar.offsetWidth;
+  bar.style.transition = 'width 7s linear'; bar.style.width = '100%';
+  let tries = 0;
+  const hl = () => {
+    document.querySelectorAll('.demo-hl').forEach((x) => x.classList.remove('demo-hl'));
+    const el = document.querySelector(sel);
+    if (el) { el.classList.add('demo-hl'); el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    else if (tries++ < 20) setTimeout(hl, 150);
+  };
+  setTimeout(hl, 350);
+  clearTimeout(tour.timer);
+  tour.timer = setTimeout(() => step(i + 1), 7000);
+}
+
