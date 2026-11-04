@@ -158,3 +158,12 @@ export class Runner {
     this.raf = requestAnimationFrame(this.loop);
   }
 
+  loop(ts) {
+    if (this.state !== 'run') return;
+    const dt = this.last ? Math.min(0.034, (ts - this.last) / 1000) : 0.016;
+    this.last = ts;
+    this.update(dt);
+    this.draw();
+    if (this.state === 'run') this.raf = requestAnimationFrame(this.loop);
+  }
+
