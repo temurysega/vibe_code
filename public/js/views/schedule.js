@@ -60,3 +60,25 @@ function body() {
     <div class="week">${w.days.map((d) => dayCol(d, now)).join('')}</div>`;
 }
 
+function lessonModal(it) {
+  const c = it.change;
+  const ch = c ? changeLine(it) : null;
+  modal.open({
+    label: it.discipline,
+    html: `<span class="eyebrow">${esc(it.kindLabel)} · ${it.pair} пара</span>
+      <div class="modal-title mt-8">${esc(it.discipline)}</div>
+      ${ch ? `<div class="note note-warn mt-16">${icon(ch.icon, 18)}<span><b style="font-weight:500">${ch.title}</b>${ch.sub ? `<br>${esc(ch.sub)}` : ''}</span></div>` : ''}
+      <dl class="kv mt-20">
+        <dt>Когда</dt><dd>${esc(relDay(it.date).replace(/^./, (x) => x.toUpperCase()))}, ${esc(dayShort(it.date))} · ${it.start}–${it.end}</dd>
+        <dt>Где</dt><dd>${/^\d+$/.test(it.room) ? 'Аудитория ' : ''}${esc(it.room)}${it.place ? ' · ' + esc(it.place) : ''}${c && c.type === 'room' ? ` <span class="old">${esc(c.from)}</span>` : ''}</dd>
+        <dt>Преподаватель</dt><dd>${it.teacher ? `<button class="link" data-teacher>${esc(it.teacher.name)}</button>` : '—'}</dd>
+        <dt>Формат</dt><dd>${icon(KIND_ICON[it.kind] || 'book', 16)} ${esc(it.kindLabel)}</dd>
+      </dl>
+      <div class="modal-foot">${it.disciplineId ? `<a class="btn btn-primary btn-lg" href="#/grades/${it.disciplineId}">${icon('chart', 18)} Баллы по дисциплине</a>` : ''}<button class="btn btn-secondary btn-lg" data-close>Закрыть</button></div>`,
+    onMount(el) {
+      const t = el.querySelector('[data-teacher]');
+      if (t) t.onclick = () => teacherModal(it.teacher);
+    },
+  });
+}
+
