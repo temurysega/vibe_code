@@ -73,3 +73,13 @@ const P = {
   sparkles: '<path d="M10 3.5c.5 3.6 2.4 5.5 6 6-3.6.5-5.5 2.4-6 6-.5-3.6-2.4-5.5-6-6 3.6-.5 5.5-2.4 6-6Z"/><path d="M18 14c.3 2 1.3 3 3.3 3.3-2 .3-3 1.3-3.3 3.3-.3-2-1.3-3-3.3-3.3 2-.3 3-1.3 3.3-3.3Z"/>',
 };
 
+export function icon(name, size, sw) {
+  return `<svg class="ic" width="${size || 20}" height="${size || 20}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw || 1.8}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[name] || ''}</svg>`;
+}
+
+// М-коин: золотой жетон с буквой «М»
+export function coin(size) {
+  const s = size || 22;
+  return `<span class="coin" style="width:${s}px;height:${s}px;font-size:${Math.round(s * 0.5)}px" aria-hidden="true">М</span>`;
+}
+export const money = (n, size) => `<span class="money tnum">${Math.round(n).toLocaleString('ru-RU')} ${coin(size || 20)}</span>`;
