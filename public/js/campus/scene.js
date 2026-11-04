@@ -353,3 +353,14 @@ export class Campus {
     window.addEventListener('keyup', this.onKeyUp);
   }
 
+  blocked(e) {
+    const t = e.target;
+    return (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) || document.querySelector('.modal-overlay, .drawer');
+  }
+
+  toSvg(e) {
+    const pt = this.svg.createSVGPoint();
+    pt.x = e.clientX; pt.y = e.clientY;
+    return pt.matrixTransform(this.svg.getScreenCTM().inverse());
+  }
+
