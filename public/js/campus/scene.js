@@ -470,3 +470,19 @@ export class Campus {
     this.raf = requestAnimationFrame(this.tick);
   }
 
+  place() {
+    const p = this.p;
+    this.elPlayer.setAttribute('transform', `translate(${(p.x - AV_W / 2).toFixed(1)} ${(p.y - AV_H - 2).toFixed(1)})`);
+    this.elBody.classList.toggle('walking', !!this.moving && !p.ride);
+    this.elBody.classList.toggle('idle', !this.moving);
+    this.elCabin.setAttribute('transform', `translate(0 ${(p.y - SURF[0]).toFixed(1)})`);
+    const flip = this.pet.dir < 0 ? ' translate(50 0) scale(-1 1)' : '';
+    this.elPet.setAttribute('transform', `translate(${(this.pet.x - 25).toFixed(1)} ${(p.y - 40).toFixed(1)})${flip}`);
+    // На узком экране сцена шире окна — камера следует за аватаром
+    const st = this.stage;
+    if (st.scrollWidth > st.clientWidth + 4 && (this.moving || !this.followed)) {
+      this.followed = true;
+      st.scrollLeft = (p.x / W) * st.scrollWidth - st.clientWidth / 2;
+    }
+  }
+
