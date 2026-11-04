@@ -87,3 +87,12 @@ export const ITEMS = [
   I('gold', 'backdrop', 'Золото', 'game', { need: 3000 }),
   I('aurora', 'backdrop', 'Северное сияние', 'digital', { price: 500 }),
 
+  I('none', 'pattern', 'Без узора', 'base'),
+  I('dots', 'pattern', 'Точки', 'base'),
+  I('globes', 'pattern', 'Глобусы', 'base'),
+  I('leaves', 'pattern', 'Листья', 'base'),
+  I('rings', 'pattern', 'Кольца', 'base'),
+  I('books', 'pattern', 'Книги', 'route', { zone: 'classroom' }),
+  I('sparks', 'pattern', 'Искры', 'route', { zone: 'clubs' }),
+  I('stars', 'pattern', 'Звёзды', 'game', { need: 800 }),
+
