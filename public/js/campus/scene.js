@@ -364,3 +364,17 @@ export class Campus {
     return pt.matrixTransform(this.svg.getScreenCTM().inverse());
   }
 
+  // Маршрут: по этажу до лифта, лифт, по этажу до цели
+  goTo(target) {
+    if (this.p.ride) return;
+    target.x = Math.max(110, Math.min(1090, target.x));
+    this.path = [];
+    if (target.floor !== this.p.floor) {
+      this.path.push({ type: 'walk', x: EX });
+      this.path.push({ type: 'ride', floor: target.floor });
+    }
+    this.path.push({ type: 'walk', x: target.x });
+    this.target = target;
+    this.mark(target);
+  }
+
