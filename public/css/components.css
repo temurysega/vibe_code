@@ -166,3 +166,6 @@ select.input { appearance: none; background-image: url("data:image/svg+xml,%3Csv
 .tg-name { font-size: 26px; font-weight: 600; letter-spacing: -0.02em; margin-top: 16px; display: inline-flex; align-items: center; gap: 8px; line-height: 1.15; }
 .tg-sub { font-size: 15px; opacity: .8; margin-top: 4px; }
 .tg-badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+.tg-badge { height: 30px; padding: 0 12px; border-radius: var(--pill); background: rgba(255, 255, 255, .55); color: var(--ink); font-size: 13px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; backdrop-filter: blur(6px); }
+.tg[data-ink="light"] .tg-badge { background: rgba(255, 255, 255, .18); color: #fff; }
+
