@@ -30,3 +30,6 @@ input, textarea, select { font: inherit; color: inherit; }
 .tiny { font-size: 12px; }
 .nowrap { white-space: nowrap; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: 16px; top: -60px; z-index: 999; background: var(--navy); color: #fff; padding: 10px 16px; border-radius: var(--pill); }
+.skip:focus { top: 12px; }
+
