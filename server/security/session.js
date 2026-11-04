@@ -66,3 +66,15 @@ export function loadSession(store, token) {
   return s;
 }
 
+export function destroySession(store, sessionId) {
+  store.run('DELETE FROM sessions WHERE id = ?', sessionId);
+}
+
+// Описание устройства для списка «Активные сеансы» — без полного User-Agent
+export function deviceName(ua) {
+  ua = String(ua || '');
+  const os = /iPhone|iPad/.test(ua) ? 'iOS' : /Android/.test(ua) ? 'Android' : /Windows/.test(ua) ? 'Windows' : /Mac OS X/.test(ua) ? 'macOS' : /Linux/.test(ua) ? 'Linux' : 'Устройство';
+  const br = /Edg\//.test(ua) ? 'Edge' : /YaBrowser/.test(ua) ? 'Яндекс Браузер' : /OPR\//.test(ua) ? 'Opera' : /Firefox\//.test(ua) ? 'Firefox' : /Chrome\//.test(ua) ? 'Chrome' : /Safari\//.test(ua) ? 'Safari' : /node|curl/i.test(ua) ? 'API-клиент' : 'браузер';
+  return `${br} · ${os}`;
+}
+
