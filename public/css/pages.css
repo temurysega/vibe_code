@@ -16,3 +16,11 @@
 .pref-row:first-child { border-top: 0; }
 .pref-row b { font-weight: 500; display: block; }
 
+/* ---------- Профиль ---------- */
+.profile-layout { display: grid; grid-template-columns: 380px minmax(0, 1fr); gap: 20px; align-items: start; }
+.profile-side { position: sticky; top: calc(var(--header-h) + 16px); display: flex; flex-direction: column; gap: 16px; }
+.masked { font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+.reveal { border: 0; background: none; color: var(--navy); cursor: pointer; font-size: 13px; padding: 0 0 0 8px; }
+.sess { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid #E4E6E9; }
+.sess:first-child { border-top: 0; }
+.sess-ic { width: 40px; height: 40px; border-radius: 12px; background: #fff; display: grid; place-items: center; color: var(--navy); flex: none; }
