@@ -78,3 +78,25 @@ export default function (router) {
     return Object.assign(week, { now: msk(), bells: BELLS.slice(1), semester: sem, prev: addDays(monday, -7), next: addDays(monday, 7) });
   });
 
+  // Подписка на календарь: файл с парами на 4 недели
+  router.get('/api/schedule.ics', requireStudent, (ctx) => {
+    const body = icsFor(ctx.store, ctx.student.group_code, ctx.student.group_code);
+    ctx.res.writeHead(200, {
+      'Content-Type': 'text/calendar; charset=utf-8',
+      'Content-Disposition': `attachment; filename="schedule-${encodeURIComponent(ctx.student.group_code)}.ics"`,
+      'Cache-Control': 'no-store',
+    });
+    ctx.res.end(body);
+  });
+
+  router.get('/api/grades', requireStudent, (ctx) => gradesFor(ctx.store, ctx.student));
+
+  router.get('/api/deadlines', requireStudent, (ctx) => ({ deadlines: deadlinesOf(ctx.store, ctx.student, 45) }));
+
+  router.get('/api/notifications', requireStudent, (ctx) => {
+    const { store, student: s, user } = ctx;
+    applyPlans(store, s.id);
+    remindDeadlines(store, s, s.faculty);
+    return { list: listFor(store, user.id, s, 100), unread: unreadCount(store, user.id, s) };
+  });
+
