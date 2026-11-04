@@ -8,3 +8,10 @@ import * as fx from '../ui/fx.js';
 import { svg as avatarSvg, pet as petSvg, backdrop, itemPreview, applyBody, CLOTH, BACKDROPS, SKIN, HAIR } from '../art/avatar.js';
 import { APPEARANCE, ITEMS, SLOTS, PROFILE_SLOTS, EMOJIS, itemState, keyOf } from '../shared/catalog.js';
 
+const PETC = { orange: '#F2A65A', gray: '#9EA4AB', black: '#34343A', cream: '#F1DFC2', sand: '#D9AE74', brown: '#8A5A3B', white: '#F2F2F0' };
+const TABS = [['look', 'Внешность'], ...SLOTS, ['profile', 'Профиль']];
+let draft = null;
+let prof = null;
+let petName = '';
+let tab = 'look';
+
