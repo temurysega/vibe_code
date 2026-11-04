@@ -43,3 +43,17 @@ export const modal = {
   get isOpen() { return stack.length > 0; },
 };
 
+// Простое подтверждение: «Да» / «Отмена»
+export function confirm({ title, text, yes = 'Да', no = 'Отмена', danger = false }) {
+  return new Promise((resolve) => {
+    let answered = false;
+    const entry = modal.open({
+      label: title,
+      html: `<div class="modal-title">${esc(title)}</div>${text ? `<p class="modal-sub">${esc(text)}</p>` : ''}
+        <div class="modal-foot"><button class="btn ${danger ? 'btn-danger' : 'btn-primary'} btn-lg" data-yes autofocus>${esc(yes)}</button><button class="btn btn-secondary btn-lg" data-close>${esc(no)}</button></div>`,
+      onMount(el) { el.querySelector('[data-yes]').onclick = () => { answered = true; modal.close(entry); resolve(true); }; },
+      onClose() { if (!answered) resolve(false); },
+    });
+  });
+}
+
