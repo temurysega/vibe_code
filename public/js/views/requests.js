@@ -34,3 +34,13 @@ function listView(list, filter) {
       : `<div class="card empty"><span class="emoji">📭</span><div class="h4">${filter === 'all' ? 'Заявок пока нет' : 'Активных заявок нет'}</div><p class="mt-8">Справку об обучении можно заказать за минуту — электронная готова в течение дня</p><a class="btn btn-primary mt-16" href="#/requests/new/study">Заказать справку</a></div>`}`;
 }
 
+// ---------- каталог ----------
+function catalogView() {
+  const tile = (t) => `<button class="cat-tile" data-type="${t.id}" ${t.available ? '' : 'disabled'}><span class="cat-ic">${icon(t.icon, 22)}</span><b>${esc(t.title)}</b><span class="small muted">${esc(t.hint || t.short)}</span>
+    <span class="cat-foot"><span class="badge badge-gray">${icon('clock', 12)} ${t.days} ${plural(t.days, ['день', 'дня', 'дней'])}</span>${t.delivery.includes('electronic') ? `<span class="badge badge-soft">${icon('download', 12)} электронно</span>` : ''}${t.langs && t.langs.includes('en') ? '<span class="badge badge-gold">EN</span>' : ''}</span></button>`;
+  return `<div class="section-head"><h2 class="h3">Справки</h2><span class="small muted">Готовятся без визита в деканат</span></div>
+    <div class="cat-grid">${types.filter((t) => t.group === 'cert').map(tile).join('')}</div>
+    <div class="section-head mt-32"><h2 class="h3">Заявления</h2><span class="small muted">Решение принимает деканат — статус придёт уведомлением</span></div>
+    <div class="cat-grid">${types.filter((t) => t.group === 'app').map(tile).join('')}</div>`;
+}
+
