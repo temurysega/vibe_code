@@ -13,3 +13,13 @@ const CSP = [
   "object-src 'none'",
 ].join('; ');
 
+export function securityHeaders(res, secure) {
+  res.setHeader('Content-Security-Policy', CSP);
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('Referrer-Policy', 'same-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+  res.setHeader('Cross-Origin-Resource-Policy', 'same-origin');
+  if (secure) res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+}
