@@ -28,3 +28,12 @@ export function parseCookies(header) {
   return out;
 }
 
+export function sessionCookie(token) {
+  const maxAge = Math.round(config.sessionTtlHours * 3600);
+  return `${cookieName()}=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${config.cookieSecure ? '; Secure' : ''}`;
+}
+
+export function clearSessionCookie() {
+  return `${cookieName()}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${config.cookieSecure ? '; Secure' : ''}`;
+}
+
