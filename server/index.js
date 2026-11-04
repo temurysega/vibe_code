@@ -31,3 +31,11 @@ const app = createApp(store, {
   },
 });
 
+const server = createServer(app);
+server.headersTimeout = 20e3;
+server.requestTimeout = 30e3;
+server.listen(config.port, config.host, () => {
+  console.log(`МГИМО Мания (демо) — http://localhost:${config.port}`);
+  if (!config.anthropicKey) console.log('ИИ-помощник работает по правилам: ANTHROPIC_API_KEY не задан');
+});
+
