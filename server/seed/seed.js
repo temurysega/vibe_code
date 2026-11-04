@@ -40,3 +40,14 @@ const TPL = {
     ['Лексико-грамматический тест', 'test', 15, 0.33], ['Домашние задания · I половина', 'homework', 10, 0.48], ['Письменная работа', 'essay', 15, 0.66], ['Домашние задания · II половина', 'homework', 10, 0.96], ['Устный зачёт с оценкой', 'oral', 40, null]],
 };
 
+// Ближайший день, когда у группы стоит эта пара (с учётом чётности и праздников)
+function nextOccurrence(lesson, from) {
+  for (let i = 0; i < 21; i++) {
+    const d = addDays(from, i);
+    if (weekday(d) !== lesson.weekday || holidayOf(d)) continue;
+    if (lesson.parity !== 'all' && parityOf(d).parity !== lesson.parity) continue;
+    return d;
+  }
+  return null;
+}
+
