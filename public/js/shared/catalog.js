@@ -96,3 +96,10 @@ export const ITEMS = [
   I('sparks', 'pattern', 'Искры', 'route', { zone: 'clubs' }),
   I('stars', 'pattern', 'Звёзды', 'game', { need: 800 }),
 
+  I('none', 'frame', 'Без рамки', 'base'),
+  I('navy', 'frame', 'Синяя', 'base'),
+  I('flame', 'frame', 'Огонёк', 'focus', { need: 8 }),
+  I('excellent', 'frame', 'Отличник', 'grade', { how: 'Сессия без троек и долгов' }),
+  I('route', 'frame', 'Исследователь', 'routeAll'),
+];
+
