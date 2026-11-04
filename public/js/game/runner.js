@@ -339,3 +339,67 @@ export class Runner {
     this.hud(c);
   }
 
+  object(c, o) {
+    const u = this.u(o.z);
+    const x = this.sx(o.lane, o.z);
+    const y = this.gy(o.z);
+    if (o.kind === 'coin') {
+      const r = u * 0.16;
+      const cy = y - u * o.h - r;
+      const sq = Math.abs(Math.cos(this.t * 5 + o.z));
+      c.fillStyle = GOLD;
+      c.beginPath(); c.ellipse(x, cy, Math.max(1, r * (0.35 + 0.65 * sq)), r, 0, 0, Math.PI * 2); c.fill();
+      if (sq > 0.5 && r > 6) { c.fillStyle = INK; c.font = `700 ${r * 1.1}px Onest, sans-serif`; c.textAlign = 'center'; c.fillText('М', x, cy + r * 0.4); }
+      return;
+    }
+    if (o.kind === 'coffee' || o.kind === 'book') {
+      const s = u * 0.32;
+      const cy = y - u * 0.55 + Math.sin(this.t * 4) * u * 0.05;
+      c.fillStyle = 'rgba(255,255,255,.35)';
+      c.beginPath(); c.arc(x, cy, s * 1.1, 0, Math.PI * 2); c.fill();
+      if (o.kind === 'coffee') {
+        c.fillStyle = '#fff'; rr(c, x - s * 0.45, cy - s * 0.5, s * 0.9, s, s * 0.15); c.fill();
+        c.fillStyle = '#7A5236'; c.fillRect(x - s * 0.45, cy - s * 0.2, s * 0.9, s * 0.35);
+      } else {
+        c.fillStyle = '#2F8A3B'; rr(c, x - s * 0.4, cy - s * 0.55, s * 0.8, s * 1.1, s * 0.1); c.fill();
+        c.fillStyle = GOLD; c.fillRect(x - s * 0.25, cy - s * 0.2, s * 0.5, s * 0.12);
+      }
+      return;
+    }
+    const k = KINDS[o.kind];
+    const w = u * k.w, h = u * k.h;
+    if (o.hit) c.globalAlpha = 0.35;
+    switch (o.kind) {
+      case 'bench':
+        c.fillStyle = '#8A5A3B'; rr(c, x - w / 2, y - h, w, h * 0.35, 4); c.fill();
+        c.fillStyle = '#6B4429'; c.fillRect(x - w * 0.42, y - h * 0.65, w * 0.08, h * 0.65); c.fillRect(x + w * 0.34, y - h * 0.65, w * 0.08, h * 0.65);
+        break;
+      case 'wet':
+        c.fillStyle = '#FFD84D';
+        c.beginPath(); c.moveTo(x, y - h); c.lineTo(x + w / 2, y); c.lineTo(x - w / 2, y); c.closePath(); c.fill();
+        if (u > 30) { c.fillStyle = INK; c.font = `700 ${u * 0.09}px Onest, sans-serif`; c.textAlign = 'center'; c.fillText('МОКРЫЙ', x, y - h * 0.38); c.fillText('ПОЛ', x, y - h * 0.2); }
+        break;
+      case 'banner': {
+        const by = y - u * k.lift;
+        c.fillStyle = '#6B7280'; c.fillRect(x - w / 2, by - h, u * 0.05, u * k.lift + h); c.fillRect(x + w / 2 - u * 0.05, by - h, u * 0.05, u * k.lift + h);
+        c.fillStyle = '#E5484D'; rr(c, x - w / 2, by - h, w, h, 4); c.fill();
+        c.fillStyle = '#fff';
+        for (let i = 0; i < 5; i++) c.fillRect(x - w / 2 + (i * w) / 5 + w * 0.04, by - h, w * 0.1, h);
+        if (u > 30) { c.fillStyle = INK; c.font = `700 ${u * 0.12}px Onest, sans-serif`; c.textAlign = 'center'; c.fillText('РЕМОНТ', x, by - h * 0.3); }
+        break;
+      }
+      case 'cart':
+        c.fillStyle = '#7A8699'; rr(c, x - w / 2, y - h * 0.9, w, h * 0.8, 6); c.fill();
+        [NAVY, GOLD, '#E0735A', '#3BAE8A', '#8E6CC4'].forEach((col, i) => { c.fillStyle = col; c.fillRect(x - w * 0.42 + i * w * 0.17, y - h, w * 0.13, h * 0.5); });
+        c.fillStyle = INK; c.beginPath(); c.arc(x - w * 0.3, y - u * 0.05, u * 0.06, 0, Math.PI * 2); c.arc(x + w * 0.3, y - u * 0.05, u * 0.06, 0, Math.PI * 2); c.fill();
+        break;
+      case 'deadline':
+        c.fillStyle = '#2E2E30'; c.fillRect(x - u * 0.04, y - h * 0.75, u * 0.08, h * 0.75);
+        c.fillStyle = '#E5484D'; rr(c, x - w / 2, y - h, w, h * 0.38, 6); c.fill();
+        if (u > 26) { c.fillStyle = '#fff'; c.font = `700 ${u * 0.13}px Onest, sans-serif`; c.textAlign = 'center'; c.fillText('ДЕДЛАЙН', x, y - h * 0.76); }
+        break;
+      default: break;
+    }
+    c.globalAlpha = 1;
+  }
+
