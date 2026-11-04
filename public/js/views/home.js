@@ -76,3 +76,23 @@ const sec = {
     </div>`;
   },
 
+  day() {
+    const now = mskNow();
+    const useTomorrow = data.today.holiday || !data.today.items.length || data.today.items.every((it) => lessonState(it, now) === 'past');
+    const d = useTomorrow ? data.tomorrow : data.today;
+    const title = useTomorrow ? `Завтра, ${esc(dayLabel(d.date).split(', ')[1] || '')}` : 'Сегодня';
+    let body;
+    if (d.holiday || !d.items.length) {
+      body = `<div class="day-empty"><span class="emoji">${d.holiday ? '🎉' : '🌿'}</span><div><b style="font-weight:500">${d.holiday ? esc(d.holiday) : 'Пар нет'}</b><div class="small muted">${d.holiday ? 'Выходной день — занятий нет' : 'Свободный день'}</div></div></div>`;
+    } else {
+      body = `<div class="day-line">${d.items.map((it) => {
+        const st = lessonState(it, now);
+        return `<a class="day-item ${st} ${it.status}" href="#/schedule" style="--c:${it.color}">
+          <span class="t"><b>${it.start}</b>${it.end}</span><span class="stripe"></span>
+          <span class="what"><b>${esc(it.discipline)}</b><span class="small muted">${esc(it.kindLabel)} · ауд. ${esc(it.room)}${it.teacher ? ' · ' + esc(it.teacher.short) : ''}</span>
+          ${it.status === 'cancelled' ? `<span class="lesson-tag" style="background:var(--red-2);color:var(--red-ink)">${icon('ban', 12)} Отменена</span>` : it.status === 'moved' ? `<span class="lesson-tag">${icon('route', 12)} Перенесена на ${esc(relDay(it.change.to.date))}</span>` : it.change ? `<span class="lesson-tag" style="background:var(--blue-2);color:var(--blue-ink)">${icon('info', 12)} ${it.change.type === 'room' ? 'Новая аудитория' : it.change.type === 'teacher' ? 'Замена' : it.change.type === 'extra' ? 'Дополнительно' : 'Перенос'}</span>` : ''}</span></a>`;
+      }).join('')}</div>`;
+    }
+    return `<div class="card" data-sec="day"><div class="card-head"><div class="card-title">${title}</div><a class="link-arrow" href="#/schedule">Неделя ${icon('arrow', 16)}</a></div>${body}</div>`;
+  },
+
