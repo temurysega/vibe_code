@@ -37,3 +37,19 @@ export function clearSessionCookie() {
   return `${cookieName()}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${config.cookieSecure ? '; Secure' : ''}`;
 }
 
+export function createSession(store, userId, meta) {
+  const token = randomBytes(32).toString('base64url');
+  const csrf = randomBytes(24).toString('base64url');
+  const now = Date.now();
+  store.run(
+    'INSERT INTO sessions (id, user_id, csrf, created_at, last_seen, expires_at, ip, ua) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    sha256(token), userId, csrf, now, now, now + config.sessionTtlHours * HOUR, meta.ip || null, String(meta.ua || '').slice(0, 200),
+  );
+  // Старые сессии сверх лимита закрываются сами
+  store.run(
+    'DELETE FROM sessions WHERE user_id = ? AND id NOT IN (SELECT id FROM sessions WHERE user_id = ? ORDER BY last_seen DESC LIMIT ?)',
+    userId, userId, MAX_SESSIONS,
+  );
+  return { token, csrf };
+}
+
