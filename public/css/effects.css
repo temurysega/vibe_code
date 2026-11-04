@@ -12,3 +12,12 @@
 .tap i:nth-child(2) { --a: -30deg; background: var(--navy-2); }
 .tap i:nth-child(3) { --a: 30deg; }
 .tap i:nth-child(4) { --a: 90deg; background: var(--navy); }
+.tap i:nth-child(5) { --a: 150deg; }
+.tap i:nth-child(6) { --a: 210deg; background: var(--navy-2); }
+.chip:active, .item:active, .zone:active, .prod:active, .acc:active, .cat-tile:active, .lesson:active, .disc:active,
+.seg button:active, .nav a:active, .icon-btn:active, .bal-pill:active, .swatch:active, .emoji-btn:active, .menu-item:active, .day-btn:active { transform: scale(.96); transition-duration: .05s; }
+
+@keyframes viewIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { to { opacity: 0; } }
+@keyframes popIn { from { opacity: 0; transform: scale(.94) translateY(8px); } to { opacity: 1; transform: none; } }
