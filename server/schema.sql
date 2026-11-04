@@ -61,3 +61,16 @@ CREATE TABLE IF NOT EXISTS users (
   last_login_at INTEGER
 );
 
+-- Сессии: в базе лежит SHA-256 от токена, сам токен знает только браузер
+CREATE TABLE IF NOT EXISTS sessions (
+  id TEXT PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  csrf TEXT NOT NULL,
+  created_at INTEGER NOT NULL,
+  last_seen INTEGER NOT NULL,
+  expires_at INTEGER NOT NULL,
+  ip TEXT,
+  ua TEXT
+);
+CREATE INDEX IF NOT EXISTS sessions_user ON sessions(user_id);
+
