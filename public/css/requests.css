@@ -20,3 +20,10 @@
 .pipe i.on { background: var(--navy); }
 .pipe.bad i.on { background: var(--red); }
 .pipe.done i.on { background: var(--mint); }
+.st { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: var(--pill); font-size: 13px; font-weight: 500; white-space: nowrap; }
+.st-submitted { background: var(--navy-3); color: var(--navy-ink); }
+.st-in_work { background: var(--warn-2); color: var(--warn); }
+.st-ready, .st-approved { background: var(--good-2); color: var(--good); }
+.st-issued { background: #fff; color: var(--muted-2); box-shadow: inset 0 0 0 1px var(--border); }
+.st-rejected { background: var(--red-2); color: var(--red-ink); }
+.st-cancelled { background: var(--surface-2); color: var(--muted-2); }
