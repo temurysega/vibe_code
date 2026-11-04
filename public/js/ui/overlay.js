@@ -91,3 +91,18 @@ export function closeMenu() {
   away = null;
 }
 
+// ---------- тосты ----------
+export function toast(html, opt = {}) {
+  const root = document.getElementById('toast-root');
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.setAttribute('role', 'status');
+  t.innerHTML = `<span class="toast-ic">${opt.coin ? '<b style="font-size:14px">М</b>' : icon(opt.icon || 'check', 18, 2.2)}</span><span>${html}</span>`;
+  root.appendChild(t);
+  // Не больше трёх тостов одновременно
+  while (root.children.length > 3) root.firstElementChild.remove();
+  const hide = () => { t.classList.add('out'); setTimeout(() => t.remove(), 260); };
+  const timer = setTimeout(hide, opt.ms || 3600);
+  t.addEventListener('click', (e) => { if (e.target.closest('a')) { clearTimeout(timer); hide(); } });
+}
+
