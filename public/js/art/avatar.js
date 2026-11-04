@@ -582,3 +582,34 @@ const SYM = {
   stars: () => `<path d="M0 -6.5 L1.9 -2 L6.6 -1.8 L3 1.2 L4.2 5.8 L0 3.2 L-4.2 5.8 L-3 1.2 L-6.6 -1.8 L-1.9 -2 Z"/>`,
 };
 
+let uid = 0;
+export function backdrop(key, pattern, opt) {
+  opt = opt || {};
+  const b = BACKDROPS[key] || BACKDROPS.navy;
+  const W = opt.w || 400, H = opt.h || 300;
+  const cx = opt.cx != null ? opt.cx : W / 2, cy = opt.cy != null ? opt.cy : H * 0.42;
+  const r0 = opt.r0 != null ? opt.r0 : 70;
+  const id = 'bd' + ++uid;
+  let defs;
+  if (b.anim) {
+    defs = `<linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${b.c1}"/><stop offset=".5" stop-color="${b.c3}"/><stop offset="1" stop-color="${b.c2}"/><animateTransform attributeName="gradientTransform" type="rotate" values="0 .5 .5;360 .5 .5" dur="14s" repeatCount="indefinite"/></linearGradient>`;
+  } else {
+    defs = `<radialGradient id="${id}" gradientUnits="userSpaceOnUse" cx="${cx}" cy="${cy}" r="${(Math.hypot(W, H) * 0.62).toFixed(0)}"><stop offset="0" stop-color="${b.c1}"/><stop offset="1" stop-color="${b.c2}"/></radialGradient>`;
+  }
+  let sym = '';
+  const draw = SYM[pattern];
+  if (draw && pattern !== 'none') {
+    const rings = opt.dense === false ? [[r0 + 30, 8, 1, 0.5]] : [[r0 + 30, 8, 1.15, 0.5], [r0 + 72, 12, 1.05, 0.38], [r0 + 120, 16, 0.95, 0.28], [r0 + 172, 22, 0.85, 0.2], [r0 + 230, 28, 0.8, 0.14]];
+    rings.forEach(([rad, n, sc, op], ri) => {
+      for (let i = 0; i < n; i++) {
+        const a = (i / n) * Math.PI * 2 + (ri % 2 ? Math.PI / n : 0) - Math.PI / 2;
+        const x = cx + Math.cos(a) * rad, y = cy + Math.sin(a) * rad * 0.92;
+        if (x < -12 || x > W + 12 || y < -12 || y > H + 12) continue;
+        sym += `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${((a * 180) / Math.PI + 90).toFixed(0)}) scale(${sc})" opacity="${op}">${draw()}</g>`;
+      }
+    });
+    sym = `<g fill="${b.sym}" stroke="${b.sym}" stroke-width="0">${sym}</g>`;
+  }
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>${defs}</defs><rect width="${W}" height="${H}" fill="url(#${id})"/>${sym}</svg>`;
+}
+
