@@ -37,3 +37,14 @@ function digital() {
   }).join('')}</div>`;
 }
 
+function earn() {
+  return `<div class="card"><div class="card-title">Как заработать М-коины</div><div class="card-sub">За активность в кабинете и кампусе — оценки за коины не купить и не продать</div>
+    <div class="col mt-16" style="gap:10px">${[['building', `+${RULES.visitCoins}`, 'за каждую новую зону кампуса'], ['clock', `+${RULES.focusCoins}`, `за фокус-сессию 25 минут, до ${RULES.focusPerDay} в день`], ['play', `до ${RULES.gameCoinsPerDay}`, 'в день за монеты в забеге'], ['star', '+200', 'за «Первые шаги» первокурсника']]
+      .map(([ic, v, d]) => `<div class="row"><span class="way-n">${icon(ic, 18)}</span><b style="font-weight:600;min-width:58px">${v}</b><span class="small muted">${d}</span></div>`).join('')}</div></div>`;
+}
+
+function history() {
+  const h = play().history || [];
+  return `<div class="card"><div class="card-title">История</div>${h.length ? `<div class="list mt-12">${h.slice(0, 8).map((x) => `<div class="list-item"><span class="grow small"><b style="font-weight:500">${esc(x.title)}</b><span class="muted" style="display:block">${esc(when(x.t))}</span></span><span class="money tnum" style="color:${x.amt > 0 ? 'var(--good)' : 'var(--ink)'}">${x.amt > 0 ? '+' : ''}${fmt(x.amt)}</span></div>`).join('')}</div>` : '<div class="empty">Пока пусто</div>'}</div>`;
+}
+
