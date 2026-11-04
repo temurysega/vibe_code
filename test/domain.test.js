@@ -19,3 +19,12 @@ test('календарь: недели, праздники и семестры',
   assert.equal(semesterOf('2027-03-10').part, 2);
 });
 
+test('100-балльная шкала', () => {
+  assert.equal(gradeOf(95).letter, 'A');
+  assert.equal(gradeOf(82).letter, 'B');
+  assert.equal(gradeOf(60).grade, 3);
+  assert.equal(gradeOf(59).letter, 'F');
+  assert.equal(verdictOf(61, 'credit').label, 'зачтено');
+  assert.equal(verdictOf(48, 'exam').passed, false);
+});
+
