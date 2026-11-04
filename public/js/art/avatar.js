@@ -613,3 +613,19 @@ export function backdrop(key, pattern, opt) {
   return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>${defs}</defs><rect width="${W}" height="${H}" fill="url(#${id})"/>${sym}</svg>`;
 }
 
+// Превью вещи в гардеробе: персонаж в этой вещи, кадрированный по нужной зоне
+const SLOT_VIEW = { hair: 'head', hairColor: 'head', eyes: 'head', mouth: 'head', cheeks: 'head', facial: 'head', skin: 'bust', hat: 'head', glasses: 'head', top: 'torso', extra: 'torso', bottom: 'legs', shoes: 'feet' };
+export function itemPreview(slot, id, color, base) {
+  const cfg = Object.assign({}, DEFAULT, base || {});
+  if (slot === 'hairColor') cfg.hairColor = id;
+  else if (slot === 'body') return svg(applyBody(cfg, id), { view: '20 26 160 226' });
+  else if (['hair', 'eyes', 'mouth', 'cheeks', 'facial', 'skin'].includes(slot)) cfg[slot] = id;
+  else {
+    cfg[slot] = id;
+    if (color) cfg[slot + 'Color'] = color;
+  }
+  if (slot === 'extra' && id === 'headphones') return svg(cfg, { view: 'head' });
+  if (slot === 'hat' && id === 'mortarboard') return svg(cfg, { view: '26 4 148 148' });
+  return svg(cfg, { view: SLOT_VIEW[slot] || 'bust' });
+}
+
