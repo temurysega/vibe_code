@@ -41,3 +41,10 @@ export function requireStudent(ctx) {
   if (!ctx.student) fail(403, 'Профиль студента не найден');
 }
 
+export function requireDean(ctx) {
+  requireUser(ctx);
+  if (ctx.user.role !== 'dean') fail(403, 'Раздел доступен только сотрудникам деканата');
+  ctx.staff = staffOf(ctx.store, ctx.user.staff_id);
+  if (!ctx.staff) fail(403, 'Профиль сотрудника не найден');
+}
+
