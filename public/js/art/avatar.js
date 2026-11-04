@@ -468,3 +468,94 @@ export function svg(cfg, opt) {
   return `<svg class="av ${opt.cls || ''}" viewBox="${VIEWS[view] || view}"${size} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${shadow}<g class="av-body"${pose.body ? ` transform="${pose.body}"` : ''}>${inner}</g></svg>`;
 }
 
+// ---------- питомцы (смотрят вправо, земля на y=96) ----------
+export function pet(type, color, opt) {
+  opt = opt || {};
+  const shadow = '<ellipse cx="58" cy="95" rx="34" ry="4" fill="#000" opacity=".08"/>';
+  let s = '';
+  switch (type) {
+    case 'cat': {
+      const c = PETC[color] || PETC.orange;
+      const eye = lum(c) < 0.25 ? '#FFE27A' : '#222';
+      const striped = color !== 'black' && color !== 'cream';
+      s = `<path d="M30 76 C12 74 8 52 20 44" stroke="${c}" stroke-width="8" fill="none" stroke-linecap="round"/>` +
+        `<rect x="32" y="80" width="10" height="15" rx="5" fill="${dk(c, 0.1)}"/><rect x="62" y="82" width="10" height="13" rx="5" fill="${dk(c, 0.1)}"/>` +
+        `<ellipse cx="54" cy="76" rx="27" ry="18" fill="${c}"/>` +
+        `<rect x="44" y="82" width="10" height="13" rx="5" fill="${c}"/><rect x="72" y="80" width="10" height="15" rx="5" fill="${c}"/>` +
+        (striped ? `<path d="M42 62 q4 6 0 12 M52 60 q4 7 0 14" stroke="${dk(c, 0.18)}" stroke-width="2.4" fill="none" stroke-linecap="round"/>` : '') +
+        `<path d="M64 46 L66 26 L79 38 Z M100 46 L98 26 L85 38 Z" fill="${c}"/><path d="M67.5 41 L68.5 31 L75 37 Z M96.5 41 L95.5 31 L89 37 Z" fill="#F7B6C2"/>` +
+        `<circle cx="82" cy="56" r="21" fill="${c}"/>` +
+        (striped ? `<path d="M76 37 l2 7 M82 36 v8 M88 37 l-2 7" stroke="${dk(c, 0.2)}" stroke-width="2.4" stroke-linecap="round"/>` : '') +
+        `<ellipse cx="82" cy="64" rx="9" ry="6.5" fill="${lt(c, 0.55)}"/>` +
+        `<ellipse cx="74" cy="55" rx="2.8" ry="3.6" fill="${eye}"/><ellipse cx="90" cy="55" rx="2.8" ry="3.6" fill="${eye}"/><circle cx="75" cy="53.6" r="1" fill="#fff"/><circle cx="91" cy="53.6" r="1" fill="#fff"/>` +
+        `<path d="M80 61 h4 l-2 2.6 Z" fill="#F28DA0"/><path d="M82 63.6 q-2 3 -4.5 1.8 M82 63.6 q2 3 4.5 1.8" stroke="#222" stroke-width="1.3" fill="none" stroke-linecap="round"/>` +
+        `<path d="M70 62 l-9 -2 M70 65 l-9 1 M94 62 l9 -2 M94 65 l9 1" stroke="${dk(c, 0.4)}" stroke-width="1" stroke-linecap="round" opacity=".6"/>` +
+        `<circle cx="70.5" cy="62" r="3" fill="#FF8FA3" opacity=".35"/><circle cx="93.5" cy="62" r="3" fill="#FF8FA3" opacity=".35"/>`;
+      break;
+    }
+    case 'dog': {
+      const c = PETC[color] || PETC.sand;
+      s = `<path d="M30 70 C18 64 18 50 26 44" stroke="${c}" stroke-width="7" fill="none" stroke-linecap="round"/>` +
+        `<rect x="32" y="80" width="10" height="15" rx="5" fill="${dk(c, 0.1)}"/><rect x="62" y="82" width="10" height="13" rx="5" fill="${dk(c, 0.1)}"/>` +
+        `<ellipse cx="54" cy="75" rx="28" ry="18" fill="${c}"/><ellipse cx="45" cy="69" rx="8" ry="6" fill="${dk(c, 0.12)}"/>` +
+        `<rect x="44" y="82" width="10" height="13" rx="5" fill="${c}"/><rect x="72" y="80" width="10" height="15" rx="5" fill="${c}"/>` +
+        `<circle cx="84" cy="54" r="20" fill="${c}"/>` +
+        `<path d="M68 40 C58 42 58 62 64 67 C70 63 72 50 72 44 Z M100 40 C110 42 110 62 104 67 C98 63 96 50 96 44 Z" fill="${dk(c, 0.25)}"/>` +
+        `<ellipse cx="84" cy="64" rx="11" ry="8" fill="${lt(c, 0.5)}"/><ellipse cx="84" cy="60" rx="4" ry="3" fill="#222"/>` +
+        `<circle cx="77" cy="51" r="2.8" fill="#222"/><circle cx="91" cy="51" r="2.8" fill="#222"/><circle cx="78" cy="50" r=".9" fill="#fff"/><circle cx="92" cy="50" r=".9" fill="#fff"/>` +
+        `<path d="M82 68 q2 7 4 0 Z" fill="#FF8C9E"/><path d="M84 63 v3 M84 66 q-3 3 -6 1 M84 66 q3 3 6 1" stroke="#222" stroke-width="1.3" fill="none" stroke-linecap="round"/>`;
+      break;
+    }
+    case 'fox': {
+      const c = '#F08A3C';
+      s = `<ellipse cx="24" cy="66" rx="19" ry="10" transform="rotate(-35 24 66)" fill="${c}"/><ellipse cx="12" cy="56" rx="7" ry="5" transform="rotate(-35 12 56)" fill="#fff"/>` +
+        `<rect x="34" y="80" width="9" height="15" rx="4.5" fill="#3B2A22"/><rect x="64" y="82" width="9" height="13" rx="4.5" fill="#3B2A22"/>` +
+        `<ellipse cx="54" cy="76" rx="26" ry="17" fill="${c}"/><ellipse cx="70" cy="80" rx="9" ry="9" fill="#FFF6EC"/>` +
+        `<rect x="45" y="82" width="9" height="13" rx="4.5" fill="#3B2A22"/><rect x="74" y="80" width="9" height="15" rx="4.5" fill="#3B2A22"/>` +
+        `<path d="M66 46 L64 24 L80 38 Z M98 46 L100 24 L84 38 Z" fill="${c}"/><path d="M64.6 31 L64 24 L69.5 29 Z M99.4 31 L100 24 L94.5 29 Z" fill="#3B2A22"/>` +
+        `<circle cx="82" cy="55" r="19" fill="${c}"/><path d="M64 58 Q73 75 82 70 Q91 75 100 58 Q91 64 82 62 Q73 64 64 58 Z" fill="#FFF6EC"/>` +
+        `<ellipse cx="75" cy="53" rx="2.6" ry="3.2" fill="#222"/><ellipse cx="89" cy="53" rx="2.6" ry="3.2" fill="#222"/><circle cx="76" cy="52" r=".9" fill="#fff"/><circle cx="90" cy="52" r=".9" fill="#fff"/>` +
+        `<circle cx="82" cy="64" r="2.8" fill="#222"/>`;
+      break;
+    }
+    case 'hedgehog': {
+      const c = '#8A6A4F';
+      s = `<path d="M24 86 L20 72 L30 73 L27 59 L38 65 L39 51 L48 61 L54 48 L60 60 L68 50 L70 64 L80 58 L78 72 L88 71 L84 86 Z" fill="${dk(c, 0.2)}"/>` +
+        `<ellipse cx="54" cy="78" rx="30" ry="17" fill="${c}"/>` +
+        `<path d="M66 70 Q90 56 106 78 Q98 90 76 90 Q62 84 66 70 Z" fill="#F1D9B8"/>` +
+        `<circle cx="105.5" cy="77" r="3.8" fill="#222"/><circle cx="86" cy="72" r="2.8" fill="#222"/><circle cx="87" cy="71" r=".9" fill="#fff"/>` +
+        `<circle cx="91" cy="80" r="3.5" fill="#FF8FA3" opacity=".4"/><ellipse cx="44" cy="94" rx="6" ry="3" fill="#5A4636"/><ellipse cx="72" cy="94" rx="6" ry="3" fill="#5A4636"/>`;
+      break;
+    }
+    case 'owl': {
+      // Сова-отличница: синее оперение и золотая кисточка на шапочке
+      const c = '#2F5BC4';
+      s = `<path d="M32 60 Q24 78 36 90 Q38 74 40 64 Z M88 60 Q96 78 84 90 Q82 74 80 64 Z" fill="${dk(c, 0.18)}"/>` +
+        `<ellipse cx="60" cy="64" rx="28" ry="32" fill="${c}"/><ellipse cx="60" cy="74" rx="17" ry="19" fill="${lt(c, 0.7)}"/>` +
+        `<path d="M52 70 l3 3 3 -3 M62 70 l3 3 3 -3 M57 80 l3 3 3 -3" stroke="${lt(c, 0.3)}" stroke-width="1.6" fill="none" stroke-linecap="round"/>` +
+        `<path d="M38 40 L36 26 L48 36 Z M82 40 L84 26 L72 36 Z" fill="${c}"/>` +
+        `<circle cx="49" cy="51" r="11" fill="#fff"/><circle cx="71" cy="51" r="11" fill="#fff"/><circle cx="51" cy="52" r="5" fill="#222"/><circle cx="73" cy="52" r="5" fill="#222"/><circle cx="52.6" cy="50.4" r="1.6" fill="#fff"/><circle cx="74.6" cy="50.4" r="1.6" fill="#fff"/>` +
+        `<path d="M57 59 L63 59 L60 65 Z" fill="#FFB341"/><path d="M52 95 v-4 M56 95 v-4 M64 95 v-4 M68 95 v-4" stroke="#FFB341" stroke-width="3" stroke-linecap="round"/>` +
+        `<path d="M42 30 L60 22 L78 30 L60 38 Z" fill="#1D1D1F"/><path d="M76 31 v9" stroke="${GOLD}" stroke-width="2"/><circle cx="76" cy="41" r="2.4" fill="${GOLD}"/>`;
+      break;
+    }
+    case 'bot': {
+      const c = CLOTH.royal;
+      s = `<circle cx="44" cy="88" r="7" fill="#222"/><circle cx="76" cy="88" r="7" fill="#222"/><circle cx="44" cy="88" r="2.4" fill="#777"/><circle cx="76" cy="88" r="2.4" fill="#777"/>` +
+        `<rect x="34" y="58" width="52" height="28" rx="10" fill="#2E2E30"/><circle cx="60" cy="72" r="5" fill="${GOLD}"/>` +
+        `<rect x="26" y="62" width="8" height="18" rx="4" fill="#2E2E30"/><rect x="86" y="62" width="8" height="18" rx="4" fill="#2E2E30"/>` +
+        `<rect x="54" y="52" width="12" height="8" fill="#2E2E30"/>` +
+        `<rect x="30" y="18" width="60" height="38" rx="14" fill="${c}"/><rect x="37" y="25" width="46" height="24" rx="9" fill="#10213F"/>` +
+        `<rect x="46" y="31" width="7" height="11" rx="3.5" fill="${GOLD}"/><rect x="67" y="31" width="7" height="11" rx="3.5" fill="${GOLD}"/>` +
+        `<path d="M54 44.5 Q60 47.5 66 44.5" stroke="${GOLD}" stroke-width="2" fill="none" stroke-linecap="round"/>` +
+        `<path d="M60 18 V9" stroke="#2E2E30" stroke-width="3"/><circle cx="60" cy="7" r="4.5" fill="${GOLD}"/>`;
+      break;
+    }
+    default:
+      return '';
+  }
+  const size = opt.raster ? ` width="${opt.raster[0]}" height="${opt.raster[1]}"` : '';
+  const flip = opt.flip ? '<g transform="translate(120 0) scale(-1 1)">' : '<g>';
+  return `<svg class="pet ${opt.cls || ''}" viewBox="0 0 120 100"${size} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${opt.shadow === false ? '' : shadow}${flip}${s}</g></svg>`;
+}
+
