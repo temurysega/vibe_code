@@ -23,3 +23,10 @@ input, textarea, select { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
 
 .container { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+.emoji { font-family: var(--emoji); font-style: normal; }
+.tnum { font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.small { font-size: 14px; }
+.tiny { font-size: 12px; }
+.nowrap { white-space: nowrap; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
