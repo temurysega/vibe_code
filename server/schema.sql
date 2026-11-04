@@ -40,3 +40,11 @@ CREATE TABLE IF NOT EXISTS students (
   scholarship TEXT
 );
 
+-- Сотрудники деканатов: видят заявки только своего факультета
+CREATE TABLE IF NOT EXISTS staff (
+  id INTEGER PRIMARY KEY,
+  full_name TEXT NOT NULL,
+  position TEXT NOT NULL,
+  faculty_id TEXT NOT NULL REFERENCES faculties(id)
+);
+
