@@ -210,3 +210,11 @@ on('unauthorized', () => {
   location.hash = '#/login';
 });
 
+on('play', ({ play, before }) => {
+  const pill = document.querySelector('[data-bal] .bal-num');
+  if (pill && before != null && before !== play.coins) countUp(pill, before, play.coins, 700);
+  else if (pill) pill.textContent = fmt(play.coins);
+  const me = document.querySelector('[data-me]');
+  if (me && isStudent()) me.innerHTML = ava(play, 40);
+});
+
