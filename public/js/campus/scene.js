@@ -241,3 +241,21 @@ function labels(visited) {
   return s;
 }
 
+function avatarNested(av, w, h, cls) {
+  const inner = avatarSvg(av, { view: 'full' }).replace(/^<svg[^>]*>|<\/svg>$/g, '');
+  return `<svg class="${cls || ''}" width="${w}" height="${h}" viewBox="0 0 200 320" overflow="visible">${inner}</svg>`;
+}
+
+function npcs() {
+  let s = '';
+  Object.entries(NPC).forEach(([zone, n], i) => {
+    const f = floorOf(zone);
+    const y = SURF[f] - AV_H - 2;
+    const tw = 16 + n.name.length * 7.6;
+    s += `<g class="npc idle" data-npc="${zone}" transform="translate(${n.x - AV_W / 2} ${y})" style="--d:${i * 0.4}s">` +
+      `<rect x="-6" y="0" width="${AV_W + 12}" height="${AV_H}" fill="transparent"/>` + avatarNested(n.av, AV_W, AV_H) +
+      `<g class="tag"><rect x="${AV_W / 2 - tw / 2}" y="-26" width="${tw}" height="22" rx="11" fill="${INK}"/><text x="${AV_W / 2}" y="-11" text-anchor="middle" font-family="Onest, Arial, sans-serif" font-size="12" font-weight="500" fill="#fff">${esc(n.name)}</text></g></g>`;
+  });
+  return s;
+}
+
