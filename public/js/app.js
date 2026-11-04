@@ -169,3 +169,23 @@ function startPolling() {
 function stopPolling() { if (poll) clearInterval(poll); poll = null; }
 document.addEventListener('visibilitychange', () => { if (!document.hidden && poll) get('/api/notifications/count').then((r) => setUnread(r.unread)).catch(() => {}); });
 
+// ---------- вход и выход ----------
+async function loadPlay() {
+  const r = await get('/api/play');
+  setPlay(r.play);
+}
+
+const app = {
+  async signedIn(user) {
+    session.user = user;
+    if (user.role === 'student') { await loadPlay(); startPolling(); }
+    location.hash = homeOf();
+    setTimeout(() => {
+      toast(`Вы вошли как ${esc(user.name)}${user.lastLogin ? ` · прошлый вход ${esc(when(user.lastLogin))}` : ''}`, { icon: 'user' });
+      if (isStudent() && !session.play.steps.onboarded) import('./views/onboarding.js').then((m) => m.openOnboarding());
+    }, 350);
+  },
+  ask() { import('./views/assistant.js').then((m) => m.openAssistant()); },
+  refresh() { emit('refresh'); },
+};
+
