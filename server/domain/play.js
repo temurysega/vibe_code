@@ -39,3 +39,18 @@ export function save(store, studentId, s) {
   store.run('UPDATE play_state SET state = ?, updated_at = ? WHERE student_id = ?', JSON.stringify(s), Date.now(), studentId);
 }
 
+const earn = (s, amt, title) => {
+  if (!amt) return;
+  s.coins += amt;
+  s.history.unshift({ t: Date.now(), title, amt });
+};
+
+// Сколько секунд забега осталось сегодня: учитываются и незавершённые забеги
+export function gameLeft(store, studentId) {
+  const day = msk().date;
+  const now = Date.now();
+  const runs = store.all('SELECT * FROM game_runs WHERE student_id = ? AND day = ?', studentId, day);
+  const used = runs.reduce((a, r) => a + (r.finished_at ? r.played_ms : Math.min(now - r.started_at, r.allowed_ms)), 0);
+  return Math.max(0, Math.floor((RULES.gameDailySec * 1000 - used) / 1000));
+}
+
