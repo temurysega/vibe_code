@@ -51,3 +51,15 @@ function swatches(slot) {
   return `<div class="opt-group"><div class="opt-title"><span>Цвет: ${esc(it.name.toLowerCase())}</span></div><div class="swatches">${it.colors.map((c) => `<button class="swatch ${draft[slot + 'Color'] === c ? 'on' : ''}" style="background:${pal[c]}" data-color="${slot}:${c}" aria-label="Цвет ${c}"></button>`).join('')}</div></div>`;
 }
 
+function lookTab() {
+  const chips = (key, list) => `<div class="chips">${list.map(([id, n]) => `<button class="chip ${draft[key] === id ? 'on' : ''}" data-look="${key}:${id}">${esc(n)}</button>`).join('')}</div>`;
+  return `<div class="opt-group"><div class="opt-title">Фигура</div>${chips('body', APPEARANCE.body)}</div>
+    <div class="opt-group"><div class="opt-title">Тон кожи</div><div class="swatches">${APPEARANCE.skin.map(([id, c]) => `<button class="swatch ${draft.skin === id ? 'on' : ''}" style="background:${c}" data-look="skin:${id}" aria-label="Тон кожи"></button>`).join('')}</div></div>
+    <div class="opt-group"><div class="opt-title">Причёска</div>${tilesLook('hair')}</div>
+    <div class="opt-group"><div class="opt-title">Цвет волос</div><div class="swatches">${APPEARANCE.hairColor.map(([id, n]) => `<button class="swatch ${draft.hairColor === id ? 'on' : ''}" style="background:${HAIR[id]}" data-look="hairColor:${id}" aria-label="${esc(n)}" data-tip="${esc(n)}"></button>`).join('')}</div></div>
+    <div class="opt-group"><div class="opt-title">Глаза</div>${chips('eyes', APPEARANCE.eyes)}</div>
+    <div class="opt-group"><div class="opt-title">Улыбка</div>${chips('mouth', APPEARANCE.mouth)}</div>
+    <div class="opt-group"><div class="opt-title">Щёки</div>${chips('cheeks', APPEARANCE.cheeks)}</div>
+    ${draft.body === 'm' ? `<div class="opt-group"><div class="opt-title">Борода и усы</div>${chips('facial', APPEARANCE.facial)}</div>` : ''}`;
+}
+
