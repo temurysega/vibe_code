@@ -153,3 +153,11 @@ const sec = {
     </div>`;
   },
 
+  news() {
+    const list = data.notifications.latest;
+    const KIC = { news: 'megaphone', schedule: 'calendar', deadline: 'clock', request: 'doc', grade: 'chart', system: 'spark' };
+    return `<div class="card" data-sec="news"><div class="card-head"><div class="card-title">Уведомления</div><a class="link-arrow" href="#/notifications">Все${data.notifications.unread ? ` · ${data.notifications.unread} новых` : ''} ${icon('arrow', 16)}</a></div>
+      ${list.map((n) => `<a class="notif ${n.read ? '' : 'unread'}" href="${esc(n.link || '#/notifications')}" style="padding:10px 0"><span class="notif-ic">${icon(KIC[n.kind] || 'bell', 18)}</span><span class="grow small"><b>${esc(n.title)}</b><span class="muted" style="display:block">${esc(n.kindLabel)} · ${esc(when(n.at))}</span></span></a>`).join('') || '<div class="empty">Пока тихо</div>'}
+    </div>`;
+  },
+
