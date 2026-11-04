@@ -22,3 +22,12 @@ async function maybeReseed(force) {
   }
 }
 
+await maybeReseed(false);
+
+const app = createApp(store, {
+  onActivity() {
+    const now = Date.now();
+    if (now - lastActivity > 60e3) { lastActivity = now; store.meta('last_activity', now); }
+  },
+});
+
