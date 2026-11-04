@@ -4,3 +4,11 @@
 .pop { animation: popIn .35s cubic-bezier(.2, .9, .3, 1.4) both; }
 .float { animation: float 3.2s ease-in-out infinite; }
 
+/* «Тыц»: кольцо и искры в точке клика */
+.tap { position: fixed; z-index: 700; width: 0; height: 0; pointer-events: none; }
+.tap::before { content: ''; position: absolute; left: -20px; top: -20px; width: 40px; height: 40px; border-radius: 50%; border: 3px solid var(--gold); box-shadow: 0 0 0 1.5px rgba(15, 45, 105, .25); animation: tapRing .5s cubic-bezier(.2, .8, .3, 1) forwards; }
+.tap i { position: absolute; left: -3.5px; top: -3.5px; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 1px rgba(15, 45, 105, .2); animation: tapSpark .55s cubic-bezier(.2, .8, .3, 1) forwards; }
+.tap i:nth-child(1) { --a: -90deg; }
+.tap i:nth-child(2) { --a: -30deg; background: var(--navy-2); }
+.tap i:nth-child(3) { --a: 30deg; }
+.tap i:nth-child(4) { --a: 90deg; background: var(--navy); }
