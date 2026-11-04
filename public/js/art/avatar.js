@@ -395,3 +395,35 @@ function bodyExtras(c) {
   }
 }
 
+function bag(c) {
+  if (c.extra !== 'bag') return '';
+  const k = col(c.extraColor, CLOTH.graphite);
+  return `<path d="M66 150 L128 206" stroke="${dk(k, 0.3)}" stroke-width="4" stroke-linecap="round"/><rect x="118" y="200" width="30" height="26" rx="7" fill="${k}"/><path d="M118 208 h30" stroke="${dk(k, 0.22)}" stroke-width="2"/><rect x="129" y="210" width="8" height="4" rx="2" fill="${lt(k, 0.45)}"/>`;
+}
+
+function hat(c) {
+  const k = col(c.hatColor, CLOTH.graphite);
+  switch (c.hat) {
+    case 'cap':
+    case 'mgimo-cap': {
+      const kk = c.hat === 'mgimo-cap' ? CLOTH.navy : k;
+      return `<path d="M56 86 C55 52 77 33 100 33 C123 33 145 52 144 86 Q100 77 56 86 Z" fill="${kk}"/><path d="M100 35 L100 79" stroke="${dk(kk, 0.15)}" stroke-width="1.5"/>` +
+        (c.hat === 'mgimo-cap' ? print(GOLD, 106, 64, 0.8) : '') +
+        `<path d="M50 87 Q100 70 150 87 Q153 97 142 97 Q100 86 58 97 Q47 97 50 87 Z" fill="${dk(kk, 0.2)}"/><circle cx="100" cy="34" r="3.5" fill="${dk(kk, 0.25)}"/>`;
+    }
+    case 'beanie':
+      return `<path d="M55 92 C53 50 76 29 100 29 C124 29 147 50 145 92 Z" fill="${k}"/><path d="M52 82 Q100 72 148 82 L148 96 Q100 88 52 96 Z" fill="${dk(k, 0.12)}"/>` +
+        Array.from({ length: 13 }, (_, i) => `<path d="M${58 + i * 7} 84 v8" stroke="${dk(k, 0.26)}" stroke-width="1.4" opacity=".55"/>`).join('') +
+        `<circle cx="100" cy="27" r="10" fill="${lt(k, 0.28)}"/>`;
+    case 'beret':
+      return `<ellipse cx="96" cy="58" rx="50" ry="20" transform="rotate(-8 96 58)" fill="${k}"/><path d="M58 70 Q100 62 142 70" stroke="${dk(k, 0.25)}" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="92" cy="38" r="3.5" fill="${dk(k, 0.3)}"/>`;
+    case 'bucket':
+      return `<path d="M64 76 C64 46 82 33 100 33 C118 33 136 46 136 76 Z" fill="#D8C3A1"/><path d="M64 67 L136 67 L136 77 L64 77 Z" fill="${CLOTH.navy}"/><circle cx="123" cy="72" r="4" fill="${GOLD}"/><path d="M42 85 Q100 62 158 85 Q161 95 150 95 Q100 79 50 95 Q39 95 42 85 Z" fill="#C9B28C"/>`;
+    case 'mortarboard':
+      // Шапочка выпускника: квадратный верх и золотая кисточка
+      return `<path d="M60 74 C60 58 78 50 100 50 C122 50 140 58 140 74 Z" fill="#1D1D1F"/><path d="M30 52 L100 30 L170 52 L100 74 Z" fill="#26262A" stroke="#111" stroke-width="1.5"/><circle cx="100" cy="52" r="3.6" fill="${GOLD}"/><path d="M100 52 Q132 56 140 60 L140 84" stroke="${GOLD}" stroke-width="2.4" fill="none"/><path d="M136 84 h8 l-1 12 h-6 Z" fill="${GOLD}"/>`;
+    default:
+      return '';
+  }
+}
+
