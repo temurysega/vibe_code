@@ -35,3 +35,59 @@ function actionsFor(r) {
   return out;
 }
 
+export default function (router) {
+  router.get('/api/dean/overview', requireDean, (ctx) => {
+    applyPlans(ctx.store);
+    const f = ctx.staff.faculty_id;
+    const counts = Object.fromEntries(ctx.store.all(
+      'SELECT r.status, COUNT(*) AS c FROM requests r JOIN students s ON s.id = r.student_id JOIN groups g ON g.code = s.group_code WHERE g.faculty_id = ? GROUP BY r.status', f,
+    ).map((x) => [x.status, x.c]));
+    const done = ctx.store.all(
+      `SELECT r.created_at, MIN(e.created_at) AS done_at FROM requests r JOIN students s ON s.id = r.student_id JOIN groups g ON g.code = s.group_code
+       JOIN request_events e ON e.request_id = r.id AND e.status IN ('ready', 'approved', 'rejected') WHERE g.faculty_id = ? GROUP BY r.id`, f,
+    );
+    const avgHours = done.length ? Math.round((done.reduce((a, x) => a + (x.done_at - x.created_at), 0) / done.length / 36e5) * 10) / 10 : null;
+    const overdue = ctx.store.get(
+      `SELECT COUNT(*) AS c FROM requests r JOIN students s ON s.id = r.student_id JOIN groups g ON g.code = s.group_code
+       WHERE g.faculty_id = ? AND r.status IN ('submitted', 'in_work') AND r.due_at < ?`, f, Date.now(),
+    ).c;
+    return {
+      staff: { name: ctx.staff.full_name, position: ctx.staff.position, faculty: ctx.staff.faculty },
+      counts, avgHours, overdue, statusLabels: STATUS,
+      groups: ctx.store.all('SELECT code, course, program, profile FROM groups WHERE faculty_id = ? ORDER BY code', f),
+    };
+  });
+
+  router.get('/api/dean/requests', requireDean, (ctx) => {
+    applyPlans(ctx.store);
+    const filter = oneOf(ctx.query.get('status') || 'active', ['active', 'done', 'all']);
+    if (!filter) fail(400, 'Неизвестный фильтр');
+    const where = filter === 'active' ? "AND r.status IN ('submitted', 'in_work', 'ready')" : filter === 'done' ? "AND r.status IN ('issued', 'approved', 'rejected', 'cancelled')" : '';
+    const fac = facultyRow(ctx.store, ctx.staff.faculty_id);
+    const rows = ctx.store.all(
+      `SELECT r.*, s.last_name, s.first_name, s.middle_name, s.group_code FROM requests r JOIN students s ON s.id = r.student_id JOIN groups g ON g.code = s.group_code
+       WHERE g.faculty_id = ? ${where} ORDER BY CASE r.status WHEN 'submitted' THEN 0 WHEN 'in_work' THEN 1 WHEN 'ready' THEN 2 ELSE 3 END, r.created_at DESC LIMIT 200`,
+      ctx.staff.faculty_id,
+    );
+    return { requests: rows.map((r) => Object.assign(withStudent(ctx.store, r, fac), { actions: actionsFor(r), overdue: ['submitted', 'in_work'].includes(r.status) && r.due_at < Date.now() })) };
+  });
+
+  router.patch('/api/dean/requests/:id', requireDean, (ctx) => {
+    const id = int(ctx.params.id, 1, 1e9);
+    if (!id) fail(404, 'Заявка не найдена');
+    applyPlans(ctx.store);
+    const r = scoped(ctx, id);
+    const status = str(ctx.body.status, 20);
+    if (!actionsFor(r).includes(status)) fail(409, 'Такой переход сейчас недоступен');
+    if (RANK[status] < RANK[r.status]) fail(409, 'Статус не может вернуться назад');
+    const comment = str(ctx.body.comment, 500);
+    if (status === 'rejected' && comment.length < 10) fail(422, 'Объясните причину отказа студенту', { fields: { comment: 'Не короче 10 символов' } });
+    const [last, first, middle] = ctx.staff.full_name.split(' ');
+    // Сотрудник взял заявку на себя — автоматика демо больше не вмешивается
+    ctx.store.run('UPDATE requests SET plan = NULL WHERE id = ?', r.id);
+    setStatus(ctx.store, r, status, comment || null, `${last} ${first[0]}. ${middle ? middle[0] + '.' : ''}`.trim());
+    audit(ctx.store, ctx.user.id, 'request_' + status, r.number, ctx.ip);
+    const fresh = scoped(ctx, id);
+    return { request: Object.assign(withStudent(ctx.store, fresh, facultyRow(ctx.store, ctx.staff.faculty_id)), { actions: actionsFor(fresh) }) };
+  });
+
