@@ -43,3 +43,10 @@
 .mood-warn .mood-ic { background: var(--warn-2); }
 .mood-head b { font-size: 18px; font-weight: 500; line-height: 1.3; display: block; }
 .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.stat { background: #fff; border-radius: 14px; padding: 14px; min-width: 0; }
+.stat-v { font-size: 26px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; display: flex; align-items: center; gap: 6px; }
+.stat-l { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.3; }
+.tip { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #fff; border-radius: 12px; font-size: 14px; }
+.tip + .tip { margin-top: 8px; }
+.tip .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--warn); }
+.tip.debt .dot { background: var(--red); }
