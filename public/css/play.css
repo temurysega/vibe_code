@@ -1,0 +1,8 @@
+/* ---------- Анимация аватара (шаг и покачивание) ---------- */
+.av-leg-l, .av-leg-r, .av-arm-l, .av-arm-r { transform-box: view-box; }
+.av-leg-l { transform-origin: 82px 240px; }
+.av-leg-r { transform-origin: 118px 240px; }
+.av-arm-l { transform-origin: 57px 152px; }
+.av-arm-r { transform-origin: 143px 152px; }
+.walking .av-leg-l { animation: stepL .42s ease-in-out infinite; }
+.walking .av-leg-r { animation: stepR .42s ease-in-out infinite; }
