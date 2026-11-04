@@ -44,3 +44,8 @@
 .q-payload span b { font-weight: 500; font-size: 14px; }
 .q-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .q-actions .input { height: 40px; flex: 1 1 220px; border-radius: var(--pill); padding: 0 16px; }
+.dean-forms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.dean-forms .card { display: flex; flex-direction: column; gap: 14px; }
+.pair-pick { display: flex; flex-direction: column; gap: 8px; }
+.pair-opt { display: flex; gap: 10px; align-items: center; background: #fff; border-radius: 12px; padding: 10px 12px; cursor: pointer; font-size: 14px; }
+.pair-opt input { accent-color: var(--navy); }
