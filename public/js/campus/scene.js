@@ -128,3 +128,22 @@ function cloakroom() {
   return s;
 }
 
+// Деканат: окно приёма, электронная очередь, табличка
+function dean() {
+  const t = top(0), b = SURF[0];
+  let s = room(0, 'r', '#FFFFFF', '#E6E9EF');
+  s += `<rect x="700" y="${t + 20}" width="150" height="40" rx="10" fill="${NAVY}"/><text x="775" y="${t + 46}" text-anchor="middle" font-family="Onest, Arial" font-size="17" font-weight="700" fill="#fff">Деканат</text>`;
+  s += hot('window',
+    `<rect x="700" y="${t + 72}" width="120" height="64" rx="8" fill="#DCE6F8" stroke="#C9D3E6" stroke-width="2"/><path d="M760 ${t + 72} V${t + 136}" stroke="#fff" stroke-width="4"/>` +
+    `<rect x="690" y="${b - 60}" width="140" height="44" rx="8" fill="#fff" stroke="#DEDFE1" stroke-width="2"/><rect x="684" y="${b - 68}" width="152" height="12" rx="6" fill="${INK}"/>` +
+    `<rect x="704" y="${b - 92}" width="34" height="24" rx="3" fill="#fff" stroke="#C9D3E6"/><path d="M710 ${b - 84} h22 M710 ${b - 78} h16" stroke="#9AA5B8" stroke-width="2"/>` +
+    `<rect x="752" y="${b - 88}" width="28" height="20" rx="3" fill="${GOLD}"/>`,
+    [684, t + 66, 152, ROOM_H - 72]);
+  s += hot('queue',
+    `<rect x="880" y="${b - 120}" width="52" height="104" rx="10" fill="${INK}"/><rect x="888" y="${b - 110}" width="36" height="26" rx="4" fill="#5B8DEF"/><text x="906" y="${b - 92}" text-anchor="middle" font-family="Onest, Arial" font-size="11" font-weight="700" fill="#fff">А-12</text>` +
+    `<rect x="892" y="${b - 74}" width="28" height="6" rx="3" fill="${GOLD}"/><rect x="896" y="${b - 60}" width="20" height="16" rx="2" fill="#fff"/>`,
+    [876, b - 124, 60, 110]);
+  s += `<rect x="960" y="${t + 30}" width="90" height="70" rx="8" fill="#F8F1DC" stroke="#E9D7A0" stroke-width="2"/><path d="M972 ${t + 48} h66 M972 ${t + 62} h50 M972 ${t + 76} h58" stroke="#B08E33" stroke-width="3" stroke-linecap="round" opacity=".7"/>`;
+  return s;
+}
+
