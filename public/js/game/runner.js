@@ -69,3 +69,10 @@ export class Runner {
     }).catch(() => { this.state = 'ready'; this.show('ready'); });
   }
 
+  async load() {
+    const av = this.opt.av;
+    const mk = (pose) => toImg(avatarSvg(av, { view: 'full', pose, shadow: false, back: true, raster: [300, 480] }));
+    [this.run1, this.run2, this.jumpImg, this.slideImg] = await Promise.all([mk('run1'), mk('run2'), mk('jump'), mk('slide')]);
+    if (this.opt.pet && this.opt.pet !== 'none') this.petImg = await toImg(petSvg(this.opt.pet, this.opt.petColor, { shadow: false, raster: [180, 150] }));
+  }
+
