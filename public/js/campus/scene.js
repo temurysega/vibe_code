@@ -166,3 +166,26 @@ function classroom() {
   return s;
 }
 
+// Библиотека: полки и лампа читального зала
+function library() {
+  const t = top(1), b = SURF[1];
+  let s = room(1, 'r', '#F8F1DC', '#EADFC1');
+  let shelf = `<rect x="680" y="${t + 20}" width="128" height="${ROOM_H - 36}" rx="6" fill="#8A5A3B"/>`;
+  const colors = [NAVY, GOLD, '#E0735A', '#3BAE8A', '#8E6CC4', '#5B8DEF'];
+  [t + 30, t + 76, t + 122].forEach((y, r) => {
+    shelf += `<path d="M684 ${y + 40} H804" stroke="#6B4429" stroke-width="4"/>`;
+    for (let i = 0; i < 8; i++) {
+      const h = 26 + ((i * 7 + r * 5) % 12);
+      shelf += `<rect x="${688 + i * 14}" y="${y + 40 - h}" width="11" height="${h}" rx="2" fill="${colors[(i + r) % colors.length]}"/>`;
+    }
+  });
+  s += hot('shelves', shelf, [680, t + 20, 128, ROOM_H - 36]);
+  s += hot('lamp',
+    `<path d="M900 ${t} V${t + 46}" stroke="${INK}" stroke-width="2"/><path d="M880 ${t + 46} h40 l-8 18 h-24 Z" fill="${GOLD}"/><circle cx="900" cy="${t + 74}" r="26" fill="${GOLD}" opacity=".18"/>` +
+    `<rect x="846" y="${b - 62}" width="108" height="12" rx="6" fill="#6B4429"/><path d="M856 ${b - 50} V${b - 16} M944 ${b - 50} V${b - 16}" stroke="#6B4429" stroke-width="6"/>` +
+    `<rect x="872" y="${b - 76}" width="40" height="14" rx="2" fill="#fff" stroke="#C9D3E6"/><path d="M892 ${b - 76} v14" stroke="#C9D3E6"/>`,
+    [842, t + 4, 116, ROOM_H - 20]);
+  s += plant(1100, b - 14, 0.7);
+  return s;
+}
+
