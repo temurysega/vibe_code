@@ -112,3 +112,77 @@ function randomize() {
   draft = applyBody(draft, draft.body);
 }
 
+export default {
+  title: 'Гардероб',
+  render() {
+    draft = JSON.parse(JSON.stringify(play().av));
+    prof = JSON.parse(JSON.stringify(play().prof));
+    petName = play().petName;
+    return `<div class="container"><div class="page-head"><div><h1 class="h1">Гардероб</h1><p class="lead">Соберите образ для кампуса и карточки профиля. Мерч из Лавки приходит с цифровой копией</p></div>
+      <a class="btn btn-secondary" href="#/shop">${icon('bag', 18)} Лавка МГИМО</a></div><div data-body>${body()}</div></div>`;
+  },
+  mount(el) {
+    const box = el.querySelector('[data-body]');
+    const paint = () => { const y = box.querySelector('.card') ? box.querySelector('.card').scrollTop : 0; box.innerHTML = body(); const c = box.querySelector('.card'); if (c) c.scrollTop = y; };
+    el.addEventListener('input', (e) => { if (e.target.matches('[data-petname]')) { petName = e.target.value; const s = box.querySelector('[data-save]'); if (s) s.disabled = !changed(); } });
+    el.addEventListener('click', async (e) => {
+      const t = e.target.closest('button');
+      if (!t) return;
+      if (t.dataset.tab) { tab = t.dataset.tab; paint(); return; }
+      if (t.dataset.look) {
+        const [k, v] = t.dataset.look.split(':');
+        if (k === 'body') draft = applyBody(draft, v); else draft[k] = v;
+        if (k === 'skin' && !SKIN[v]) return;
+        paint(); return;
+      }
+      if (t.dataset.color) { const [slot, c] = t.dataset.color.split(':'); draft[slot + 'Color'] = c; paint(); return; }
+      if (t.dataset.emoji != null) { prof.emoji = t.dataset.emoji; paint(); return; }
+      if (t.dataset.title) {
+        const ti = play().titles.find((x) => x.id === t.dataset.title);
+        if (!ti.unlocked) { toast(`Титул «${esc(ti.name)}»: ${esc(ti.how || 'ещё не открыт')}`, { icon: 'lock' }); return; }
+        prof.title = ti.id; paint(); return;
+      }
+      if (t.dataset.item) {
+        const [slot, id] = t.dataset.item.split(':');
+        const it = ITEMS.find((i) => i.slot === slot && i.id === id);
+        const st = itemState(it, play(), ctx());
+        const isProf = PROFILE_SLOTS.some(([s]) => s === slot);
+        // Примерить можно всё: зеркало покажет даже закрытую вещь
+        if (isProf) prof[slot] = id;
+        else { draft[slot] = id; if (it.colors && !it.colors.includes(draft[slot + 'Color'])) draft[slot + 'Color'] = it.colors[0]; if (!it.colors) delete draft[slot + 'Color']; }
+        paint();
+        if (st.kind === 'buy') {
+          const ok = await confirm({ title: `Купить «${it.name}»?`, text: `${fmt(it.price)} М-коинов · вещь только для аватара. На балансе ${fmt(play().coins)}`, yes: 'Купить' });
+          if (!ok) return;
+          try {
+            const before = play().coins;
+            const r = await post('/api/play/buy', { slot, id });
+            setPlay(r.play);
+            fx.flyCoins(t.getBoundingClientRect(), before, r.play.coins);
+            toast(`«${esc(it.name)}» теперь ваша — не забудьте сохранить образ`, { icon: 'hanger' });
+            paint();
+          } catch (er) { toast(esc(er.message), { icon: 'alert' }); }
+        } else if (st.kind === 'kit') toast(`«${esc(it.name)}» — мерч из Лавки: настоящая вещь и её цифровая копия. <a href="#/shop">В Лавку</a>`, { icon: 'bag', ms: 5000 });
+        else if (!st.owned && st.hint) toast(esc(st.hint), { icon: 'lock', ms: 4500 });
+        return;
+      }
+      if (t.dataset.reset != null) { draft = JSON.parse(JSON.stringify(play().av)); prof = JSON.parse(JSON.stringify(play().prof)); petName = play().petName; paint(); return; }
+      if (t.dataset.random != null) { randomize(); paint(); return; }
+      if (t.dataset.save != null) {
+        t.disabled = true;
+        try {
+          const r = await patch('/api/play/look', { av: draft, prof, petName });
+          setPlay(r.play);
+          draft = JSON.parse(JSON.stringify(r.play.av));
+          prof = JSON.parse(JSON.stringify(r.play.prof));
+          toast('Образ сохранён — его видно в кампусе и в профиле', { icon: 'check' });
+          paint();
+        } catch (er) {
+          t.disabled = false;
+          toast(esc(er.message), { icon: 'lock', ms: 4500 });
+        }
+      }
+    });
+    return null;
+  },
+};
