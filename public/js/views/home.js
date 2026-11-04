@@ -217,3 +217,15 @@ const sec = {
     </div>`;
   },
 
+  game() {
+    const p = session.play;
+    const left = p.gameLeft;
+    return `<div class="card game-teaser" data-sec="game">
+      <div class="card-head" style="margin:0"><div><div class="card-title">Перерыв: «Бегом на пару»</div><div class="card-sub muted">5 минут в день — и снова за учёбу</div></div><span class="badge" style="background:rgba(255,255,255,.14);color:#fff">${icon('star', 12)} ${fmt(p.game.best)}</span></div>
+      <div class="game-art"><svg viewBox="0 0 300 118" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="gt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1C438F"/><stop offset="1" stop-color="#0B1C42"/></linearGradient></defs><rect width="300" height="118" fill="url(#gt)"/><path d="M110 40 L190 40 L300 118 L0 118 Z" fill="#E9EEF7" opacity=".9"/><path d="M137 40 L95 118 M163 40 L205 118" stroke="#C9D3E6" stroke-width="2"/>${[0, 1, 2, 3].map((i) => `<rect x="${147 - i * 6}" y="${46 + i * 18}" width="${6 + i * 12}" height="${3 + i}" fill="#C9A646" opacity=".8"/>`).join('')}<circle cx="232" cy="28" r="10" fill="#C9A646"/><text x="232" y="32" text-anchor="middle" font-family="Onest" font-weight="700" font-size="11" fill="#0B2150">М</text></svg></div>
+      <div><div class="bar-label"><span>Осталось сегодня</span><span class="tnum">${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')} из 5:00</span></div><div class="bar"><i style="width:${(left / p.gameDaily) * 100}%"></i></div></div>
+      <a class="btn btn-gold" href="#/game">${icon('play', 18)} ${left > 0 ? 'Играть' : 'Лимит на сегодня исчерпан'}</a>
+    </div>`;
+  },
+};
+
