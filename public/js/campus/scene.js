@@ -89,3 +89,11 @@ function shell() {
   return s;
 }
 
+function room(f, side, wall, floor) {
+  const x0 = side === 'l' ? LX[0] : RX[0], x1 = side === 'l' ? LX[1] : RX[1];
+  const t = top(f), b = SURF[f];
+  return `<rect x="${x0}" y="${t}" width="${x1 - x0}" height="${ROOM_H}" fill="${wall}"/>` +
+    `<rect x="${x0}" y="${b - 16}" width="${x1 - x0}" height="16" fill="${floor}"/>` +
+    `<rect x="${x0}" y="${t}" width="${x1 - x0}" height="6" fill="#000" opacity=".06"/>`;
+}
+
