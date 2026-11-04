@@ -48,3 +48,11 @@ function history() {
   return `<div class="card"><div class="card-title">История</div>${h.length ? `<div class="list mt-12">${h.slice(0, 8).map((x) => `<div class="list-item"><span class="grow small"><b style="font-weight:500">${esc(x.title)}</b><span class="muted" style="display:block">${esc(when(x.t))}</span></span><span class="money tnum" style="color:${x.amt > 0 ? 'var(--good)' : 'var(--ink)'}">${x.amt > 0 ? '+' : ''}${fmt(x.amt)}</span></div>`).join('')}</div>` : '<div class="empty">Пока пусто</div>'}</div>`;
 }
 
+function body() {
+  return `<div class="grid g-main">
+    <div><div class="section-head"><h2 class="h3">Мерч МГИМО Мании</h2><span class="small muted">Настоящая вещь в Лавке + цифровая копия для аватара</span></div>${kits()}
+      <div class="section-head mt-32"><h2 class="h3">Только для аватара</h2><span class="small muted">Цифровые вещи — сразу в гардеробе</span></div>${digital()}</div>
+    <div class="col" style="gap:20px"><div class="card card-navy"><span class="muted small">На балансе</span><div class="row mt-8" style="gap:10px">${coin(34)}<span style="font-size:40px;font-weight:500;letter-spacing:-.03em" class="tnum">${fmt(play().coins)}</span></div><p class="muted small mt-8">М-коины не сгорают и не обмениваются на деньги</p></div>${earn()}${history()}</div>
+  </div>`;
+}
+
