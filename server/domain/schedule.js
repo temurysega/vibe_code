@@ -26,3 +26,20 @@ export function placeOf(room) {
   return '';
 }
 
+function item(l, date, pair) {
+  const [start, end] = BELLS[pair];
+  return {
+    key: `${date}:${pair}:${l.id}`,
+    date, pair, start, end,
+    lessonId: l.id,
+    disciplineId: l.discipline_id,
+    discipline: l.discipline, short: l.short, color: l.color,
+    kind: l.kind, kindLabel: KIND[l.kind] || l.kind,
+    room: l.room, place: placeOf(l.room),
+    teacher: teacherOf(l),
+    subgroup: l.subgroup || null,
+    status: 'normal',
+    change: null,
+  };
+}
+
