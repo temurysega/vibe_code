@@ -1,0 +1,26 @@
+/* ---------- Адаптив: от широкого экрана до телефона 360 px ---------- */
+@media (max-width: 1340px) {
+  .header .container { gap: 12px; }
+  .nav a { padding: 0 9px; font-size: 14px; }
+}
+@media (max-width: 1180px) {
+  .home-top, .grades-hero { grid-template-columns: 1fr; }
+  .zone-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .g-4, .dean-kpi { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .week { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .logo-word { font-size: 20px; }
+}
+@media (max-width: 1100px) {
+  .nav { display: none; }
+  .header .container { justify-content: space-between; }
+  .tabbar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; background: rgba(255, 255, 255, .97); border-top: 1px solid var(--hair); padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); backdrop-filter: blur(8px); }
+  .tabbar a { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 11px; color: var(--muted-2); padding: 4px 0; border-radius: 12px; position: relative; min-width: 0; }
+  .tabbar a.on { color: var(--navy); font-weight: 500; }
+  .tabbar a.on .tb-ic { background: var(--navy-3); }
+  .tabbar .tb-dot { position: absolute; top: 2px; left: calc(50% + 8px); width: 8px; height: 8px; border-radius: 50%; background: var(--red); }
+  .tb-ic { width: 44px; height: 28px; border-radius: 14px; display: grid; place-items: center; }
+  .view { padding-bottom: 130px; }
+  .toast-root { bottom: calc(86px + env(safe-area-inset-bottom)); }
+  .ask-fab { bottom: calc(80px + env(safe-area-inset-bottom)); right: 16px; }
+  .foot { padding-bottom: 110px; }
+}
