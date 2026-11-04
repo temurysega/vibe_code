@@ -34,3 +34,6 @@
 .me-btn { border: 0; background: none; padding: 0; cursor: pointer; border-radius: 50%; }
 .role-pill { height: 32px; padding: 0 12px; border-radius: var(--pill); background: var(--gold-3); color: var(--gold-ink); font-size: 13px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
 
+/* ---------- Нижняя панель (мобильная) ---------- */
+.tabbar { display: none; }
+
