@@ -378,3 +378,13 @@ export class Campus {
     this.mark(target);
   }
 
+  goZone(zone) {
+    const h = HOTS.find((x) => x.zone === zone);
+    if (h) this.goTo({ floor: floorOf(zone), x: h.x, kind: 'hot', id: h.id, act: h.act, label: h.label });
+  }
+
+  ride(floor) {
+    if (floor < 0 || floor > 2 || this.p.ride) return;
+    this.goTo({ floor, x: EX, kind: 'walk' });
+  }
+
