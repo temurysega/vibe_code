@@ -12,3 +12,13 @@ export const DATA_TABLES = [
   'lessons', 'disciplines', 'teachers', 'staff', 'students', 'groups', 'faculties', 'audit_log',
 ];
 
+export class Store {
+  constructor(file) {
+    if (file !== ':memory:') mkdirSync(dirname(file), { recursive: true });
+    this.db = new DatabaseSync(file);
+    this.cache = new Map();
+    this.db.exec('PRAGMA foreign_keys = ON;');
+    if (file !== ':memory:') this.db.exec('PRAGMA journal_mode = WAL; PRAGMA synchronous = NORMAL;');
+    this.db.exec(readFileSync(resolve(ROOT, 'server/schema.sql'), 'utf8'));
+  }
+
