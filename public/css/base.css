@@ -64,3 +64,11 @@ input, textarea, select { font: inherit; color: inherit; }
 .crumbs { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--muted); margin-bottom: 10px; flex-wrap: wrap; }
 .crumbs a { display: inline-flex; align-items: center; gap: 6px; }
 .crumbs a:hover { color: var(--ink); }
+.section { margin-top: 40px; }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+.link { color: var(--navy); border-bottom: 1px solid var(--navy-3); cursor: pointer; background: none; border-top: 0; border-left: 0; border-right: 0; padding: 0; font-size: inherit; transition: border-color .15s; }
+.link:hover { border-bottom-color: var(--navy); }
+.link-arrow { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; cursor: pointer; background: none; border: 0; padding: 0; font-size: 15px; color: var(--navy); }
+.link-arrow svg { transition: transform .15s; }
+.link-arrow:hover svg { transform: translateX(3px); }
+.show-s { display: none; }
