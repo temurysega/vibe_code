@@ -62,3 +62,15 @@ test('сценарий: справка подана, деканат взял в 
   assert.equal(v.holder, 'А. Д. М.');
 });
 
+test('расписание: изменения видны в неделе', async () => {
+  const st = client(app.base);
+  await st.login('a.morozova');
+  const w = (await st.req('GET', '/api/schedule')).data;
+  assert.equal(w.days.length, 6);
+  const next = (await st.req('GET', `/api/schedule?week=${isoWeek(addDays(w.monday, 7))}`)).data;
+  const all = w.changes.concat(next.changes);
+  assert.ok(all.some((c) => c.change.type === 'cancel'));
+  assert.ok(all.some((c) => c.change.type === 'room'));
+  const ics = await fetch(`${app.base}/api/schedule.ics`, { headers: { Cookie: st.cookie } });
+  assert.match(await ics.text(), /BEGIN:VCALENDAR/);
+});
