@@ -37,3 +37,13 @@ export async function dummyVerify(password) {
   return false;
 }
 
+// Требования к новому паролю
+export function passwordProblems(password, login) {
+  const pw = String(password || '');
+  const out = [];
+  if (pw.length < 10) out.push('не короче 10 символов');
+  if (pw.length > 128) out.push('не длиннее 128 символов');
+  if (!/[A-Za-zА-Яа-яЁё]/.test(pw) || !/\d/.test(pw)) out.push('буквы и цифры');
+  if (login && pw.toLowerCase().includes(String(login).toLowerCase().split('@')[0])) out.push('без логина внутри');
+  return out;
+}
