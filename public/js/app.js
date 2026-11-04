@@ -227,3 +227,56 @@ document.addEventListener('click', (e) => {
   if (e.target.closest('[data-tour]')) { import('./views/about.js').then((m) => m.startTour()); }
 });
 
+$head.addEventListener('click', async (e) => {
+  const bell = e.target.closest('[data-bell]');
+  if (bell) {
+    e.stopPropagation();
+    const m = openMenu(bell, '<div class="small muted" style="padding:12px">Загружаем…</div>', null, { width: 'min(380px, calc(100vw - 24px))' });
+    try {
+      const r = await get('/api/notifications');
+      setUnread(r.unread);
+      const KIC = { news: 'megaphone', schedule: 'calendar', deadline: 'clock', request: 'doc', grade: 'chart', system: 'spark' };
+      m.innerHTML = `<div style="padding:8px 12px 4px" class="row space"><b style="font-weight:500">Уведомления</b>${r.unread ? '<button class="link small" data-readall>Прочитать все</button>' : '<span class="small muted">всё прочитано</span>'}</div>
+        ${r.list.slice(0, 6).map((n) => `<div class="notif ${n.read ? '' : 'unread'}" data-go="${esc(n.link || '#/notifications')}" data-id="${n.id}"><span class="notif-ic">${icon(KIC[n.kind] || 'bell', 18)}</span><div class="grow small"><div><b>${esc(n.title)}</b></div><div class="muted">${esc(n.kindLabel)} · ${esc(when(n.at))}</div></div></div>`).join('')}
+        <div class="menu-sep"></div><button class="menu-item" data-go="#/notifications">${icon('bell', 18)} Все уведомления</button>`;
+      m.addEventListener('click', async (ev) => {
+        if (ev.target.closest('[data-readall]')) {
+          ev.stopPropagation();
+          const x = await post('/api/notifications/read', { all: true }).catch(() => null);
+          if (x) { setUnread(x.unread); closeMenu(); toast('Все уведомления прочитаны'); emit('refresh'); }
+          return;
+        }
+        const g = ev.target.closest('[data-go]');
+        if (!g) return;
+        closeMenu();
+        if (g.dataset.id) post('/api/notifications/read', { ids: [Number(g.dataset.id)] }).then((x) => setUnread(x.unread)).catch(() => {});
+        location.hash = g.dataset.go;
+      });
+    } catch (er) { m.innerHTML = `<div class="small muted" style="padding:12px">${esc(er.message)}</div>`; }
+    return;
+  }
+  const me = e.target.closest('[data-me]');
+  if (me) {
+    e.stopPropagation();
+    const u = session.user;
+    const items = isStudent()
+      ? `<button class="menu-item" data-go="#/profile">${icon('user', 18)} Профиль и безопасность</button>
+         <button class="menu-item" data-go="#/wardrobe">${icon('hanger', 18)} Изменить образ</button>
+         <button class="menu-item" data-go="#/notifications">${icon('bell', 18)} Уведомления</button>
+         <div class="menu-sep"></div>
+         <button class="menu-item" data-monb>${icon('door', 18)} Знакомство заново</button>
+         <button class="menu-item" data-about>${icon('shieldOk', 18)} Как защищены данные</button>`
+      : `<button class="menu-item" data-about>${icon('shieldOk', 18)} Как защищены данные</button>`;
+    openMenu(me, `<div class="row" style="padding:10px 12px">${isStudent() ? ava(session.play, 44) : ''}<div><b style="font-weight:500">${esc(u.name)}</b><div class="small muted">${esc(u.login)}</div></div></div><div class="menu-sep"></div>${items}<div class="menu-sep"></div>
+      <button class="menu-item" data-out>${icon('logout', 18)} Выйти</button>`, (m) => {
+      m.addEventListener('click', (ev) => {
+        const g = ev.target.closest('[data-go]');
+        if (g) { closeMenu(); location.hash = g.dataset.go; return; }
+        if (ev.target.closest('[data-monb]')) { closeMenu(); import('./views/onboarding.js').then((x) => x.openOnboarding()); return; }
+        if (ev.target.closest('[data-about]')) { closeMenu(); return; }
+        if (ev.target.closest('[data-out]')) signOut();
+      });
+    });
+  }
+});
+
