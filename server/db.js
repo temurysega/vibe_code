@@ -45,3 +45,13 @@ export class Store {
     }
   }
 
+  meta(key, value) {
+    if (value === undefined) return (this.get('SELECT value FROM meta WHERE key = ?', key) || {}).value ?? null;
+    this.run('INSERT INTO meta (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value', key, String(value));
+    return value;
+  }
+
+  wipe() {
+    this.tx(() => { DATA_TABLES.forEach((t) => this.db.exec(`DELETE FROM ${t}`)); });
+  }
+
