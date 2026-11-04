@@ -14,3 +14,12 @@ export function errorBox(e, retry = true) {
     <div class="row-wrap mt-20" style="justify-content:center">${retry && status !== 404 && status !== 403 ? `<button class="btn btn-primary" data-retry>${icon('refresh', 18)} Повторить</button>` : ''}<a class="btn btn-secondary" href="#/home">На главную</a></div></div>`;
 }
 
+// Статус пары относительно текущего времени по Москве
+export function lessonState(it, now = mskNow()) {
+  if (it.date < now.date) return 'past';
+  if (it.date > now.date) return 'future';
+  if (toMin(it.end) <= now.minutes) return 'past';
+  if (toMin(it.start) <= now.minutes) return 'now';
+  return 'future';
+}
+
