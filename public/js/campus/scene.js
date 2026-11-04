@@ -224,3 +224,20 @@ function shop() {
   return s;
 }
 
+const LABEL_POS = { cloakroom: 380, dean: 866, classroom: 380, library: 960, clubs: 452, shop: 990 };
+function labels(visited) {
+  let s = '';
+  ROOMS.forEach((r) => {
+    const [f] = ZONE_POS[r.id];
+    const on = visited.includes(r.id);
+    const w = 24 + r.name.length * 7.6;
+    const lx = LABEL_POS[r.id];
+    const ly = top(f) + 12;
+    s += `<g class="room-label"><rect x="${lx}" y="${ly}" width="${w + (on ? 22 : 0)}" height="26" rx="13" fill="#fff" opacity=".95"/>` +
+      `<text x="${lx + 12}" y="${ly + 17.5}" font-family="Onest, Arial, sans-serif" font-size="13" font-weight="600" fill="${INK}">${esc(r.name)}</text>` +
+      (on ? `<g transform="translate(${lx + w + 8} ${ly + 13})"><circle r="9" fill="${NAVY}"/><path d="M-4 0 l2.6 2.6 L4.2 -3" stroke="#E9D7A0" stroke-width="2" fill="none" stroke-linecap="round"/></g>` : '') +
+      `</g>`;
+  });
+  return s;
+}
+
