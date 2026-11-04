@@ -43,3 +43,19 @@ function item(l, date, pair) {
   };
 }
 
+export function buildWeek(store, group, monday) {
+  monday = mondayOf(monday);
+  const sunday = addDays(monday, 6);
+  const base = store.all(LESSON_SQL, group);
+  const byId = new Map(base.map((l) => [l.id, l]));
+  const teachers = new Map(store.all('SELECT * FROM teachers').map((t) => [t.id, t]));
+  const tInfo = (id) => { const t = teachers.get(id); return t ? { name: t.full_name, short: t.short_name, title: t.title || '', department: t.department, email: t.email, hours: t.office_hours || '' } : null; };
+  const changes = store.all(
+    `SELECT c.*, d.name AS d_name, d.short AS d_short, d.color AS d_color FROM schedule_changes c LEFT JOIN disciplines d ON d.id = c.discipline_id
+     WHERE c.group_code = ? AND ((c.date BETWEEN ? AND ?) OR (c.new_date BETWEEN ? AND ?)) ORDER BY c.created_at`,
+    group, monday, sunday, monday, sunday,
+  );
+  const { parity, n } = parityOf(monday);
+  const days = [];
+  const notes = [];
+
