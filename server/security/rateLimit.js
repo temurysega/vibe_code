@@ -27,3 +27,11 @@ export class RateLimiter {
     this.hits.set(key, list);
   }
 
+  reset(key) { this.hits.delete(key); }
+
+  // Периодическая чистка, чтобы карта не росла бесконечно
+  sweep() {
+    const now = Date.now();
+    for (const key of this.hits.keys()) this.recent(key, now);
+  }
+}
