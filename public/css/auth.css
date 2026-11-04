@@ -41,3 +41,18 @@
 .acc-dean { width: 44px; height: 44px; border-radius: 50%; background: var(--gold-3); color: var(--gold-ink); display: grid; place-items: center; flex: none; }
 .auth-foot { max-width: 440px; font-size: 12px; color: var(--muted); margin-top: 28px; text-align: center; line-height: 1.5; }
 .auth-foot b { color: var(--ink); font-weight: 500; }
+.demo-hint { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); margin-top: 10px; flex-wrap: wrap; }
+.demo-hint code { background: var(--gold-3); color: var(--gold-ink); border-radius: 6px; padding: 2px 6px; font-size: 13px; }
+@media (max-width: 1080px) {
+  .auth { grid-template-columns: 1fr; }
+  .auth-hero { min-height: auto; padding: 24px 20px 0; }
+  .auth-title { font-size: 38px; margin-top: 28px; }
+  .auth-lead { font-size: 17px; }
+  .auth-crowd { min-height: 250px; padding-top: 56px; }
+  .auth-crowd .p { width: 104px; height: 166px; }
+  .auth-crowd .p.big { width: 132px; height: 211px; }
+  .auth-crowd .p.far { display: none; }
+  .auth-pet { left: calc(50% + 70px); width: 64px; height: 53px; }
+  .auth-float.f3 { display: none; }
+  .auth-panel { padding: 32px 20px 40px; }
+}
