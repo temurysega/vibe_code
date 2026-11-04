@@ -87,3 +87,46 @@ function act(t) {
   }
 }
 
+export default {
+  title: 'Кампус',
+  render() {
+    return `<div class="container">
+      <div class="page-head"><div><h1 class="h1">Кампус</h1><p class="lead">Нажмите на зону или человека — аватар дойдёт сам. Стрелки и W/S тоже работают, E — открыть</p></div></div>
+      <div class="card campus-card"><div class="campus-stage" data-stage></div><div class="campus-hud"><span data-hud></span></div><div data-prompt></div></div>
+      <div class="section-head mt-24"><h2 class="h3">Зоны</h2><span class="small muted" data-count></span></div>
+      <div class="zone-cards" data-zones></div>
+      <div class="grid g-2 mt-20"><div class="card"><div class="card-title">Зачем гулять по кампусу</div><p class="muted mt-8">Каждая зона — короткий путь в раздел кабинета: деканат — справки, аудитория — расписание, библиотека — фокус-сессия. За первую прогулку по зоне +${RULES.visitCoins} М-коинов и вещи для аватара</p></div>
+        <div class="card"><div class="card-title">На телефоне</div><p class="muted mt-8">Сцену можно листать пальцем, камера сама следует за аватаром. Ниже — кнопки зон для быстрых переходов</p></div></div>
+    </div>`;
+  },
+  mount(el) {
+    const hud = el.querySelector('[data-hud]');
+    const prompt = el.querySelector('[data-prompt]');
+    const paint = () => {
+      hud.innerHTML = hudZone();
+      el.querySelector('[data-zones]').innerHTML = zoneCards();
+      const n = session.play.visited.length;
+      el.querySelector('[data-count]').textContent = `Пройдено ${n} из ${ROOMS.length} ${plural(ROOMS.length, ['зоны', 'зон', 'зон'])}`;
+    };
+    scene = new Campus(el.querySelector('[data-stage]'), session.play, {
+      onZone(z) { zone = z; firstVisit(z).then(() => { paint(); scene && scene.refresh(session.play); }); paint(); },
+      onNear(n) {
+        if (!n) { prompt.innerHTML = ''; return; }
+        prompt.innerHTML = `<div class="campus-prompt">${icon(n.kind === 'npc' ? 'user' : 'spark', 18)}<span>${esc(n.label)}</span><button class="btn btn-primary btn-sm" data-near title="Клавиша E">Открыть</button></div>`;
+        prompt.querySelector('[data-near]').onclick = () => act(n);
+      },
+      onArrive: act,
+      onTarget(label) { walkTo = label; hud.innerHTML = hudZone(); },
+    });
+    zone = scene.zone;
+    if (zone) firstVisit(zone).then(paint);
+    paint();
+    el.addEventListener('click', (e) => {
+      const z = e.target.closest('[data-zone]');
+      if (!z || !scene) return;
+      scene.goZone(z.dataset.zone);
+      el.querySelector('.campus-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+    return () => { if (scene) scene.destroy(); scene = null; walkTo = null; };
+  },
+};
