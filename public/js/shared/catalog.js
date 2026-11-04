@@ -42,3 +42,17 @@ export const ITEMS = [
   I('skirt', 'bottom', 'Юбка', 'base', { colors: ['graphite', 'navy', 'beige', 'violet', 'red'] }),
   I('cargo', 'bottom', 'Карго', 'digital', { price: 400, colors: ['olive', 'sand'] }),
 
+  I('sneakers', 'shoes', 'Кеды', 'base', { colors: ['gray', 'navy', 'violet', 'graphite'] }),
+  I('loafers', 'shoes', 'Лоферы', 'base', { colors: ['black', 'brown'] }),
+  I('boots', 'shoes', 'Ботинки', 'base', { colors: ['black', 'brown', 'sand'] }),
+  I('hightops', 'shoes', 'Высокие кеды', 'digital', { price: 500, colors: ['violet', 'navy', 'graphite'] }),
+  I('runners', 'shoes', 'Кроссовки «Спринт к паре»', 'game', { need: 1500 }),
+
+  I('none', 'hat', 'Без шапки', 'base'),
+  I('cap', 'hat', 'Кепка', 'base', { colors: ['graphite', 'navy', 'white', 'violet'] }),
+  I('beanie', 'hat', 'Шапка', 'base', { colors: ['navy', 'graphite', 'red', 'sky'] }),
+  I('beret', 'hat', 'Берет', 'route', { zone: 'cloakroom', colors: ['navy', 'red', 'graphite'] }),
+  I('bucket', 'hat', 'Панама исследователя', 'routeAll'),
+  I('mortarboard', 'hat', 'Шапочка выпускника', 'steps'),
+  I('mgimo-cap', 'hat', 'Кепка МГИМО', 'kit', { kit: 'kit-cap' }),
+
