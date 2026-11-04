@@ -1,0 +1,8 @@
+/* ---------- Успеваемость ---------- */
+.grades-hero { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 20px; }
+.verdict { display: flex; flex-direction: column; gap: 18px; }
+.verdict-big { font-size: 26px; line-height: 1.2; font-weight: 500; letter-spacing: -0.015em; }
+.verdict-ic { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; font-size: 28px; font-family: var(--emoji); background: #fff; flex: none; }
+.ring-wrap { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.ring { width: 132px; height: 132px; flex: none; position: relative; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
