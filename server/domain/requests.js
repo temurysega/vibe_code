@@ -210,3 +210,19 @@ export function applyPlans(store, studentId) {
   });
 }
 
+export function publicRequest(store, r, faculty) {
+  const type = typeOf(r.type);
+  const events = store.all('SELECT status, comment, actor, created_at FROM request_events WHERE request_id = ? ORDER BY created_at, id', r.id);
+  const steps = type && type.group === 'cert'
+    ? (r.delivery === 'paper' ? ['submitted', 'in_work', 'ready', 'issued'] : ['submitted', 'in_work', 'ready'])
+    : type && type.group === 'shop' ? ['submitted', 'ready', 'issued'] : ['submitted', 'in_work', 'approved'];
+  return {
+    id: r.id, number: r.number, type: r.type, group: type ? type.group : 'app', icon: type ? type.icon : 'doc', title: r.title,
+    payload: JSON.parse(r.payload || '{}'), delivery: r.delivery, status: r.status, statusLabel: STATUS[r.status],
+    createdAt: r.created_at, updatedAt: r.updated_at, dueAt: r.due_at, deanComment: r.dean_comment,
+    steps, events,
+    pickup: r.delivery === 'paper' && faculty ? (r.type === 'merch' ? 'Лавка МГИМО, 1 этаж, пн–сб 10:00–19:00' : PICKUP(faculty)) : null,
+    downloadable: r.delivery === 'electronic' && ['ready', 'issued'].includes(r.status),
+    cancellable: r.status === 'submitted',
+  };
+}
