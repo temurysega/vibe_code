@@ -68,3 +68,11 @@
 .req-mini:hover { box-shadow: inset 0 0 0 1px var(--border); }
 .req-mini-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 2px; }
 .req-mini b { font-weight: 500; }
+@media (max-width: 1180px) {
+  .home-trio { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home-trio > :last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .home-trio { grid-template-columns: 1fr; }
+}
+
