@@ -24,3 +24,8 @@
 .sess { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid #E4E6E9; }
 .sess:first-child { border-top: 0; }
 .sess-ic { width: 40px; height: 40px; border-radius: 12px; background: #fff; display: grid; place-items: center; color: var(--navy); flex: none; }
+.sec-score { display: flex; gap: 12px; align-items: center; background: var(--good-2); color: #1F5C28; border-radius: 14px; padding: 14px 16px; }
+.sec-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+.sec-list div { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; }
+.sec-list svg { color: var(--good); flex: none; margin-top: 2px; }
+
