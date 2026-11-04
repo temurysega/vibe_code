@@ -200,3 +200,14 @@ CREATE TABLE IF NOT EXISTS requests (
 );
 CREATE INDEX IF NOT EXISTS requests_student ON requests(student_id, created_at);
 
+-- История статусов: кто и когда менял заявку
+CREATE TABLE IF NOT EXISTS request_events (
+  id INTEGER PRIMARY KEY,
+  request_id INTEGER NOT NULL REFERENCES requests(id) ON DELETE CASCADE,
+  status TEXT NOT NULL,
+  comment TEXT,
+  actor TEXT NOT NULL,
+  created_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS request_events_req ON request_events(request_id, created_at);
+
