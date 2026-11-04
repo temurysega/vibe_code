@@ -32,3 +32,14 @@ export const monthShort = (d) => fmtDay(d, { month: 'short' }).replace('.', '');
 export const weekdayShort = (d) => fmtDay(d, { weekday: 'short' });
 export const dateLong = (d) => fmtDay(d, { day: 'numeric', month: 'long', year: 'numeric' });
 
+// «сегодня», «завтра», «в четверг» — относительно Москвы
+export function relDay(d) {
+  const today = mskNow().date;
+  const n = daysBetween(today, d);
+  if (n === 0) return 'сегодня';
+  if (n === 1) return 'завтра';
+  if (n === -1) return 'вчера';
+  if (n > 1 && n < 7) return fmtDay(d, { weekday: 'long' }).replace(/^(.)/, (c) => c.toLowerCase());
+  return dayShort(d);
+}
+
