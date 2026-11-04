@@ -68,3 +68,17 @@ function step(i) {
   tour.timer = setTimeout(() => step(i + 1), 7000);
 }
 
+export function startTour() {
+  if (!session.user || session.user.role !== 'student') { modal.open({ label: 'Демо-тур', html: '<div class="modal-title">Демо-тур</div><p class="modal-sub">Тур показывает кабинет студента — войдите как Алина Морозова</p><div class="modal-foot"><button class="btn btn-primary btn-lg" data-close>Хорошо</button></div>' }); return; }
+  stopTour();
+  const bar = document.createElement('div');
+  bar.className = 'demo-bar';
+  bar.innerHTML = `<span class="demo-n"></span><span class="demo-t"></span><button class="btn btn-sm btn-gold" data-next>Дальше</button><button class="btn btn-sm btn-ghost" data-stop style="color:#fff">Закрыть</button><span class="demo-p"><i></i></span>`;
+  document.body.appendChild(bar);
+  tour = { bar, i: 0, timer: null };
+  bar.addEventListener('click', (e) => {
+    if (e.target.closest('[data-next]')) step(tour.i + 1);
+    if (e.target.closest('[data-stop]')) stopTour();
+  });
+  step(0);
+}
