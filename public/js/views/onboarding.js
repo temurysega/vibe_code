@@ -77,3 +77,34 @@ export function openOnboarding() {
   return entry;
 }
 
+export function openQuiz() {
+  const answers = FIRST_STEPS.quiz.map(() => null);
+  let result = null;
+  const view = () => `<div class="modal-title">Квиз «Как устроен кабинет»</div><p class="modal-sub">Пять вопросов. Нужно 4 верных ответа</p>
+    <div class="mt-20">${FIRST_STEPS.quiz.map((q, i) => `<fieldset class="quiz-q"><legend>${i + 1}. ${esc(q.q)}</legend>${q.a.map((a, j) => {
+      const cls = result ? (j === q.ok ? 'ok' : answers[i] === j ? 'bad' : '') : '';
+      return `<label class="quiz-opt ${cls}"><input type="radio" name="q${i}" value="${j}" ${answers[i] === j ? 'checked' : ''} ${result ? 'disabled' : ''}><span>${esc(a)}</span></label>`;
+    }).join('')}</fieldset>`).join('')}</div>
+    ${result ? `<div class="note ${result.passed ? 'note-navy' : 'note-warn'} mt-20">${icon(result.passed ? 'check' : 'info', 18)}<span>${result.passed ? `Верно ${result.score} из ${result.total} — шаг засчитан!` : `Верно ${result.score} из ${result.total}. Попробуйте ещё раз`}</span></div>` : ''}
+    <div class="modal-foot">${result ? (result.passed ? '<button class="btn btn-primary btn-lg" data-close>Готово</button>' : '<button class="btn btn-primary btn-lg" data-again>Ещё раз</button>') : '<button class="btn btn-primary btn-lg" data-check>Проверить</button>'}</div>`;
+  modal.open({
+    label: 'Квиз',
+    size: 'wide',
+    html: view(),
+    onMount(el, en, render) {
+      el.addEventListener('change', (e) => { const m = /^q(\d)$/.exec(e.target.name || ''); if (m) answers[+m[1]] = +e.target.value; });
+      el.addEventListener('click', async (e) => {
+        if (e.target.closest('[data-again]')) { result = null; answers.fill(null); render(view()); return; }
+        if (!e.target.closest('[data-check]')) return;
+        if (answers.some((a) => a == null)) { toast('Ответьте на все вопросы', { icon: 'info' }); return; }
+        try {
+          const r = await post('/api/play/quiz', { answers });
+          setPlay(r.play);
+          result = r.result;
+          render(view());
+          if (result.passed) fx.confetti({ n: 80 });
+        } catch (er) { toast(esc(er.message), { icon: 'alert' }); }
+      });
+    },
+  });
+}
