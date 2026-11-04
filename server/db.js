@@ -22,3 +22,13 @@ export class Store {
     this.db.exec(readFileSync(resolve(ROOT, 'server/schema.sql'), 'utf8'));
   }
 
+  st(sql) {
+    let s = this.cache.get(sql);
+    if (!s) { s = this.db.prepare(sql); this.cache.set(sql, s); }
+    return s;
+  }
+  get(sql, ...params) { return this.st(sql).get(...params) || null; }
+  all(sql, ...params) { return this.st(sql).all(...params); }
+  run(sql, ...params) { return this.st(sql).run(...params); }
+  insert(sql, ...params) { return Number(this.st(sql).run(...params).lastInsertRowid); }
+
