@@ -13,3 +13,13 @@ import play from './routes/play.js';
 import dean from './routes/dean.js';
 import assistant from './routes/assistant.js';
 
+const MUTATING = new Set(['POST', 'PATCH', 'PUT', 'DELETE']);
+
+export function clientIp(req) {
+  if (config.trustProxy) {
+    const xff = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim();
+    if (xff) return xff;
+  }
+  return req.socket.remoteAddress || '';
+}
+
