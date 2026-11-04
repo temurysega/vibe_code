@@ -63,3 +63,17 @@ function lookTab() {
     ${draft.body === 'm' ? `<div class="opt-group"><div class="opt-title">Борода и усы</div>${chips('facial', APPEARANCE.facial)}</div>` : ''}`;
 }
 
+function tilesLook(key) {
+  return `<div class="items">${APPEARANCE[key].map(([id, n]) => `<button class="item ${draft[key] === id ? 'on' : ''}" data-look="${key}:${id}"><span class="item-pic">${itemPreview(key, id, null, draft)}</span><span class="item-name">${esc(n)}</span></button>`).join('')}</div>`;
+}
+
+function profileTab() {
+  const titles = play().titles;
+  return `<div class="opt-group"><div class="opt-title">Фон карточки</div>${tiles('backdrop')}</div>
+    <div class="opt-group"><div class="opt-title">Узор</div>${tiles('pattern')}</div>
+    <div class="opt-group"><div class="opt-title">Рамка аватара</div>${tiles('frame')}</div>
+    <div class="opt-group"><div class="opt-title">Эмодзи-статус</div><div class="emoji-grid">${['', ...EMOJIS].map((e) => `<button class="emoji-btn ${prof.emoji === e ? 'on' : ''}" data-emoji="${e}" aria-label="${e || 'Без эмодзи'}">${e || '—'}</button>`).join('')}</div></div>
+    <div class="opt-group"><div class="opt-title">Титул</div><div class="chips">${titles.map((t) => `<button class="chip ${prof.title === t.id ? 'on' : ''}" data-title="${t.id}" ${t.unlocked ? '' : `data-tip="${esc(t.how || '')}"`} style="${t.unlocked ? '' : 'opacity:.55'}">${t.unlocked ? '' : icon('lock', 13)} ${esc(t.name)}</button>`).join('')}</div></div>
+    <label class="field opt-group"><span class="field-label">Имя питомца</span><input class="input" data-petname maxlength="24" value="${esc(petName)}"></label>`;
+}
+
