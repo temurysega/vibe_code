@@ -43,3 +43,14 @@ async function firstVisit(z) {
   } catch (e) { /* повторим при следующем входе в зону */ }
 }
 
+function npcModal(z) {
+  const n = NPC[z];
+  const room = ROOMS.find((r) => r.id === z);
+  modal.open({
+    label: n.name,
+    html: `<span class="eyebrow">${esc(room.name)} · ${esc(n.role)}</span><div class="modal-title mt-8">${esc(n.name)}</div>
+      <div class="note note-navy mt-16" style="font-size:16px">${icon('chat', 20)}<span>«${esc(n.say)}»</span></div>
+      <div class="modal-foot"><a class="btn btn-primary btn-lg" href="${room.link}">Открыть «${esc(room.name)}» ${icon('arrow', 18)}</a><button class="btn btn-secondary btn-lg" data-close>Позже</button></div>`,
+  });
+}
+
