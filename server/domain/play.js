@@ -169,3 +169,13 @@ export function focus(s, action) {
   fail(400, 'Неизвестное действие');
 }
 
+export function buy(s, slot, id) {
+  const it = itemOf(slot, id);
+  if (!it || it.src !== 'digital') fail(400, 'Эту вещь нельзя купить');
+  if (s.owned.includes(keyOf(it))) return { already: true };
+  if (s.coins < it.price) fail(400, 'Не хватает М-коинов');
+  s.owned.push(keyOf(it));
+  earn(s, -it.price, `${it.name} — вещь для аватара`);
+  return { ok: true };
+}
+
