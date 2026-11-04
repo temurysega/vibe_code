@@ -193,3 +193,10 @@ select.input { appearance: none; background-image: url("data:image/svg+xml,%3Csv
 .toast a { color: var(--gold-2); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 .tooltip { position: fixed; z-index: 400; pointer-events: none; background: var(--ink); color: #fff; font-size: 13px; line-height: 1.35; padding: 8px 11px; border-radius: 10px; max-width: 260px; box-shadow: var(--shadow); }
 .tooltip b { font-weight: 600; }
+.menu { position: fixed; z-index: 120; background: #fff; border-radius: var(--r); box-shadow: var(--shadow-lg); padding: 8px; min-width: 260px; max-width: calc(100vw - 24px); max-height: calc(100vh - 100px); overflow: auto; animation: popIn .18s ease both; }
+.menu-item { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 12px; cursor: pointer; border: 0; background: none; width: 100%; text-align: left; font-size: 15px; }
+.menu-item:hover { background: var(--surface); }
+.menu-sep { height: 1px; background: var(--hair); margin: 6px 4px; }
+.notif { display: flex; gap: 12px; padding: 12px; border-radius: 12px; cursor: pointer; align-items: flex-start; }
+.notif:hover { background: var(--surface); }
+.notif-ic { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; flex: none; background: var(--surface); color: var(--navy); }
