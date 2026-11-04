@@ -48,3 +48,10 @@
 .stepper-row::before { content: ''; position: absolute; left: 13px; top: 28px; bottom: 0; width: 2px; background: var(--surface-2); }
 .stepper-row:last-child::before { display: none; }
 .stepper-row.done::before { background: var(--navy); }
+.stepper-dot { width: 28px; height: 28px; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 2px var(--surface-2); display: grid; place-items: center; color: var(--muted); z-index: 1; }
+.stepper-row.done .stepper-dot { background: var(--navy); color: #fff; box-shadow: none; }
+.stepper-row.current .stepper-dot { background: #fff; box-shadow: inset 0 0 0 2px var(--navy); color: var(--navy); }
+.stepper-row.bad .stepper-dot { background: var(--red); color: #fff; box-shadow: none; }
+.stepper-row b { font-weight: 500; display: block; }
+.timeline { display: flex; flex-direction: column; gap: 12px; }
+.tl-item { display: flex; gap: 12px; font-size: 14px; }
