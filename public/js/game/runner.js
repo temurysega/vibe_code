@@ -485,3 +485,14 @@ export class Runner {
   }
   hide() { this.overlay.hidden = true; }
 
+  destroy() {
+    if (this.state === 'run') this.over('hidden');
+    this.state = 'dead';
+    cancelAnimationFrame(this.raf);
+    this.ro.disconnect();
+    this.wrap.removeEventListener('pointerdown', this.onDown);
+    window.removeEventListener('pointerup', this.onUp);
+    window.removeEventListener('keydown', this.onKey);
+    document.removeEventListener('visibilitychange', this.onVis);
+  }
+}
