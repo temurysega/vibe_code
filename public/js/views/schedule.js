@@ -41,3 +41,22 @@ function dayCol(d, now) {
   </section>`;
 }
 
+function body() {
+  const now = mskNow();
+  const w = week;
+  const cur = isoWeekOf(now.date) === w.week;
+  const range = `${dateNum(w.monday)}–${dayShort(addDays(w.monday, 5)).split(', ')[1]}`;
+  if (!picked || !w.days.some((d) => d.date === picked)) picked = (w.days.find((d) => d.date >= now.date && !d.holiday && d.items.length) || w.days.find((d) => d.date === now.date) || w.days[0]).date;
+  return `
+    <div class="week-bar">
+      <div class="week-nav"><a class="btn btn-secondary btn-icon btn-sm" href="#/schedule/${isoWeekOf(w.prev)}" aria-label="Предыдущая неделя">${icon('left', 18)}</a>
+        <div class="week-label">${esc(range)}<small>${w.number}-я неделя · ${w.parity === 'odd' ? 'нечётная' : 'чётная'}</small></div>
+        <a class="btn btn-secondary btn-icon btn-sm" href="#/schedule/${isoWeekOf(w.next)}" aria-label="Следующая неделя">${icon('right', 18)}</a></div>
+      ${cur ? '' : `<a class="btn btn-ghost btn-sm" href="#/schedule">${icon('calendar', 16)} К текущей неделе</a>`}
+      <div class="week-tools"><button class="btn btn-secondary btn-sm" data-bells>${icon('clock', 16)} Звонки</button><a class="btn btn-secondary btn-sm" href="/api/schedule.ics" download>${icon('download', 16)} В свой календарь</a></div>
+    </div>
+    ${w.changes.length ? `<div class="changes-strip" aria-label="Изменения на неделе">${w.changes.map((it) => { const c = changeLine(it); return `<button class="change-pill ${c.cls}" data-lesson="${esc(it.key)}">${icon(c.icon, 18)}<span><b>${c.title}</b>${c.sub ? `<span class="small">${esc(c.sub)}</span>` : ''}</span></button>`; }).join('')}</div>` : ''}
+    <div class="days-pick" role="tablist">${w.days.map((d) => `<button class="day-btn ${picked === d.date ? 'on' : ''} ${d.date === now.date ? 'today' : ''}" data-pick="${d.date}" role="tab" aria-selected="${picked === d.date}"><span>${esc(weekdayShort(d.date))}</span><b>${dateNum(d.date)}</b>${d.items.some((x) => x.change) ? '<i></i>' : ''}</button>`).join('')}</div>
+    <div class="week">${w.days.map((d) => dayCol(d, now)).join('')}</div>`;
+}
+
