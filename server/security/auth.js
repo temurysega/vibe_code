@@ -34,3 +34,10 @@ export function staffOf(store, id) {
 
 export const requireUser = (ctx) => { if (!ctx.user) fail(401, 'Войдите в кабинет'); };
 
+export function requireStudent(ctx) {
+  requireUser(ctx);
+  if (ctx.user.role !== 'student') fail(403, 'Раздел доступен только студентам');
+  ctx.student = studentOf(ctx.store, ctx.user.student_id);
+  if (!ctx.student) fail(403, 'Профиль студента не найден');
+}
+
