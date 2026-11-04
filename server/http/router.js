@@ -41,3 +41,9 @@ export class Router {
   }
 }
 
+export function sendJson(res, status, data) {
+  if (res.writableEnded) return;
+  const body = JSON.stringify(data);
+  res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': Buffer.byteLength(body) });
+  res.end(body);
+}
