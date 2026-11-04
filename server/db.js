@@ -55,3 +55,10 @@ export class Store {
     this.tx(() => { DATA_TABLES.forEach((t) => this.db.exec(`DELETE FROM ${t}`)); });
   }
 
+  close() { this.db.close(); }
+}
+
+export const json = (s, fallback) => {
+  if (s == null) return fallback;
+  try { return JSON.parse(s); } catch (e) { return fallback; }
+};
