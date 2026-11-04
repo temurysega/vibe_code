@@ -307,3 +307,18 @@ export class Campus {
     this.place();
   }
 
+  refresh(state) {
+    this.state = state;
+    const l = this.svg.querySelector('#cp-labels');
+    if (l) l.innerHTML = labels(state.visited);
+  }
+
+  // Метка цели на полу и подпись «Идём к…», чтобы было видно, что клик сработал
+  mark(t) {
+    if (!t) { this.elTarget.style.display = 'none'; if (this.opts.onTarget) this.opts.onTarget(null); return; }
+    this.elTarget.setAttribute('transform', `translate(${t.x} ${SURF[t.floor] - 4})`);
+    this.elTarget.style.display = '';
+    const z = zoneAt(t.floor, t.x);
+    if (this.opts.onTarget) this.opts.onTarget(t.label || (z ? ROOMS.find((r) => r.id === z).name : 'Лифт'));
+  }
+
