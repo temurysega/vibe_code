@@ -81,3 +81,26 @@ export function applyBody(av, body) {
 }
 const LONG = ['hoodie', 'mgimo-hoodie', 'sweater', 'ling-knit', 'turtleneck', 'shirt', 'blazer', 'mun-bomber', 'focus-jacket', 'gown'];
 
+// Принт МГИМО Мании на мерче: знак-меридианы и надпись
+function print(fg, cx, cy, s) {
+  return `<g transform="translate(${cx} ${cy}) scale(${s || 1})"><path d="M-21 4 C-22 0 -21.6 -3.6 -20 -6.4 L-16 -1 L-12 -6.4 C-10.4 -3.6 -10 0 -11 4" fill="none" stroke="${fg}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="-7" y="4" font-family="Onest, Arial, sans-serif" font-weight="700" font-size="11.5" letter-spacing="-0.3" fill="${fg}">мгимо</text></g>`;
+}
+
+// ---------- волосы ----------
+function hairBack(style, h) {
+  switch (style) {
+    case 'bob': return `<path d="M50 92 C48 52 74 36 100 36 C126 36 152 52 150 92 L151 132 Q151 140 143 140 L57 140 Q49 140 49 132 Z" fill="${dk(h, 0.1)}"/>`;
+    case 'long': return `<path d="M48 92 C46 50 74 34 100 34 C126 34 154 50 152 92 L156 182 Q156 196 142 196 L58 196 Q44 196 44 182 Z" fill="${dk(h, 0.12)}"/>`;
+    case 'afro': {
+      let s = `<circle cx="100" cy="80" r="54" fill="${h}"/>`;
+      for (let i = 0; i < 12; i++) {
+        const a = (i / 12) * Math.PI * 2;
+        s += `<circle cx="${(100 + Math.cos(a) * 50).toFixed(1)}" cy="${(80 + Math.sin(a) * 50).toFixed(1)}" r="13" fill="${h}"/>`;
+      }
+      return s;
+    }
+    case 'ponytail': return `<path d="M124 54 C162 60 168 118 152 160 C148 170 138 168 140 158 C152 120 148 84 120 68 Z" fill="${dk(h, 0.08)}"/>`;
+    default: return '';
+  }
+}
+
