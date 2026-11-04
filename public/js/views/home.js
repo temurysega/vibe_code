@@ -229,3 +229,14 @@ const sec = {
   },
 };
 
+function body() {
+  return `${sec.hello()}
+    <div class="home-top">${sec.next()}${sec.day()}</div>
+    ${sec.steps()}
+    <div class="grid home-trio mt-20">${sec.mood()}${sec.deadlines()}${sec.requests()}</div>
+    <div class="grid g-2 mt-20">${sec.changes()}${sec.news()}</div>
+    <div class="section-head mt-32"><h2 class="h3">МГИМО Мания</h2><span class="small muted">Образ, питомец, кампус и перерыв — за учёбу, а не вместо неё</span></div>
+    ${sec.look()}
+    <div class="grid g-3 mt-20">${sec.pet()}${sec.campus()}${sec.game()}</div>`;
+}
+
