@@ -20,3 +20,15 @@ function isoWeekOf(d) {
   return `${y}-W${String(n).padStart(2, '0')}`;
 }
 
+function lessonCard(it, now) {
+  const st = lessonState(it, now);
+  const cls = [it.status, st, it.change && it.change.type === 'room' ? 'room-changed' : '', it.change && it.change.type === 'teacher' ? 'teacher-changed' : ''].join(' ');
+  return `<button class="lesson ${cls}" style="--c:${it.color}" data-lesson="${esc(it.key)}">
+    <span class="lesson-time"><b>${it.start}</b>–${it.end} · ${it.pair} пара${st === 'now' && it.status !== 'cancelled' ? ' · <b style="color:var(--navy)">идёт</b>' : ''}</span>
+    <span class="lesson-name" style="display:block">${esc(it.discipline)}</span>
+    <span class="lesson-sub" style="display:block">${esc(it.kindLabel)}${it.teacher ? ' · ' + esc(it.teacher.short) : ''}${it.subgroup ? ' · подгруппа ' + esc(it.subgroup) : ''}</span>
+    <span class="lesson-room">${icon('pin', 14)} ${/^\d+$/.test(it.room) ? 'ауд. ' : ''}${esc(it.room)}${it.change && it.change.type === 'room' ? ` <span class="old">${esc(it.change.from)}</span>` : ''}</span>
+    ${it.change ? `<span class="lesson-tag">${changeTag(it)}</span>` : ''}
+  </button>`;
+}
+
