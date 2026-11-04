@@ -112,3 +112,43 @@ export default function (router) {
     return { id };
   });
 
+  // Пары группы на дату — чтобы отметить отмену или новую аудиторию
+  router.get('/api/dean/day', requireDean, (ctx) => {
+    const g = ctx.store.get('SELECT code FROM groups WHERE code = ? AND faculty_id = ?', str(ctx.query.get('group'), 20), ctx.staff.faculty_id);
+    if (!g) fail(404, 'Группа не найдена');
+    const date = ctx.query.get('date');
+    if (!isDate(date)) fail(400, 'Укажите дату');
+    return { day: dayOf(ctx.store, g.code, date) };
+  });
+
+  router.post('/api/dean/changes', requireDean, (ctx) => {
+    const g = ctx.store.get('SELECT code FROM groups WHERE code = ? AND faculty_id = ?', str(ctx.body.group, 20), ctx.staff.faculty_id);
+    if (!g) fail(404, 'Группа не найдена');
+    const date = ctx.body.date;
+    const type = oneOf(ctx.body.type, ['cancel', 'room']);
+    const reason = str(ctx.body.reason, 300);
+    const room = str(ctx.body.room, 20);
+    if (!isDate(date) || date < msk().date) fail(422, 'Укажите сегодняшнюю или будущую дату', { fields: { date: 'Дата в прошлом' } });
+    if (!type) fail(422, 'Выберите тип изменения');
+    if (type === 'room' && !/^\d{4}$/.test(room)) fail(422, 'Номер аудитории — четыре цифры', { fields: { room: 'Например, 2014' } });
+    if (reason.length < 5) fail(422, 'Укажите причину', { fields: { reason: 'Не короче 5 символов' } });
+    const day = dayOf(ctx.store, g.code, date);
+    const it = day.items.find((x) => x.lessonId === int(ctx.body.lesson, 1, 1e9) && x.pair === int(ctx.body.pair, 1, 7) && x.status === 'normal');
+    if (!it) fail(404, 'Пара не найдена или уже изменена');
+    ctx.store.run(
+      `INSERT INTO schedule_changes (group_code, date, pair, type, lesson_id, room, reason, author, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      g.code, date, it.pair, type, it.lessonId, type === 'room' ? room : null, reason, `Деканат ${ctx.staff.faculty.short}`, Date.now(),
+    );
+    const d = new Date(date + 'T12:00:00Z').toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', weekday: 'short', timeZone: 'UTC' });
+    notify(ctx.store, {
+      audience: 'group', audienceId: g.code, kind: 'schedule', important: type === 'cancel' ? 1 : 0, link: '#/schedule', author: `Деканат ${ctx.staff.faculty.short}`,
+      title: type === 'cancel' ? `${it.short}, ${d}: пара отменена` : `${it.short}, ${d}: аудитория ${room} вместо ${it.room}`, body: reason,
+    });
+    audit(ctx.store, ctx.user.id, 'schedule_' + type, `${g.code}:${date}:${it.pair}`, ctx.ip);
+    return { ok: true };
+  });
+
+  router.get('/api/dean/audit', requireDean, (ctx) => ({
+    log: ctx.store.all("SELECT action, target, created_at FROM audit_log WHERE user_id = ? AND created_at > ? ORDER BY created_at DESC LIMIT 30", ctx.user.id, Date.now() - 7 * DAY),
+  }));
+}
