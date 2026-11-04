@@ -94,3 +94,18 @@ CREATE TABLE IF NOT EXISTS disciplines (
   color TEXT NOT NULL
 );
 
+-- Регулярное расписание группы: день недели, пара, чётность недели
+CREATE TABLE IF NOT EXISTS lessons (
+  id INTEGER PRIMARY KEY,
+  group_code TEXT NOT NULL REFERENCES groups(code),
+  weekday INTEGER NOT NULL CHECK (weekday BETWEEN 1 AND 6),
+  pair INTEGER NOT NULL CHECK (pair BETWEEN 1 AND 7),
+  parity TEXT NOT NULL DEFAULT 'all' CHECK (parity IN ('all', 'odd', 'even')),
+  discipline_id INTEGER NOT NULL REFERENCES disciplines(id),
+  kind TEXT NOT NULL,
+  room TEXT NOT NULL,
+  teacher_id INTEGER NOT NULL REFERENCES teachers(id),
+  subgroup TEXT
+);
+CREATE INDEX IF NOT EXISTS lessons_group ON lessons(group_code, weekday, pair);
+
