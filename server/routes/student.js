@@ -100,3 +100,24 @@ export default function (router) {
     return { list: listFor(store, user.id, s, 100), unread: unreadCount(store, user.id, s) };
   });
 
+  // Лёгкий опрос для колокольчика: число непрочитанных и самое свежее уведомление
+  router.get('/api/notifications/count', requireStudent, (ctx) => {
+    const { store, student: s, user } = ctx;
+    applyPlans(store, s.id);
+    remindDeadlines(store, s, s.faculty);
+    return { unread: unreadCount(store, user.id, s), latest: listFor(store, user.id, s, 1)[0] || null };
+  });
+
+  router.post('/api/notifications/read', requireStudent, (ctx) => {
+    const ids = ctx.body.all === true ? 'all' : ctx.body.ids;
+    const n = markRead(ctx.store, ctx.user.id, ctx.student, ids);
+    return { marked: n, unread: unreadCount(ctx.store, ctx.user.id, ctx.student) };
+  });
+
+  router.patch('/api/me/prefs', requireStudent, (ctx) => {
+    const s = play.load(ctx.store, ctx.student.id);
+    play.setPrefs(s, ctx.body);
+    play.save(ctx.store, ctx.student.id, s);
+    return { prefs: s.prefs };
+  });
+}
