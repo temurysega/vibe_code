@@ -146,3 +146,27 @@ export function createRequest(store, student, faculty, body) {
   const { data, errors } = validate(type, body.fields || {}, catalog);
   if (Object.keys(errors).length) fail(422, 'Проверьте поля формы', { fields: errors });
 
+  // Защита от дублей: та же справка в работе — не создаём вторую
+  const open = store.get(`SELECT id, number FROM requests WHERE student_id = ? AND type = ? AND status IN ('submitted', 'in_work') AND payload = ?`, student.id, type.id, JSON.stringify(Object.assign({ lang }, data)));
+  if (open) fail(409, `Такая заявка уже в работе: № ${open.number}`, { id: open.id });
+
+  return insertRequest(store, student, faculty, type, Object.assign({ lang }, data), delivery);
+}
+
+export function insertRequest(store, student, faculty, type, payload, delivery, title) {
+  return store.tx(() => {
+    const now = Date.now();
+    const number = nextNumber(store);
+    const plan = planFor(type, delivery);
+    const id = store.insert(
+      `INSERT INTO requests (number, student_id, type, title, payload, delivery, status, created_at, updated_at, due_at, plan, verify_code)
+       VALUES (?, ?, ?, ?, ?, ?, 'submitted', ?, ?, ?, ?, ?)`,
+      number, student.id, type.id, title || type.title, JSON.stringify(payload), delivery, now, now, now + type.days * DAY,
+      JSON.stringify(plan), type.group === 'cert' ? randomBytes(4).toString('hex').toUpperCase() : null,
+    );
+    store.run('INSERT INTO request_events (request_id, status, comment, actor, created_at) VALUES (?, ?, ?, ?, ?)', id, 'submitted',
+      delivery === 'electronic' ? 'Электронная справка придёт сюда — с QR-кодом для проверки' : delivery === 'paper' ? `Оригинал можно будет забрать: ${PICKUP(faculty)}` : 'Заявление отправлено в деканат', 'Вы', now);
+    return id;
+  });
+}
+
