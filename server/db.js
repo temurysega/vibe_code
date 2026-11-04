@@ -32,3 +32,16 @@ export class Store {
   run(sql, ...params) { return this.st(sql).run(...params); }
   insert(sql, ...params) { return Number(this.st(sql).run(...params).lastInsertRowid); }
 
+  // Транзакция: всё или ничего
+  tx(fn) {
+    this.db.exec('BEGIN IMMEDIATE');
+    try {
+      const out = fn();
+      this.db.exec('COMMIT');
+      return out;
+    } catch (e) {
+      this.db.exec('ROLLBACK');
+      throw e;
+    }
+  }
+
