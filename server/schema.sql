@@ -242,3 +242,17 @@ CREATE TABLE IF NOT EXISTS play_state (
   updated_at INTEGER NOT NULL
 );
 
+-- Забеги «Бегом на пару»: сервер считает время, лимит — 5 минут в день
+CREATE TABLE IF NOT EXISTS game_runs (
+  id TEXT PRIMARY KEY,
+  student_id INTEGER NOT NULL REFERENCES students(id),
+  day TEXT NOT NULL,
+  started_at INTEGER NOT NULL,
+  allowed_ms INTEGER NOT NULL,
+  finished_at INTEGER,
+  played_ms INTEGER,
+  score INTEGER,
+  coins INTEGER
+);
+CREATE INDEX IF NOT EXISTS game_runs_day ON game_runs(student_id, day);
+
