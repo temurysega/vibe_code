@@ -8,3 +8,72 @@ import * as fx from '../ui/fx.js';
 import { svg as avatarSvg, pet as petSvg, applyBody, SKIN } from '../art/avatar.js';
 import { APPEARANCE, FIRST_STEPS } from '../shared/catalog.js';
 
+export function openOnboarding() {
+  const p = session.play;
+  let step = 0;
+  let av = Object.assign({}, p.av);
+  let petName = p.petName;
+  const hairs = APPEARANCE.hair.filter(([id]) => id !== 'none');
+
+  const views = [
+    () => `<div class="modal-title">Добро пожаловать в МГИМО Манию</div>
+      <p class="modal-sub">Всё для учёбы в одном окне — и немного игры, чтобы туда хотелось заглядывать</p>
+      <div class="col mt-20" style="gap:10px">
+        ${[['calendar', 'Расписание с переносами', 'Отмены и новые аудитории подсвечены, на главной — ближайшая пара'], ['chart', 'Баллы и прогноз', 'Видно, сколько не хватает до «отлично» и что в зоне риска'], ['doc', 'Справки онлайн', 'Заказ за минуту, статус как у посылки, электронная справка с QR'], ['bell', 'Уведомления деканата', 'Новости, дедлайны и изменения — без чатов и стендов'], ['paw', 'Питомец, кампус и перерыв', 'Растут от учёбы: фокус-сессии, прогулка по кампусу, 5 минут забега в день']]
+          .map(([ic, t, d]) => `<div class="row" style="align-items:flex-start"><span class="way-n">${icon(ic, 18)}</span><div><b style="font-weight:500">${t}</b><div class="small muted">${d}</div></div></div>`).join('')}
+      </div>
+      <div class="steps"><i class="on"></i><i></i><i></i></div>
+      <div class="modal-foot"><button class="btn btn-primary btn-lg" data-next autofocus>Собрать аватар ${icon('arrow', 18)}</button></div>`,
+    () => `<div class="modal-title">Ваш аватар</div><p class="modal-sub">Остальное — в гардеробе кампуса. Всё бесплатно</p>
+      <div class="onb-grid mt-20"><div class="onb-ava">${avatarSvg(av, { view: 'full' })}</div><div>
+        <div class="opt-title">Фигура</div><div class="chips">${APPEARANCE.body.map(([id, n]) => `<button class="chip ${av.body === id ? 'on' : ''}" data-body="${id}">${n}</button>`).join('')}</div>
+        <div class="opt-title mt-16">Тон кожи</div><div class="swatches">${APPEARANCE.skin.map(([id, c]) => `<button class="swatch ${av.skin === id ? 'on' : ''}" style="background:${c}" data-skin="${id}" aria-label="Тон кожи"></button>`).join('')}</div>
+        <div class="opt-title mt-16">Причёска</div><div class="chips">${hairs.map(([id, n]) => `<button class="chip ${av.hair === id ? 'on' : ''}" data-hair="${id}">${n}</button>`).join('')}</div>
+        <div class="opt-title mt-16">Цвет волос</div><div class="chips">${APPEARANCE.hairColor.slice(0, 7).map(([id, n]) => `<button class="chip ${av.hairColor === id ? 'on' : ''}" data-hc="${id}">${n}</button>`).join('')}</div>
+      </div></div>
+      <div class="steps"><i class="on"></i><i class="on"></i><i></i></div>
+      <div class="modal-foot"><button class="btn btn-primary btn-lg" data-next>Дальше ${icon('arrow', 18)}</button><button class="btn btn-ghost btn-lg" data-prev>Назад</button></div>`,
+    () => `<div class="modal-title">Питомец</div><p class="modal-sub">Он подскажет про пару и дедлайн и будет расти, пока вы учитесь</p>
+      <div class="row mt-20" style="gap:12px;flex-wrap:wrap">${[['cat', 'orange', 'Кот'], ['cat', 'gray', 'Серый кот'], ['dog', 'sand', 'Пёс'], ['dog', 'white', 'Белый пёс']].map(([t, c, n]) => `<button class="item ${av.pet === t && av.petColor === c ? 'on' : ''}" style="width:130px" data-pet="${t}" data-color="${c}"><span class="item-pic">${petSvg(t, c)}</span><span class="item-name">${n}</span></button>`).join('')}</div>
+      <label class="field mt-20"><span class="field-label">Как зовут питомца</span><input class="input" data-petname maxlength="24" value="${esc(petName)}"></label>
+      <div class="steps"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+      <div class="modal-foot"><button class="btn btn-primary btn-lg" data-save>${icon('check', 18)} Готово</button><button class="btn btn-ghost btn-lg" data-prev>Назад</button></div>`,
+  ];
+
+  const entry = modal.open({
+    label: 'Знакомство',
+    size: 'wide',
+    html: views[0](),
+    onMount(el, en, render) {
+      const paint = () => render(views[step]());
+      el.addEventListener('input', (e) => { if (e.target.matches('[data-petname]')) petName = e.target.value; });
+      el.addEventListener('click', async (e) => {
+        const t = e.target.closest('button');
+        if (!t) return;
+        if (t.dataset.next != null) { step++; paint(); return; }
+        if (t.dataset.prev != null) { step--; paint(); return; }
+        if (t.dataset.body) { av = applyBody(av, t.dataset.body); paint(); return; }
+        if (t.dataset.skin && SKIN[t.dataset.skin]) { av.skin = t.dataset.skin; paint(); return; }
+        if (t.dataset.hair) { av.hair = t.dataset.hair; paint(); return; }
+        if (t.dataset.hc) { av.hairColor = t.dataset.hc; paint(); return; }
+        if (t.dataset.pet) { av.pet = t.dataset.pet; av.petColor = t.dataset.color; paint(); return; }
+        if (t.dataset.save != null) {
+          t.disabled = true;
+          try {
+            const look = { body: av.body, skin: av.skin, hair: av.hair, hairColor: av.hairColor, cheeks: av.cheeks, eyes: av.eyes, facial: av.facial, bottom: av.bottom, bottomColor: av.bottomColor, pet: av.pet, petColor: av.petColor };
+            const r = await patch('/api/play/look', { av: look, petName: petName.trim() || 'Пиксель', onboarded: true });
+            setPlay(r.play);
+            modal.close(en);
+            fx.confetti({ n: 100 });
+            toast('Аватар готов! Загляните в гардероб кампуса за новыми вещами', { icon: 'hanger' });
+          } catch (er) {
+            t.disabled = false;
+            toast(esc(er.message), { icon: 'alert' });
+          }
+        }
+      });
+    },
+  });
+  return entry;
+}
+
