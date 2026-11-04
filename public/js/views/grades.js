@@ -95,3 +95,21 @@ function chart(hist) {
   </svg></div>`;
 }
 
+function history() {
+  const h = g.history;
+  if (!h.length) return `<div class="card empty"><span class="emoji">🎓</span><div class="h4">Зачётка пока пустая</div><p class="mt-8">Оценки появятся после первой сессии</p></div>`;
+  if (!semPick || !h.some((x) => x.semester === semPick)) semPick = h[h.length - 1].semester;
+  const sem = h.find((x) => x.semester === semPick);
+  return `${g.debts.length ? `<div class="note note-warn" style="margin-bottom:20px">${icon('alert', 18)}<span><b style="font-weight:500">Академическая задолженность:</b> ${g.debts.map((d) => `${esc(d.name)} (${d.points} баллов)${d.retake ? ` — пересдача ${esc(dayShort(d.retake.date))}, ауд. ${esc(d.retake.room)}` : ''}`).join('; ')}. <a class="link" href="#/requests/new/retake">Записаться на пересдачу</a></span></div>` : ''}
+    <div class="grid g-main">
+      <div class="card"><div class="seg sem-tabs">${h.map((x) => `<button class="${x.semester === semPick ? 'on' : ''}" data-sem="${x.semester}">${x.semester} семестр</button>`).join('')}</div>
+        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Дисциплина</th><th class="hide-s">Форма</th><th class="num">Баллы</th><th class="num">Оценка</th></tr></thead><tbody>
+          ${sem.list.map((d) => `<tr><td><b style="font-weight:500">${esc(d.name)}</b><div class="small muted">${d.credits} ЗЕ<span class="show-s"> · ${esc(d.controlLabel)}</span></div></td><td class="hide-s muted">${esc(d.controlLabel)}</td><td class="num">${d.points}</td>
+            <td class="num"><span class="row" style="justify-content:flex-end;gap:8px"><span class="small ${d.status === 'debt' ? '' : 'muted'}" style="${d.status === 'debt' ? 'color:var(--red-ink)' : ''}">${esc(d.status === 'debt' ? 'долг' : d.verdict.label)}</span><span class="${LETTER_TONE(d.verdict.letter)}">${d.verdict.letter}</span></span></td></tr>`).join('')}
+        </tbody></table></div></div>
+      <div class="col" style="gap:20px"><div class="card"><div class="card-title">Средний балл</div><div class="card-sub">По экзаменам и зачётам с оценкой</div>${chart(h) || `<div class="h2 mt-16">${sem.avg != null ? num(sem.avg, 2) : '—'}</div>`}</div>
+        <div class="card"><div class="card-title">Шкала</div><div class="col mt-16" style="gap:6px">${g.scale.map((s, i) => `<div class="row space small"><span class="row" style="gap:8px"><span class="${LETTER_TONE(s.letter)}">${s.letter}</span>${esc(s.word)}</span><span class="muted tnum">${s.min}${i ? '–' + (g.scale[i - 1].min - 1) : '–100'}</span></div>`).join('')}</div>
+          <a class="btn btn-secondary mt-16" href="#/requests/new/transcript">${icon('doc', 18)} Заказать выписку оценок</a></div></div>
+    </div>`;
+}
+
