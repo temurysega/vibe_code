@@ -129,3 +129,16 @@ CREATE TABLE IF NOT EXISTS schedule_changes (
 );
 CREATE INDEX IF NOT EXISTS changes_group ON schedule_changes(group_code, date);
 
+-- Дисциплины студента по семестрам и итоговые баллы закрытых семестров
+CREATE TABLE IF NOT EXISTS enrollments (
+  student_id INTEGER NOT NULL REFERENCES students(id),
+  discipline_id INTEGER NOT NULL REFERENCES disciplines(id),
+  semester INTEGER NOT NULL,
+  teacher_id INTEGER REFERENCES teachers(id),
+  final_points INTEGER,
+  status TEXT NOT NULL DEFAULT 'current' CHECK (status IN ('current', 'passed', 'debt')),
+  retake_date TEXT,
+  retake_room TEXT,
+  PRIMARY KEY (student_id, discipline_id, semester)
+);
+
