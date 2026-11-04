@@ -69,3 +69,11 @@ export const ITEMS = [
   I('bag', 'extra', 'Сумка через плечо', 'digital', { price: 400, colors: ['graphite', 'sand', 'navy'] }),
   I('medal', 'extra', 'Медаль «Отличник»', 'grade', { how: 'Сессия без троек и долгов' }),
 
+  I('none', 'pet', 'Без питомца', 'base'),
+  I('cat', 'pet', 'Кот', 'base', { colors: ['orange', 'gray', 'black', 'cream'] }),
+  I('dog', 'pet', 'Пёс', 'base', { colors: ['sand', 'brown', 'white'] }),
+  I('fox', 'pet', 'Лис', 'focus', { need: 3 }),
+  I('owl', 'pet', 'Сова-отличница', 'grade', { how: 'Сессия без троек и долгов' }),
+  I('hedgehog', 'pet', 'Ёжик', 'routeAll'),
+  I('bot', 'pet', 'Робот', 'digital', { price: 800 }),
+
