@@ -32,3 +32,12 @@ function lessonCard(it, now) {
   </button>`;
 }
 
+function dayCol(d, now) {
+  const today = d.date === now.date;
+  const n = d.items.filter((x) => x.status !== 'cancelled' && x.status !== 'moved').length;
+  return `<section class="day-col ${today ? 'today' : ''} ${picked === d.date ? 'picked' : ''}" data-day="${d.date}" aria-label="${esc(dayShort(d.date))}">
+    <div class="day-col-head"><b>${esc(weekdayShort(d.date).replace(/^./, (c) => c.toUpperCase()))}, ${dateNum(d.date)}</b><span>${today ? 'сегодня' : n ? `${n} ${plural(n, ['пара', 'пары', 'пар'])}` : ''}</span></div>
+    ${d.holiday ? `<div class="holiday">${icon('star', 14)} ${esc(d.holiday)}<div class="small">выходной</div></div>` : d.items.length ? d.items.map((it) => lessonCard(it, now)).join('') : '<div class="empty">Пар нет</div>'}
+  </section>`;
+}
+
