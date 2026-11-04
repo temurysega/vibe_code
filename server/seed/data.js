@@ -95,3 +95,40 @@ export const PAST = {
   ],
 };
 
+// Студенты с учётными записями — герои демо. strength — насколько хорошо учится, weak — дисциплина в зоне риска
+export const STUDENTS = [
+  {
+    key: 'alina', last: 'Морозова', first: 'Алина', middle: 'Дмитриевна', gender: 'f', group: 'МО-25-03', book: '25-МО-0317',
+    email: 'a.morozova@student.mgimo-mania.demo', phone: '+7 (900) 000-17-25', funding: 'бюджет', languages: ['Английский', 'Арабский'],
+    login: 'a.morozova', strength: 0.92, weak: 'Мировая экономика',
+    play: {
+      av: { body: 'f', skin: 's2', hair: 'long', hairColor: 'brown', eyes: 'lashes', mouth: 'smile', cheeks: 'blush', facial: 'none', top: 'blazer', topColor: 'navy', bottom: 'skirt', bottomColor: 'graphite', shoes: 'loafers', shoesColor: 'black', hat: 'none', glasses: 'none', extra: 'scarf', extraColor: 'gold', pet: 'cat', petColor: 'orange' },
+      prof: { backdrop: 'navy', pattern: 'globes', frame: 'navy', emoji: '🌍', title: 'none' },
+      petName: 'Тезис', coins: 1450, growth: 26, sessions: 4, best: 1180, plays: 9, visited: ['dean', 'classroom', 'library'], owned: ['extra:headphones'],
+      steps: { onboarded: true, schedule: true, quiz: 5, claimed: true },
+    },
+  },
+  {
+    key: 'timur', last: 'Алиев', first: 'Тимур', middle: 'Русланович', gender: 'm', group: 'МЭО-26-07', book: '26-МЭО-0742',
+    email: 't.aliev@student.mgimo-mania.demo', phone: '+7 (900) 000-42-07', funding: 'контракт', languages: ['Английский', 'Китайский'],
+    login: 't.aliev', strength: 0.78, weak: 'Высшая математика',
+    play: {
+      av: { body: 'm', skin: 's3', hair: 'short', hairColor: 'black', eyes: 'round', mouth: 'grin', cheeks: 'none', facial: 'none', top: 'hoodie', topColor: 'graphite', bottom: 'joggers', bottomColor: 'navy', shoes: 'sneakers', shoesColor: 'navy', hat: 'none', glasses: 'none', extra: 'none', pet: 'dog', petColor: 'sand' },
+      prof: { backdrop: 'sky', pattern: 'dots', frame: 'none', emoji: '🎯', title: 'none' },
+      petName: 'Бублик', coins: 0, growth: 2, sessions: 0, best: 0, plays: 0, visited: [], owned: [],
+      steps: { onboarded: false, schedule: false, quiz: 0, claimed: false },
+    },
+  },
+  {
+    key: 'ksenia', last: 'Лебедева', first: 'Ксения', middle: 'Андреевна', gender: 'f', group: 'МП-23-02', book: '23-МП-0208',
+    email: 'k.lebedeva@student.mgimo-mania.demo', phone: '+7 (900) 000-08-23', funding: 'бюджет', languages: ['Английский', 'Французский'],
+    login: 'k.lebedeva', strength: 0.84, debt: 'Право Евразийского экономического союза',
+    play: {
+      av: { body: 'f', skin: 's1', hair: 'bob', hairColor: 'ginger', eyes: 'round', mouth: 'smirk', cheeks: 'freckles', facial: 'none', top: 'turtleneck', topColor: 'cream', bottom: 'trousers', bottomColor: 'navy', shoes: 'boots', shoesColor: 'black', hat: 'none', glasses: 'round', extra: 'headphones', extraColor: 'navy', pet: 'fox' },
+      prof: { backdrop: 'peach', pattern: 'books', frame: 'flame', emoji: '⚖️', title: 'runner' },
+      petName: 'Кодекс', coins: 2600, growth: 48, sessions: 9, best: 2240, plays: 31, visited: ['cloakroom', 'dean', 'classroom', 'library', 'clubs'], owned: ['extra:headphones', 'top:mgimo-tee'],
+      steps: { onboarded: true, schedule: true, quiz: 4, claimed: true },
+    },
+  },
+];
+
