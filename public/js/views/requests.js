@@ -44,3 +44,16 @@ function catalogView() {
     <div class="cat-grid">${types.filter((t) => t.group === 'app').map(tile).join('')}</div>`;
 }
 
+// ---------- форма ----------
+function fieldHtml(f) {
+  const req = f.required ? ' <b>*</b>' : '';
+  const base = `name="${f.id}" ${f.required ? 'required' : ''}`;
+  let input;
+  if (f.type === 'select') input = `<select class="input" ${base}><option value="">Выберите</option>${f.options.map((o) => `<option value="${esc(o)}">${esc(/^\d{4}-\d{2}-\d{2}$/.test(o) ? dayShort(o) : o)}</option>`).join('')}</select>`;
+  else if (f.type === 'textarea') input = `<textarea class="input" ${base} maxlength="${f.max || 1000}" placeholder="${esc(f.placeholder || '')}"></textarea>`;
+  else if (f.type === 'number') input = `<input class="input" type="number" inputmode="numeric" ${base} min="${f.min}" max="${f.max}" value="${f.default ?? ''}">`;
+  else if (f.type === 'date') input = `<input class="input" type="date" ${base}>`;
+  else input = `<input class="input" ${base} maxlength="${f.max || 200}" placeholder="${esc(f.placeholder || '')}">`;
+  return `<label class="field" data-field="${f.id}"><span class="field-label">${esc(f.label)}${req}</span>${input}${f.min && f.type === 'textarea' ? `<span class="field-hint">Не короче ${f.min} символов</span>` : ''}</label>`;
+}
+
