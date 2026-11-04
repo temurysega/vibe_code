@@ -79,3 +79,12 @@ test('деканат видит только свой факультет, сту
   assert.equal((await dean.req('GET', '/api/home')).status, 403);
 });
 
+test('изменяющий запрос без CSRF-токена или с чужого сайта отклоняется', async () => {
+  const c = client(app.base);
+  await c.login('a.morozova');
+  const noToken = await c.req('POST', '/api/requests', { type: 'study', fields: { place: 'Банк' } }, { 'X-CSRF-Token': '' });
+  assert.equal(noToken.status, 403);
+  const foreign = await c.req('POST', '/api/requests', { type: 'study', fields: { place: 'Банк' } }, { Origin: 'https://evil.example' });
+  assert.equal(foreign.status, 403);
+});
+
