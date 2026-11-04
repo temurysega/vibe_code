@@ -56,3 +56,9 @@ server/app.js ── заголовки, CSRF, Origin, разбор JSON, мар
 Нагрузка на чтение (расписание, оценки) хорошо кешируется по группе, а изменения расписания —
 это короткий журнал, поэтому кабинет выдерживает пик «все открыли расписание в 8:50».
 
+## Модель данных
+
+`faculties · groups · students · staff · users · sessions · teachers · disciplines · lessons ·
+schedule_changes · enrollments · assessments · exams · deadlines · requests · request_events ·
+notifications · notification_reads · play_state · game_runs · audit_log · meta` — см.
+`server/schema.sql`.
