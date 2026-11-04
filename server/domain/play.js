@@ -200,3 +200,13 @@ export function quiz(s, answers) {
   return { score, total: FIRST_STEPS.quiz.length, passed: score >= 4 };
 }
 
+export function claimSteps(s, ctx) {
+  if (s.steps.claimed) fail(409, 'Награда уже получена');
+  const all = s.steps.onboarded && s.steps.schedule && ctx.hasRequest && s.steps.quiz >= 4 && s.visited.length >= 3;
+  if (!all) fail(400, 'Сначала пройдите все шаги');
+  s.steps.claimed = true;
+  s.pet.growth += RULES.growth.steps;
+  earn(s, FIRST_STEPS.coins, 'Первые шаги: чек-лист первокурсника');
+  return { coins: FIRST_STEPS.coins };
+}
+
