@@ -56,3 +56,62 @@ function body() {
   </div>`;
 }
 
+export default {
+  title: 'Лавка МГИМО',
+  render() {
+    return `<div class="container"><div class="page-head"><div><h1 class="h1">Лавка МГИМО</h1><p class="lead">Мерч за М-коины: забронируйте онлайн, заберите на первом этаже. Демо — вещи и выдача вымышлены</p></div></div><div data-body>${body()}</div></div>`;
+  },
+  mount(el) {
+    const box = el.querySelector('[data-body]');
+    el.addEventListener('click', async (e) => {
+      const k = e.target.closest('[data-kit]');
+      if (k && !k.disabled) {
+        const kit = KITS.find((x) => x.id === k.dataset.kit);
+        let size = kit.sizes.length === 1 ? kit.sizes[0] : null;
+        modal.open({
+          label: kit.name,
+          html: () => `<div class="modal-title">${esc(kit.name)}</div><p class="modal-sub">${esc(kit.desc)}</p>
+            ${kit.sizes.length > 1 ? `<div class="field mt-20"><span class="field-label">Размер</span><div class="chips">${kit.sizes.map((s) => `<button class="chip" data-size="${s}">${s}</button>`).join('')}</div></div>` : ''}
+            <div class="note mt-20">${icon('pin', 18)}<span>Выдача — Лавка МГИМО, 1 этаж, пн–сб 10:00–19:00. Заявка на выдачу появится в разделе «Заявки»</span></div>
+            <div class="modal-foot"><button class="btn btn-primary btn-lg" data-take>${icon('bag', 18)} Забронировать за ${fmt(kit.price)} М-коинов</button><button class="btn btn-secondary btn-lg" data-close>Отмена</button></div>`,
+          onMount(m, entry) {
+            m.addEventListener('click', async (ev) => {
+              const s = ev.target.closest('[data-size]');
+              if (s) { size = s.dataset.size; m.querySelectorAll('[data-size]').forEach((x) => x.classList.toggle('on', x === s)); return; }
+              if (!ev.target.closest('[data-take]')) return;
+              if (!size) { toast('Выберите размер', { icon: 'info' }); return; }
+              try {
+                const before = play().coins;
+                const r = await post('/api/play/kit', { kit: kit.id, size });
+                setPlay(r.play);
+                modal.close(entry);
+                fx.flyCoins(k.getBoundingClientRect(), before, r.play.coins);
+                fx.confetti({ n: 100 });
+                toast(`«${esc(kit.name)}» забронирован — цифровая копия уже в гардеробе. <a href="#/requests/${r.result.request}">Заявка на выдачу</a>`, { icon: 'bag', ms: 6000 });
+                box.innerHTML = body();
+              } catch (er) { toast(esc(er.message), { icon: 'alert' }); }
+            });
+          },
+        });
+        return;
+      }
+      const b = e.target.closest('[data-buy]');
+      if (b) {
+        const [slot, id] = b.dataset.buy.split(':');
+        const it = ITEMS.find((i) => i.slot === slot && i.id === id);
+        if (play().owned.includes(`${slot}:${id}`)) { location.hash = '#/wardrobe'; return; }
+        const ok = await confirm({ title: `Купить «${it.name}»?`, text: `${fmt(it.price)} М-коинов · на балансе ${fmt(play().coins)}`, yes: 'Купить' });
+        if (!ok) return;
+        try {
+          const before = play().coins;
+          const r = await post('/api/play/buy', { slot, id });
+          setPlay(r.play);
+          fx.flyCoins(b.getBoundingClientRect(), before, r.play.coins);
+          toast(`«${esc(it.name)}» — в гардеробе. <a href="#/wardrobe">Примерить</a>`, { icon: 'hanger', ms: 5000 });
+          box.innerHTML = body();
+        } catch (er) { toast(esc(er.message), { icon: 'alert' }); }
+      }
+    });
+    return null;
+  },
+};
