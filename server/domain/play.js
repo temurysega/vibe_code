@@ -226,3 +226,23 @@ export function gameStart(store, studentId) {
   return { run: id, left };
 }
 
+export function gameFinish(store, studentId, s, body) {
+  const run = store.get('SELECT * FROM game_runs WHERE id = ? AND student_id = ? AND finished_at IS NULL', str(body.run, 64), studentId);
+  if (!run) fail(400, 'Забег не найден или уже завершён');
+  const now = Date.now();
+  const played = Math.min(now - run.started_at, run.allowed_ms + 3000);
+  const sec = Math.max(0, played / 1000);
+  // Счёт не может расти быстрее, чем позволяет игра: подделанный результат обрезается
+  const score = Math.min(int(body.score, 0, 1e7) ?? 0, Math.round(sec * MAX_SCORE_PER_SEC) + 100);
+  const day = msk().date;
+  const coinsToday = store.get('SELECT COALESCE(SUM(coins), 0) AS c FROM game_runs WHERE student_id = ? AND day = ?', studentId, day).c;
+  const coins = Math.max(0, Math.min(int(body.coins, 0, 1e5) ?? 0, Math.floor(sec * 1.5), RULES.gameCoinsPerDay - coinsToday));
+  store.run('UPDATE game_runs SET finished_at = ?, played_ms = ?, score = ?, coins = ? WHERE id = ?', now, Math.round(played), score, coins, run.id);
+  const before = s.game.best;
+  s.game.best = Math.max(s.game.best, score);
+  s.game.plays += 1;
+  if (score >= 300) s.pet.growth += RULES.growth.game;
+  earn(s, coins, 'Забег «Бегом на пару»');
+  const unlocked = ITEMS.filter((i) => i.src === 'game' && i.need > before && i.need <= s.game.best).map((i) => i.name);
+  return { score, coins, best: s.game.best, record: score > before, unlocked, left: gameLeft(store, studentId) };
+}
