@@ -189,3 +189,14 @@ const app = {
   refresh() { emit('refresh'); },
 };
 
+async function signOut() {
+  closeMenu();
+  try { await post('/api/auth/logout'); } catch (e) { /* сессия уже закрыта */ }
+  setCsrf(null);
+  reset();
+  stopPolling();
+  // История чата помощника стирается вместе с сеансом
+  import('./views/assistant.js').then((m) => m.resetAssistant()).catch(() => {});
+  location.hash = '#/login';
+}
+
