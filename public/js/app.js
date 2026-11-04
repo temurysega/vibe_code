@@ -280,3 +280,23 @@ $head.addEventListener('click', async (e) => {
   }
 });
 
+$tab.addEventListener('click', (e) => {
+  const more = e.target.closest('[data-more]');
+  if (!more) return;
+  e.preventDefault();
+  e.stopPropagation();
+  if (!isStudent()) { confirm({ title: 'Выйти из кабинета?', yes: 'Выйти' }).then((ok) => ok && signOut()); return; }
+  const n = session.unread;
+  openMenu(more, `${[['notifications', `Уведомления${n ? ` · ${n}` : ''}`, 'bell'], ...NAV.filter(([id]) => !TABS.some((t) => t[0] === id)), ['profile', 'Профиль и безопасность', 'user']]
+    .map(([id, name, ic]) => `<button class="menu-item" data-go="#/${id}">${icon(ic, 18)} ${name}</button>`).join('')}
+    <button class="menu-item" data-askm>${icon('chat', 18)} Спросить деканат</button>
+    <div class="menu-sep"></div><button class="menu-item" data-out>${icon('logout', 18)} Выйти</button>`, (m) => {
+    m.addEventListener('click', (ev) => {
+      const g = ev.target.closest('[data-go]');
+      if (g) { closeMenu(); location.hash = g.dataset.go; return; }
+      if (ev.target.closest('[data-askm]')) { closeMenu(); app.ask(); return; }
+      if (ev.target.closest('[data-out]')) signOut();
+    });
+  }, { up: true });
+});
+
