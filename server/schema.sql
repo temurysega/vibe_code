@@ -22,3 +22,21 @@ CREATE TABLE IF NOT EXISTS groups (
   curator TEXT
 );
 
+-- Студенты: только учебные данные, без паспортов и СНИЛС
+CREATE TABLE IF NOT EXISTS students (
+  id INTEGER PRIMARY KEY,
+  last_name TEXT NOT NULL,
+  first_name TEXT NOT NULL,
+  middle_name TEXT,
+  gender TEXT NOT NULL CHECK (gender IN ('f', 'm')),
+  group_code TEXT NOT NULL REFERENCES groups(code),
+  record_book TEXT NOT NULL,
+  email TEXT NOT NULL,
+  phone TEXT,
+  study_form TEXT NOT NULL,
+  funding TEXT NOT NULL,
+  languages TEXT NOT NULL,
+  admission_year INTEGER NOT NULL,
+  scholarship TEXT
+);
+
