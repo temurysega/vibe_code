@@ -88,3 +88,11 @@ test('изменяющий запрос без CSRF-токена или с чу�
   assert.equal(foreign.status, 403);
 });
 
+test('перебор паролей блокируется', async () => {
+  const c = client(app.base);
+  let last;
+  for (let i = 0; i < 7; i++) last = await c.login('k.lebedeva', 'bad-password-' + i);
+  assert.equal(last.status, 429);
+  assert.ok(last.headers.get('retry-after'));
+});
+
