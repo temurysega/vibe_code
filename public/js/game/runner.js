@@ -457,3 +457,31 @@ export class Runner {
     c.textAlign = 'left';
   }
 
+  // ---------- оверлей ----------
+  show(kind, score, res, reason) {
+    const fmtL = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+    let html = '';
+    if (kind === 'ready') {
+      html = `<div class="h3">Бегом на пару</div>
+        <div class="muted small">← → — дорожка · ↑ или пробел — прыжок · ↓ — подкат<br>На телефоне — свайпы. Кофе даёт неуязвимость, зачётка — очки ×2</div>
+        <button class="btn btn-primary btn-lg" data-run>▶ Начать · осталось ${fmtL(this.left)}</button>`;
+    } else if (kind === 'starting') {
+      html = '<div class="h3">На старт…</div>';
+    } else if (kind === 'saving') {
+      html = `<div class="h3">Финиш</div><div class="muted">Счёт ${score.toLocaleString('ru-RU')} · сохраняем…</div>`;
+    } else if (kind === 'limit') {
+      html = `<div class="h3">На сегодня всё</div><div class="muted">5 минут перерыва закончились — пора к учебникам 📚<br>Завтра забег снова будет доступен</div><a class="btn btn-primary" href="#/schedule">Открыть расписание</a>`;
+    } else if (kind === 'error') {
+      html = '<div class="h3">Не удалось начать</div><div class="muted">Проверьте интернет и попробуйте ещё раз</div><button class="btn btn-primary" data-run>Ещё раз</button>';
+    } else {
+      const head = reason === 'time' ? 'Время вышло' : reason === 'hidden' ? 'Забег завершён' : res && res.record ? 'Новый рекорд!' : 'Не успели на пару';
+      html = `<div class="h3">${head}</div>
+        <div class="muted">Счёт <b style="color:#fff">${(res ? res.score : score).toLocaleString('ru-RU')}</b> · рекорд ${this.best.toLocaleString('ru-RU')}${res && res.coins ? ` · +${res.coins} М-коинов` : ''}</div>
+        ${res && res.unlocked && res.unlocked.length ? `<div class="badge badge-gold" style="height:30px;font-size:13px">Открыто: ${res.unlocked.join(', ')}</div>` : ''}
+        ${this.left > 1 ? `<button class="btn btn-primary btn-lg" data-run>↻ Ещё раз · осталось ${fmtL(this.left)}</button>` : '<div class="muted">5 минут на сегодня закончились — до завтра!</div>'}`;
+    }
+    this.overlay.innerHTML = html;
+    this.overlay.hidden = false;
+  }
+  hide() { this.overlay.hidden = true; }
+
