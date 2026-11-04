@@ -104,3 +104,34 @@ function hairBack(style, h) {
   }
 }
 
+function hairFront(style, h) {
+  const shine = `<path d="M80 50 Q98 42 118 47" stroke="#fff" stroke-opacity=".22" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+  switch (style) {
+    case 'short':
+      return `<path d="M58 102 C50 62 70 38 100 38 C130 38 150 62 142 102 C140 88 136 80 130 74 C116 80 98 80 84 70 C78 75 70 79 64 86 C61 91 59 96 58 102 Z" fill="${h}"/>${shine}`;
+    case 'side':
+      return `<path d="M57 104 C48 60 74 34 104 36 C136 38 152 64 143 104 C141 90 137 82 132 76 C120 86 102 86 90 80 C80 76 72 68 68 60 C62 72 58 86 57 104 Z" fill="${h}"/>${shine}`;
+    case 'buzz':
+      return `<path d="M59 96 C57 60 76 44 100 44 C124 44 143 60 141 96 C137 74 121 62 100 62 C79 62 63 74 59 96 Z" fill="${h}" opacity=".92"/>`;
+    case 'bob':
+      return `<path d="M54 104 C50 58 74 38 100 38 C126 38 150 58 146 104 L147 132 Q147 138 141 138 L137 138 C139 118 140 104 138 92 C136 84 132 78 128 74 L72 74 C68 78 64 84 62 92 C60 104 61 118 63 138 L59 138 Q53 138 53 132 Z" fill="${h}"/>${shine}`;
+    case 'long':
+      return `<path d="M54 106 C50 58 74 36 100 38 C126 36 150 58 146 106 L149 170 Q149 178 141 178 L138 178 C141 142 141 114 137 98 C133 84 120 70 101 63 L100 62 L99 63 C80 70 67 84 63 98 C59 114 59 142 62 178 L59 178 Q51 178 51 170 Z" fill="${h}"/>${shine}`;
+    case 'curly': {
+      let s = `<path d="M58 98 C56 62 76 44 100 44 C124 44 144 62 142 98 C136 80 120 70 100 70 C80 70 64 80 58 98 Z" fill="${h}"/>`;
+      [[62, 84, 13], [70, 64, 15], [86, 50, 16], [104, 46, 16], [120, 52, 15], [134, 66, 14], [140, 86, 12], [58, 100, 9], [142, 100, 9], [74, 72, 10], [90, 68, 10], [106, 68, 10], [122, 72, 10]]
+        .forEach(([x, y, r]) => { s += `<circle cx="${x}" cy="${y}" r="${r}" fill="${h}"/>`; });
+      s += `<path d="M80 52 q4 -3 8 0 M100 46 q4 -3 8 0 M118 56 q4 -3 8 0 M68 68 q4 -3 8 0 M128 74 q4 -3 8 0" stroke="${dk(h, 0.25)}" stroke-width="1.8" fill="none" stroke-linecap="round"/>`;
+      return s;
+    }
+    case 'afro':
+      return `<path d="M60 94 C58 62 78 48 100 48 C122 48 142 62 140 94 C134 78 120 70 100 70 C80 70 66 78 60 94 Z" fill="${dk(h, 0.08)}"/>`;
+    case 'bun':
+      return `<circle cx="100" cy="32" r="17" fill="${h}"/><path d="M58 98 C54 60 76 42 100 42 C124 42 146 60 142 98 C138 80 122 66 100 66 C78 66 62 80 58 98 Z" fill="${h}"/><rect x="89" y="44" width="22" height="6" rx="3" fill="${dk(h, 0.28)}"/>${shine}`;
+    case 'ponytail':
+      return `<path d="M58 98 C54 60 76 42 100 42 C124 42 146 60 142 98 C138 80 122 66 100 66 C78 66 62 80 58 98 Z" fill="${h}"/><rect x="124" y="58" width="10" height="14" rx="4" fill="${dk(h, 0.28)}" transform="rotate(-30 129 65)"/>${shine}`;
+    default:
+      return '';
+  }
+}
+
