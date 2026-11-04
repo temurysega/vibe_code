@@ -66,3 +66,11 @@ export function unreadCount(store, userId, student) {
   ).c;
 }
 
+// Отметить прочитанными можно только уведомления, адресованные этому студенту
+export function markRead(store, userId, student, ids) {
+  const visible = new Set(listFor(store, userId, student, 500).map((n) => n.id));
+  const list = ids === 'all' ? [...visible] : (Array.isArray(ids) ? ids : []).map(Number).filter((id) => visible.has(id));
+  const now = Date.now();
+  store.tx(() => list.forEach((id) => store.run('INSERT OR IGNORE INTO notification_reads (user_id, notification_id, read_at) VALUES (?, ?, ?)', userId, id, now)));
+  return list.length;
+}
