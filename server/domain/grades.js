@@ -68,3 +68,12 @@ export function plural(n, forms) {
   return forms[2];
 }
 
+// Синтетический рейтинг группы: распределение баллов однокурсников без персональных данных
+function groupRank(groupCode, myAvg) {
+  let seed = [...groupCode].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
+  const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+  const others = Array.from({ length: 22 }, () => 3.2 + rnd() * 1.75);
+  const place = 1 + others.filter((x) => x > myAvg).length;
+  return { place, of: others.length + 1, top: Math.round((place / (others.length + 1)) * 100) };
+}
+
