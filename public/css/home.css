@@ -50,3 +50,6 @@
 .tip + .tip { margin-top: 8px; }
 .tip .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--warn); }
 .tip.debt .dot { background: var(--red); }
+.tip.exam .dot { background: var(--navy); }
+.tip:hover { box-shadow: inset 0 0 0 1px var(--border); }
+
