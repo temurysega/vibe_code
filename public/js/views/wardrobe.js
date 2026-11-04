@@ -77,3 +77,11 @@ function profileTab() {
     <label class="field opt-group"><span class="field-label">Имя питомца</span><input class="input" data-petname maxlength="24" value="${esc(petName)}"></label>`;
 }
 
+function panel() {
+  let html = '';
+  if (tab === 'look') html = lookTab();
+  else if (tab === 'profile') html = profileTab();
+  else html = tiles(tab) + swatches(tab);
+  return `<div class="ward-tabs">${TABS.map(([id, n]) => `<button class="chip ${tab === id ? 'on' : ''}" data-tab="${id}">${n}</button>`).join('')}</div>${html}`;
+}
+
