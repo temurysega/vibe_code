@@ -116,3 +116,14 @@ test('заголовки безопасности и защита статики
   }
 });
 
+test('счёт забега не подделать из браузера', async () => {
+  const c = client(app.base);
+  await c.login('a.morozova');
+  const start = await c.req('POST', '/api/game/start', {});
+  assert.equal(start.status, 200);
+  const fin = await c.req('POST', '/api/game/finish', { run: start.data.run, score: 9999999, coins: 9999 });
+  assert.equal(fin.status, 200);
+  assert.ok(fin.data.result.score < 1000, 'счёт обрезан по времени забега');
+  assert.ok(fin.data.result.coins <= 2);
+});
+
