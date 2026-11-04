@@ -62,3 +62,53 @@ function body() {
     </div></div>`;
 }
 
+export default {
+  title: 'Профиль',
+  render() {
+    return `<div class="container"><div class="page-head"><div><h1 class="h1">Профиль</h1><p class="lead">Учебные данные, контакты и безопасность аккаунта</p></div></div><div data-body>${skeleton(3, 160)}</div></div>`;
+  },
+  async mount(el) {
+    const box = el.querySelector('[data-body]');
+    const load = async () => {
+      try {
+        [me, sec] = await Promise.all([get('/api/me').then((r) => r.profile), get('/api/auth/sessions')]);
+        box.innerHTML = body();
+      } catch (e) { if (e.status !== 401) box.innerHTML = errorBox(e); }
+    };
+    await load();
+    el.addEventListener('click', async (e) => {
+      const rv = e.target.closest('[data-reveal]');
+      if (rv) { shown[rv.dataset.reveal] = !shown[rv.dataset.reveal]; box.innerHTML = body(); return; }
+      const r1 = e.target.closest('[data-revoke]');
+      if (r1) {
+        try { await del(`/api/auth/sessions/${r1.dataset.revoke}`); toast('Сеанс завершён', { icon: 'shieldOk' }); load(); } catch (er) { toast(esc(er.message), { icon: 'alert' }); }
+        return;
+      }
+      if (e.target.closest('[data-revoke-all]')) {
+        const ok = await confirm({ title: 'Завершить другие сеансы?', text: 'На остальных устройствах придётся войти заново', yes: 'Завершить' });
+        if (!ok) return;
+        const r = await post('/api/auth/sessions/revoke-others').catch((er) => { toast(esc(er.message), { icon: 'alert' }); return null; });
+        if (r) { toast(`Завершено сеансов: ${r.closed}`, { icon: 'shieldOk' }); load(); }
+      }
+    });
+    el.addEventListener('submit', async (e) => {
+      const f = e.target.closest('[data-pw]');
+      if (!f) return;
+      e.preventDefault();
+      f.querySelectorAll('.field-error').forEach((x) => x.remove());
+      f.querySelectorAll('.invalid').forEach((x) => x.classList.remove('invalid'));
+      try {
+        const r = await post('/api/auth/password', { current: f.elements.current.value, next: f.elements.next.value });
+        if (r.demo) toast('Демо-стенд: новый пароль прошёл проверку, но не сохранён — иначе жюри не сможет войти. В боевом режиме он сохранится как хеш scrypt', { icon: 'key', ms: 7000 });
+        else toast('Пароль изменён. Другие сеансы завершены', { icon: 'key' });
+        f.reset();
+        load();
+      } catch (er) {
+        const fe = er.data && er.data.fields;
+        if (fe) Object.entries(fe).forEach(([k, msg]) => { const x = f.querySelector(`[data-field="${k}"]`); if (x) { x.classList.add('invalid'); x.insertAdjacentHTML('beforeend', `<span class="field-error">${esc(msg)}</span>`); } });
+        else toast(esc(er.message), { icon: 'alert' });
+      }
+    });
+    return null;
+  },
+};
