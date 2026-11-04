@@ -106,3 +106,36 @@ export class Runner {
     this.nextRow = 26; this.deco = 0; this.frame = 0; this.animT = 0;
   }
 
+  // ---------- управление ----------
+  move(d) { if (this.state === 'run') this.laneI = Math.max(-1, Math.min(1, this.laneI + d)); }
+  jump() { if (this.state === 'run' && this.y <= 0.001) { this.vy = 6.4; this.slideT = 0; } }
+  slide() { if (this.state === 'run') { this.slideT = 0.62; if (this.y > 0) this.vy = Math.min(this.vy, -8); } }
+  typing(e) { const t = e.target; return (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) || document.querySelector('.modal-overlay, .drawer'); }
+  onKey(e) {
+    if (this.typing(e)) return;
+    const k = e.code;
+    if (this.state !== 'run') {
+      if ((k === 'Space' || k === 'Enter') && document.activeElement === this.wrap && (this.state === 'ready' || this.state === 'over')) { e.preventDefault(); this.start(); }
+      return;
+    }
+    if (['ArrowLeft', 'KeyA'].includes(k)) { e.preventDefault(); this.move(-1); }
+    if (['ArrowRight', 'KeyD'].includes(k)) { e.preventDefault(); this.move(1); }
+    if (['ArrowUp', 'KeyW', 'Space'].includes(k)) { e.preventDefault(); if (!e.repeat) this.jump(); }
+    if (['ArrowDown', 'KeyS'].includes(k)) { e.preventDefault(); this.slide(); }
+  }
+  // Свайпы: влево-вправо — дорожка, вверх — прыжок, вниз — подкат, тап — прыжок
+  onDown(e) {
+    if (e.target.closest('button')) return;
+    this.touch = { x: e.clientX, y: e.clientY, t: performance.now() };
+    if (this.state === 'run') e.preventDefault();
+  }
+  onUp(e) {
+    const t = this.touch;
+    this.touch = null;
+    if (!t || this.state !== 'run') return;
+    const dx = e.clientX - t.x, dy = e.clientY - t.y;
+    if (Math.abs(dx) < 24 && Math.abs(dy) < 24) { this.jump(); return; }
+    if (Math.abs(dx) > Math.abs(dy)) this.move(dx > 0 ? 1 : -1);
+    else if (dy < 0) this.jump(); else this.slide();
+  }
+
