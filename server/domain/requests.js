@@ -115,3 +115,22 @@ function validate(type, body, catalog) {
   return { data, errors };
 }
 
+function nextNumber(store) {
+  const seq = Number(store.meta('seq_requests') || 1200) + 1;
+  store.meta('seq_requests', seq);
+  return `${msk().date.slice(0, 4)}/${String(seq).padStart(5, '0')}`;
+}
+
+// План автоматической обработки для демо: заявка сама проходит статусы, пока деканат не вмешается
+function planFor(type, delivery) {
+  const s = (sec) => Date.now() + sec * 1000;
+  if (type.group === 'shop') return [{ at: s(25), status: 'ready', comment: 'Комплект собран — заберите в Лавке МГИМО, 1 этаж' }];
+  if (type.group === 'cert') {
+    return delivery === 'electronic'
+      ? [{ at: s(20), status: 'in_work', comment: 'Специалист деканата взял заявку в работу' }, { at: s(70), status: 'ready', comment: 'Справка подписана электронной подписью — можно скачать' }]
+      : [{ at: s(30), status: 'in_work', comment: 'Специалист деканата взял заявку в работу' }, { at: s(150), status: 'ready', comment: 'Справка готова — заберите оригинал в деканате' }];
+  }
+  if (type.manual) return [{ at: s(40), status: 'in_work', comment: 'Заявка передана в отдел академической мобильности. Решение комиссии — до 1 декабря' }];
+  return [{ at: s(40), status: 'in_work', comment: 'Заявление зарегистрировано и передано на рассмотрение' }, { at: s(180), status: 'approved', comment: type.id === 'absence' ? 'Согласовано. Преподаватели предупреждены' : 'Заявление одобрено' }];
+}
+
