@@ -19,3 +19,10 @@ function ring(pct) {
     <div class="ring-v"><span><b>${pct == null ? '—' : v + '%'}</b><span>набрано от возможного</span></span></div></div>`;
 }
 
+// Шкала дисциплины: набранное, прогноз пунктиром и пороги 60 / 75 / 90
+function scale(c) {
+  const f = c.forecast == null ? c.earned : c.forecast;
+  return `<div class="scale" aria-hidden="true"><span class="forecast" style="left:${c.earned}%;width:${Math.max(0, f - c.earned)}%"></span><span class="earned" style="width:${c.earned}%"></span>
+    ${[60, 75, 90].map((m) => `<span class="mark" style="left:${m}%"><span>${m}</span></span>`).join('')}</div>`;
+}
+
