@@ -204,3 +204,25 @@ function glasses(t) {
   }
 }
 
+function head(c, skin, sh, h) {
+  const male = c.body === 'm';
+  const brow = mix(h, '#3B2A22', lum(h) > 0.55 ? 0.55 : male ? 0.4 : 0.3);
+  return (
+    `<ellipse cx="58" cy="96" rx="7" ry="10" fill="${skin}"/><ellipse cx="142" cy="96" rx="7" ry="10" fill="${skin}"/>` +
+    `<path d="M59 91 Q55 96 59 101 M141 91 Q145 96 141 101" stroke="${sh}" stroke-width="2.2" fill="none" stroke-linecap="round"/>` +
+    (male
+      ? `<path d="M57 88 C57 61 76 45 100 45 C124 45 143 61 143 88 C143 113 135 131 114 135.5 Q100 138.5 86 135.5 C65 131 57 113 57 88 Z" fill="${skin}"/>`
+      : `<ellipse cx="100" cy="90" rx="42" ry="45" fill="${skin}"/>`) +
+    facial(c.facial, h) +
+    cheeks(c.cheeks, sh) +
+    (male
+      ? `<path d="M75.5 86.5 Q83.5 82 92 85 M108 85 Q116.5 82 124.5 86.5" stroke="${brow}" stroke-width="4.6" fill="none" stroke-linecap="round"/>`
+      : `<path d="M77.5 85 Q84 79.5 90.5 83 M109.5 83 Q116 79.5 122.5 85" stroke="${brow}" stroke-width="2.7" fill="none" stroke-linecap="round"/>`) +
+    eyes(c.eyes) +
+    `<path d="M97 106 Q100 109 103 106" stroke="${sh}" stroke-width="2.4" fill="none" stroke-linecap="round"/>` +
+    mouth(c.mouth, !male) +
+    glasses(c.glasses) +
+    hairFront(c.hair, h)
+  );
+}
+
