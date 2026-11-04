@@ -193,3 +193,10 @@ export function takeKit(store, s, kitId, size) {
   return kit;
 }
 
+export function quiz(s, answers) {
+  if (!Array.isArray(answers) || answers.length !== FIRST_STEPS.quiz.length) fail(400, 'Ответьте на все вопросы');
+  const score = FIRST_STEPS.quiz.reduce((a, q, i) => a + (Number(answers[i]) === q.ok ? 1 : 0), 0);
+  s.steps.quiz = Math.max(s.steps.quiz, score);
+  return { score, total: FIRST_STEPS.quiz.length, passed: score >= 4 };
+}
+
