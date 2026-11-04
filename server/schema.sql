@@ -211,3 +211,27 @@ CREATE TABLE IF NOT EXISTS request_events (
 );
 CREATE INDEX IF NOT EXISTS request_events_req ON request_events(request_id, created_at);
 
+-- Уведомления: адресат — весь вуз, факультет, группа или один студент
+CREATE TABLE IF NOT EXISTS notifications (
+  id INTEGER PRIMARY KEY,
+  audience TEXT NOT NULL CHECK (audience IN ('all', 'faculty', 'group', 'student')),
+  audience_id TEXT,
+  kind TEXT NOT NULL,
+  title TEXT NOT NULL,
+  body TEXT NOT NULL,
+  link TEXT,
+  important INTEGER NOT NULL DEFAULT 0,
+  author TEXT,
+  ref TEXT,
+  created_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS notifications_aud ON notifications(audience, audience_id, created_at);
+CREATE UNIQUE INDEX IF NOT EXISTS notifications_ref ON notifications(ref) WHERE ref IS NOT NULL;
+
+CREATE TABLE IF NOT EXISTS notification_reads (
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  notification_id INTEGER NOT NULL REFERENCES notifications(id) ON DELETE CASCADE,
+  read_at INTEGER NOT NULL,
+  PRIMARY KEY (user_id, notification_id)
+);
+
