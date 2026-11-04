@@ -85,3 +85,13 @@ function panel() {
   return `<div class="ward-tabs">${TABS.map(([id, n]) => `<button class="chip ${tab === id ? 'on' : ''}" data-tab="${id}">${n}</button>`).join('')}</div>${html}`;
 }
 
+function mirror() {
+  return `<div class="mirror"><div class="mirror-frame"><div class="stage-bg">${backdrop(prof.backdrop, prof.pattern, { w: 400, h: 520, cy: 230, r0: 90 })}</div>
+      <span class="curtain l"></span><span class="curtain r"></span>
+      <div class="mirror-av">${avatarSvg(draft, { view: 'full' })}</div>
+      ${draft.pet && draft.pet !== 'none' ? `<div class="mirror-pet">${petSvg(draft.pet, draft.petColor)}</div>` : ''}
+    </div>
+    <div class="mirror-actions"><button class="btn btn-primary btn-lg" data-save ${changed() ? '' : 'disabled'}>${icon('check', 18)} Сохранить образ</button><button class="btn btn-secondary btn-lg btn-icon" data-reset title="Вернуть как было" aria-label="Вернуть как было">${icon('undo', 20)}</button><button class="btn btn-secondary btn-lg btn-icon" data-random title="Случайный образ" aria-label="Случайный образ">${icon('sparkles', 20)}</button></div>
+    <div class="try-note">${icon('info', 18)}<span>Примерить можно всё. Сохранить — только открытые вещи: знаки за учёбу не продаются</span></div></div>`;
+}
+
