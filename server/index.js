@@ -46,3 +46,10 @@ const timers = [
   setInterval(() => { maybeReseed(false).catch((e) => console.error(e)); }, 10 * 60e3),
 ];
 
+function shutdown() {
+  timers.forEach(clearInterval);
+  server.close(() => { store.close(); process.exit(0); });
+  setTimeout(() => process.exit(0), 3000).unref();
+}
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
