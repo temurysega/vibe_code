@@ -95,3 +95,20 @@ function mirror() {
     <div class="try-note">${icon('info', 18)}<span>Примерить можно всё. Сохранить — только открытые вещи: знаки за учёбу не продаются</span></div></div>`;
 }
 
+function body() {
+  return `<div class="fitting">${mirror()}<div class="card">${panel()}</div></div>`;
+}
+
+function randomize() {
+  const pick = (a) => a[(Math.random() * a.length) | 0];
+  const free = (slot) => ITEMS.filter((i) => i.slot === slot && itemState(i, play(), ctx()).owned);
+  draft = applyBody(draft, pick(['m', 'f']));
+  ['skin', 'hair', 'hairColor', 'eyes', 'mouth'].forEach((k) => { draft[k] = pick(APPEARANCE[k])[0]; });
+  ['top', 'bottom', 'shoes', 'hat', 'glasses', 'extra'].forEach((slot) => {
+    const it = pick(free(slot));
+    draft[slot] = it.id;
+    if (it.colors) draft[slot + 'Color'] = pick(it.colors); else delete draft[slot + 'Color'];
+  });
+  draft = applyBody(draft, draft.body);
+}
+
