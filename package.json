@@ -1,0 +1,21 @@
+{
+  "name": "mgimo-mania",
+  "version": "1.0.0",
+  "description": "МГИМО Мания — концепт личного кабинета студента для конкурса. Не является официальным сервисом МГИМО.",
+  "private": true,
+  "type": "module",
+  "main": "server/index.js",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "seed": "node server/seed/run.js",
+    "test": "node --test \"test/*.test.js\""
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.4.0"
+  }
+}
