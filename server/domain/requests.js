@@ -80,3 +80,14 @@ function slots() {
   return out;
 }
 
+// Каталог для конкретного студента: подставляем его долги и даты, скрываем неподходящее
+export function catalogFor(store, student) {
+  const debts = store.all("SELECT e.discipline_id AS id, d.name FROM enrollments e JOIN disciplines d ON d.id = e.discipline_id WHERE e.student_id = ? AND e.status = 'debt'", student.id);
+  return TYPES.filter((t) => !(t.budgetOnly && student.funding !== 'бюджет')).map((t) => Object.assign({}, t, {
+    available: !t.needsDebt || debts.length > 0,
+    hint: t.needsDebt && !debts.length ? 'Долгов нет — пересдача не нужна' : '',
+    fields: t.fields.map((f) => f.type === 'debt' ? Object.assign({}, f, { type: 'select', options: debts.map((d) => d.name) })
+      : f.type === 'slot' ? Object.assign({}, f, { type: 'select', options: slots() }) : f),
+  }));
+}
+
