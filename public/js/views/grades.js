@@ -37,3 +37,27 @@ function discCard(c) {
   </button>`;
 }
 
+function current() {
+  const s = g.summary;
+  const ic = s.mood === 'great' ? '🌟' : s.mood === 'warn' ? '⚡' : '🙂';
+  return `<div class="grades-hero">
+      <div class="card verdict"><div class="row" style="align-items:flex-start;gap:16px"><span class="verdict-ic">${ic}</span><div><span class="eyebrow">Как у меня дела</span><div class="verdict-big mt-4">${esc(s.headline)}</div></div></div>
+        <div class="stat-row">
+          <div class="stat"><div class="stat-v">${s.avg != null ? num(s.avg, 2) : '—'}</div><div class="stat-l">средний балл прошлых сессий</div></div>
+          <div class="stat"><div class="stat-v">${s.excellent}<span class="small muted" style="font-weight:400">/${s.total}</span></div><div class="stat-l">идут на «отлично»</div></div>
+          <div class="stat"><div class="stat-v">${s.attendance != null ? s.attendance + '%' : '—'}</div><div class="stat-l">посещаемость</div></div>
+        </div>
+        ${s.tips.length ? `<div>${s.tips.map((t) => `<a class="tip ${t.kind}" href="${t.link}"><span class="dot"></span><span class="grow">${esc(t.text)}</span>${icon('arrow', 14)}</a>`).join('')}</div>` : ''}
+      </div>
+      <div class="card"><div class="card-title">Семестр</div><div class="card-sub">${esc(g.semesterLabel)} · ${g.semester} семестр · ${s.credits} ЗЕ</div>
+        <div class="ring-wrap mt-16">${ring(s.semPace)}<div class="col" style="gap:8px;min-width:160px;flex:1">
+          <div><span class="small muted">Набрано</span><div class="h4">${s.earned} из ${s.possible} баллов</div></div>
+          <div><span class="small muted">Место в рейтинге группы</span><div class="h4">${s.rank.place} из ${s.rank.of} · топ-${s.rank.top}%</div></div>
+        </div></div>
+        <div class="note mt-16">${icon(s.stipend.kind === 'high' ? 'star' : s.stipend.kind === 'none' ? 'info' : 'coins', 18)}<span><b style="font-weight:500">${esc(s.stipend.label)}</b><br><span class="muted">${esc(s.stipend.hint)}</span></span></div>
+      </div>
+    </div>
+    <div class="section-head mt-32"><h2 class="h3">Дисциплины</h2><div class="scale-legend"><span><i style="width:14px;height:8px;border-radius:4px;background:var(--navy)"></i> набрано</span><span><i style="width:14px;height:8px;border-radius:4px;background:repeating-linear-gradient(-45deg,#DCE6F8 0 3px,#C9D6F0 3px 6px)"></i> прогноз</span><span>60 — зачёт · 75 — «хорошо» · 90 — «отлично»</span></div></div>
+    <div class="disc-grid">${g.current.slice().sort((a, b) => (a.status === 'risk' ? -1 : 0) - (b.status === 'risk' ? -1 : 0)).map(discCard).join('')}</div>`;
+}
+
