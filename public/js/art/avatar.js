@@ -247,3 +247,68 @@ function topColor(c) {
   return col(c.topColor, CLOTH.white);
 }
 
+function torso(c, sh) {
+  const t = c.top;
+  const k = topColor(c);
+  const d = dk(k, 0.12);
+  const b = bodyOf(c);
+  const TORSO = torsoPath(b);
+  let s = `<path d="${TORSO}" fill="${k}"/>`;
+  switch (t) {
+    case 'polo':
+      s += `<path d="M90 140 L100 154 L110 140 Z" fill="${sh}"/><path d="M85 139 L100 151 L94 160 L80 147 Z M115 139 L100 151 L106 160 L120 147 Z" fill="${d}"/>` +
+        `<path d="M100 151 L100 177" stroke="${dk(k, 0.2)}" stroke-width="2"/><circle cx="100" cy="161" r="1.9" fill="${lt(k, 0.55)}"/><circle cx="100" cy="171" r="1.9" fill="${lt(k, 0.55)}"/>`;
+      break;
+    case 'shirt':
+      s += `<path d="M92 140 L100 150 L108 140 Z" fill="${sh}"/><path d="M100 150 V234" stroke="${dk(k, 0.15)}" stroke-width="1.6"/>` +
+        [166, 184, 202, 220].map((y) => `<circle cx="100" cy="${y}" r="1.9" fill="${dk(k, 0.28)}"/>`).join('') +
+        `<path d="M110 166 h14 v11 q0 3 -3 3 h-8 q-3 0 -3 -3 Z" fill="none" stroke="${dk(k, 0.15)}" stroke-width="1.4"/>` +
+        `<path d="M86 138 L100 150 L95 158 L82 144 Z M114 138 L100 150 L105 158 L118 144 Z" fill="${lt(k, 0.45)}" stroke="${dk(k, 0.12)}" stroke-width="1"/>`;
+      break;
+    case 'hoodie':
+    case 'mgimo-hoodie':
+      s += `<path d="M84 141 Q100 160 116 141" fill="none" stroke="${dk(k, 0.2)}" stroke-width="5" stroke-linecap="round"/>` +
+        `<path d="M76 206 Q76 200 82 200 L118 200 Q124 200 124 206 L128 228 L72 228 Z" fill="${dk(k, 0.08)}"/>` +
+        `<rect x="62" y="226" width="76" height="10" rx="5" fill="${dk(k, 0.12)}"/>` +
+        `<path d="M94 152 L93 175 M106 152 L107 175" stroke="${lt(k, 0.62)}" stroke-width="2.4" stroke-linecap="round"/><circle cx="93" cy="177" r="2.4" fill="${lt(k, 0.62)}"/><circle cx="107" cy="177" r="2.4" fill="${lt(k, 0.62)}"/>`;
+      if (t === 'mgimo-hoodie') s += print(GOLD, 100, 190);
+      break;
+    case 'sweater':
+    case 'ling-knit':
+      s += `<path d="M89 140 Q100 152 111 140 Z" fill="${sh}"/><path d="M86 140 Q100 156 114 140" fill="none" stroke="${dk(k, 0.15)}" stroke-width="5" stroke-linecap="round"/>` +
+        `<rect x="62" y="224" width="76" height="12" rx="5" fill="${dk(k, 0.1)}"/>` +
+        Array.from({ length: 11 }, (_, i) => `<path d="M${67 + i * 6.6} 226 v8" stroke="${dk(k, 0.22)}" stroke-width="1"/>`).join('');
+      if (t === 'ling-knit') {
+        // Полоса из букв разных алфавитов: в МГИМО учат десятки языков
+        s += `<rect x="62.5" y="170" width="75" height="22" fill="#fff"/><text x="100" y="186" text-anchor="middle" font-family="Onest, Arial, sans-serif" font-size="12" font-weight="700" fill="${CLOTH.navy}" letter-spacing="1">A Б 中 ع Ω</text>`;
+      }
+      break;
+    case 'turtleneck':
+      s += `<rect x="87" y="122" width="26" height="24" rx="8" fill="${dk(k, 0.08)}"/>` +
+        [92, 97, 103, 108].map((x) => `<path d="M${x} 126 v17" stroke="${dk(k, 0.22)}" stroke-width="1.2"/>`).join('');
+      break;
+    case 'blazer':
+    case 'gown':
+      s = `<path d="${TORSO}" fill="#FFFFFF"/><path d="M92 140 L100 152 L108 140 Z" fill="${sh}"/>` +
+        `<path d="M${100 - b.sh} 152 C${100 - b.sh} 145 ${109 - b.sh} 141 86 140 L100 196 L100 236 L${108 - b.hip} 236 Q${100 - b.hip} 236 ${100 - b.hip} 228 C${100 - b.hip} 218 ${100 - b.waist} 210 ${100 - b.waist} 196 C${100 - b.waist} 182 ${100 - b.sh} 170 ${100 - b.sh} 152 Z" fill="${k}"/>` +
+        `<path d="M${100 + b.sh} 152 C${100 + b.sh} 145 ${91 + b.sh} 141 114 140 L100 196 L100 236 L${92 + b.hip} 236 Q${100 + b.hip} 236 ${100 + b.hip} 228 C${100 + b.hip} 218 ${100 + b.waist} 210 ${100 + b.waist} 196 C${100 + b.waist} 182 ${100 + b.sh} 170 ${100 + b.sh} 152 Z" fill="${k}"/>` +
+        `<path d="M86 140 L94 168 L84 160 L81 146 Z M114 140 L106 168 L116 160 L119 146 Z" fill="${t === 'gown' ? GOLD : dk(k, 0.16)}"/>` +
+        `<circle cx="100" cy="210" r="2.6" fill="${dk(k, 0.35)}"/><path d="M70 214 h17 M113 214 h17" stroke="${dk(k, 0.22)}" stroke-width="2" stroke-linecap="round"/>`;
+      if (t === 'gown') s += `<circle cx="118" cy="170" r="9" fill="${GOLD}"/><path d="m118 164 1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9-3.6 1.9.7-4-2.9-2.8 4-.6Z" fill="${CLOTH.navy}"/>`;
+      break;
+    case 'mun-bomber':
+    case 'focus-jacket':
+      s += `<path d="M84 141 Q100 160 116 141" fill="none" stroke="${GOLD}" stroke-width="6" stroke-linecap="round"/>` +
+        `<rect x="62" y="224" width="76" height="12" rx="5" fill="${GOLD}"/><path d="M62 228 h76 M62 232 h76" stroke="${k}" stroke-width="1.2"/>` +
+        `<path d="M100 152 V224" stroke="${lt(k, 0.25)}" stroke-width="1.6"/><circle cx="119" cy="174" r="9" fill="${GOLD}"/>` +
+        (t === 'mun-bomber'
+          ? `<text x="119" y="178.5" text-anchor="middle" font-family="Onest, Arial, sans-serif" font-weight="700" font-size="11" fill="${CLOTH.navy}">M</text>`
+          : `<path d="m119 168 1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9-3.6 1.9.7-4-2.9-2.8 4-.6Z" fill="${CLOTH.navy}"/>`);
+      break;
+    default: // tee, mgimo-tee
+      s += `<path d="M88 140 Q100 155 112 140 Z" fill="${sh}"/><path d="M85.5 140 Q100 158 114.5 140" fill="none" stroke="${d}" stroke-width="3"/>`;
+      if (t === 'mgimo-tee') s += print(GOLD, 102, 194);
+  }
+  return s;
+}
+
