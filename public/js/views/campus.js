@@ -20,3 +20,10 @@ function hudZone() {
     <span class="route-dots" title="Маршрут: ${v.length} из ${ROOMS.length}">${ROOMS.map((x) => `<i class="${v.includes(x.id) ? 'on' : ''}"></i>`).join('')}</span></span>`;
 }
 
+function zoneCards() {
+  const v = session.play.visited;
+  return ROOMS.map((r) => `<button class="zone ${zone === r.id ? 'here' : ''}" data-zone="${r.id}">
+    <span class="zone-ic">${icon(r.icon, 18)}</span><b>${esc(r.name)}</b><span class="small muted">${esc(r.desc)}</span>
+    ${v.includes(r.id) ? `<span class="stamp-ok">${icon('check', 12, 2.6)}</span>` : ''}</button>`).join('');
+}
+
