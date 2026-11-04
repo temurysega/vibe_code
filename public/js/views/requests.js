@@ -106,3 +106,12 @@ function detailView(r) {
     </aside></div>`;
 }
 
+// ---------- электронная справка ----------
+const FAC_EN = { 'Факультет международных отношений': 'School of International Relations', 'Международно-правовой факультет': 'International Law School', 'Факультет международных экономических отношений': 'School of International Economic Relations' };
+const PROGRAM_EN = { 'Международные отношения': 'International Relations', 'Экономика': 'Economics', 'Юриспруденция': 'Law' };
+const COUNTRY_EN = { 'сербия': 'Serbia', 'китай': 'China', 'франция': 'France', 'оаэ': 'the UAE', 'индия': 'India', 'бразилия': 'Brazil', 'германия': 'Germany', 'италия': 'Italy', 'испания': 'Spain', 'турция': 'Turkey', 'египет': 'Egypt', 'япония': 'Japan', 'корея': 'Korea', 'вьетнам': 'Vietnam', 'армения': 'Armenia', 'казахстан': 'Kazakhstan', 'узбекистан': 'Uzbekistan', 'беларусь': 'Belarus' };
+const programEn = (p) => p.replace(/^(\S+)\s+(.+)$/, (m, code, name) => `${code} ${PROGRAM_EN[name] || translit(name)}`);
+const countryEn = (c) => COUNTRY_EN[String(c || '').trim().toLowerCase()] || translit(c || '');
+const TR = { а: 'a', б: 'b', в: 'v', г: 'g', д: 'd', е: 'e', ё: 'e', ж: 'zh', з: 'z', и: 'i', й: 'i', к: 'k', л: 'l', м: 'm', н: 'n', о: 'o', п: 'p', р: 'r', с: 's', т: 't', у: 'u', ф: 'f', х: 'kh', ц: 'ts', ч: 'ch', ш: 'sh', щ: 'shch', ъ: 'ie', ы: 'y', ь: '', э: 'e', ю: 'iu', я: 'ia' };
+const translit = (s) => String(s).split('').map((c) => { const l = c.toLowerCase(); const t = TR[l]; if (t == null) return c; return c === l ? t : t.charAt(0).toUpperCase() + t.slice(1); }).join('');
+
