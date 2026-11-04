@@ -29,3 +29,11 @@ export async function verifyPassword(password, stored) {
   return key.length === expected.length && timingSafeEqual(key, expected);
 }
 
+// Хеш-пустышка: если логина нет, всё равно считаем scrypt — время ответа не выдаёт, существует ли пользователь
+let dummy = null;
+export async function dummyVerify(password) {
+  if (!dummy) dummy = await hashPassword('dummy-password-for-timing');
+  await verifyPassword(password, dummy);
+  return false;
+}
+
