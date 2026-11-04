@@ -48,3 +48,16 @@ CREATE TABLE IF NOT EXISTS staff (
   faculty_id TEXT NOT NULL REFERENCES faculties(id)
 );
 
+-- Учётные записи. Пароль хранится только как хеш scrypt с солью
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY,
+  login TEXT NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL,
+  role TEXT NOT NULL CHECK (role IN ('student', 'dean')),
+  student_id INTEGER REFERENCES students(id),
+  staff_id INTEGER REFERENCES staff(id),
+  created_at INTEGER NOT NULL,
+  password_changed_at INTEGER,
+  last_login_at INTEGER
+);
+
