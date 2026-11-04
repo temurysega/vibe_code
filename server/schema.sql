@@ -12,3 +12,13 @@ CREATE TABLE IF NOT EXISTS faculties (
   email TEXT NOT NULL
 );
 
+-- Учебные группы: курс, направление и профиль
+CREATE TABLE IF NOT EXISTS groups (
+  code TEXT PRIMARY KEY,
+  faculty_id TEXT NOT NULL REFERENCES faculties(id),
+  course INTEGER NOT NULL,
+  program TEXT NOT NULL,
+  profile TEXT NOT NULL,
+  curator TEXT
+);
+
