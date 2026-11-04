@@ -13,3 +13,21 @@ const AV_H = 120, AV_W = 75;
 const SPEED = 270;
 const NAVY = '#0F2D69', GOLD = '#C9A646', INK = '#0B2150';
 
+const ZONE_POS = { cloakroom: [0, 'l'], dean: [0, 'r'], classroom: [1, 'l'], library: [1, 'r'], clubs: [2, 'l'], shop: [2, 'r'] };
+
+// Сотрудники и завсегдатаи кампуса — вымышленные персонажи
+export const NPC = {
+  cloakroom: { id: 'nina', name: 'Нина Петровна', role: 'гардероб', x: 452, av: { body: 'f', skin: 's2', hair: 'bun', hairColor: 'gray', eyes: 'happy', mouth: 'smile', cheeks: 'blush', top: 'sweater', topColor: 'navy', bottom: 'skirt', bottomColor: 'graphite', shoes: 'loafers', shoesColor: 'black', glasses: 'round' },
+    say: 'Номерок не теряйте! А ещё у нас можно переодеть аватар — зеркало справа' },
+  dean: { id: 'irina', name: 'Ирина Викторовна', role: 'деканат', x: 1052, av: { body: 'f', skin: 's1', hair: 'bob', hairColor: 'dark', eyes: 'lashes', mouth: 'calm', top: 'blazer', topColor: 'navy', bottom: 'trousers', bottomColor: 'graphite', shoes: 'loafers', shoesColor: 'black', glasses: 'square', extra: 'lanyard' },
+    say: 'Справку об обучении закажите онлайн — электронная будет готова в течение дня. А за бумажной заходите сюда' },
+  classroom: { id: 'sokolov', name: 'Пётр Андреевич', role: 'преподаватель', x: 486, av: { body: 'm', skin: 's2', hair: 'short', hairColor: 'gray', eyes: 'round', mouth: 'calm', facial: 'beard', top: 'blazer', topColor: 'graphite', bottom: 'trousers', bottomColor: 'graphite', shoes: 'loafers', shoesColor: 'brown', glasses: 'square', extra: 'tie', extraColor: 'navy' },
+    say: 'Все переносы и замены — в расписании кабинета. Консультация перед контрольной тоже там' },
+  library: { id: 'vera', name: 'Вера', role: 'библиотека', x: 1030, av: { body: 'f', skin: 's3', hair: 'long', hairColor: 'black', eyes: 'round', mouth: 'smile', top: 'turtleneck', topColor: 'cream', bottom: 'skirt', bottomColor: 'navy', shoes: 'boots', shoesColor: 'brown', glasses: 'round' },
+    say: 'Тихий час: 25 минут учёбы без телефона. Питомец посидит рядом и подрастёт' },
+  clubs: { id: 'timofey', name: 'Тимофей', role: 'клуб «Модель ООН»', x: 490, av: { body: 'm', skin: 's4', hair: 'curly', hairColor: 'black', eyes: 'happy', mouth: 'grin', top: 'mun-bomber', bottom: 'jeans', bottomColor: 'denim', shoes: 'sneakers', shoesColor: 'navy' },
+    say: 'Регистрация делегатов Модели ООН открыта! Объявления клубов приходят в уведомления' },
+  shop: { id: 'artyom', name: 'Артём', role: 'Лавка МГИМО', x: 1062, av: { body: 'm', skin: 's2', hair: 'side', hairColor: 'brown', eyes: 'round', mouth: 'smile', top: 'mgimo-hoodie', bottom: 'joggers', bottomColor: 'graphite', shoes: 'sneakers', shoesColor: 'gray', hat: 'mgimo-cap' },
+    say: 'Худи и футболки — за М-коины, с цифровой копией для аватара. Заберёте здесь, на кассе' },
+};
+
