@@ -39,3 +39,10 @@ server.listen(config.port, config.host, () => {
   if (!config.anthropicKey) console.log('ИИ-помощник работает по правилам: ANTHROPIC_API_KEY не задан');
 });
 
+// Фоновые задачи: автоматические шаги заявок демо, чистка лимитов и пересоздание стенда
+const timers = [
+  setInterval(() => { try { applyPlans(store); } catch (e) { console.error(e); } }, 5000),
+  setInterval(() => { perAccount.sweep(); perIp.sweep(); store.run('DELETE FROM sessions WHERE expires_at < ?', Date.now()); }, 10 * 60e3),
+  setInterval(() => { maybeReseed(false).catch((e) => console.error(e)); }, 10 * 60e3),
+];
+
