@@ -65,3 +65,17 @@ export function when(t) {
   return new Date(t).toLocaleDateString('ru-RU', { timeZone: MSK, day: 'numeric', month: 'long' });
 }
 
+export const stamp = (t) => new Date(t).toLocaleString('ru-RU', { timeZone: MSK, day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+// Через сколько начнётся пара
+export function inMinutes(min) {
+  if (min < 1) return 'прямо сейчас';
+  if (min < 60) return `через ${min} мин`;
+  const h = Math.floor(min / 60), m = min % 60;
+  if (h < 24) return `через ${h} ч${m ? ' ' + m + ' мин' : ''}`;
+  const d = Math.round(h / 24);
+  return `через ${d} ${plural(d, ['день', 'дня', 'дней'])}`;
+}
+
+export const initials = (name) => String(name || '').split(/\s+/).filter(Boolean).slice(0, 2).map((x) => x[0]).join('').toUpperCase();
+export const firstName = (u) => (u ? u.firstName || String(u.name || '').split(' ')[0] : '');
