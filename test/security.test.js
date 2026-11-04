@@ -25,3 +25,14 @@ test('без входа данные недоступны', async () => {
   }
 });
 
+test('неверный пароль не пускает, верный — пускает с безопасной cookie', async () => {
+  const c = client(app.base);
+  assert.equal((await c.login('a.morozova', 'wrong-password')).status, 401);
+  const ok = await c.login('a.morozova');
+  assert.equal(ok.status, 200);
+  const cookie = ok.headers.get('set-cookie');
+  assert.match(cookie, /HttpOnly/);
+  assert.match(cookie, /SameSite=Lax/);
+  assert.ok(ok.data.csrf);
+});
+
