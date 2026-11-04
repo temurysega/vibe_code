@@ -38,3 +38,43 @@ function deadlinesOf(store, s, days = 14) {
   ).map((d) => ({ id: d.id, title: d.title, dueAt: d.due_at, kind: d.kind, link: d.link, discipline: d.discipline, color: d.color, overdue: d.due_at < now }));
 }
 
+export default function (router) {
+  router.get('/api/me', requireStudent, (ctx) => ({ profile: profileOf(ctx.student) }));
+
+  // Главная собирается одним запросом — на мобильном интернете это заметно быстрее
+  router.get('/api/home', requireStudent, (ctx) => {
+    const { store, student: s, user } = ctx;
+    applyPlans(store, s.id);
+    remindDeadlines(store, s, s.faculty);
+    const now = msk();
+    const week = buildWeek(store, s.group_code, now.date);
+    const today = week.days.find((d) => d.date === now.date) || dayOf(store, s.group_code, now.date);
+    const tomorrowDate = addDays(now.date, 1);
+    const tomorrow = week.days.find((d) => d.date === tomorrowDate) || dayOf(store, s.group_code, tomorrowDate);
+    const changes = [...week.changes, ...buildWeek(store, s.group_code, addDays(now.date, 7)).changes].filter((c) => c.date >= now.date || (c.change.to && c.change.to.date >= now.date)).slice(0, 6);
+    const grades = gradesFor(store, s);
+    const requests = store.all("SELECT * FROM requests WHERE student_id = ? AND (status NOT IN ('issued', 'approved', 'rejected', 'cancelled') OR updated_at > ?) ORDER BY updated_at DESC LIMIT 4", s.id, Date.now() - 3 * DAY)
+      .map((r) => publicRequest(store, r, s.faculty));
+    const st = play.load(store, s.id);
+    return {
+      now, parity: parityOf(now.date), holiday: holidayOf(now.date),
+      next: upcoming(store, s.group_code, now), today, tomorrow, changes,
+      deadlines: deadlinesOf(store, s),
+      requests,
+      notifications: { unread: unreadCount(store, user.id, s), latest: listFor(store, user.id, s, 5) },
+      grades: { summary: grades.summary, risk: grades.current.filter((c) => c.status === 'risk').map((c) => ({ id: c.id, name: c.name, earned: c.earned, forecast: c.forecast, advice: c.advice })), session: grades.session, semesterLabel: grades.semesterLabel },
+      play: play.view(store, s.id, st, playCtx(store, s)),
+    };
+  });
+
+  router.get('/api/schedule', requireStudent, (ctx) => {
+    const q = ctx.query.get('week');
+    let monday = q ? weekMonday(q) : mondayOf(msk().date);
+    if (!monday) fail(400, 'Неделя указана неверно');
+    // Не дальше семестра в обе стороны: на год вперёд расписания нет
+    const sem = semesterOf(msk().date);
+    if (monday < addDays(sem.start, -14) || monday > addDays(sem.sessionEnd, 7)) monday = mondayOf(msk().date);
+    const week = buildWeek(ctx.store, ctx.student.group_code, monday);
+    return Object.assign(week, { now: msk(), bells: BELLS.slice(1), semester: sem, prev: addDays(monday, -7), next: addDays(monday, 7) });
+  });
+
