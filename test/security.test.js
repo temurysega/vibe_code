@@ -127,3 +127,10 @@ test('счёт забега не подделать из браузера', asyn
   assert.ok(fin.data.result.coins <= 2);
 });
 
+test('закрытую вещь нельзя надеть через API', async () => {
+  const c = client(app.base);
+  await c.login('t.aliev');
+  const r = await c.req('PATCH', '/api/play/look', { av: { pet: 'owl' } });
+  assert.equal(r.status, 403);
+});
+
