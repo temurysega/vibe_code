@@ -96,3 +96,12 @@ test('перебор паролей блокируется', async () => {
   assert.ok(last.headers.get('retry-after'));
 });
 
+test('выход завершает сессию на сервере', async () => {
+  const c = client(app.base);
+  await c.login('a.morozova');
+  const cookie = c.cookie;
+  assert.equal((await c.req('POST', '/api/auth/logout', {})).status, 200);
+  c.cookie = cookie; // старая cookie больше не действует
+  assert.equal((await c.req('GET', '/api/home')).status, 401);
+});
+
