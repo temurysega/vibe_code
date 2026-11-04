@@ -42,3 +42,8 @@
 @keyframes tgtDrop { from { transform: translateY(-16px) scale(.8); opacity: 0; } to { transform: none; opacity: 1; } }
 @keyframes tapRing { from { transform: scale(.25); opacity: 1; } to { transform: scale(1.35); opacity: 0; } }
 @keyframes tapSpark { from { transform: rotate(var(--a)) translateX(6px) scale(1); opacity: 1; } to { transform: rotate(var(--a)) translateX(30px) scale(.3); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
+
