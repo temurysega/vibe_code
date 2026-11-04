@@ -200,3 +200,5 @@ select.input { appearance: none; background-image: url("data:image/svg+xml,%3Csv
 .notif { display: flex; gap: 12px; padding: 12px; border-radius: 12px; cursor: pointer; align-items: flex-start; }
 .notif:hover { background: var(--surface); }
 .notif-ic { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; flex: none; background: var(--surface); color: var(--navy); }
+.notif.unread .notif-ic { background: var(--navy); color: #fff; }
+.notif.unread b { font-weight: 600; }
