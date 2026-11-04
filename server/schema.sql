@@ -256,3 +256,17 @@ CREATE TABLE IF NOT EXISTS game_runs (
 );
 CREATE INDEX IF NOT EXISTS game_runs_day ON game_runs(student_id, day);
 
+-- Журнал действий: входы, смена пароля, решения деканата
+CREATE TABLE IF NOT EXISTS audit_log (
+  id INTEGER PRIMARY KEY,
+  user_id INTEGER,
+  action TEXT NOT NULL,
+  target TEXT,
+  ip TEXT,
+  created_at INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS meta (
+  key TEXT PRIMARY KEY,
+  value TEXT NOT NULL
+);
