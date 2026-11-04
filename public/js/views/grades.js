@@ -135,3 +135,30 @@ function discModal(c) {
   });
 }
 
+export default {
+  title: 'Успеваемость',
+  render(params) {
+    tab = params[0] === 'session' || params[0] === 'history' ? params[0] : 'current';
+    return `<div class="container"><div class="page-head"><div><h1 class="h1">Успеваемость</h1><p class="lead">100-балльная система: видно, сколько набрано и сколько не хватает до нужной оценки</p></div></div>
+      <div data-body>${skeleton(1, 46)}<div class="grades-hero mt-20"><div class="skel" style="height:280px"></div><div class="skel" style="height:280px"></div></div></div></div>`;
+  },
+  async mount(el, params) {
+    const box = el.querySelector('[data-body]');
+    try {
+      g = await get('/api/grades');
+      box.innerHTML = body();
+    } catch (e) {
+      if (e.status !== 401) box.innerHTML = errorBox(e);
+      return null;
+    }
+    const id = Number(params[0]);
+    if (id) { const c = g.current.find((x) => x.id === id); if (c) discModal(c); }
+    el.addEventListener('click', (e) => {
+      const d = e.target.closest('[data-disc]');
+      if (d) { const c = g.current.find((x) => x.id === Number(d.dataset.disc)); if (c) discModal(c); return; }
+      const s = e.target.closest('[data-sem]');
+      if (s) { semPick = Number(s.dataset.sem); box.innerHTML = body(); }
+    });
+    return null;
+  },
+};
