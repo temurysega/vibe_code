@@ -54,3 +54,14 @@ test('студент не открывает чужую заявку даже п
   assert.ok(!list.some((r) => r.id === id));
 });
 
+test('профиль и оценки — только свои', async () => {
+  const c = client(app.base);
+  await c.login('t.aliev');
+  const me = (await c.req('GET', '/api/me')).data.profile;
+  assert.equal(me.lastName, 'Алиев');
+  const g = (await c.req('GET', '/api/grades')).data;
+  assert.ok(g.current.length > 0);
+  // В API нет маршрута, который принимал бы id студента
+  assert.equal((await c.req('GET', '/api/students/1')).status, 404);
+});
+
