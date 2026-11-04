@@ -218,3 +218,12 @@ on('play', ({ play, before }) => {
   if (me && isStudent()) me.innerHTML = ava(play, 40);
 });
 
+on('unread', () => { if (current && session.user) paintChrome(current.name); });
+
+// ---------- общие клики ----------
+document.addEventListener('click', (e) => {
+  if (e.target.closest('[data-ask]')) { e.preventDefault(); app.ask(); return; }
+  if (e.target.closest('[data-about]')) { import('./views/about.js').then((m) => m.openAbout()); return; }
+  if (e.target.closest('[data-tour]')) { import('./views/about.js').then((m) => m.startTour()); }
+});
+
