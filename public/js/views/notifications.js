@@ -48,3 +48,52 @@ function body() {
       <div class="card"><div class="card-title">Без пропусков</div><p class="muted mt-8">О переносе пары, новом дедлайне и готовой справке кабинет напомнит сам: за 3 дня до срока и в день срока.</p></div></aside></div>`;
 }
 
+export default {
+  title: 'Уведомления',
+  render() {
+    return `<div class="container"><div class="page-head"><div><h1 class="h1">Уведомления</h1><p class="lead">Новости деканата, изменения расписания, дедлайны и статусы заявок</p></div></div><div data-body>${skeleton(4, 90)}</div></div>`;
+  },
+  async mount(el) {
+    const box = el.querySelector('[data-body]');
+    const load = async () => {
+      try {
+        const r = await get('/api/notifications');
+        list = r.list; unread = r.unread;
+        setUnread(unread);
+        box.innerHTML = body();
+      } catch (e) { if (e.status !== 401) box.innerHTML = errorBox(e); }
+    };
+    await load();
+    const off = on('notif', load);
+    el.addEventListener('click', async (e) => {
+      const f = e.target.closest('[data-f]');
+      if (f) { filter = f.dataset.f; box.innerHTML = body(); return; }
+      if (e.target.closest('[data-readall]')) {
+        const r = await post('/api/notifications/read', { all: true }).catch(() => null);
+        if (r) { toast('Все уведомления прочитаны'); load(); }
+        return;
+      }
+      const n = e.target.closest('[data-n]');
+      if (n) {
+        const id = Number(n.dataset.n);
+        const item = list.find((x) => x.id === id);
+        if (item && !item.read) {
+          post('/api/notifications/read', { ids: [id] }).then((r) => setUnread(r.unread)).catch(() => {});
+          item.read = true; unread = Math.max(0, unread - 1);
+        }
+        if (n.dataset.link && n.dataset.link !== '#/notifications') location.hash = n.dataset.link;
+        else box.innerHTML = body();
+      }
+    });
+    el.addEventListener('change', async (e) => {
+      const p = e.target.closest('[data-pref]');
+      if (!p) return;
+      try {
+        const r = await patch('/api/me/prefs', { [p.dataset.pref]: p.checked });
+        if (session.play) setPlay(Object.assign({}, session.play, { prefs: r.prefs }));
+        toast('Настройка сохранена');
+      } catch (er) { p.checked = !p.checked; toast(esc(er.message), { icon: 'alert' }); }
+    });
+    return off;
+  },
+};
