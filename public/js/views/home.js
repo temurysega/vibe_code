@@ -96,3 +96,15 @@ const sec = {
     return `<div class="card" data-sec="day"><div class="card-head"><div class="card-title">${title}</div><a class="link-arrow" href="#/schedule">Неделя ${icon('arrow', 16)}</a></div>${body}</div>`;
   },
 
+  steps() {
+    const p = session.play;
+    if (!p.newcomer || p.steps.claimed) return '<div data-sec="steps" hidden></div>';
+    const all = p.stepsDone === p.stepsList.length;
+    return `<div class="card card-gold mt-20" data-sec="steps">
+      <div class="card-head"><div><div class="card-title">Первые шаги в МГИМО Мании</div><div class="card-sub">Пройдите чек-лист — ${fmt(200)} М-коинов и шапочка выпускника для аватара</div></div><span class="badge ${all ? 'badge-navy' : 'badge-gray'}">${p.stepsDone} из ${p.stepsList.length}</span></div>
+      <div class="bar bar-gold"><i style="width:${Math.round((p.stepsDone / p.stepsList.length) * 100)}%"></i></div>
+      <div class="steps-list mt-12">${p.stepsList.map((x, k) => `<div class="step-row ${x.done ? 'done' : ''}"><span class="step-n">${x.done ? icon('check', 14, 2.6) : k + 1}</span><div class="grow"><b>${esc(x.title)}</b></div>${x.done ? '' : x.act ? `<button class="btn btn-xs btn-secondary" data-step="${x.act}">${esc(x.cta)}</button>` : `<a class="btn btn-xs btn-secondary" href="${x.link}">${esc(x.cta)}</a>`}</div>`).join('')}</div>
+      ${all ? `<button class="btn btn-primary mt-16" data-claim>${icon('star', 18)} Забрать 200 М-коинов</button>` : ''}
+    </div>`;
+  },
+
