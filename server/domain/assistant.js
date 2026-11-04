@@ -168,3 +168,36 @@ async function claude() {
   return client;
 }
 
+export async function aiAnswer(snap, question, history) {
+  const c = await claude().catch((e) => { console.warn('SDK недоступен:', e.message); return null; });
+  if (!c) return null;
+  const messages = history.map((h) => ({ role: h.role, content: h.text }));
+  messages.push({ role: 'user', content: question });
+  const model = config.anthropicModel;
+  const fallback = !/haiku/.test(model);
+  try {
+    const response = await c.beta.messages.create({
+      model,
+      max_tokens: 16000,
+      output_config: { effort: 'low' },
+      // Если модель откажет по политике безопасности, сервер Anthropic сам повторит запрос на рекомендованной модели
+      ...(fallback ? { betas: ['server-side-fallback-2026-07-01'], fallbacks: 'default' } : {}),
+      system: [
+        { type: 'text', text: SYSTEM },
+        { type: 'text', text: `<student_data>\n${contextText(snap)}\n</student_data>` },
+      ],
+      messages,
+    });
+    if (response.stop_reason === 'refusal') return null;
+    const text = response.content.filter((b) => b.type === 'text').map((b) => b.text).join('\n').trim();
+    if (!text) return null;
+    return Object.assign(extractLink(text), { source: 'ai' });
+  } catch (error) {
+    if (error instanceof sdk.RateLimitError) console.warn('Claude: лимит запросов, отвечаем по правилам');
+    else if (error instanceof sdk.AuthenticationError) console.warn('Claude: ключ не принят, проверьте ANTHROPIC_API_KEY');
+    else if (error instanceof sdk.APIConnectionError) console.warn('Claude: нет соединения:', error.message);
+    else if (error instanceof sdk.APIError) console.warn(`Claude: ошибка API ${error.status}:`, error.message);
+    else throw error;
+    return null;
+  }
+}
