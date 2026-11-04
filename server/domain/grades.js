@@ -77,3 +77,47 @@ function groupRank(groupCode, myAvg) {
   return { place, of: others.length + 1, top: Math.round((place / (others.length + 1)) * 100) };
 }
 
+export function gradesFor(store, student) {
+  const now = msk();
+  const sem = semesterNumber(student.admission_year, now.date);
+  const enr = store.all(
+    `SELECT e.*, d.name, d.short, d.color, d.control, d.credits, t.full_name AS t_name, t.short_name AS t_short, t.email AS t_email, t.office_hours AS t_hours
+     FROM enrollments e JOIN disciplines d ON d.id = e.discipline_id LEFT JOIN teachers t ON t.id = e.teacher_id
+     WHERE e.student_id = ? ORDER BY e.semester, d.name`, student.id,
+  );
+  const items = store.all('SELECT * FROM assessments WHERE student_id = ? AND semester = ? ORDER BY date, id', student.id, sem);
+
+  const cur = enr.filter((e) => e.semester === sem).map((e) => current(e, items.filter((a) => a.discipline_id === e.discipline_id)));
+  const history = [];
+  enr.filter((e) => e.semester < sem).forEach((e) => {
+    let h = history.find((x) => x.semester === e.semester);
+    if (!h) history.push(h = { semester: e.semester, course: Math.ceil(e.semester / 2), part: e.semester % 2 ? 'осенний' : 'весенний', list: [] });
+    const v = verdictOf(e.final_points ?? 0, e.control);
+    h.list.push({ id: e.discipline_id, name: e.name, control: e.control, controlLabel: CONTROL[e.control], credits: e.credits, points: e.final_points, status: e.status, verdict: v, retake: e.retake_date ? { date: e.retake_date, room: e.retake_room } : null });
+  });
+  history.forEach((h) => {
+    const marks = h.list.filter((x) => x.verdict.grade && x.status !== 'debt').map((x) => x.verdict.grade);
+    h.avg = marks.length ? Math.round((sum(marks, (x) => x) / marks.length) * 100) / 100 : null;
+    h.credits = sum(h.list.filter((x) => x.verdict.passed), (x) => x.credits);
+  });
+
+  const allMarks = history.flatMap((h) => h.list.filter((x) => x.verdict.grade && x.status !== 'debt').map((x) => x.verdict.grade));
+  const avg = allMarks.length ? Math.round((sum(allMarks, (x) => x) / allMarks.length) * 100) / 100 : null;
+  const debts = history.flatMap((h) => h.list.filter((x) => x.status === 'debt').map((x) => Object.assign({ semester: h.semester }, x)));
+  const last = history[history.length - 1];
+  const lastMarks = last ? last.list.filter((x) => x.verdict.grade).map((x) => x.verdict.grade) : [];
+  let stipend;
+  if (student.funding !== 'бюджет') stipend = { kind: 'none', label: 'Обучение по договору — стипендия не начисляется', hint: 'Скидку на обучение дают за сессию без троек' };
+  else if (!last) stipend = { kind: 'base', label: 'Академическая стипендия первокурсника', hint: 'После первой сессии — по её итогам' };
+  else if (debts.length || lastMarks.some((g) => g < 4)) stipend = { kind: 'none', label: 'Академическая стипендия не назначена', hint: 'Сдайте следующую сессию без троек и долгов' };
+  else if (lastMarks.every((g) => g === 5)) stipend = { kind: 'high', label: 'Повышенная академическая стипендия', hint: 'Сессия сдана на «отлично»' };
+  else stipend = { kind: 'base', label: 'Академическая стипендия', hint: 'Сессия без троек' };
+
+  const risk = cur.filter((c) => c.status === 'risk');
+  const excellent = cur.filter((c) => c.status === 'excellent');
+  const paces = cur.filter((c) => c.pace != null);
+  const semPace = paces.length ? sum(paces, (c) => c.pace) / paces.length : null;
+  const attItems = items.filter((a) => a.kind === 'attendance' && a.points != null);
+  const attendance = attItems.length ? Math.round((sum(attItems, (a) => a.points) / sum(attItems, (a) => a.max_points)) * 100) : null;
+  const rank = groupRank(student.group_code, avg ?? (semPace ? 3 + semPace * 2 : 4));
+
