@@ -91,3 +91,18 @@ export class Runner {
     if (this.state !== 'run') this.draw();
   }
 
+  // Проекция: дорожка laneX на глубине z → точка на экране и масштаб
+  s(z) { return F / (F + Math.max(-0.9, z)); }
+  gy(z) { return this.horizon + (this.nearY - this.horizon) * this.s(z); }
+  sx(x, z) { return this.W / 2 + x * this.lane * this.s(z); }
+  u(z) { return this.lane * this.s(z); }
+
+  reset() {
+    this.t = 0; this.score = 0; this.coins = 0; this.dist = 0;
+    this.speed = 14; this.laneI = 0; this.px = 0;
+    this.y = 0; this.vy = 0; this.slideT = 0;
+    this.shield = 0; this.mult = 0;
+    this.objs = []; this.pops = [];
+    this.nextRow = 26; this.deco = 0; this.frame = 0; this.animT = 0;
+  }
+
