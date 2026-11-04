@@ -97,3 +97,14 @@ function room(f, side, wall, floor) {
     `<rect x="${x0}" y="${t}" width="${x1 - x0}" height="6" fill="#000" opacity=".06"/>`;
 }
 
+const glow = (x, y, w, h) => `<rect class="hot-glow" x="${x - 6}" y="${y - 6}" width="${w + 12}" height="${h + 12}" rx="14" fill="${GOLD}" fill-opacity=".16" stroke="${GOLD}" stroke-width="3"/>`;
+const hot = (id, inner, box) => `<g class="hot" data-hot="${id}">${glow.apply(null, box)}${inner}</g>`;
+
+function plant(x, b, k) {
+  k = k || 1;
+  return `<path d="M${x - 14 * k} ${b - 34 * k} h${28 * k} l-3 ${32 * k} h-${22 * k} Z" fill="${INK}"/>` +
+    `<ellipse cx="${x - 9 * k}" cy="${b - 52 * k}" rx="${9 * k}" ry="${20 * k}" transform="rotate(-24 ${x - 9 * k} ${b - 52 * k})" fill="#3E8E6A"/>` +
+    `<ellipse cx="${x + 9 * k}" cy="${b - 54 * k}" rx="${9 * k}" ry="${21 * k}" transform="rotate(22 ${x + 9 * k} ${b - 54 * k})" fill="#5FB386"/>` +
+    `<ellipse cx="${x}" cy="${b - 62 * k}" rx="${8 * k}" ry="${22 * k}" fill="#4BA176"/>`;
+}
+
