@@ -91,3 +91,27 @@ export function catalogFor(store, student) {
   }));
 }
 
+// Проверка полей формы по описанию в каталоге
+function validate(type, body, catalog) {
+  const t = catalog.find((x) => x.id === type.id);
+  const data = {};
+  const errors = {};
+  (t ? t.fields : type.fields).forEach((f) => {
+    const raw = body[f.id];
+    if (f.type === 'number') {
+      const n = raw === '' || raw == null ? f.default ?? null : int(raw, f.min, f.max);
+      if (n == null) errors[f.id] = `От ${f.min} до ${f.max}`;
+      else data[f.id] = n;
+      return;
+    }
+    const v = str(raw, f.max || 200);
+    if (f.required && !v) { errors[f.id] = 'Заполните поле'; return; }
+    if (v && f.min && v.length < f.min) { errors[f.id] = `Не короче ${f.min} символов`; return; }
+    if (v && f.type === 'select' && !f.options.includes(v)) { errors[f.id] = 'Выберите вариант из списка'; return; }
+    if (v && f.type === 'date' && !isDate(v)) { errors[f.id] = 'Укажите дату'; return; }
+    if (v) data[f.id] = v;
+  });
+  if (type.id === 'absence' && data.from && data.to && data.to < data.from) errors.to = 'Дата окончания раньше начала';
+  return { data, errors };
+}
+
