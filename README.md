@@ -78,3 +78,9 @@ npm test
 
 Подробности — в [docs/SECURITY.md](docs/SECURITY.md), устройство — в [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
+## Стек
+
+Node.js без фреймворков (`node:http`, `node:sqlite`, `node:crypto`, `node:test`), фронтенд на
+ES-модулях без сборки. Сервер не хранит состояние в памяти, кроме счётчиков лимитов, поэтому
+масштабируется горизонтально: SQLite в демо заменяется на PostgreSQL тем же SQL, счётчики — на Redis.
+
