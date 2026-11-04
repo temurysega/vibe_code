@@ -379,3 +379,19 @@ function legs(c, skin, pose) {
   return one(true) + one(false) + hip;
 }
 
+function bodyExtras(c) {
+  const k = col(c.extraColor, CLOTH.navy);
+  switch (c.extra) {
+    case 'lanyard':
+      return `<path d="M90 142 L97 182 M110 142 L103 182" stroke="${CLOTH.navy}" stroke-width="3.2" stroke-linecap="round"/><rect x="88" y="180" width="24" height="31" rx="4" fill="#fff" stroke="#DADDE1"/><rect x="88" y="180" width="24" height="8" rx="3" fill="${CLOTH.navy}"/><circle cx="100" cy="197" r="4.6" fill="#E3E5E8"/><rect x="93" y="204" width="14" height="2.6" rx="1.3" fill="${GOLD}"/>`;
+    case 'tie':
+      return `<path d="M96 146 L104 146 L106 154 L102.5 198 L100 203 L97.5 198 L94 154 Z" fill="${k}"/><path d="M95 145 L105 145 L103.5 153 L96.5 153 Z" fill="${dk(k, 0.22)}"/>`;
+    case 'scarf':
+      return `<path d="M78 139 Q100 157 122 139 L124 151 Q100 169 76 151 Z" fill="${k}"/><path d="M105 152 L113 195 L103 197 L98 156 Z" fill="${dk(k, 0.08)}"/><path d="M104 197 v5 M107.5 196.5 v5 M111 196 v5" stroke="${dk(k, 0.08)}" stroke-width="1.6" stroke-linecap="round"/>`;
+    case 'medal':
+      return `<path d="M92 141 L100 168 L108 141" stroke="${CLOTH.navy}" stroke-width="5" fill="none" stroke-linejoin="round"/><circle cx="100" cy="176" r="10" fill="#FFD84D" stroke="#C9A646" stroke-width="2"/><path d="M100 170 l1.8 3.8 4.1 .5 -3 2.8 .8 4.1 -3.7 -2 -3.7 2 .8 -4.1 -3 -2.8 4.1 -.5 Z" fill="#fff"/>`;
+    default:
+      return '';
+  }
+}
+
