@@ -27,3 +27,19 @@ function zoneCards() {
     ${v.includes(r.id) ? `<span class="stamp-ok">${icon('check', 12, 2.6)}</span>` : ''}</button>`).join('');
 }
 
+async function firstVisit(z) {
+  if (session.play.visited.includes(z)) return;
+  try {
+    const r = await post('/api/play/visit', { zone: z });
+    const before = session.play.coins;
+    setPlay(r.play);
+    const res = r.result;
+    if (!res || !res.first) return;
+    const room = ROOMS.find((x) => x.id === z);
+    toast(`${esc(room.name)} · +${res.coins} М-коинов${res.unlocked.length ? ' · открыто: ' + esc(res.unlocked.join(', ')) : ''}`, { coin: true, ms: 4200 });
+    const pill = document.querySelector('[data-bal]');
+    if (pill) fx.flyCoins(pill.getBoundingClientRect(), before, r.play.coins);
+    if (res.all) setTimeout(() => { fx.confetti({ n: 180 }); toast('Весь кампус пройден! Открыты панама, ёжик и рамка «Исследователь»', { icon: 'trophy', ms: 5600 }); }, 900);
+  } catch (e) { /* повторим при следующем входе в зону */ }
+}
+
