@@ -278,3 +278,32 @@ export class Campus {
     this.raf = requestAnimationFrame(this.tick);
   }
 
+  render() {
+    const av = this.state.av;
+    const petMarkup = av.pet && av.pet !== 'none' ? petSvg(av.pet, av.petColor, { shadow: true }).replace('<svg ', '<svg width="50" height="42" ') : '';
+    this.stage.innerHTML = `<svg class="campus-svg" viewBox="0 0 ${W} ${H}" role="application" aria-label="Кампус МГИМО Мании">
+      ${sky()}${shell()}
+      ${cloakroom()}${dean()}${classroom()}${library()}${clubs()}${shop()}
+      <g id="cp-cabin" transform="translate(0 ${SURF[this.p.floor] - SURF[0]})">
+        <rect x="566" y="${SURF[0] - 180}" width="68" height="176" rx="8" fill="#EEF3FC"/><rect x="566" y="${SURF[0] - 180}" width="68" height="8" rx="4" fill="${GOLD}"/>
+        <path d="M572 ${SURF[0] - 90} H628" stroke="#C9D3E6" stroke-width="3" stroke-linecap="round"/><rect x="566" y="${SURF[0] - 16}" width="68" height="12" fill="#D9E2F2"/>
+      </g>
+      <g>${[0, 1, 2].map((f) => `<g transform="translate(${EX} ${top(f) - 2})"><rect x="-15" y="-11" width="30" height="16" rx="8" fill="${INK}"/><text y="1.5" text-anchor="middle" font-family="Onest, Arial, sans-serif" font-size="11" font-weight="600" fill="#E9D7A0">${f + 1}</text></g>`).join('')}</g>
+      <g id="cp-target" style="display:none"><ellipse class="tgt-ring" cx="0" cy="0" rx="24" ry="7" fill="none" stroke="${GOLD}" stroke-width="4"/><ellipse cx="0" cy="0" rx="12" ry="3.5" fill="${INK}" opacity=".25"/>
+        <path class="tgt-pin" d="M0 -6 C0 -6 -15 -17 -15 -27 C-15 -34 -9 -41 0 -41 C9 -41 15 -34 15 -27 C15 -17 0 -6 0 -6 Z" fill="${GOLD}" stroke="${INK}" stroke-width="2.5"/><circle cx="0" cy="-27" r="5" fill="${INK}"/></g>
+      <g id="cp-labels">${labels(this.state.visited)}</g>
+      <g id="cp-npcs">${npcs()}</g>
+      <g id="cp-pet">${petMarkup}</g>
+      <g id="cp-player"><g class="pl-body">${avatarNested(av, AV_W, AV_H)}</g>
+        <g class="me-tag"><rect x="${AV_W / 2 - 17}" y="-30" width="34" height="22" rx="11" fill="${GOLD}" stroke="${INK}" stroke-width="2"/><text x="${AV_W / 2}" y="-14.5" text-anchor="middle" font-family="Onest, Arial, sans-serif" font-size="12" font-weight="700" fill="${INK}">Вы</text></g>
+      </g>
+    </svg>`;
+    this.svg = this.stage.querySelector('svg');
+    this.elPlayer = this.svg.querySelector('#cp-player');
+    this.elBody = this.svg.querySelector('#cp-player .pl-body');
+    this.elPet = this.svg.querySelector('#cp-pet');
+    this.elCabin = this.svg.querySelector('#cp-cabin');
+    this.elTarget = this.svg.querySelector('#cp-target');
+    this.place();
+  }
+
