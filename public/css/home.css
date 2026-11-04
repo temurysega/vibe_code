@@ -20,3 +20,11 @@
 .next-change { display: flex; align-items: flex-start; gap: 10px; background: rgba(255, 255, 255, .1); border-radius: 12px; padding: 10px 12px; font-size: 14px; }
 .next-change svg { color: var(--gold-2); flex: none; margin-top: 1px; }
 
+/* Лента дня */
+.day-line { display: flex; flex-direction: column; }
+.day-item { display: grid; grid-template-columns: 64px 4px minmax(0, 1fr); gap: 12px; padding: 10px 0; align-items: start; border-top: 1px solid #E4E6E9; }
+.day-item:first-child { border-top: 0; padding-top: 0; }
+.day-item .t { font-size: 14px; font-variant-numeric: tabular-nums; color: var(--muted); line-height: 1.3; }
+.day-item .t b { display: block; color: var(--ink); font-weight: 500; font-size: 15px; }
+.day-item .stripe { width: 4px; border-radius: 2px; align-self: stretch; background: var(--c, var(--navy)); }
+.day-item .what b { display: block; font-weight: 500; line-height: 1.3; }
