@@ -36,3 +36,21 @@ test('неверный пароль не пускает, верный — пус
   assert.ok(ok.data.csrf);
 });
 
+test('студент не открывает чужую заявку даже по прямому адресу', async () => {
+  const alina = client(app.base);
+  const ksenia = client(app.base);
+  await alina.login('a.morozova');
+  await ksenia.login('k.lebedeva');
+  const own = (await alina.req('GET', '/api/requests')).data.requests;
+  assert.ok(own.length > 0);
+  const id = own[0].id;
+  assert.equal((await alina.req('GET', `/api/requests/${id}`)).status, 200);
+  // Ксения подставляет id заявки Алины
+  assert.equal((await ksenia.req('GET', `/api/requests/${id}`)).status, 404);
+  assert.equal((await ksenia.req('POST', `/api/requests/${id}/cancel`, {})).status, 404);
+  assert.equal((await ksenia.req('GET', `/api/requests/${id}/document`)).status, 404);
+  // и не видит её в своём списке
+  const list = (await ksenia.req('GET', '/api/requests')).data.requests;
+  assert.ok(!list.some((r) => r.id === id));
+});
+
