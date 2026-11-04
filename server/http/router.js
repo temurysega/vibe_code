@@ -23,3 +23,21 @@ export class Router {
   patch(path, ...h) { return this.add('PATCH', path, h); }
   delete(path, ...h) { return this.add('DELETE', path, h); }
 
+  match(method, pathname) {
+    let wrongMethod = false;
+    for (const r of this.routes) {
+      const m = r.re.exec(pathname);
+      if (!m) continue;
+      if (r.method !== method && !(method === 'HEAD' && r.method === 'GET')) { wrongMethod = true; continue; }
+      const params = {};
+      try {
+        r.keys.forEach((k, i) => { params[k] = decodeURIComponent(m[i + 1]); });
+      } catch (e) {
+        fail(400, 'Некорректный адрес');
+      }
+      return { route: r, params };
+    }
+    return wrongMethod ? { wrongMethod: true } : null;
+  }
+}
+
