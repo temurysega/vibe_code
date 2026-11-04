@@ -56,3 +56,16 @@ export const ITEMS = [
   I('mortarboard', 'hat', 'Шапочка выпускника', 'steps'),
   I('mgimo-cap', 'hat', 'Кепка МГИМО', 'kit', { kit: 'kit-cap' }),
 
+  I('none', 'glasses', 'Без очков', 'base'),
+  I('square', 'glasses', 'Классические', 'base'),
+  I('round', 'glasses', 'Круглые', 'route', { zone: 'library' }),
+  I('sun', 'glasses', 'Солнцезащитные', 'digital', { price: 300 }),
+
+  I('none', 'extra', 'Без аксессуара', 'base'),
+  I('tie', 'extra', 'Галстук', 'base', { colors: ['navy', 'red', 'gold', 'violet'] }),
+  I('scarf', 'extra', 'Шарф', 'base', { colors: ['navy', 'red', 'sand', 'gold'] }),
+  I('lanyard', 'extra', 'Студенческий бейдж', 'route', { zone: 'dean' }),
+  I('headphones', 'extra', 'Наушники', 'digital', { price: 600, colors: ['navy', 'graphite', 'white'] }),
+  I('bag', 'extra', 'Сумка через плечо', 'digital', { price: 400, colors: ['graphite', 'sand', 'navy'] }),
+  I('medal', 'extra', 'Медаль «Отличник»', 'grade', { how: 'Сессия без троек и долгов' }),
+
