@@ -57,3 +57,41 @@ function paintConcept() {
   </div>`;
 }
 
+function paintFoot() {
+  $foot.innerHTML = `<div class="container"><span><b>${APP_NAME}</b> — концепт личного кабинета студента для конкурса. Не является официальным сервисом МГИМО; знак — собственный, не логотип вуза. Все люди и данные вымышлены.</span><span>Шрифт Onest — SIL Open Font License 1.1</span></div>`;
+}
+
+function paintChrome(route) {
+  paintConcept();
+  if (!session.user) { $head.innerHTML = ''; $tab.innerHTML = ''; $ask.innerHTML = ''; return; }
+  const u = session.user;
+  $head.className = 'header' + (window.scrollY > 4 ? ' scrolled' : '');
+  if (u.role === 'dean') {
+    $head.innerHTML = `<div class="container">
+      <a class="logo" href="#/dean" aria-label="${APP_NAME} — деканат">${logoMark()}${wordmark()}</a>
+      <nav class="nav" aria-label="Разделы"><a href="#/dean" class="on">Заявки факультета</a></nav>
+      <div class="header-right"><span class="role-pill">${icon('building', 15)} Деканат ${esc(u.faculty)}</span>
+        <button class="me-btn icon-btn" data-me aria-label="Меню профиля" style="background:var(--navy);color:#fff;font-weight:600;font-size:14px">${esc((u.firstName || '?')[0])}</button></div>
+    </div>`;
+    $tab.className = 'tabbar';
+    $tab.innerHTML = `<a href="#/dean" class="on"><span class="tb-ic">${icon('doc', 20)}</span>Заявки</a><a href="#more" data-more><span class="tb-ic">${icon('logout', 20)}</span>Выйти</a>`;
+    $ask.innerHTML = '';
+    return;
+  }
+  const p = session.play;
+  const unread = session.unread;
+  $head.innerHTML = `<div class="container">
+    <a class="logo" href="#/home" aria-label="${APP_NAME} — главная">${logoMark()}${wordmark()}</a>
+    <nav class="nav" aria-label="Разделы">${NAV.map(([id, name]) => `<a href="#/${id}" class="${route === id ? 'on' : ''}">${name}</a>`).join('')}</nav>
+    <div class="header-right">
+      <a class="bal-pill" href="#/shop" data-bal title="М-коины — за активность, не за оценки">${coin(26)}<span class="bal-num tnum">${fmt(p ? p.coins : 0)}</span></a>
+      <button class="icon-btn" data-bell aria-label="Уведомления${unread ? `: ${unread} новых` : ''}">${icon('bell', 20)}${unread ? `<span class="badge-dot">${unread > 9 ? '9+' : unread}</span>` : ''}</button>
+      <button class="me-btn" data-me aria-label="Меню профиля">${p ? ava(p, 40) : ''}</button>
+    </div>
+  </div>`;
+  $tab.className = 'tabbar';
+  $tab.innerHTML = TABS.map(([id, name, ic]) => `<a href="#/${id}" class="${route === id ? 'on' : ''}"><span class="tb-ic">${icon(ic, 20)}</span>${name}</a>`).join('') +
+    `<a href="#more" data-more class="${['notifications', 'campus', 'wardrobe', 'shop', 'game', 'profile'].includes(route) ? 'on' : ''}"><span class="tb-ic">${icon('plus', 20)}</span>Ещё${unread ? '<span class="tb-dot"></span>' : ''}</a>`;
+  $ask.innerHTML = `<button class="ask-fab" data-ask aria-label="Спросить деканат"><span class="fab-ic">${icon('chat', 18)}</span><span class="fab-text">Спросить деканат</span></button>`;
+}
+
