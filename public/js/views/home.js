@@ -39,3 +39,19 @@ function petPhrases() {
   return out;
 }
 
+const sec = {
+  hello() {
+    const now = data.now;
+    const p = data.parity;
+    const u = session.user;
+    return `<div class="hello" data-sec="hello"><div>
+        <h1 class="h1">${greeting(now.minutes)}, ${esc(u.firstName)}</h1>
+        <div class="hello-sub"><span>${esc(dayLabel(now.date).replace(/^./, (c) => c.toUpperCase()))}</span><span>·</span><span>${p.n}-я неделя, ${p.parity === 'odd' ? 'нечётная' : 'чётная'}</span>${data.holiday ? `<span class="badge badge-gold">${icon('star', 12)} ${esc(data.holiday)}</span>` : ''}</div>
+      </div>
+      <div class="quick">
+        <a class="btn btn-primary" href="#/requests/new">${icon('doc', 18)} Заказать справку</a>
+        <a class="btn btn-secondary" href="#/schedule">${icon('calendar', 18)} Неделя</a>
+        <button class="btn btn-secondary" data-ask>${icon('chat', 18)} Спросить деканат</button>
+      </div></div>`;
+  },
+
