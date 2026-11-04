@@ -142,3 +142,18 @@ CREATE TABLE IF NOT EXISTS enrollments (
   PRIMARY KEY (student_id, discipline_id, semester)
 );
 
+-- Контрольные точки балльно-рейтинговой системы
+CREATE TABLE IF NOT EXISTS assessments (
+  id INTEGER PRIMARY KEY,
+  student_id INTEGER NOT NULL REFERENCES students(id),
+  discipline_id INTEGER NOT NULL REFERENCES disciplines(id),
+  semester INTEGER NOT NULL,
+  title TEXT NOT NULL,
+  kind TEXT NOT NULL,
+  max_points INTEGER NOT NULL,
+  points INTEGER,
+  date TEXT,
+  graded_at INTEGER
+);
+CREATE INDEX IF NOT EXISTS assessments_student ON assessments(student_id, semester);
+
