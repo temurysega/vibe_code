@@ -146,3 +146,21 @@ function hairNape(style, h) {
   return cap;
 }
 
+// ---------- лицо ----------
+function eyes(t) {
+  const E = (x, kind, side) => {
+    switch (kind) {
+      case 'happy': return `<path d="M${x - 6} 100 Q${x} 92 ${x + 6} 100" stroke="${INK}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+      case 'sleepy': return `<path d="M${x - 6} 97 Q${x} 102 ${x + 6} 97" stroke="${INK}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+      case 'big': return `<ellipse cx="${x}" cy="98" rx="6" ry="7.2" fill="${INK}"/><circle cx="${x + 2}" cy="95.2" r="2.3" fill="#fff"/><circle cx="${x - 2.2}" cy="100.8" r="1.1" fill="#fff"/>`;
+      case 'lashes': {
+        const o = side < 0 ? -1 : 1;
+        return `<ellipse cx="${x}" cy="98" rx="4.8" ry="5.8" fill="${INK}"/><circle cx="${x + 1.6}" cy="96" r="1.6" fill="#fff"/><path d="M${x + o * 4} 93 l${o * 3.2} -3 M${x + o * 5.4} 96 l${o * 3.8} -1.4" stroke="${INK}" stroke-width="1.8" stroke-linecap="round"/>`;
+      }
+      default: return `<ellipse cx="${x}" cy="98" rx="4.6" ry="5.6" fill="${INK}"/><circle cx="${x + 1.6}" cy="96" r="1.6" fill="#fff"/>`;
+    }
+  };
+  if (t === 'wink') return E(84, 'round', -1) + E(116, 'happy', 1);
+  return E(84, t, -1) + E(116, t, 1);
+}
+
