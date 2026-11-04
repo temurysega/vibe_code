@@ -6,3 +6,14 @@ import { fail } from '../http/router.js';
 import { msk, addDays, DAY } from './time.js';
 import { notify } from './notifications.js';
 
+export const STATUS = {
+  submitted: 'Подана',
+  in_work: 'В работе',
+  ready: 'Готова',
+  issued: 'Выдана',
+  approved: 'Одобрена',
+  rejected: 'Отклонена',
+  cancelled: 'Отменена',
+};
+export const FINAL = ['issued', 'approved', 'rejected', 'cancelled'];
+
