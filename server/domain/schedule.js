@@ -107,3 +107,20 @@ export function buildWeek(store, group, monday) {
   return { week: isoWeek(monday), monday, number: n, parity, days, changes: notes };
 }
 
+// Ближайшая пара с учётом изменений: текущая или следующая в течение недели
+export function upcoming(store, group, now = msk()) {
+  for (let w = 0; w < 2; w++) {
+    const week = buildWeek(store, group, addDays(mondayOf(now.date), w * 7));
+    for (const d of week.days) {
+      if (d.date < now.date) continue;
+      for (const it of d.items) {
+        if (it.status === 'cancelled' || it.status === 'moved') continue;
+        if (d.date === now.date && toMin(it.end) <= now.minutes) continue;
+        const live = d.date === now.date && toMin(it.start) <= now.minutes;
+        return Object.assign({}, it, { live });
+      }
+    }
+  }
+  return null;
+}
+
