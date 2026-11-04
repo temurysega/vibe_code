@@ -35,3 +35,14 @@ export default function (router) {
     s.steps.schedule = true;
   }));
 
+  // Мерч: М-коины списываются, в «Заявках» появляется выдача в Лавке
+  router.post('/api/play/kit', requireStudent, act((ctx, s) => {
+    const kit = play.takeKit(ctx.store, s, str(ctx.body.kit, 20), str(ctx.body.size, 10));
+    const id = insertRequest(ctx.store, ctx.student, ctx.student.faculty, typeOf('merch'), { kit: kit.id, size: str(ctx.body.size, 10) }, 'paper', `${kit.name} · размер ${str(ctx.body.size, 10)}`);
+    return { request: id, kit: kit.name };
+  }));
+
+  router.post('/api/game/start', requireStudent, (ctx) => play.gameStart(ctx.store, ctx.student.id));
+
+  router.post('/api/game/finish', requireStudent, act((ctx, s) => play.gameFinish(ctx.store, ctx.student.id, s, ctx.body)));
+}
