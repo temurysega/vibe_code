@@ -76,3 +76,16 @@ function sky() {
   return s;
 }
 
+function shell() {
+  let s = `<rect x="60" y="134" width="1080" height="626" fill="${NAVY}"/>`;
+  s += `<rect x="44" y="118" width="1112" height="26" rx="10" fill="${INK}"/>`;
+  s += `<path d="M560 72 V118 M640 72 V118" stroke="${INK}" stroke-width="5"/><rect x="452" y="60" width="296" height="54" rx="27" fill="${INK}"/>`;
+  // Вывеска: собственный знак концепта и надпись
+  s += `<g transform="translate(478 70)"><rect width="34" height="34" rx="9" fill="${NAVY}"/><path d="M10.9 25.4 C9.6 20.6 9.8 15.8 11.8 12.4 L17 19.4 L22.2 12.4 C24.2 15.8 24.4 20.6 23.1 25.4" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="27.5" cy="7" r="2.6" fill="${GOLD}"/></g>`;
+  s += `<text x="524" y="96" font-family="Onest, Arial, sans-serif" font-size="25" fill="#fff"><tspan font-weight="700">мгимо</tspan><tspan font-weight="500" font-style="italic" fill="#E9D7A0"> мания</tspan></text>`;
+  s += `<rect x="52" y="752" width="1096" height="12" rx="4" fill="${INK}"/>`;
+  s += `<rect x="560" y="150" width="80" height="590" fill="#16346F"/><path d="M572 150 V740 M628 150 V740" stroke="#24468A" stroke-width="3"/>`;
+  [0, 1, 2].forEach((f) => { s += `<rect x="562" y="${top(f) + 4}" width="76" height="${ROOM_H - 4}" rx="6" fill="none" stroke="#2E5296" stroke-width="2"/>`; });
+  return s;
+}
+
