@@ -153,3 +153,8 @@ select.input { appearance: none; background-image: url("data:image/svg+xml,%3Csv
 .ava-w.f-navy { padding: 3px; background: var(--navy); }
 .ava-w.f-flame { padding: 3px; background: conic-gradient(from 200deg, #FF6B3D, #FFB341, #FFE066, #FF8A3D, #FF6B3D); }
 .ava-w.f-excellent { padding: 3px; background: conic-gradient(from 30deg, var(--gold), #FFF1C2, var(--gold), var(--navy), var(--gold)); }
+.ava-w.f-route { padding: 3px; background: repeating-conic-gradient(var(--navy) 0 12deg, var(--gold) 12deg 24deg); }
+.ava-w[class*="f-"] .ava { box-shadow: 0 0 0 2px #fff; }
+.ava-w.f-none { padding: 0; background: none; }
+.ava-w.f-none .ava { box-shadow: none; }
+
