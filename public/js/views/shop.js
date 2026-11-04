@@ -17,3 +17,13 @@ function kitPic(kit) {
   return `<div class="prod-pic" style="background:var(--navy-4)">${itemPreview(slot, id, null, play().av)}<span class="twin">${avatarSvg(av, { view: 'bust' })}</span></div>`;
 }
 
+function kits() {
+  return `<div class="shop-grid">${KITS.map((k) => {
+    const left = play().stock[k.id];
+    const have = play().owned.includes(k.twin);
+    return `<button class="prod" data-kit="${k.id}" ${have ? 'disabled style="opacity:.7"' : ''}>${kitPic(k)}
+      <div><div class="prod-name">${esc(k.name)}</div><div class="prod-desc">${esc(k.desc)}</div></div>
+      <div class="prod-foot"><span class="prod-price">${money(k.price, 20)}</span><span class="stock">${have ? 'уже у вас' : left > 0 ? `осталось ${left}` : 'закончились'}</span></div></button>`;
+  }).join('')}</div>`;
+}
+
