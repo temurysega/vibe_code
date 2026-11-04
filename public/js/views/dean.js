@@ -80,3 +80,98 @@ async function audit() {
   } catch (e) { return errorBox(e); }
 }
 
+export default {
+  title: 'Деканат',
+  render() {
+    const u = session.user;
+    return `<div class="container"><div class="page-head"><div><span class="eyebrow">${esc(u.facultyName || '')}</span><h1 class="h1 mt-4">Деканат ${esc(u.faculty)}</h1><p class="lead">${esc(u.name)} · ${esc(u.position || '')}. Видны только заявки и группы своего факультета</p></div></div>
+      <div data-body>${skeleton(1, 100)}${skeleton(3, 120)}</div></div>`;
+  },
+  async mount(el) {
+    const box = el.querySelector('[data-body]');
+    const paint = async () => {
+      const tabs = `<div class="seg" style="margin:24px 0 18px">${[['queue', 'Очередь заявок'], ['news', 'Объявления и расписание'], ['audit', 'Журнал']].map(([id, n]) => `<button class="${tab === id ? 'on' : ''}" data-tab="${id}">${n}</button>`).join('')}</div>`;
+      const content = tab === 'queue' ? queue() : tab === 'news' ? announce() : await audit();
+      box.innerHTML = kpis() + tabs + `<div data-tabbody>${content}</div>`;
+      if (tab === 'news') loadPairs(el);
+    };
+    const load = async (quiet) => {
+      try {
+        [ov, { requests: list }] = await Promise.all([get('/api/dean/overview'), get(`/api/dean/requests?status=${filter}`)]);
+        if (!quiet || tab === 'queue') {
+          // Не перерисовываем очередь, пока сотрудник пишет комментарий
+          if (quiet && el.querySelector('[data-comment]:focus')) return;
+          await paint();
+        }
+      } catch (e) { if (e.status !== 401) box.innerHTML = errorBox(e); }
+    };
+    await load();
+    const timer = setInterval(() => load(true), 10e3);
+
+    el.addEventListener('click', async (e) => {
+      const t = e.target.closest('[data-tab]');
+      if (t) { tab = t.dataset.tab; paint(); return; }
+      const f = e.target.closest('[data-filter]');
+      if (f) { filter = f.dataset.filter; load(); return; }
+      const ct = e.target.closest('.chg-type');
+      if (ct) {
+        el.querySelectorAll('.chg-type').forEach((x) => x.classList.toggle('on', x === ct));
+        el.querySelector('[data-roomf]').hidden = ct.dataset.t !== 'room';
+        return;
+      }
+      const a = e.target.closest('[data-act]');
+      if (a) {
+        const item = a.closest('[data-req]');
+        const comment = item.querySelector('[data-comment]').value;
+        a.disabled = true;
+        try {
+          await patch(`/api/dean/requests/${item.dataset.req}`, { status: a.dataset.act, comment });
+          const done = { in_work: 'заявка взята в работу', ready: 'справка готова', approved: 'заявление одобрено', issued: 'отмечено как выданное', rejected: 'заявка отклонена' }[a.dataset.act];
+          toast(`Сохранено: ${done}. Студент получил уведомление`, { icon: 'check' });
+          load();
+        } catch (er) {
+          a.disabled = false;
+          toast(esc(er.data && er.data.fields ? Object.values(er.data.fields)[0] : er.message), { icon: 'alert' });
+        }
+      }
+    });
+    el.addEventListener('change', (e) => {
+      if (e.target.closest('[data-chg]') && ['group', 'date'].includes(e.target.name)) loadPairs(el);
+      if (e.target.name === 'type') el.querySelector('[data-roomf]').hidden = e.target.value !== 'room';
+    });
+    el.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      form.querySelectorAll('.field-error').forEach((x) => x.remove());
+      form.querySelectorAll('.invalid').forEach((x) => x.classList.remove('invalid'));
+      const showErr = (er) => {
+        const fe = er.data && er.data.fields;
+        if (fe) Object.entries(fe).forEach(([k, msg]) => { const x = form.querySelector(`[data-field="${k}"]`); if (x) { x.classList.add('invalid'); x.insertAdjacentHTML('beforeend', `<span class="field-error">${esc(msg)}</span>`); } });
+        toast(esc(er.message), { icon: 'alert' });
+      };
+      // Поля берём через form.elements: у формы есть свои свойства title и target
+      const E = form.elements;
+      if (form.matches('[data-ann]')) {
+        const target = E.aud.value;
+        try {
+          await post('/api/dean/announcements', { title: E.title.value, body: E.body.value, audience: target === 'faculty' ? 'faculty' : 'group', group: target === 'faculty' ? undefined : target, important: E.important.checked });
+          toast('Объявление опубликовано — студенты увидят его в уведомлениях', { icon: 'megaphone' });
+          form.reset();
+        } catch (er) { showErr(er); }
+      }
+      if (form.matches('[data-chg]')) {
+        const pick = form.querySelector('input[name="pair"]:checked');
+        if (!pick) { toast('Выберите пару', { icon: 'info' }); return; }
+        const [lesson, pair] = pick.value.split(':').map(Number);
+        try {
+          await post('/api/dean/changes', { group: E.group.value, date: E.date.value, lesson, pair, type: form.querySelector('input[name="type"]:checked').value, room: E.room.value, reason: E.reason.value });
+          toast('Изменение отмечено — группа получила уведомление', { icon: 'calendar' });
+          E.reason.value = '';
+          E.room.value = '';
+          loadPairs(el);
+        } catch (er) { showErr(er); }
+      }
+    });
+    return () => clearInterval(timer);
+  },
+};
