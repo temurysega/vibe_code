@@ -134,3 +134,15 @@ function planFor(type, delivery) {
   return [{ at: s(40), status: 'in_work', comment: 'Заявление зарегистрировано и передано на рассмотрение' }, { at: s(180), status: 'approved', comment: type.id === 'absence' ? 'Согласовано. Преподаватели предупреждены' : 'Заявление одобрено' }];
 }
 
+export function createRequest(store, student, faculty, body) {
+  const type = typeOf(str(body.type, 30));
+  if (!type || type.group === 'shop') fail(400, 'Неизвестный тип заявки');
+  const catalog = catalogFor(store, student);
+  const entry = catalog.find((t) => t.id === type.id);
+  if (!entry) fail(400, 'Эта заявка вам недоступна');
+  if (!entry.available) fail(400, entry.hint || 'Заявка сейчас недоступна');
+  const delivery = type.delivery.includes(body.delivery) ? body.delivery : type.delivery[0];
+  const lang = type.langs && type.langs.includes(body.lang) ? body.lang : (type.langs || ['ru'])[0];
+  const { data, errors } = validate(type, body.fields || {}, catalog);
+  if (Object.keys(errors).length) fail(422, 'Проверьте поля формы', { fields: errors });
+
