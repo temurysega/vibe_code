@@ -14,3 +14,15 @@ export function loadUser(ctx) {
   ctx.user = user;
 }
 
+export function studentOf(store, id) {
+  const s = store.get(
+    `SELECT s.*, g.faculty_id, g.program, g.profile, g.curator, f.short AS f_short, f.name AS f_name, f.dean_office, f.hours AS f_hours, f.phone AS f_phone, f.email AS f_email
+     FROM students s JOIN groups g ON g.code = s.group_code JOIN faculties f ON f.id = g.faculty_id WHERE s.id = ?`, id,
+  );
+  if (!s) return null;
+  s.semester = semesterNumber(s.admission_year, msk().date);
+  s.course = Math.max(1, Math.ceil(s.semester / 2));
+  s.faculty = { id: s.faculty_id, short: s.f_short, name: s.f_name, dean_office: s.dean_office, hours: s.f_hours, phone: s.f_phone, email: s.f_email };
+  return s;
+}
+
