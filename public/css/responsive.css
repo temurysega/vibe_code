@@ -87,3 +87,39 @@
   .drawer { right: 8px; left: 8px; bottom: 8px; width: auto; height: calc(100vh - 16px); border-radius: 20px; }
   .hide-s { display: none !important; }
 }
+@media (max-width: 520px) {
+  .header .container { height: 64px; gap: 8px; }
+  .logo-word { font-size: 18px; }
+  .logo-tag { display: none; }
+  .logo-mark { width: 30px; height: 30px; }
+  .header-right { gap: 6px; }
+  .header .bal-pill { height: 36px; font-size: 13px; gap: 4px; padding: 0 9px 0 4px; }
+  .header .icon-btn { width: 36px; height: 36px; }
+  .role-pill { display: none; }
+  .stat-row { grid-template-columns: 1fr 1fr; }
+  .stat-row .stat:last-child { grid-column: 1 / -1; }
+  .dean-kpi { grid-template-columns: 1fr 1fr; }
+  .bells { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .day-item { grid-template-columns: 52px 4px minmax(0, 1fr); gap: 10px; }
+  .hello { margin-bottom: 18px; }
+  .quick { width: 100%; }
+  .quick .btn { flex: 1 1 auto; }
+  .tl-item { flex-direction: column; gap: 2px; }
+}
+@media (max-width: 520px) {
+  .concept-links { gap: 12px; }
+  .concept-links .ic + span, .concept-links [data-tour] { font-size: 12px; }
+  .concept-text b { font-size: 12px; }
+}
+@media (max-width: 380px) {
+  .concept-links [data-tour] { display: none; }
+  .container { padding: 0 12px; }
+  .card { padding: 16px; }
+  .h1 { font-size: 27px; }
+  .header .bal-pill .coin { display: none; }
+  .tabbar a { font-size: 10px; }
+  .tb-ic { width: 40px; }
+  .stat-v { font-size: 20px; }
+  .next-title { font-size: 22px; }
+  .modal { padding: 22px 16px; }
+}
