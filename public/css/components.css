@@ -169,3 +169,11 @@ select.input { appearance: none; background-image: url("data:image/svg+xml,%3Csv
 .tg-badge { height: 30px; padding: 0 12px; border-radius: var(--pill); background: rgba(255, 255, 255, .55); color: var(--ink); font-size: 13px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; backdrop-filter: blur(6px); }
 .tg[data-ink="light"] .tg-badge { background: rgba(255, 255, 255, .18); color: #fff; }
 
+/* ---------- Модальные окна ---------- */
+.modal-overlay { position: fixed; inset: 0; z-index: 100; background: rgba(11, 33, 80, .5); display: flex; align-items: center; justify-content: center; padding: 24px; animation: fadeIn .18s ease both; }
+.modal-overlay.closing { animation: fadeOut .16s ease both; }
+.modal { background: #fff; border-radius: var(--r-lg); width: 100%; max-width: 560px; max-height: calc(100vh - 48px); overflow: auto; position: relative; padding: 32px; animation: popIn .26s cubic-bezier(.2, .9, .3, 1.2) both; box-shadow: var(--shadow-lg); overscroll-behavior: contain; }
+.modal.m-wide { max-width: 760px; }
+.modal.m-xl { max-width: 980px; }
+.modal-x { position: absolute; top: 18px; right: 18px; width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--surface); cursor: pointer; display: grid; place-items: center; z-index: 2; }
+.modal-x:hover { background: var(--surface-2); }
