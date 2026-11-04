@@ -6,3 +6,10 @@
 .av-arm-r { transform-origin: 143px 152px; }
 .walking .av-leg-l { animation: stepL .42s ease-in-out infinite; }
 .walking .av-leg-r { animation: stepR .42s ease-in-out infinite; }
+.walking .av-arm-l { animation: armL .42s ease-in-out infinite; }
+.walking .av-arm-r { animation: armR .42s ease-in-out infinite; }
+.walking .av-body { animation: bodyBob .21s ease-in-out infinite alternate; }
+.idle .av-body { animation: idleBreath 3s ease-in-out infinite; }
+.wave .av-arm-r { animation: waveArm .5s ease-in-out 3; }
+.hop { animation: hop .6s ease; }
+
