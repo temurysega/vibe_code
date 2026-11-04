@@ -41,3 +41,10 @@
 .lesson.cancelled .lesson-tag { background: var(--red-2); color: var(--red-ink); }
 .lesson.extra .lesson-tag, .lesson.moved-in .lesson-tag { background: var(--good-2); color: var(--good); }
 .lesson.room-changed .lesson-tag, .lesson.teacher-changed .lesson-tag { background: var(--blue-2); color: var(--blue-ink); }
+.lesson.now { box-shadow: inset 0 0 0 2px var(--navy); }
+.lesson.past { opacity: .55; }
+.old { text-decoration: line-through; color: var(--faint); font-weight: 400; }
+.bells { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
+.bell { background: #fff; border-radius: 12px; padding: 10px; text-align: center; font-size: 13px; }
+.bell b { display: block; font-size: 15px; font-weight: 500; }
+.teacher-card { display: flex; gap: 14px; align-items: center; background: var(--surface); border-radius: 16px; padding: 14px; }
