@@ -105,3 +105,14 @@ test('выход завершает сессию на сервере', async () 
   assert.equal((await c.req('GET', '/api/home')).status, 401);
 });
 
+test('заголовки безопасности и защита статики', async () => {
+  const r = await fetch(app.base + '/');
+  assert.match(r.headers.get('content-security-policy'), /script-src 'self'/);
+  assert.equal(r.headers.get('x-content-type-options'), 'nosniff');
+  assert.equal(r.headers.get('x-frame-options'), 'DENY');
+  for (const p of ['/../server/config.js', '/%2e%2e/server/config.js', '/..%2fpackage.json']) {
+    const x = await fetch(app.base + p);
+    assert.notEqual(x.status, 200, p);
+  }
+});
+
