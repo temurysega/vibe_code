@@ -91,3 +91,24 @@ export default function (router) {
     return { request: Object.assign(withStudent(ctx.store, fresh, facultyRow(ctx.store, ctx.staff.faculty_id)), { actions: actionsFor(fresh) }) };
   });
 
+  // Объявление факультету или группе — сразу появляется в уведомлениях студентов
+  router.post('/api/dean/announcements', requireDean, (ctx) => {
+    const title = str(ctx.body.title, 120);
+    const body = str(ctx.body.body, 1000);
+    const audience = oneOf(ctx.body.audience, ['faculty', 'group']);
+    const errors = {};
+    if (title.length < 5) errors.title = 'Не короче 5 символов';
+    if (body.length < 10) errors.body = 'Не короче 10 символов';
+    if (!audience) errors.audience = 'Выберите адресатов';
+    let target = ctx.staff.faculty_id;
+    if (audience === 'group') {
+      const g = ctx.store.get('SELECT code FROM groups WHERE code = ? AND faculty_id = ?', str(ctx.body.group, 20), ctx.staff.faculty_id);
+      if (!g) errors.group = 'Выберите группу своего факультета';
+      else target = g.code;
+    }
+    if (Object.keys(errors).length) fail(422, 'Проверьте поля', { fields: errors });
+    const id = notify(ctx.store, { audience, audienceId: target, kind: 'news', title, body, link: '#/notifications', important: ctx.body.important === true, author: `Деканат ${ctx.staff.faculty.short}` });
+    audit(ctx.store, ctx.user.id, 'announcement', `${audience}:${target}`, ctx.ip);
+    return { id };
+  });
+
