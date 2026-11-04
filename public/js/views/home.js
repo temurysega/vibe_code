@@ -183,3 +183,19 @@ const sec = {
       </div></div>`;
   },
 
+  pet() {
+    const p = session.play;
+    if (!p.av.pet || p.av.pet === 'none') return `<div class="card pet-card" data-sec="pet"><div class="card-title">Питомец</div><p class="muted mt-8">Питомец подсказывает про пары и дедлайны и растёт, пока вы учитесь</p><a class="btn btn-primary mt-16" href="#/wardrobe">${icon('paw', 18)} Завести питомца</a></div>`;
+    const ph = petPhrases();
+    const text = ph[phraseI % ph.length];
+    const focus = p.pet.focusEnd > Date.now();
+    return `<div class="card pet-card" data-sec="pet">
+      <div class="card-head" style="margin-bottom:6px"><div><div class="card-title">${esc(p.petName)}</div><div class="card-sub">Уровень ${p.level} · ${p.pet.sessions} ${plural(p.pet.sessions, ['фокус-сессия', 'фокус-сессии', 'фокус-сессий'])}</div></div></div>
+      <div class="pet-stage" data-petclick role="button" tabindex="0" aria-label="Погладить питомца">${p.prefs.quiet ? '' : `<div class="pet-bubble">${esc(text)}</div>`}<div class="pet-anim">${petSvg(p.av.pet, p.av.petColor)}</div></div>
+      ${focus
+        ? `<div class="focus-on mt-12"><span class="tnum" data-focus>25:00</span><span class="small muted grow">учимся вместе — не отвлекайтесь</span><button class="btn btn-sm btn-secondary" data-focus-stop>Стоп</button></div>`
+        : `<button class="btn btn-secondary btn-block mt-12" data-focus-start>${icon('clock', 17)} Учиться вместе 25 минут</button>`}
+      <div class="bar-label mt-12"><span>Рост · уровень ${p.level}</span><span class="tnum muted">${p.pet.growth % 10} / 10</span></div><div class="bar"><i style="width:${(p.pet.growth % 10) * 10}%"></i></div>
+    </div>`;
+  },
+
