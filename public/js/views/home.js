@@ -240,3 +240,90 @@ function body() {
     <div class="grid g-3 mt-20">${sec.pet()}${sec.campus()}${sec.game()}</div>`;
 }
 
+export default {
+  title: 'Главная',
+  render() {
+    return `<div class="container"><div data-body>${skeleton(1, 60)}<div class="home-top mt-20"><div class="skel" style="height:260px"></div><div class="skel" style="height:260px"></div></div><div class="grid g-3 mt-20">${'<div class="skel" style="height:300px"></div>'.repeat(3)}</div></div></div>`;
+  },
+  async mount(el, params, app) {
+    const box = el.querySelector('[data-body]');
+    async function load() {
+      try {
+        data = await get('/api/home');
+        setPlay(data.play);
+        box.innerHTML = body();
+      } catch (e) {
+        if (e.status === 401) return;
+        box.innerHTML = errorBox(e);
+      }
+    }
+    await load();
+    const repaint = (k) => { const n = box.querySelector(`[data-sec="${k}"]`); if (n && data) n.outerHTML = sec[k](); };
+
+    // Таймер фокус-сессии и обратный отсчёт до пары
+    const tick = setInterval(async () => {
+      if (!data) return;
+      const end = session.play && session.play.pet.focusEnd;
+      const node = box.querySelector('[data-focus]');
+      if (end && node) {
+        const left = Math.max(0, end - Date.now());
+        node.textContent = `${String(Math.floor(left / 60e3)).padStart(2, '0')}:${String(Math.floor((left % 60e3) / 1e3)).padStart(2, '0')}`;
+        if (!left) {
+          try {
+            const r = await post('/api/play/focus', { action: 'done' });
+            setPlay(r.play);
+            toast(`25 минут вместе — ${esc(session.play.petName)} подрос${r.result.coins ? `, +${r.result.coins} М-коинов` : ''}`, { icon: 'paw' });
+            fx.confetti({ n: 90 });
+          } catch (e) { /* таймер покажет снова */ }
+          repaint('pet');
+        }
+      }
+    }, 1000);
+    const minute = setInterval(() => { repaint('next'); repaint('day'); }, 30e3);
+    const offPlay = on('play', () => { ['look', 'pet', 'campus', 'game', 'steps'].forEach(repaint); });
+    const offRefresh = on('refresh', load);
+
+    el.addEventListener('click', async (e) => {
+      if (e.target.closest('[data-retry]')) { load(); return; }
+      if (e.target.closest('[data-ask]')) { app.ask(); return; }
+      const fs = e.target.closest('[data-focus-start]');
+      if (fs) {
+        const r = await post('/api/play/focus', { action: 'start' }).catch((er) => { toast(esc(er.message), { icon: 'alert' }); return null; });
+        if (r) { setPlay(r.play); toast('Таймер на 25 минут запущен. Можно свернуть вкладку — время считает сервер', { icon: 'clock' }); }
+        return;
+      }
+      if (e.target.closest('[data-focus-stop]')) {
+        const r = await post('/api/play/focus', { action: 'stop' }).catch(() => null);
+        if (r) setPlay(r.play);
+        return;
+      }
+      const pc = e.target.closest('[data-petclick]');
+      if (pc) {
+        phraseI++;
+        repaint('pet');
+        const anim = box.querySelector('[data-sec="pet"] .pet-anim');
+        if (anim) anim.classList.add('hop');
+        return;
+      }
+      const st = e.target.closest('[data-step]');
+      if (st) {
+        if (st.dataset.step === 'onboarding') openOnboarding();
+        if (st.dataset.step === 'quiz') openQuiz();
+        return;
+      }
+      const cl = e.target.closest('[data-claim]');
+      if (cl) {
+        const before = session.play.coins;
+        try {
+          const r = await post('/api/play/steps/claim');
+          setPlay(r.play);
+          fx.flyCoins(cl.getBoundingClientRect(), before, r.play.coins);
+          fx.confetti({ n: 160 });
+          toast('Первые шаги пройдены! +200 М-коинов и шапочка выпускника', { icon: 'star', ms: 5000 });
+        } catch (er) { toast(esc(er.message), { icon: 'alert' }); }
+      }
+    });
+    el.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('[data-petclick]')) e.target.click(); });
+    return () => { clearInterval(tick); clearInterval(minute); offPlay(); offRefresh(); };
+  },
+};
