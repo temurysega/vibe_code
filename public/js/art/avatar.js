@@ -20,3 +20,16 @@ const INK = '#2B1D1A';
 const MOUTH = '#3B2320';
 const GOLD = '#C9A646';
 
+// ---------- цвет ----------
+function hex(c) {
+  c = String(c).replace('#', '');
+  if (c.length === 3) c = c.split('').map((x) => x + x).join('');
+  return [0, 2, 4].map((i) => parseInt(c.substr(i, 2), 16));
+}
+function toHex(a) { return '#' + a.map((v) => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0')).join(''); }
+export function mix(a, b, t) { const x = hex(a), y = hex(b); return toHex(x.map((v, i) => v + (y[i] - v) * t)); }
+export const dk = (c, t) => mix(c, '#000000', t == null ? 0.16 : t);
+export const lt = (c, t) => mix(c, '#FFFFFF', t == null ? 0.3 : t);
+export function lum(c) { const [r, g, b] = hex(c).map((v) => v / 255); return 0.2126 * r + 0.7152 * g + 0.0722 * b; }
+const col = (k, fb) => CLOTH[k] || (k && k[0] === '#' ? k : null) || fb || CLOTH.graphite;
+
