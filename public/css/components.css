@@ -134,3 +134,9 @@ select.input { appearance: none; background-image: url("data:image/svg+xml,%3Csv
 .way-n { width: 36px; height: 36px; border-radius: 50%; background: var(--navy-3); color: var(--navy); display: grid; place-items: center; font-weight: 600; flex: none; }
 .empty { text-align: center; padding: 28px 16px; color: var(--muted); }
 .empty .emoji { font-size: 34px; display: block; margin-bottom: 8px; }
+.note { display: flex; align-items: flex-start; gap: 10px; background: #fff; border-radius: 14px; padding: 12px 14px; font-size: 14px; }
+.note svg { flex: none; margin-top: 1px; color: var(--navy); }
+.note-warn { background: var(--warn-2); color: #6A4300; }
+.note-warn svg { color: var(--warn); }
+.note-navy { background: var(--navy-4); color: var(--navy-ink); }
+
