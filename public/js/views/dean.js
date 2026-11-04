@@ -61,3 +61,14 @@ function announce() {
       <div><button class="btn btn-primary" type="submit">${icon('calendar', 18)} Отметить изменение</button></div></form></div>`;
 }
 
+async function loadPairs(el) {
+  const f = el.querySelector('[data-chg]');
+  const box = f.querySelector('[data-pairs]');
+  box.innerHTML = '<span class="small muted">Загружаем…</span>';
+  try {
+    const { day } = await get(`/api/dean/day?group=${encodeURIComponent(f.elements.group.value)}&date=${encodeURIComponent(f.elements.date.value)}`);
+    const ok = day.items.filter((x) => x.status === 'normal');
+    box.innerHTML = day.holiday ? `<span class="small muted">${esc(day.holiday)} — пар нет</span>` : ok.length ? ok.map((it, i) => `<label class="pair-opt"><input type="radio" name="pair" value="${it.lessonId}:${it.pair}" ${i === 0 ? 'checked' : ''}><span><b style="font-weight:500">${it.pair} пара, ${it.start}</b> · ${esc(it.discipline)} · ауд. ${esc(it.room)}</span></label>`).join('') : '<span class="small muted">В этот день у группы нет пар без изменений</span>';
+  } catch (e) { box.innerHTML = `<span class="small muted">${esc(e.message)}</span>`; }
+}
+
