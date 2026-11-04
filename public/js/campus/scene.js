@@ -486,3 +486,13 @@ export class Campus {
     }
   }
 
+  destroy() {
+    cancelAnimationFrame(this.raf);
+    window.removeEventListener('keydown', this.onKeyDown);
+    window.removeEventListener('keyup', this.onKeyUp);
+    if (this.svg) this.svg.removeEventListener('click', this.onClick);
+  }
+}
+
+Campus.pos = null;
+Campus.floorOf = floorOf;
