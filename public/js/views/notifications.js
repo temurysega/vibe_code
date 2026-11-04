@@ -36,3 +36,15 @@ function prefs() {
     <div class="note mt-12">${icon('info', 18)}<span>В демо каналы — переключатели концепта: письма и сообщения не отправляются</span></div></div>`;
 }
 
+function body() {
+  return `<div class="notif-page"><div>
+      <div class="row-wrap" style="justify-content:space-between;margin-bottom:16px"><div class="chips">${FILTERS.map(([id, n]) => {
+        const c = id === 'all' ? list.length : id === 'unread' ? unread : list.filter((x) => x.kind === id).length;
+        return `<button class="chip ${filter === id ? 'on' : ''}" data-f="${id}">${n}${c ? ` <span class="count">${c}</span>` : ''}</button>`;
+      }).join('')}</div>
+      ${unread ? `<button class="btn btn-secondary btn-sm" data-readall>${icon('check', 16)} Прочитать все</button>` : ''}</div>
+      ${items()}</div>
+    <aside class="sticky-side">${prefs()}
+      <div class="card"><div class="card-title">Без пропусков</div><p class="muted mt-8">О переносе пары, новом дедлайне и готовой справке кабинет напомнит сам: за 3 дня до срока и в день срока.</p></div></aside></div>`;
+}
+
