@@ -93,3 +93,10 @@ export function contextText(snap) {
   return lines.join('\n');
 }
 
+// Ссылка [[#/...]] из ответа модели проходит через белый список
+export function extractLink(text) {
+  const m = /\[\[(#\/[a-z/]+)\]\]\s*$/.exec(text.trim());
+  const link = m && LINKS[m[1]] ? { href: m[1], label: LINKS[m[1]] } : null;
+  return { text: text.replace(/\[\[#\/[^\]]*\]\]/g, '').trim(), link };
+}
+
