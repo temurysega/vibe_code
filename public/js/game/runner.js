@@ -167,3 +167,32 @@ export class Runner {
     if (this.state === 'run') this.raf = requestAnimationFrame(this.loop);
   }
 
+  // Ряд препятствий: всегда остаётся хотя бы один проход
+  spawnRow(z) {
+    const lanes = [-1, 0, 1];
+    const pick = (a) => a[(Math.random() * a.length) | 0];
+    const r = Math.random();
+    const add = (kind, lane) => this.objs.push({ kind, lane, z, hit: false });
+    const coins = (lane, arc) => { for (let i = 0; i < 4; i++) this.objs.push({ kind: 'coin', lane, z: z + 2 + i * 1.6, h: arc ? 0.95 : 0.3 }); };
+    const t = this.t;
+    if (r < 0.22) {
+      const free = pick(lanes);
+      lanes.filter((l) => l !== free).forEach((l) => add(Math.random() < 0.5 ? 'cart' : 'deadline', l));
+      coins(free, false);
+    } else if (r < 0.42) {
+      lanes.forEach((l) => add(Math.random() < 0.6 ? 'bench' : 'wet', l));
+      coins(pick(lanes), true);
+    } else if (r < 0.58 && t > 12) {
+      lanes.forEach((l) => add('banner', l));
+    } else if (r < 0.8) {
+      const a = pick(lanes);
+      add(pick(['cart', 'deadline']), a);
+      const b = pick(lanes.filter((l) => l !== a));
+      add(pick(['bench', 'wet', t > 12 ? 'banner' : 'bench']), b);
+      coins(lanes.find((l) => l !== a && l !== b), false);
+    } else {
+      coins(pick(lanes), false);
+      if (Math.random() < 0.5) this.objs.push({ kind: Math.random() < 0.5 ? 'coffee' : 'book', lane: pick(lanes), z: z + 4, h: 0.4 });
+    }
+  }
+
