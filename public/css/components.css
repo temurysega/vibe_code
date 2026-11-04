@@ -58,3 +58,10 @@
 .badge-soft { background: var(--navy-3); color: var(--navy-ink); }
 .badge-gold { background: var(--gold-3); color: var(--gold-ink); }
 .badge-violet { background: var(--violet-2); color: var(--violet-ink); }
+.badge-blue { background: var(--blue-2); color: var(--blue-ink); }
+.badge-good { background: var(--good-2); color: var(--good); }
+.badge-dark { background: var(--ink); color: #fff; }
+.badge-gray { background: var(--surface); color: var(--muted-2); }
+.badge-warn { background: var(--warn-2); color: var(--warn); }
+.badge-red { background: var(--red-2); color: var(--red-ink); }
+.card .badge-gray { background: #fff; }
