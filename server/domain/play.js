@@ -179,3 +179,17 @@ export function buy(s, slot, id) {
   return { ok: true };
 }
 
+export function takeKit(store, s, kitId, size) {
+  const kit = KITS.find((k) => k.id === kitId);
+  if (!kit) fail(400, 'Нет такого комплекта');
+  if (!kit.sizes.includes(size)) fail(400, 'Выберите размер');
+  if (s.owned.includes(kit.twin)) fail(409, 'Этот комплект у вас уже есть');
+  const left = Number(store.meta('stock:' + kit.id) ?? kit.stock);
+  if (left <= 0) fail(409, 'Комплекты закончились — следующая партия в декабре');
+  if (s.coins < kit.price) fail(400, 'Не хватает М-коинов');
+  store.meta('stock:' + kit.id, left - 1);
+  s.owned.push(kit.twin);
+  earn(s, -kit.price, `${kit.name} + цифровая копия`);
+  return kit;
+}
+
