@@ -135,3 +135,14 @@ function hairFront(style, h) {
   }
 }
 
+// Затылок для вида со спины: волосы закрывают голову целиком
+function hairNape(style, h) {
+  if (style === 'none') return '';
+  if (style === 'afro') return '';
+  const cap = `<path d="M56 100 C52 56 76 40 100 40 C124 40 148 56 144 100 C144 114 140 126 132 134 Q100 144 68 134 C60 126 56 114 56 100 Z" fill="${style === 'buzz' ? dk(h, 0.05) : h}"${style === 'buzz' ? ' opacity=".9"' : ''}/>`;
+  if (style === 'bun') return cap + `<circle cx="100" cy="34" r="17" fill="${dk(h, 0.06)}"/>`;
+  if (style === 'ponytail') return cap + `<path d="M92 120 C88 150 96 172 100 186 C104 172 112 150 108 120 Z" fill="${dk(h, 0.1)}"/><rect x="93" y="112" width="14" height="9" rx="4" fill="${dk(h, 0.3)}"/>`;
+  if (style === 'curly') return cap + [[70, 64], [100, 48], [130, 64], [62, 96], [138, 96], [84, 118], [116, 118]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="13" fill="${h}"/>`).join('');
+  return cap;
+}
+
