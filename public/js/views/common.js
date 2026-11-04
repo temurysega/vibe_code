@@ -38,3 +38,14 @@ export function changeTag(it) {
   return '';
 }
 
+export function changeLine(it) {
+  const c = it.change;
+  const what = `${esc(it.short || it.discipline)}, ${esc(relDay(it.date))}`;
+  if (c.type === 'cancel') return { cls: 'cancel', icon: 'ban', title: `${what}: пара отменена`, sub: c.reason };
+  if (c.type === 'room') return { cls: 'room', icon: 'pin', title: `${what}: ауд. ${esc(it.room)} вместо ${esc(c.from)}`, sub: c.reason };
+  if (c.type === 'teacher') return { cls: 'teacher', icon: 'user', title: `${what}: ведёт ${esc(it.teacher ? it.teacher.short : '')}`, sub: c.reason };
+  if (c.type === 'extra') return { cls: 'extra', icon: 'plus', title: `${what}: ${esc(it.kindLabel.toLowerCase())}, ${it.pair} пара, ауд. ${esc(it.room)}`, sub: c.reason };
+  if (it.status === 'moved') return { cls: 'move', icon: 'route', title: `${what}: перенос на ${esc(relDay(c.to.date))}, ${c.to.pair} пара`, sub: c.reason };
+  return { cls: 'move', icon: 'route', title: `${what}: ${it.pair} пара — перенос с ${esc(dayShort(c.from.date))}`, sub: c.reason };
+}
+
