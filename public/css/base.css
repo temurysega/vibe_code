@@ -33,3 +33,11 @@ input, textarea, select { font: inherit; color: inherit; }
 .skip { position: absolute; left: 16px; top: -60px; z-index: 999; background: var(--navy); color: #fff; padding: 10px 16px; border-radius: var(--pill); }
 .skip:focus { top: 12px; }
 
+/* ---------- Типографика ---------- */
+.h1 { font-size: 44px; line-height: 1.08; font-weight: 500; letter-spacing: -0.02em; }
+.h2 { font-size: 32px; line-height: 1.12; font-weight: 500; letter-spacing: -0.015em; }
+.h3 { font-size: 24px; line-height: 1.2; font-weight: 500; letter-spacing: -0.01em; }
+.h4 { font-size: 19px; line-height: 1.3; font-weight: 500; }
+.lead { font-size: 18px; color: var(--muted); }
+.eyebrow { font-size: 13px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+
