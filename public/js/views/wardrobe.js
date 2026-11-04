@@ -44,3 +44,10 @@ function tiles(slot) {
   }).join('')}</div>`;
 }
 
+function swatches(slot) {
+  const it = ITEMS.find((i) => i.slot === slot && i.id === draft[slot]);
+  if (!it || !it.colors) return '';
+  const pal = slot === 'pet' ? PETC : CLOTH;
+  return `<div class="opt-group"><div class="opt-title"><span>Цвет: ${esc(it.name.toLowerCase())}</span></div><div class="swatches">${it.colors.map((c) => `<button class="swatch ${draft[slot + 'Color'] === c ? 'on' : ''}" style="background:${pal[c]}" data-color="${slot}:${c}" aria-label="Цвет ${c}"></button>`).join('')}</div></div>`;
+}
+
