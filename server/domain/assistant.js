@@ -100,3 +100,58 @@ export function extractLink(text) {
   return { text: text.replace(/\[\[#\/[^\]]*\]\]/g, '').trim(), link };
 }
 
+// ---------- ответы без ИИ: правила на тех же данных ----------
+export function ruleAnswer(snap, question) {
+  const q = question.toLowerCase();
+  const s = snap.student;
+  const g = snap.grades;
+  const has = (re) => re.test(q);
+  if (has(/пар[аыу]?\b|расписан|аудитор|завтра|сегодня|занят|кабинет\s*\d|где\s+(у\s+меня|будет)/)) {
+    const wantTomorrow = has(/завтра/);
+    const day = wantTomorrow ? snap.days.find((d) => d.date === addDays(snap.now.date, 1)) : snap.days[0];
+    if (day && (day.holiday || !day.items.length)) {
+      return { text: `${wantTomorrow ? 'Завтра' : fmtDate(day.date)} пар нет${day.holiday ? ` — ${day.holiday.toLowerCase()}` : ''}.${snap.upcoming ? ` Ближайшая — ${snap.upcoming.discipline}, ${fmtDate(snap.upcoming.date)} в ${snap.upcoming.start}, ауд. ${snap.upcoming.room}.` : ''}`, link: { href: '#/schedule', label: LINKS['#/schedule'] } };
+    }
+    const list = (day ? day.items : []).map((it) => lessonLine(it)).join('\n');
+    const changes = (day ? day.items : []).filter((it) => it.change).length;
+    return { text: `${wantTomorrow ? 'Завтра' : fmtDate(day.date)}:\n${list}${changes ? `\nОбратите внимание: ${changes} ${plural(changes, ['изменение', 'изменения', 'изменений'])} — они отмечены в расписании.` : ''}`, link: { href: '#/schedule', label: LINKS['#/schedule'] } };
+  }
+  if (has(/пересда|долг|хвост|задолженн/)) {
+    if (!g.debts.length) return { text: 'Академических задолженностей нет — пересдавать ничего не нужно.', link: { href: '#/grades', label: LINKS['#/grades'] } };
+    const d = g.debts[0];
+    return { text: `Долг по дисциплине «${d.name}» (${d.points} баллов).${d.retake ? ` Пересдача — ${fmtDate(d.retake.date)}, ауд. ${d.retake.room}.` : ''} Запишитесь онлайн — деканат подтвердит дату.`, link: { href: '#/requests/new/retake', label: LINKS['#/requests/new/retake'] } };
+  }
+  if (has(/стипенд/)) return { text: `${g.summary.stipend.label}. ${g.summary.stipend.hint}. Справку о размере стипендии можно заказать онлайн.`, link: { href: '#/requests/new/stipend', label: LINKS['#/requests/new/stipend'] } };
+  if (has(/виз|посольств|загранпаспорт|поездк/)) return { text: 'Для посольства закажите справку на английском: укажите страну и даты поездки. Электронная готова за день-два, бумажную с печатью забирают в деканате.', link: { href: '#/requests/new/visa', label: LINKS['#/requests/new/visa'] } };
+  if (has(/обмен|мобильност|семестр за границ/)) return { text: 'Заявка на обмен подаётся в разделе «Заявки» → «Программа обмена». Заранее закажите выписку оценок на английском — она понадобится комиссии.', link: { href: '#/requests/new/exchange', label: LINKS['#/requests/new/exchange'] } };
+  if (has(/военкомат|отсрочк|призыв/)) return { text: 'Справку для военкомата можно заказать онлайн, оригинал с печатью готов за три дня — заберите его в деканате.', link: { href: '#/requests/new/military', label: LINKS['#/requests/new/military'] } };
+  if (has(/пропус|заболел|болезн|больнич/)) return { text: 'Оформите заявление «Пропуск по уважительной причине» — деканат предупредит преподавателей. Справку из поликлиники можно донести позже.', link: { href: '#/requests/new/absence', label: LINKS['#/requests/new/absence'] } };
+  if (has(/справк|заявлен|документ|статус|готов/)) {
+    const active = snap.requests.filter((r) => ['submitted', 'in_work'].includes(r.status));
+    const ready = snap.requests.filter((r) => r.status === 'ready');
+    let text = active.length ? `В работе: ${active.map((r) => `«${r.title}» (№ ${r.number}) — ${STATUS[r.status].toLowerCase()}`).join(', ')}.` : 'Заявок в работе нет.';
+    if (ready.length) text += ` Готово: ${ready.map((r) => `«${r.title}»${r.pickup ? ` — забрать: ${r.pickup}` : ' — можно скачать в кабинете'}`).join('; ')}.`;
+    text += ' Новую справку об обучении можно заказать онлайн — электронная готова в течение дня.';
+    return { text, link: { href: active.length ? '#/requests' : '#/requests/new/study', label: active.length ? LINKS['#/requests'] : LINKS['#/requests/new/study'] } };
+  }
+  if (has(/дедлайн|срок|эссе|сдать|контрольн|проект/)) {
+    if (!snap.deadlines.length) return { text: 'В ближайшие две недели дедлайнов нет.', link: { href: '#/grades', label: LINKS['#/grades'] } };
+    return { text: 'Ближайшие сроки:\n' + snap.deadlines.slice(0, 4).map((d) => `- ${d.title} — до ${fmtTime(d.due_at)}`).join('\n'), link: { href: '#/grades', label: LINKS['#/grades'] } };
+  }
+  if (has(/экзамен|сесси|зач[её]т|допуск/)) {
+    const exams = g.session.exams.filter((x) => x.kind !== 'consult');
+    const first = exams.find((x) => x.inDays >= 0);
+    return { text: `${g.session.admitted ? 'Сейчас всё идёт к допуску к сессии.' : 'Допуск под угрозой: закройте риски и долги.'}${first ? ` Первый — «${first.discipline}», ${first.kindLabel.toLowerCase()} ${fmtDate(first.date)} в ${first.time}, ауд. ${first.room}.` : ''} Всего в сессии ${exams.length} ${plural(exams.length, ['испытание', 'испытания', 'испытаний'])}.`, link: { href: '#/grades/session', label: LINKS['#/grades/session'] } };
+  }
+  if (has(/балл|оценк|успева|рейтинг|как (у меня )?дела|учёб|учеб|отличн/)) {
+    const risk = g.current.filter((c) => c.status === 'risk');
+    return { text: `${g.summary.headline}.${risk.length ? ' ' + risk.map((c) => `${c.name}: ${c.advice.toLowerCase()}`).join('. ') + '.' : ''}${g.summary.avg ? ` Средний балл по прошлым сессиям — ${String(g.summary.avg).replace('.', ',')}.` : ''}`, link: { href: '#/grades', label: LINKS['#/grades'] } };
+  }
+  if (has(/пароль|безопасн|сеанс|взлом|чужо/)) return { text: 'В профиле, в блоке «Безопасность», видны все активные сеансы — лишние можно закрыть одним нажатием. Там же меняется пароль: после смены остальные сеансы завершатся сами.', link: { href: '#/profile', label: LINKS['#/profile'] } };
+  if (has(/деканат|контакт|телефон|почт|часы|работает/)) return { text: `Деканат ${s.faculty.short}: ауд. ${s.faculty.dean_office}, ${s.faculty.hours}. Телефон ${s.faculty.phone}, почта ${s.faculty.email}.`, link: null };
+  return {
+    text: 'Могу подсказать расписание и переносы, баллы и что нужно для «отлично», дедлайны, статус справок и как оформить заявление. Спросите, например: «Где у меня завтра пары?» или «Что с моими справками?»',
+    link: null,
+  };
+}
+
