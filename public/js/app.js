@@ -95,3 +95,13 @@ function paintChrome(route) {
   $ask.innerHTML = `<button class="ask-fab" data-ask aria-label="Спросить деканат"><span class="fab-ic">${icon('chat', 18)}</span><span class="fab-text">Спросить деканат</span></button>`;
 }
 
+// ---------- роутер ----------
+let current = null;
+let cleanup = null;
+let token = 0;
+
+function parse() {
+  const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean).map((x) => decodeURIComponent(x));
+  return { name: parts[0] || '', params: parts.slice(1) };
+}
+
