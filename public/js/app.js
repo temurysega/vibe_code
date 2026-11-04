@@ -300,3 +300,18 @@ $tab.addEventListener('click', (e) => {
   }, { up: true });
 });
 
+window.addEventListener('scroll', () => { $head.classList.toggle('scrolled', window.scrollY > 4); }, { passive: true });
+window.addEventListener('hashchange', go);
+
+async function boot() {
+  paintConcept();
+  paintFoot();
+  try {
+    const r = await get('/api/auth/session');
+    session.user = r.user;
+    setCsrf(r.csrf);
+    if (isStudent()) { await loadPlay(); startPolling(); }
+  } catch (e) { /* не вошли — покажем экран входа */ }
+  await go();
+}
+boot();
