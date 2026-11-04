@@ -7,3 +7,16 @@ export class RateLimiter {
     this.hits = new Map();
   }
 
+  recent(key, now) {
+    const list = (this.hits.get(key) || []).filter((t) => now - t < this.windowMs);
+    if (list.length) this.hits.set(key, list); else this.hits.delete(key);
+    return list;
+  }
+
+  check(key) {
+    const now = Date.now();
+    const list = this.recent(key, now);
+    if (list.length < this.max) return { ok: true, left: this.max - list.length };
+    return { ok: false, retryAfter: Math.ceil((this.windowMs - (now - list[0])) / 1000) };
+  }
+
