@@ -37,3 +37,35 @@ const KINDS = {
   deadline: { type: 'block', w: 0.8, h: 1.35 },
 };
 
+export class Runner {
+  constructor(wrap, opt) {
+    this.wrap = wrap;
+    this.opt = opt;
+    this.canvas = wrap.querySelector('canvas');
+    this.ctx = this.canvas.getContext('2d');
+    this.overlay = wrap.querySelector('.runner-overlay');
+    this.state = 'loading';
+    this.best = opt.best || 0;
+    this.left = opt.left || 0;
+    this.loop = this.loop.bind(this);
+    this.onKey = this.onKey.bind(this);
+    this.onDown = this.onDown.bind(this);
+    this.onUp = this.onUp.bind(this);
+    this.onVis = () => { if (document.hidden && this.state === 'run') this.over('hidden'); };
+    this.ro = new ResizeObserver(() => this.resize());
+    this.ro.observe(wrap);
+    wrap.addEventListener('pointerdown', this.onDown);
+    window.addEventListener('pointerup', this.onUp);
+    window.addEventListener('keydown', this.onKey);
+    document.addEventListener('visibilitychange', this.onVis);
+    this.overlay.addEventListener('click', (e) => { const b = e.target.closest('[data-run]'); if (b) this.start(); });
+    this.reset();
+    this.resize();
+    this.load().then(() => {
+      if (this.state === 'dead') return;
+      this.state = 'ready';
+      this.draw();
+      this.show(this.left > 1 ? 'ready' : 'limit');
+    }).catch(() => { this.state = 'ready'; this.show('ready'); });
+  }
+
