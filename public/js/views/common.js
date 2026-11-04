@@ -66,3 +66,15 @@ export function teacherModal(t, extra) {
   });
 }
 
+export const STATUS_ICON = { submitted: 'send', in_work: 'hourglass', ready: 'check', issued: 'check', approved: 'check', rejected: 'ban', cancelled: 'undo' };
+export const statusPill = (status, label) => `<span class="st st-${status}"><i></i>${esc(label)}</span>`;
+
+// Полоска прогресса заявки по шагам
+export function pipe(steps, status) {
+  const bad = status === 'rejected' || status === 'cancelled';
+  const idx = bad ? steps.length : Math.max(0, steps.indexOf(status));
+  const done = !bad && idx === steps.length - 1;
+  return `<div class="pipe ${bad ? 'bad' : done ? 'done' : ''}">${steps.map((s, i) => `<i class="${bad || i <= idx ? 'on' : ''}"></i>`).join('')}</div>`;
+}
+
+export const PICKUP_ICON = icon('pin', 20);
