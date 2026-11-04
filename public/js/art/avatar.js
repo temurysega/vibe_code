@@ -194,3 +194,13 @@ function facial(t, h) {
   }
 }
 
+function glasses(t) {
+  const f = '#2A2A2A';
+  switch (t) {
+    case 'round': return `<g fill="#fff" fill-opacity=".2" stroke="${f}" stroke-width="2.6"><circle cx="84" cy="98" r="10.5"/><circle cx="116" cy="98" r="10.5"/></g><path d="M94.5 97 Q100 93.5 105.5 97 M73.5 96 L59 92 M126.5 96 L141 92" stroke="${f}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
+    case 'square': return `<g fill="#fff" fill-opacity=".2" stroke="${f}" stroke-width="2.6"><rect x="72" y="89" width="24" height="18" rx="5"/><rect x="104" y="89" width="24" height="18" rx="5"/></g><path d="M96 97 Q100 94 104 97 M72 95 L59 92 M128 95 L141 92" stroke="${f}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
+    case 'sun': return `<g fill="#1E1E1E" fill-opacity=".92" stroke="#1E1E1E" stroke-width="2"><path d="M71 90 h26 v8 q0 10 -13 10 q-13 0 -13 -10 Z"/><path d="M103 90 h26 v8 q0 10 -13 10 q-13 0 -13 -10 Z"/></g><path d="M97 93 Q100 90.5 103 93 M71 93 L59 90 M129 93 L141 90" stroke="#1E1E1E" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M76 94.5 h7 M108 94.5 h7" stroke="#fff" stroke-opacity=".45" stroke-width="2" stroke-linecap="round"/>`;
+    default: return '';
+  }
+}
+
