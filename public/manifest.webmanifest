@@ -1,0 +1,13 @@
+{
+  "name": "МГИМО Мания — концепт кабинета студента",
+  "short_name": "МГИМО Мания",
+  "description": "Концепт для конкурса. Не является официальным сервисом МГИМО.",
+  "start_url": "/#/home",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#0F2D69",
+  "lang": "ru",
+  "icons": [
+    { "src": "/img/logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
