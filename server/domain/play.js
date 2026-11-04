@@ -28,3 +28,14 @@ export function defaults(seed) {
   };
 }
 
+export function load(store, studentId) {
+  const row = store.get('SELECT state FROM play_state WHERE student_id = ?', studentId);
+  if (!row) fail(404, 'Игровой профиль не найден');
+  return JSON.parse(row.state);
+}
+
+export function save(store, studentId, s) {
+  s.history = s.history.slice(0, 40);
+  store.run('UPDATE play_state SET state = ?, updated_at = ? WHERE student_id = ?', JSON.stringify(s), Date.now(), studentId);
+}
+
