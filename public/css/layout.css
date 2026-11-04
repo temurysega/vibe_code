@@ -23,3 +23,10 @@
 .nav a { height: 38px; padding: 0 12px; display: inline-flex; align-items: center; border-radius: var(--pill); font-size: 15px; white-space: nowrap; color: var(--ink); transition: background .15s; }
 .nav a:hover { background: var(--surface); }
 .nav a.on { background: var(--navy-3); color: var(--navy-ink); font-weight: 500; }
+.nav a .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); margin-left: 6px; }
+.header-right { display: flex; align-items: center; gap: 8px; flex: none; margin-left: auto; }
+.bal-pill { height: 40px; border-radius: var(--pill); background: var(--surface); display: inline-flex; align-items: center; gap: 7px; padding: 0 14px 0 7px; font-weight: 500; font-size: 15px; cursor: pointer; border: 0; transition: background .15s, transform .15s; }
+.bal-pill:hover { background: var(--surface-2); }
+.bal-pill.bump { animation: bump .5s ease; }
+.icon-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--surface); border: 0; display: inline-grid; place-items: center; cursor: pointer; position: relative; flex: none; transition: background .15s; }
+.icon-btn:hover { background: var(--surface-2); }
