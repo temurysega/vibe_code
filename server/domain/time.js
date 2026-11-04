@@ -68,3 +68,10 @@ export function semesterNumber(admissionYear, date) {
 }
 export const courseOf = (admissionYear, date) => Math.max(1, Math.ceil(semesterNumber(admissionYear, date) / 2));
 
+// Чётность недели считается от недели начала семестра: первая неделя — нечётная
+export function parityOf(date) {
+  const s = semesterOf(date);
+  const n = Math.floor(daysBetween(mondayOf(s.start), mondayOf(date)) / 7) + 1;
+  return { n: Math.max(1, n), parity: n % 2 ? 'odd' : 'even' };
+}
+
