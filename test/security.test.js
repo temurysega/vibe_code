@@ -18,3 +18,10 @@ test('пароли хранятся только в виде хеша scrypt', (
   assert.equal(new Set(rows.map((r) => r.password_hash)).size, rows.length);
 });
 
+test('без входа данные недоступны', async () => {
+  const c = client(app.base);
+  for (const p of ['/api/home', '/api/me', '/api/grades', '/api/requests', '/api/requests/1', '/api/notifications']) {
+    assert.equal((await c.req('GET', p)).status, 401, p);
+  }
+});
+
