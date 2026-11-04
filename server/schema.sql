@@ -181,3 +181,22 @@ CREATE TABLE IF NOT EXISTS deadlines (
   link TEXT
 );
 
+-- Заявки и справки
+CREATE TABLE IF NOT EXISTS requests (
+  id INTEGER PRIMARY KEY,
+  number TEXT NOT NULL UNIQUE,
+  student_id INTEGER NOT NULL REFERENCES students(id),
+  type TEXT NOT NULL,
+  title TEXT NOT NULL,
+  payload TEXT NOT NULL,
+  delivery TEXT NOT NULL,
+  status TEXT NOT NULL,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL,
+  due_at INTEGER,
+  plan TEXT,
+  verify_code TEXT,
+  dean_comment TEXT
+);
+CREATE INDEX IF NOT EXISTS requests_student ON requests(student_id, created_at);
+
