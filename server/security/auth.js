@@ -26,3 +26,11 @@ export function studentOf(store, id) {
   return s;
 }
 
+export function staffOf(store, id) {
+  const s = store.get('SELECT st.*, f.short AS f_short, f.name AS f_name FROM staff st JOIN faculties f ON f.id = st.faculty_id WHERE st.id = ?', id);
+  if (s) s.faculty = { id: s.faculty_id, short: s.f_short, name: s.f_name };
+  return s;
+}
+
+export const requireUser = (ctx) => { if (!ctx.user) fail(401, 'Войдите в кабинет'); };
+
