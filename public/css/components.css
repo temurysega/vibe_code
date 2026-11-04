@@ -13,3 +13,11 @@
 .clickable { cursor: pointer; transition: transform .18s ease, box-shadow .18s ease; }
 .clickable:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
 
+/* ---------- Кнопки ---------- */
+.btn { height: 48px; padding: 0 24px; border-radius: var(--pill); border: 0; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 500; font-size: 16px; line-height: 1; cursor: pointer; white-space: nowrap; transition: background .15s, transform .1s, box-shadow .15s, opacity .15s; text-decoration: none; }
+.btn:active { transform: scale(.98); }
+.btn:disabled, .btn.disabled { opacity: .45; cursor: not-allowed; transform: none; }
+.btn-primary { background: var(--navy); color: #fff; }
+.btn-primary:hover { background: var(--navy-2); }
+.btn-secondary { background: var(--surface); color: var(--ink); }
+.btn-secondary:hover { background: var(--surface-2); }
