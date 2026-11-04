@@ -123,3 +123,6 @@
   .next-title { font-size: 22px; }
   .modal { padding: 22px 16px; }
 }
+@media (max-width: 720px) {
+  .show-s { display: inline; }
+}
