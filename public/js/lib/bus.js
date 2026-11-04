@@ -20,3 +20,20 @@ export const session = {
   demo: null,
 };
 
+export function setPlay(play) {
+  const before = session.play ? session.play.coins : null;
+  session.play = play;
+  emit('play', { play, before });
+}
+
+export function setUnread(n) {
+  if (session.unread === n) return;
+  session.unread = n;
+  emit('unread', n);
+}
+
+export function reset() {
+  session.user = null;
+  session.play = null;
+  session.unread = 0;
+}
