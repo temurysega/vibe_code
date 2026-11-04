@@ -184,3 +184,13 @@ function cheeks(t, sh) {
   return '';
 }
 
+function facial(t, h) {
+  const must = `<path d="M88 113 C92 108 98 109 100 111.5 C102 109 108 108 112 113 C107 115.5 103 114.5 100 113.5 C97 114.5 93 115.5 88 113 Z" fill="${h}"/>`;
+  switch (t) {
+    case 'stubble': return `<path d="M63 104 C66 134 86 138 100 138 C114 138 134 134 137 104 C132 124 116 131 100 131 C84 131 68 124 63 104 Z" fill="${h}" opacity=".24"/>`;
+    case 'mustache': return must;
+    case 'beard': return `<path d="M59 96 C59 138 82 147 100 147 C118 147 141 138 141 96 C137 116 127 124 114 122 C108 119 92 119 86 122 C73 124 63 116 59 96 Z" fill="${h}"/>${must}`;
+    default: return '';
+  }
+}
+
