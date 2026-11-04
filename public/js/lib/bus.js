@@ -7,3 +7,16 @@ export function on(ev, fn) {
   return () => { handlers[ev] = (handlers[ev] || []).filter((f) => f !== fn); };
 }
 
+export function emit(ev, data) {
+  (handlers[ev] || []).forEach((fn) => {
+    try { fn(data); } catch (e) { console.error(e); }
+  });
+}
+
+export const session = {
+  user: null,
+  play: null,
+  unread: 0,
+  demo: null,
+};
+
