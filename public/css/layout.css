@@ -68,3 +68,7 @@
 .foot .container { display: flex; gap: 16px; justify-content: space-between; flex-wrap: wrap; }
 .foot b { color: var(--ink); font-weight: 500; }
 
+/* ---------- Вход ---------- */
+body.is-auth #header, body.is-auth #tabbar, body.is-auth #ask, body.is-auth #foot { display: none; }
+body.is-auth .view { padding: 0; }
+body.is-dean #ask { display: none; }
