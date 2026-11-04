@@ -27,3 +27,15 @@ const VIEWS = {
 // Без входа доступны только экран входа и проверка подлинности справки
 const PUBLIC = ['login', 'verify'];
 
+const NAV = [
+  ['home', 'Главная', 'home'],
+  ['schedule', 'Расписание', 'calendar'],
+  ['grades', 'Успеваемость', 'chart'],
+  ['requests', 'Заявки', 'doc'],
+  ['campus', 'Кампус', 'building'],
+  ['wardrobe', 'Гардероб', 'hanger'],
+  ['shop', 'Лавка', 'bag'],
+  ['game', 'Перерыв', 'play'],
+];
+const TABS = [['home', 'Главная', 'home'], ['schedule', 'Расписание', 'calendar'], ['grades', 'Оценки', 'chart'], ['requests', 'Заявки', 'doc']];
+
