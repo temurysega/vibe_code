@@ -27,3 +27,13 @@ function kits() {
   }).join('')}</div>`;
 }
 
+function digital() {
+  const list = ITEMS.filter((i) => i.src === 'digital');
+  return `<div class="shop-grid">${list.map((it) => {
+    const st = itemState(it, play(), { excellent: play().excellent });
+    const pic = it.slot === 'pet' ? petSvg(it.id) : it.slot === 'backdrop' ? backdrop(it.id, 'globes', { w: 200, h: 150, cy: 75, r0: 20 }) : itemPreview(it.slot, it.id, it.colors ? it.colors[0] : null, play().av);
+    return `<button class="prod" data-buy="${it.slot}:${it.id}"><div class="prod-pic">${pic}</div><div class="prod-name">${esc(it.name)}</div>
+      <div class="prod-foot"><span class="prod-price">${money(it.price, 20)}</span><span class="stock">${st.owned ? 'куплено' : 'только для аватара'}</span></div></button>`;
+  }).join('')}</div>`;
+}
+
