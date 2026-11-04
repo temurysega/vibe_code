@@ -199,3 +199,21 @@ const sec = {
     </div>`;
   },
 
+  campus() {
+    const v = session.play.visited;
+    let s = `<svg class="mini" viewBox="0 0 300 152" aria-hidden="true"><rect width="300" height="152" fill="#fff"/><rect x="18" y="30" width="264" height="116" rx="4" fill="#0F2D69"/><rect x="96" y="8" width="108" height="22" rx="11" fill="#0F2D69"/><text x="150" y="23" text-anchor="middle" font-family="Onest, Arial" font-size="11" font-weight="700" fill="#E9D7A0">мгимо мания</text>`;
+    ROOMS.forEach((r) => {
+      const x = r.side === 'r' ? 158 : 26, y = 36 + (2 - r.floor) * 36;
+      const on = v.includes(r.id);
+      s += `<rect x="${x}" y="${y}" width="116" height="30" rx="3" fill="${on ? '#C9A646' : '#EEF3FC'}"/><text x="${x + 8}" y="${y + 19}" font-family="Onest, Arial" font-size="10" font-weight="600" fill="#0B2150">${r.name}</text>`;
+      if (on) s += `<circle cx="${x + 104}" cy="${y + 15}" r="5" fill="#0F2D69"/><path d="M${x + 101.5} ${y + 15} l1.8 1.8 l3.2 -3.4" stroke="#E9D7A0" stroke-width="1.6" fill="none"/>`;
+    });
+    s += `<rect x="144" y="36" width="12" height="102" fill="#1C438F"/></svg>`;
+    return `<div class="card campus-teaser" data-sec="campus">
+      <div class="card-head" style="margin:0"><div><div class="card-title">Кампус</div><div class="card-sub">Деканат, библиотека, гардероб — каждая зона ведёт в раздел кабинета</div></div></div>
+      ${s}
+      <div class="row space"><span class="route-dots">${ROOMS.map((r) => `<i class="${v.includes(r.id) ? 'on' : ''}"></i>`).join('')}</span><span class="small muted">${v.length} из ${ROOMS.length} зон · +${RULES.visitCoins} М-коинов за новую</span></div>
+      <a class="btn btn-dark" href="#/campus">${icon('building', 18)} Войти в кампус</a>
+    </div>`;
+  },
+
