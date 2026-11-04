@@ -61,3 +61,10 @@ export function semesterOf(date) {
   return { year: y - 1, part: 2, start: `${y}-02-09`, end: `${y}-06-06`, sessionStart: `${y}-06-08`, sessionEnd: `${y}-06-30` };
 }
 
+// Номер семестра студента по году поступления: 1 — осень первого курса
+export function semesterNumber(admissionYear, date) {
+  const s = semesterOf(date);
+  return (s.year - admissionYear) * 2 + s.part;
+}
+export const courseOf = (admissionYear, date) => Math.max(1, Math.ceil(semesterNumber(admissionYear, date) / 2));
+
