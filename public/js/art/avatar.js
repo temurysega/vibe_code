@@ -348,3 +348,34 @@ function shoe(type, color, L) {
   }
 }
 
+function legs(c, skin, pose) {
+  const b = c.bottom;
+  const bc = col(c.bottomColor, CLOTH.denim);
+  const one = (L) => {
+    const x = L ? 68 : 103;
+    const cx = x + 14.5;
+    let g = '';
+    if (b === 'shorts') {
+      g += `<rect x="${x + 3}" y="240" width="23" height="50" rx="10" fill="${skin}"/><rect x="${x}" y="236" width="29" height="24" rx="8" fill="${bc}"/>`;
+    } else if (b === 'skirt') {
+      g += `<rect x="${x + 4}" y="240" width="21" height="50" rx="10" fill="${skin}"/>`;
+    } else {
+      g += `<rect x="${x}" y="236" width="29" height="56" rx="10" fill="${bc}"/>`;
+      if (b === 'jeans') g += `<path d="M${cx} 254 V288" stroke="${dk(bc, 0.2)}" stroke-width="1.4" opacity=".7"/>`;
+      if (b === 'trousers') g += `<path d="M${cx} 246 V290" stroke="${dk(bc, 0.24)}" stroke-width="1.1" opacity=".6"/>`;
+      if (b === 'joggers') g += `<rect x="${x}" y="279" width="29" height="11" rx="5" fill="${dk(bc, 0.14)}"/>`;
+      if (b === 'cargo') g += `<rect x="${x + (L ? 2 : 9)}" y="254" width="18" height="16" rx="3" fill="${dk(bc, 0.12)}"/><path d="M${x + (L ? 2 : 9)} 258 h18" stroke="${dk(bc, 0.25)}" stroke-width="1.2"/>`;
+    }
+    g += shoe(c.shoes, c.shoesColor, L);
+    const tr = pose[L ? 'legL' : 'legR'];
+    return `<g class="av-leg-${L ? 'l' : 'r'}"${tr ? ` transform="${tr}"` : ''}>${g}</g>`;
+  };
+  let hip;
+  if (b === 'skirt') {
+    hip = `<path d="M64 230 L136 230 L146 268 Q100 276 54 268 Z" fill="${bc}"/><path d="M84 240 L80 268 M100 240 V272 M116 240 L120 268" stroke="${dk(bc, 0.13)}" stroke-width="1.6"/>`;
+  } else {
+    hip = `<path d="M63 230 L137 230 L136 253 Q100 257 64 253 Z" fill="${bc}"/>`;
+  }
+  return one(true) + one(false) + hip;
+}
+
