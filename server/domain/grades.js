@@ -129,3 +129,31 @@ export function gradesFor(store, student) {
   const s = semesterOf(now.date);
   const admitted = risk.length === 0 && !debts.length;
 
+  // Короткий ответ на вопрос «как у меня дела»
+  let mood, headline;
+  if (debts.length) { mood = 'warn'; headline = `Есть ${debts.length} ${plural(debts.length, ['долг', 'долга', 'долгов'])} с прошлой сессии — закройте до начала зимней`; }
+  else if (risk.length) { mood = 'warn'; headline = `В целом неплохо, но ${risk.length} ${plural(risk.length, ['дисциплина', 'дисциплины', 'дисциплин'])} в зоне риска`; }
+  else if (cur.length && excellent.length >= Math.ceil(cur.length / 2)) { mood = 'great'; headline = 'Отличный семестр: идёте на «отлично» по большинству дисциплин'; }
+  else { mood = 'good'; headline = 'Всё под контролем: по всем дисциплинам вы выше порога'; }
+
+  const tips = [];
+  debts.forEach((d) => tips.push({ kind: 'debt', text: `Пересдача «${d.name}»${d.retake ? ` — ${d.retake.date}, ауд. ${d.retake.room}` : ''}`, link: '#/requests/new/retake' }));
+  risk.forEach((c) => tips.push({ kind: 'risk', text: `${c.name}: ${c.advice.toLowerCase()}`, link: `#/grades/${c.id}` }));
+  if (attendance != null && attendance < 80) tips.push({ kind: 'att', text: `Посещаемость ${attendance}% — при пропусках предупредите деканат заявлением`, link: '#/requests/new/absence' });
+  const nearest = exams.find((x) => x.inDays >= 0 && x.kind !== 'consult');
+  if (nearest && nearest.inDays <= 30) tips.push({ kind: 'exam', text: `Первый ${nearest.kindLabel.toLowerCase()} — «${nearest.discipline}» через ${nearest.inDays} ${plural(nearest.inDays, ['день', 'дня', 'дней'])}`, link: '#/grades/session' });
+
+  return {
+    semester: sem, course: Math.ceil(sem / 2), semesterLabel: s.part === 1 ? 'Осенний семестр' : 'Весенний семестр',
+    session: { start: s.sessionStart, end: s.sessionEnd, admitted, exams },
+    summary: {
+      mood, headline, tips, avg, semPace: semPace == null ? null : Math.round(semPace * 100), attendance, rank, stipend,
+      risk: risk.length, excellent: excellent.length, total: cur.length, debts: debts.length,
+      credits: sum(cur, (c) => c.credits), earned: sum(cur, (c) => c.earned), possible: sum(cur, (c) => c.gradedMax),
+    },
+    current: cur,
+    history,
+    debts,
+    scale: SCALE,
+  };
+}
