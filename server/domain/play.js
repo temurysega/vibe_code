@@ -81,3 +81,55 @@ export function view(store, studentId, s, ctx) {
   });
 }
 
+// Сохранение образа: каждая вещь проверяется по каталогу и по тому, открыта ли она
+export function saveLook(s, body, ctx) {
+  const av = Object.assign({}, s.av);
+  const src = body.av && typeof body.av === 'object' ? body.av : {};
+  AV_KEYS.forEach((k) => {
+    if (src[k] == null) return;
+    if (!APPEARANCE[k].some(([id]) => id === src[k])) fail(400, 'Неизвестный вариант внешности');
+    av[k] = src[k];
+  });
+  ITEM_SLOTS.forEach((slot) => {
+    if (src[slot] == null) return;
+    const it = itemOf(slot, src[slot]);
+    if (!it) fail(400, 'Неизвестная вещь');
+    if (!itemState(it, s, ctx).owned) fail(403, `Вещь «${it.name}» ещё не открыта`);
+    av[slot] = it.id;
+    // Цвет допустим только из палитры этой вещи; у вещей без палитры цвет фиксированный
+    const c = src[slot + 'Color'];
+    if (!it.colors) delete av[slot + 'Color'];
+    else if (c != null && c !== '') {
+      if (!it.colors.includes(c)) fail(400, 'Неизвестный цвет');
+      av[slot + 'Color'] = c;
+    } else if (!it.colors.includes(av[slot + 'Color'])) av[slot + 'Color'] = it.colors[0];
+  });
+  const prof = Object.assign({}, s.prof);
+  const p = body.prof && typeof body.prof === 'object' ? body.prof : {};
+  PROF_SLOTS.forEach((slot) => {
+    if (p[slot] == null) return;
+    const it = itemOf(slot, p[slot]);
+    if (!it) fail(400, 'Неизвестное оформление');
+    if (!itemState(it, s, ctx).owned) fail(403, `Оформление «${it.name}» ещё не открыто`);
+    prof[slot] = it.id;
+  });
+  if (p.emoji != null) {
+    if (p.emoji !== '' && !EMOJIS.includes(p.emoji)) fail(400, 'Выберите эмодзи из списка');
+    prof.emoji = p.emoji;
+  }
+  if (p.title != null) {
+    const t = titlesOf(s, ctx).find((x) => x.id === p.title);
+    if (!t) fail(400, 'Неизвестный титул');
+    if (!t.unlocked) fail(403, `Титул «${t.name}» ещё не открыт`);
+    prof.title = t.id;
+  }
+  s.av = av;
+  s.prof = prof;
+  if (body.petName != null) {
+    const name = str(body.petName, 24);
+    if (name.length < 2) fail(400, 'Имя питомца — от 2 символов');
+    s.petName = name;
+  }
+  if (body.onboarded) s.steps.onboarded = true;
+}
+
