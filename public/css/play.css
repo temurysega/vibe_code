@@ -119,3 +119,10 @@
 .runner-wrap:focus-visible { box-shadow: 0 0 0 3px var(--gold); }
 .runner-wrap canvas { width: 100%; height: 100%; display: block; }
 .runner-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center; background: rgba(11, 28, 66, .62); backdrop-filter: blur(2px); padding: 20px; }
+.runner-overlay .h3 { font-size: 28px; }
+.runner-overlay .btn-primary { background: var(--gold); color: var(--navy-ink); }
+.runner-overlay .muted { color: rgba(255, 255, 255, .75); }
+.runner-foot { display: flex; align-items: center; gap: 18px; padding: 16px 24px 22px; flex-wrap: wrap; }
+.runner-foot .bar { background: rgba(255, 255, 255, .16); }
+.runner-foot .bar > i { background: var(--gold); }
+.runner-foot .muted { color: rgba(255, 255, 255, .7); }
