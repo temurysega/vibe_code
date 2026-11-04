@@ -6,3 +6,10 @@
 .n-item .notif-ic { width: 44px; height: 44px; background: #fff; }
 .n-item.unread { background: #fff; box-shadow: inset 0 0 0 1.5px var(--navy-3); }
 .n-item.unread .notif-ic { background: var(--navy); color: #fff; }
+.n-item.unread::after { content: ''; position: absolute; top: 18px; right: 18px; width: 9px; height: 9px; border-radius: 50%; background: var(--red); }
+.n-item.important .notif-ic { background: var(--gold); color: var(--navy-ink); }
+.n-item b { font-weight: 500; display: block; padding-right: 20px; }
+.n-meta { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 8px; font-size: 13px; color: var(--muted); }
+.n-day { font-size: 13px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin: 14px 0 2px; }
+.n-day:first-child { margin-top: 0; }
+.pref-row { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #E4E6E9; }
