@@ -54,3 +54,36 @@ function npcModal(z) {
   });
 }
 
+function act(t) {
+  if (t.kind === 'npc') { npcModal(t.id); return; }
+  switch (t.act) {
+    case 'wardrobe': toast('Добро пожаловать в примерочную', { icon: 'hanger' }); location.hash = '#/wardrobe'; break;
+    case 'tickets':
+      modal.open({ label: 'Гардероб', html: `<div class="modal-title">Номерок № 117</div><p class="modal-sub">Гардероб работает с 8:00 до 21:00. А здесь, в кампусе кабинета, в гардеробе меняют образ аватара — всё базовое бесплатно</p><div class="modal-foot"><a class="btn btn-primary btn-lg" href="#/wardrobe">${icon('hanger', 18)} В примерочную</a><button class="btn btn-secondary btn-lg" data-close>Закрыть</button></div>` });
+      break;
+    case 'request': location.hash = '#/requests/new'; break;
+    case 'requests': location.hash = '#/requests'; break;
+    case 'schedule': location.hash = '#/schedule'; break;
+    case 'grades': location.hash = '#/grades'; break;
+    case 'shop': location.hash = '#/shop'; break;
+    case 'clubs':
+      modal.open({ label: 'Студклубы', size: 'wide', html: `<div class="modal-title">Студенческие клубы</div><p class="modal-sub">Объявления клубов приходят в уведомления — расписание встреч ниже (демо)</p>
+        <div class="col mt-20" style="gap:10px">${[['globe', 'Модель ООН', 'Пятница, 17:00 · ауд. 1001 · регистрация делегатов открыта'], ['chat', 'Дебатный клуб', 'Среда, 18:20 · ауд. 2014'], ['heart', 'Волонтёрский центр', 'Набор на зимний фестиваль языков'], ['bolt', 'Спортклуб', 'Волейбол и баскетбол — спорткомплекс, по записи'], ['book', 'Языковые клубы', 'Разговорные встречи на 12 языках — каждый вторник']]
+          .map(([ic, tt, d]) => `<div class="row" style="align-items:flex-start;background:var(--surface);border-radius:14px;padding:12px 14px"><span class="way-n">${icon(ic, 18)}</span><div><b style="font-weight:500">${tt}</b><div class="small muted">${d}</div></div></div>`).join('')}</div>
+        <div class="modal-foot"><a class="btn btn-primary btn-lg" href="#/notifications">${icon('bell', 18)} Объявления</a><button class="btn btn-secondary btn-lg" data-close>Закрыть</button></div>` });
+      break;
+    case 'focus': {
+      const p = session.play;
+      modal.open({ label: 'Тихий час', html: `<div class="modal-title">Тихий час в библиотеке</div><p class="modal-sub">25 минут учёбы без отвлечений. ${esc(p.petName)} посидит рядом и подрастёт${p.focusLeftToday ? `, а вы получите +${RULES.focusCoins} М-коинов` : ''}</p>
+        <div class="modal-foot"><button class="btn btn-primary btn-lg" data-start autofocus>${icon('clock', 18)} Начать 25 минут</button><button class="btn btn-secondary btn-lg" data-close>Позже</button></div>`,
+        onMount(el, entry) {
+          el.querySelector('[data-start]').onclick = async () => {
+            try { const r = await post('/api/play/focus', { action: 'start' }); setPlay(r.play); modal.close(entry); toast('Таймер запущен — он виден на главной в карточке питомца', { icon: 'clock' }); location.hash = '#/home'; } catch (e) { toast(esc(e.message), { icon: 'alert' }); }
+          };
+        } });
+      break;
+    }
+    default: break;
+  }
+}
+
