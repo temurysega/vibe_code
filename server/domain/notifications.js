@@ -58,3 +58,11 @@ export function listFor(store, userId, student, limit = 60) {
   }));
 }
 
+export function unreadCount(store, userId, student) {
+  return store.get(
+    `SELECT COUNT(*) AS c FROM notifications n LEFT JOIN notification_reads r ON r.notification_id = n.id AND r.user_id = ?
+     WHERE ${AUDIENCE} AND r.read_at IS NULL`,
+    userId, student.faculty_id, student.group_code, String(student.id),
+  ).c;
+}
+
