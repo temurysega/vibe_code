@@ -76,3 +76,18 @@ export class Runner {
     if (this.opt.pet && this.opt.pet !== 'none') this.petImg = await toImg(petSvg(this.opt.pet, this.opt.petColor, { shadow: false, raster: [180, 150] }));
   }
 
+  resize() {
+    const r = this.wrap.getBoundingClientRect();
+    if (!r.width) return;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    this.W = r.width;
+    this.H = r.height;
+    this.canvas.width = Math.round(r.width * dpr);
+    this.canvas.height = Math.round(r.height * dpr);
+    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    this.horizon = this.H * 0.3;
+    this.nearY = this.H * 0.95;
+    this.lane = Math.min(this.W * 0.27, this.H * 0.36);
+    if (this.state !== 'run') this.draw();
+  }
+
