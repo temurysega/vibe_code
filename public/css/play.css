@@ -34,3 +34,10 @@
 .mirror-frame .stage-bg svg { width: 100%; height: 100%; }
 .mirror-av { position: relative; width: 250px; height: 400px; margin-bottom: 28px; }
 .mirror-av .av { width: 100%; height: 100%; }
+.mirror-pet { position: absolute; left: calc(50% + 92px); bottom: 26px; width: 96px; height: 80px; }
+.mirror-pet svg { width: 100%; height: 100%; }
+.mirror-tag { position: absolute; top: 22px; left: 50%; transform: translateX(-50%); z-index: 2; }
+.mirror-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+.mirror-actions .btn-primary { flex: 1; }
+.curtain { position: absolute; top: 0; bottom: 0; width: 34px; background: repeating-linear-gradient(90deg, var(--navy) 0 8px, var(--navy-2) 8px 14px); opacity: .92; z-index: 1; }
+.curtain.l { left: 0; border-radius: 0 0 18px 0; }
