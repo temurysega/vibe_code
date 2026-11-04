@@ -5,3 +5,11 @@
 .quick { display: flex; gap: 10px; flex-wrap: wrap; }
 .home-top { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 20px; }
 
+/* Ближайшая пара */
+.next-card { background: var(--navy); color: #fff; border-radius: var(--r); padding: 26px 28px; position: relative; overflow: hidden; isolation: isolate; display: flex; flex-direction: column; gap: 16px; min-height: 260px; }
+.next-card::after { content: ''; position: absolute; right: -60px; top: -60px; width: 240px; height: 240px; border-radius: 50%; border: 36px solid rgba(255, 255, 255, .05); z-index: -1; }
+.next-card .eyebrow { color: var(--gold-2); }
+.next-title { font-size: 30px; line-height: 1.12; font-weight: 500; letter-spacing: -0.02em; }
+.next-meta { display: flex; gap: 10px; flex-wrap: wrap; }
+.next-meta span { display: inline-flex; align-items: center; gap: 7px; height: 34px; padding: 0 13px; border-radius: var(--pill); background: rgba(255, 255, 255, .12); font-size: 14px; }
+.next-meta span.hl { background: var(--gold); color: var(--navy-ink); font-weight: 500; }
