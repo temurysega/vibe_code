@@ -31,3 +31,16 @@ export const NPC = {
     say: 'Худи и футболки — за М-коины, с цифровой копией для аватара. Заберёте здесь, на кассе' },
 };
 
+export const HOTS = [
+  { id: 'mirror', zone: 'cloakroom', x: 330, label: 'Зеркало гардероба', act: 'wardrobe' },
+  { id: 'hooks', zone: 'cloakroom', x: 170, label: 'Вешалки и номерки', act: 'tickets' },
+  { id: 'window', zone: 'dean', x: 760, label: 'Окно приёма заявлений', act: 'request' },
+  { id: 'queue', zone: 'dean', x: 905, label: 'Электронная очередь', act: 'requests' },
+  { id: 'board', zone: 'classroom', x: 230, label: 'Доска с расписанием', act: 'schedule' },
+  { id: 'journal', zone: 'classroom', x: 380, label: 'Журнал с баллами', act: 'grades' },
+  { id: 'shelves', zone: 'library', x: 740, label: 'Книжные полки', act: 'focus' },
+  { id: 'lamp', zone: 'library', x: 900, label: 'Читальный стол', act: 'focus' },
+  { id: 'podium', zone: 'clubs', x: 380, label: 'Трибуна Модели ООН', act: 'clubs' },
+  { id: 'counter', zone: 'shop', x: 820, label: 'Прилавок Лавки', act: 'shop' },
+];
+
