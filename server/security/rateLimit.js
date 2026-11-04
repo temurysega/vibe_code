@@ -20,3 +20,10 @@ export class RateLimiter {
     return { ok: false, retryAfter: Math.ceil((this.windowMs - (now - list[0])) / 1000) };
   }
 
+  hit(key) {
+    const now = Date.now();
+    const list = this.recent(key, now);
+    list.push(now);
+    this.hits.set(key, list);
+  }
+
