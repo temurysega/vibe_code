@@ -63,3 +63,8 @@
 .chat-form .input { height: 46px; }
 .chat-form .btn { height: 46px; width: 46px; padding: 0; flex: none; }
 
+/* ---------- Подвал ---------- */
+.foot { border-top: 1px solid var(--hair); padding: 28px 0 40px; color: var(--muted); font-size: 13px; }
+.foot .container { display: flex; gap: 16px; justify-content: space-between; flex-wrap: wrap; }
+.foot b { color: var(--ink); font-weight: 500; }
+
