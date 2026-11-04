@@ -1,0 +1,8 @@
+/* ---------- Вход ---------- */
+.auth { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); min-height: 100vh; }
+.auth-hero { position: relative; overflow: hidden; isolation: isolate; padding: 36px 56px 0; display: flex; flex-direction: column; min-height: 100vh; color: #fff; }
+.auth-hero .tg-bg { position: absolute; inset: 0; z-index: -1; }
+.auth-hero .tg-bg svg { width: 100%; height: 100%; }
+.auth-hero .logo-word { color: #fff; }
+.auth-hero .logo-word i { color: var(--gold-2); }
+.auth-hero .logo-tag { color: rgba(255, 255, 255, .7); }
