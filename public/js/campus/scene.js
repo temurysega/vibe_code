@@ -409,3 +409,64 @@ export class Campus {
     return best;
   }
 
+  tick(ts) {
+    const dt = this.last ? Math.min(0.05, (ts - this.last) / 1000) : 0.016;
+    this.last = ts;
+    const p = this.p;
+    let moving = false;
+    if (p.ride) {
+      const r = p.ride;
+      r.t = Math.min(1, r.t + dt / r.dur);
+      const e = r.t < 0.5 ? 2 * r.t * r.t : 1 - Math.pow(-2 * r.t + 2, 2) / 2;
+      p.y = SURF[r.from] + (SURF[r.to] - SURF[r.from]) * e;
+      if (r.t >= 1) { p.floor = r.to; p.y = SURF[r.to]; p.ride = null; this.path.shift(); }
+    } else if (this.keys.ArrowLeft || this.keys.KeyA || this.keys.ArrowRight || this.keys.KeyD) {
+      const d = this.keys.ArrowLeft || this.keys.KeyA ? -1 : 1;
+      p.x = Math.max(110, Math.min(1090, p.x + d * SPEED * dt));
+      p.dir = d;
+      moving = true;
+    } else if (this.path.length) {
+      const step = this.path[0];
+      if (step.type === 'walk') {
+        const d = step.x - p.x;
+        if (Math.abs(d) < 3) {
+          p.x = step.x;
+          this.path.shift();
+          if (!this.path.length && this.target) {
+            const t = this.target;
+            this.target = null;
+            this.mark(null);
+            this.arrive(t);
+          }
+        } else {
+          p.dir = Math.sign(d);
+          p.x += p.dir * Math.min(Math.abs(d), SPEED * dt);
+          moving = true;
+        }
+      } else if (step.type === 'ride') {
+        if (step.floor === p.floor) this.path.shift();
+        else p.ride = { from: p.floor, to: step.floor, t: 0, dur: 0.55 + 0.35 * Math.abs(step.floor - p.floor) };
+      }
+    }
+    if (!p.ride) {
+      const z = zoneAt(p.floor, p.x);
+      if (z && z !== this.zone) { this.zone = z; if (this.opts.onZone) this.opts.onZone(z); }
+    }
+    const n = p.ride || moving ? null : this.nearest();
+    const key = n ? n.kind + n.id : '';
+    if (key !== this.nearKey) {
+      this.nearKey = key;
+      this.near = n;
+      this.svg.querySelectorAll('.hot.near').forEach((el) => el.classList.remove('near'));
+      if (n && n.kind === 'hot') { const el = this.svg.querySelector(`[data-hot="${n.id}"]`); if (el) el.classList.add('near'); }
+      if (this.opts.onNear) this.opts.onNear(n);
+    }
+    const want = p.x - p.dir * 52;
+    const pd = want - this.pet.x;
+    if (Math.abs(pd) > 2) { this.pet.x += pd * Math.min(1, dt * 4.5); this.pet.dir = Math.sign(pd) || this.pet.dir; }
+    this.moving = moving || !!p.ride;
+    this.place();
+    Campus.pos = { floor: p.floor, x: p.x };
+    this.raf = requestAnimationFrame(this.tick);
+  }
+
