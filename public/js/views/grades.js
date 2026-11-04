@@ -6,3 +6,16 @@ import { icon } from '../ui/icons.js';
 import { modal } from '../ui/overlay.js';
 import { skeleton, errorBox, teacherModal } from './common.js';
 
+let g = null;
+let tab = 'current';
+let semPick = null;
+
+const LETTER_TONE = (l) => `letter ${l}`;
+
+function ring(pct) {
+  const r = 54, C = 2 * Math.PI * r;
+  const v = Math.max(0, Math.min(100, pct || 0));
+  return `<div class="ring"><svg viewBox="0 0 132 132"><circle cx="66" cy="66" r="${r}" fill="none" stroke="#fff" stroke-width="14"/><circle cx="66" cy="66" r="${r}" fill="none" stroke="var(--navy)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${(v / 100) * C} ${C}"/></svg>
+    <div class="ring-v"><span><b>${pct == null ? '—' : v + '%'}</b><span>набрано от возможного</span></span></div></div>`;
+}
+
