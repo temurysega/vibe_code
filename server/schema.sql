@@ -109,3 +109,23 @@ CREATE TABLE IF NOT EXISTS lessons (
 );
 CREATE INDEX IF NOT EXISTS lessons_group ON lessons(group_code, weekday, pair);
 
+-- Изменения расписания: отмена, перенос, замена аудитории или преподавателя, дополнительная пара
+CREATE TABLE IF NOT EXISTS schedule_changes (
+  id INTEGER PRIMARY KEY,
+  group_code TEXT NOT NULL REFERENCES groups(code),
+  date TEXT NOT NULL,
+  pair INTEGER NOT NULL,
+  type TEXT NOT NULL CHECK (type IN ('cancel', 'room', 'teacher', 'move', 'extra')),
+  lesson_id INTEGER REFERENCES lessons(id),
+  discipline_id INTEGER REFERENCES disciplines(id),
+  kind TEXT,
+  new_date TEXT,
+  new_pair INTEGER,
+  room TEXT,
+  teacher_id INTEGER REFERENCES teachers(id),
+  reason TEXT,
+  author TEXT,
+  created_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS changes_group ON schedule_changes(group_code, date);
+
