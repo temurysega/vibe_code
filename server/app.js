@@ -23,3 +23,10 @@ export function clientIp(req) {
   return req.socket.remoteAddress || '';
 }
 
+// Запрос с чужого сайта отсекается: Origin должен совпадать с хостом
+function sameOrigin(req) {
+  const origin = req.headers.origin;
+  if (!origin) return true;
+  try { return new URL(origin).host === req.headers.host; } catch (e) { return false; }
+}
+
