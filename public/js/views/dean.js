@@ -44,3 +44,20 @@ function queue() {
     </div>`).join('')}</div>` : '<div class="card empty"><span class="emoji">🎉</span>Очередь пуста — все заявки обработаны</div>'}`;
 }
 
+function announce() {
+  return `<div class="dean-forms"><form class="card" data-ann novalidate><div class="card-title">Объявление студентам</div><div class="card-sub">Появится в уведомлениях сразу — без рассылок в чатах</div>
+      <label class="field" data-field="title"><span class="field-label">Заголовок</span><input class="input" name="title" maxlength="120" placeholder="Например, Встреча с деканом"></label>
+      <label class="field" data-field="body"><span class="field-label">Текст</span><textarea class="input" name="body" maxlength="1000" placeholder="Когда, где и что взять с собой"></textarea></label>
+      <label class="field" data-field="audience"><span class="field-label">Кому</span><select class="input" name="aud"><option value="faculty">Весь факультет ${esc(ov.staff.faculty.short)}</option>${ov.groups.map((g) => `<option value="${esc(g.code)}">Группа ${esc(g.code)} · ${g.course} курс</option>`).join('')}</select></label>
+      <label class="check"><input type="checkbox" name="important"> Важное — выделить в ленте</label>
+      <div><button class="btn btn-primary" type="submit">${icon('megaphone', 18)} Опубликовать</button></div></form>
+    <form class="card" data-chg novalidate><div class="card-title">Изменение расписания</div><div class="card-sub">Группа увидит отметку в расписании и получит уведомление</div>
+      <div class="grid g-2" style="gap:12px"><label class="field"><span class="field-label">Группа</span><select class="input" name="group">${ov.groups.map((g) => `<option>${esc(g.code)}</option>`).join('')}</select></label>
+        <label class="field" data-field="date"><span class="field-label">Дата</span><input class="input" type="date" name="date" value="${mskNow().date}" min="${mskNow().date}"></label></div>
+      <div class="pair-pick" data-pairs><span class="small muted">Выберите группу и дату — покажем пары</span></div>
+      <div class="seg"><label style="display:contents"><input type="radio" name="type" value="cancel" class="sr" checked><span class="chg-type on" data-t="cancel" style="height:36px;padding:0 16px;border-radius:100px;display:inline-flex;align-items:center;cursor:pointer">Отмена</span></label><label style="display:contents"><input type="radio" name="type" value="room" class="sr"><span class="chg-type" data-t="room" style="height:36px;padding:0 16px;border-radius:100px;display:inline-flex;align-items:center;cursor:pointer">Новая аудитория</span></label></div>
+      <label class="field" data-field="room" hidden data-roomf><span class="field-label">Аудитория</span><input class="input" name="room" inputmode="numeric" maxlength="4" placeholder="Например, 2014"></label>
+      <label class="field" data-field="reason"><span class="field-label">Причина</span><input class="input" name="reason" maxlength="300" placeholder="Её увидят студенты"></label>
+      <div><button class="btn btn-primary" type="submit">${icon('calendar', 18)} Отметить изменение</button></div></form></div>`;
+}
+
