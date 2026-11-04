@@ -13,3 +13,10 @@
 .auth-crowd .p { width: 150px; height: 240px; margin: 0 -10px; }
 .auth-crowd .p.big { width: 190px; height: 304px; z-index: 2; }
 .auth-crowd .p.far { width: 132px; height: 211px; }
+.auth-crowd .p .av { width: 100%; height: 100%; }
+.auth-pet { position: absolute; bottom: 8px; left: calc(50% + 120px); width: 84px; height: 70px; z-index: 3; }
+.auth-pet svg { width: 100%; height: 100%; }
+.auth-float { position: absolute; display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px 0 10px; border-radius: var(--pill); background: #fff; color: var(--ink); font-size: 14px; font-weight: 500; box-shadow: 0 10px 30px rgba(0, 0, 0, .18); animation: float 3.4s ease-in-out infinite; z-index: 4; white-space: nowrap; }
+.auth-float .ic { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--navy-3); color: var(--navy); }
+.auth-float.f1 { left: 4%; top: 30px; }
+.auth-float.f1 .ic { background: var(--gold); color: var(--navy-ink); }
