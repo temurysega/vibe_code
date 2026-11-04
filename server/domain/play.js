@@ -144,3 +144,28 @@ export function visit(s, zone) {
   return { first: true, coins: RULES.visitCoins, unlocked, all: ROOMS.every((r) => s.visited.includes(r.id)) };
 }
 
+// Фокус-сессия «Посиди со мной»: награда только если прошло 25 минут
+export function focus(s, action) {
+  const now = Date.now();
+  const today = msk().date;
+  if (s.pet.focusDay !== today) { s.pet.focusDay = today; s.pet.focusToday = 0; }
+  if (action === 'start') {
+    if (s.pet.focusEnd > now) return { active: true };
+    s.pet.focusStart = now;
+    s.pet.focusEnd = now + RULES.focusMinutes * 60e3;
+    return { active: true };
+  }
+  if (action === 'stop') { s.pet.focusStart = 0; s.pet.focusEnd = 0; return { active: false }; }
+  if (action === 'done') {
+    if (!s.pet.focusEnd || now < s.pet.focusEnd - 5000) fail(400, 'Сессия ещё не закончилась');
+    s.pet.focusStart = 0; s.pet.focusEnd = 0;
+    s.pet.sessions += 1;
+    s.pet.growth += RULES.growth.focus;
+    const paid = s.pet.focusToday < RULES.focusPerDay;
+    s.pet.focusToday += 1;
+    if (paid) earn(s, RULES.focusCoins, 'Фокус-сессия 25 минут');
+    return { active: false, coins: paid ? RULES.focusCoins : 0, sessions: s.pet.sessions };
+  }
+  fail(400, 'Неизвестное действие');
+}
+
