@@ -64,3 +64,20 @@ function torsoPath(b) {
   return `M${L} 152 C${L} 145 ${L + 9} 141 86 140 L114 140 C${R - 9} 141 ${R} 145 ${R} 152 C${R} 170 ${WR} 182 ${WR} 196 C${WR} 210 ${HR} 218 ${HR} 228 Q${HR} 236 ${HR - 8} 236 L${HL + 8} 236 Q${HL} 236 ${HL} 228 C${HL} 218 ${WL} 210 ${WL} 196 C${WL} 182 ${L} 170 ${L} 152 Z`;
 }
 
+// Быстрая смена фигуры: заодно меняет явно «женские» или «мужские» детали
+export function applyBody(av, body) {
+  const out = Object.assign({}, av, { body });
+  if (body === 'm') {
+    if (['bob', 'long', 'bun', 'ponytail'].includes(out.hair)) out.hair = 'short';
+    if (out.cheeks === 'blush') out.cheeks = 'none';
+    if (out.eyes === 'lashes') out.eyes = 'round';
+    if (out.bottom === 'skirt') { out.bottom = 'trousers'; out.bottomColor = 'graphite'; }
+  } else {
+    if (['short', 'buzz', 'side'].includes(out.hair)) out.hair = 'bob';
+    out.facial = 'none';
+    if (out.cheeks === 'none') out.cheeks = 'blush';
+  }
+  return out;
+}
+const LONG = ['hoodie', 'mgimo-hoodie', 'sweater', 'ling-knit', 'turtleneck', 'shirt', 'blazer', 'mun-bomber', 'focus-jacket', 'gown'];
+
