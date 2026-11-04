@@ -196,3 +196,62 @@ export class Runner {
     }
   }
 
+  update(dt) {
+    this.t += dt;
+    this.left -= dt;
+    if (this.left <= 0) { this.left = 0; this.over('time'); return; }
+    this.speed = Math.min(34, 14 + this.t * 0.14);
+    const dz = this.speed * dt;
+    this.dist += dz;
+    this.score += dz * (this.mult > 0 ? 2 : 1);
+    this.deco = (this.deco + dz) % 8;
+    this.px += (this.laneI - this.px) * Math.min(1, dt * 14);
+    // прыжок и подкат
+    if (this.y > 0 || this.vy > 0) {
+      this.vy -= 18 * dt;
+      this.y += this.vy * dt;
+      if (this.y <= 0) { this.y = 0; this.vy = 0; }
+    }
+    this.slideT = Math.max(0, this.slideT - dt);
+    this.shield = Math.max(0, this.shield - dt);
+    this.mult = Math.max(0, this.mult - dt);
+    this.animT += dt * (this.speed / 14);
+    if (this.animT > 0.12) { this.animT = 0; this.frame ^= 1; }
+
+    this.nextRow -= dz;
+    if (this.nextRow <= 0) {
+      this.spawnRow(Z_FAR);
+      this.nextRow = Math.max(11, this.speed * 0.72) + Math.random() * 6;
+    }
+    this.objs.forEach((o) => { o.z -= dz; });
+    this.objs = this.objs.filter((o) => o.z > -2 && !o.taken);
+    this.pops.forEach((p) => { p.life -= dt; p.y -= 30 * dt; });
+    this.pops = this.pops.filter((p) => p.life > 0);
+
+    // столкновения в зоне игрока
+    const lane = Math.round(this.px);
+    const sliding = this.slideT > 0;
+    for (const o of this.objs) {
+      if (Math.abs(o.z - PZ) > 0.4 || o.lane !== lane) continue;
+      if (o.kind === 'coin') {
+        const ok = o.h > 0.6 ? this.y > 0.35 : this.y < 0.9;
+        if (ok) { o.taken = true; this.coins += 1; this.score += 10; this.pops.push({ text: '+10', x: this.sx(this.px, PZ), y: this.gy(PZ) - this.u(PZ) * 1.3, life: 0.7 }); }
+        continue;
+      }
+      if (o.kind === 'coffee' || o.kind === 'book') {
+        o.taken = true;
+        if (o.kind === 'coffee') { this.shield = 4; this.pops.push({ text: 'Кофе: неуязвимость', x: this.W / 2, y: this.H * 0.4, life: 1.2 }); }
+        else { this.mult = 8; this.pops.push({ text: 'Зачётка: очки ×2', x: this.W / 2, y: this.H * 0.4, life: 1.2 }); }
+        continue;
+      }
+      if (o.hit) continue;
+      const k = KINDS[o.kind];
+      const hit = k.type === 'low' ? this.y < k.h + 0.05 : k.type === 'high' ? !sliding : true;
+      if (hit) {
+        if (this.shield > 0) { o.hit = true; this.pops.push({ text: 'Мимо!', x: this.sx(this.px, PZ), y: this.gy(PZ) - this.u(PZ) * 1.5, life: 0.6 }); continue; }
+        this.over('hit');
+        return;
+      }
+    }
+  }
+
