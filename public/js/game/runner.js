@@ -270,3 +270,72 @@ export class Runner {
     this.show('over', score, res, reason);
   }
 
+  // ---------- отрисовка ----------
+  draw() {
+    const c = this.ctx, W = this.W, H = this.H;
+    if (!W) return;
+    // потолок и дальний свет аудитории
+    const g = c.createLinearGradient(0, 0, 0, this.horizon);
+    g.addColorStop(0, '#0B1C42');
+    g.addColorStop(1, '#1C438F');
+    c.fillStyle = g;
+    c.fillRect(0, 0, W, H);
+    const edge = 1.7, wallH = 2.7;
+    const zf = Z_FAR;
+    const pt = (x, z, h = 0) => [this.sx(x, z), this.gy(z) - h * this.u(z)];
+    const poly = (pts, fill) => { c.beginPath(); pts.forEach(([x, y], i) => (i ? c.lineTo(x, y) : c.moveTo(x, y))); c.closePath(); c.fillStyle = fill; c.fill(); };
+    // стены
+    poly([pt(-edge, zf), pt(-edge, -0.9), pt(-edge, -0.9, wallH), pt(-edge, zf, wallH)], '#DCE4F2');
+    poly([pt(edge, zf), pt(edge, -0.9), pt(edge, -0.9, wallH), pt(edge, zf, wallH)], '#D2DBEC');
+    // пол
+    poly([pt(-edge, zf), pt(edge, zf), pt(edge, -0.9), pt(-edge, -0.9)], '#E9EEF7');
+    // дверь аудитории в конце коридора
+    const [dx, dy] = pt(0, zf);
+    const du = this.u(zf);
+    c.fillStyle = '#FFF4D1';
+    c.fillRect(dx - du * 0.7, dy - du * 1.9, du * 1.4, du * 1.9);
+    c.fillStyle = 'rgba(255,244,209,.35)';
+    c.beginPath(); c.arc(dx, dy - du, du * 3, 0, Math.PI * 2); c.fill();
+    // плитка и дорожки
+    c.strokeStyle = '#D3DCEB';
+    c.lineWidth = 1;
+    for (let z = 8 - this.deco; z < zf; z += 4) {
+      const [x1, y1] = pt(-edge, z), [x2] = pt(edge, z);
+      c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y1); c.stroke();
+    }
+    c.strokeStyle = '#C3CEE2';
+    c.lineWidth = 2;
+    [-0.5, 0.5].forEach((x) => { const [a, b] = pt(x, zf), [d, e] = pt(x, -0.9); c.beginPath(); c.moveTo(a, b); c.lineTo(d, e); c.stroke(); });
+    // потолок, двери аудиторий с номерами и лампы
+    poly([pt(-edge, zf, wallH), pt(edge, zf, wallH), pt(edge, -0.9, wallH), pt(-edge, -0.9, wallH)], '#C5D0E5');
+    for (let i = 0; i < 10; i++) {
+      const z = i * 8 - this.deco + 3;
+      if (z < -0.9 || z > zf - 2) continue;
+      const X = (i % 2 ? 1 : -1) * edge;
+      poly([pt(X, z), pt(X, z + 1.3), pt(X, z + 1.3, 1.95), pt(X, z, 1.95)], NAVY);
+      poly([pt(X, z + 0.12), pt(X, z + 1.18), pt(X, z + 1.18, 1.84), pt(X, z + 0.12, 1.84)], '#16346F');
+      const u = this.u(z + 0.65);
+      if (u > 14) {
+        const [nx, ny] = pt(X, z + 0.65, 2.2);
+        c.fillStyle = GOLD;
+        c.font = `700 ${Math.max(9, u * 0.16)}px Onest, system-ui, sans-serif`;
+        c.textAlign = 'center';
+        c.fillText(DOORS[(i + Math.floor(this.dist / 80)) % DOORS.length], nx, ny);
+      }
+      poly([pt(-0.6, z + 0.3, wallH), pt(0.6, z + 0.3, wallH), pt(0.6, z + 0.8, wallH), pt(-0.6, z + 0.8, wallH)], 'rgba(255,255,255,.9)');
+    }
+    // объекты от дальних к ближним
+    const list = this.objs.slice().sort((a, b) => b.z - a.z);
+    for (const o of list) {
+      if (o.z > zf || o.z < -1.2) continue;
+      this.object(c, o);
+    }
+    this.player(c);
+    // всплывающие подписи
+    c.textAlign = 'center';
+    c.font = '700 16px Onest, system-ui, sans-serif';
+    this.pops.forEach((p) => { c.globalAlpha = Math.min(1, p.life * 2); c.fillStyle = '#fff'; c.fillText(p.text, p.x, p.y); });
+    c.globalAlpha = 1;
+    this.hud(c);
+  }
+
