@@ -61,3 +61,23 @@ export function titlesOf(s, ctx) {
     || (t.id === 'focus' && s.pet.sessions >= 10) || (t.id === 'runner' && s.game.best >= 2000) || (t.id === 'excellent' && !!ctx.excellent) }));
 }
 
+export function view(store, studentId, s, ctx) {
+  const today = msk().date;
+  const steps = [
+    { id: 'avatar', title: 'Собрать аватар', done: !!s.steps.onboarded, act: 'onboarding', cta: 'Собрать' },
+    { id: 'schedule', title: 'Посмотреть расписание на неделю', done: !!s.steps.schedule, link: '#/schedule', cta: 'Открыть' },
+    { id: 'request', title: 'Заказать первую справку онлайн', done: !!ctx.hasRequest, link: '#/requests/new/study', cta: 'Заказать' },
+    { id: 'quiz', title: 'Квиз «Как устроен кабинет»', done: s.steps.quiz >= 4, act: 'quiz', cta: 'Пройти' },
+    { id: 'campus', title: 'Заглянуть в три зоны кампуса', done: s.visited.length >= 3, link: '#/campus', cta: 'В кампус' },
+  ];
+  const titles = titlesOf(s, ctx);
+  return Object.assign({}, s, {
+    level: 1 + Math.floor(s.pet.growth / 10),
+    focusLeftToday: Math.max(0, RULES.focusPerDay - (s.pet.focusDay === today ? s.pet.focusToday : 0)),
+    stepsList: steps, stepsDone: steps.filter((x) => x.done).length, newcomer: ctx.newcomer,
+    titles, excellent: !!ctx.excellent,
+    gameLeft: gameLeft(store, studentId), gameDaily: RULES.gameDailySec,
+    stock: Object.fromEntries(KITS.map((k) => [k.id, Number(store.meta('stock:' + k.id) ?? k.stock)])),
+  });
+}
+
