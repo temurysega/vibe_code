@@ -105,3 +105,41 @@ function parse() {
   return { name: parts[0] || '', params: parts.slice(1) };
 }
 
+async function go() {
+  let { name, params } = parse();
+  if (name === 'more') return;
+  if (!session.user) {
+    if (!PUBLIC.includes(name)) { location.replace('#/login'); return; }
+  } else if (name === 'login' || !VIEWS[name]) { location.replace(homeOf()); return; }
+  // Деканат и студенты видят только свои разделы
+  if (session.user && session.user.role === 'dean' && name !== 'dean' && name !== 'verify') { location.replace('#/dean'); return; }
+  if (session.user && session.user.role === 'student' && name === 'dean') { location.replace('#/home'); return; }
+
+  const my = ++token;
+  modal.closeAll();
+  closeMenu();
+  if (cleanup) { try { cleanup(); } catch (e) { console.error(e); } cleanup = null; }
+  document.body.classList.toggle('is-auth', name === 'login');
+  document.body.classList.toggle('is-dean', !!(session.user && session.user.role === 'dean'));
+  let view;
+  try {
+    view = (await VIEWS[name]()).default;
+  } catch (e) {
+    console.error(e);
+    $main.innerHTML = '<div class="container view"><div class="card error-box"><div class="h4">Раздел не загрузился</div><p class="muted mt-8">Проверьте интернет и обновите страницу</p></div></div>';
+    return;
+  }
+  if (my !== token) return;
+  current = { name, params, view };
+  const el = document.createElement('div');
+  el.className = 'view';
+  el.innerHTML = view.render(params);
+  $main.replaceChildren(el);
+  paintChrome(name);
+  window.scrollTo(0, 0);
+  document.title = `${view.title} · ${APP_NAME}`;
+  const c = view.mount ? await view.mount(el, params, app) : null;
+  if (my !== token) { if (typeof c === 'function') c(); return; }
+  cleanup = typeof c === 'function' ? c : null;
+}
+
