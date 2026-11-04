@@ -77,3 +77,13 @@ export const ITEMS = [
   I('hedgehog', 'pet', 'Ёжик', 'routeAll'),
   I('bot', 'pet', 'Робот', 'digital', { price: 800 }),
 
+  I('navy', 'backdrop', 'Синий МГИМО', 'base'),
+  I('sky', 'backdrop', 'Небо', 'base'),
+  I('violet', 'backdrop', 'Аметист', 'base'),
+  I('mint', 'backdrop', 'Мята', 'base'),
+  I('peach', 'backdrop', 'Персик', 'base'),
+  I('graphite', 'backdrop', 'Графит', 'base'),
+  I('rose', 'backdrop', 'Роза', 'route', { zone: 'shop' }),
+  I('gold', 'backdrop', 'Золото', 'game', { need: 3000 }),
+  I('aurora', 'backdrop', 'Северное сияние', 'digital', { price: 500 }),
+
