@@ -1,0 +1,8 @@
+/* ---------- Полоса концепта: сразу видно, что это не официальный сервис ---------- */
+.concept { background: var(--navy-ink); color: rgba(255, 255, 255, .86); font-size: 13px; }
+.concept .container { min-height: var(--concept-h); display: flex; align-items: center; gap: 16px; justify-content: space-between; }
+.concept-text { display: inline-flex; align-items: center; gap: 8px; min-width: 0; }
+.concept-text b { color: var(--gold-2); font-weight: 600; white-space: nowrap; }
+.concept-text span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.concept-links { display: flex; gap: 18px; align-items: center; flex: none; }
+.concept-links button { border: 0; background: none; color: #fff; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; padding: 0; }
