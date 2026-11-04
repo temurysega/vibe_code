@@ -60,3 +60,11 @@
 .pickup { display: flex; gap: 12px; align-items: flex-start; background: var(--good-2); color: #1F5C28; border-radius: 14px; padding: 14px 16px; }
 .pickup svg { flex: none; margin-top: 2px; }
 
+/* Электронная справка: печатная форма с водяным знаком демо */
+.doc-wrap { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.doc-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.doc { width: 100%; max-width: 760px; background: #fff; box-shadow: var(--shadow); border-radius: 6px; padding: 56px 64px 48px; position: relative; overflow: hidden; color: #111; font-size: 15px; line-height: 1.55; }
+.doc::after { content: 'ДЕМО · НЕ ЯВЛЯЕТСЯ ДОКУМЕНТОМ'; position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%) rotate(-24deg); font-size: 44px; font-weight: 700; letter-spacing: .04em; color: rgba(229, 72, 77, .1); white-space: nowrap; pointer-events: none; }
+.doc-head { display: flex; gap: 16px; align-items: center; border-bottom: 2px solid var(--navy); padding-bottom: 16px; }
+.doc-head .logo-mark { width: 48px; height: 48px; }
+.doc-org { font-size: 13px; line-height: 1.4; text-transform: uppercase; letter-spacing: .02em; color: var(--navy-ink); }
