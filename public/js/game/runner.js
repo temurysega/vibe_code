@@ -424,3 +424,36 @@ export class Runner {
     if (img) c.drawImage(img, x - pw / 2, ground - ph - this.y * u + ph * 0.04, pw, ph);
   }
 
+  hud(c) {
+    const W = this.W;
+    c.textAlign = 'left';
+    c.fillStyle = 'rgba(11,28,66,.55)';
+    rr(c, 12, 12, 132, 52, 12); c.fill();
+    c.fillStyle = '#fff';
+    c.font = '700 22px Onest, system-ui, sans-serif';
+    c.fillText(Math.floor(this.score).toLocaleString('ru-RU'), 24, 42);
+    c.font = '500 11px Onest, system-ui, sans-serif';
+    c.fillStyle = 'rgba(255,255,255,.7)';
+    c.fillText(`рекорд ${this.best.toLocaleString('ru-RU')}`, 24, 57);
+    // М-коины забега
+    c.fillStyle = 'rgba(11,28,66,.55)';
+    rr(c, W - 96, 12, 84, 36, 18); c.fill();
+    c.fillStyle = GOLD;
+    c.beginPath(); c.arc(W - 76, 30, 11, 0, Math.PI * 2); c.fill();
+    c.fillStyle = INK; c.font = '700 11px Onest, sans-serif'; c.textAlign = 'center'; c.fillText('М', W - 76, 34);
+    c.fillStyle = '#fff'; c.font = '700 16px Onest, sans-serif'; c.textAlign = 'left'; c.fillText(String(this.coins), W - 58, 36);
+    // сколько осталось сегодня
+    const left = Math.max(0, Math.ceil(this.left));
+    const txt = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
+    c.textAlign = 'center';
+    c.fillStyle = left <= 30 ? '#E5484D' : 'rgba(11,28,66,.55)';
+    rr(c, W / 2 - 44, 12, 88, 30, 15); c.fill();
+    c.fillStyle = '#fff'; c.font = '600 14px Onest, sans-serif'; c.fillText(`⏱ ${txt}`, W / 2, 32);
+    if (this.mult > 0 || this.shield > 0) {
+      c.font = '600 12px Onest, sans-serif';
+      c.fillStyle = GOLD;
+      c.fillText(this.shield > 0 ? `☕ неуязвимость ${Math.ceil(this.shield)} с` : `📗 очки ×2 · ${Math.ceil(this.mult)} с`, W / 2, 60);
+    }
+    c.textAlign = 'left';
+  }
+
