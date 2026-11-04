@@ -147,3 +147,22 @@ function dean() {
   return s;
 }
 
+// Аудитория: доска с расписанием и парты
+function classroom() {
+  const t = top(1), b = SURF[1];
+  let s = room(1, 'l', '#F4F7FD', '#DDE5F2');
+  s += hot('board',
+    `<rect x="110" y="${t + 22}" width="240" height="108" rx="8" fill="#1F4A3B" stroke="#8A5A3B" stroke-width="6"/>` +
+    `<text x="124" y="${t + 48}" font-family="Onest, Arial" font-size="14" font-weight="600" fill="#E9F5EE">Сегодня</text>` +
+    [0, 1, 2].map((i) => `<rect x="124" y="${t + 60 + i * 20}" width="${150 - i * 30}" height="8" rx="4" fill="#E9F5EE" opacity=".6"/><rect x="${290 - i * 6}" y="${t + 60 + i * 20}" width="40" height="8" rx="4" fill="${GOLD}" opacity=".9"/>`).join(''),
+    [106, t + 18, 248, 116]);
+  s += hot('journal',
+    `<rect x="356" y="${b - 66}" width="60" height="12" rx="6" fill="${INK}"/><path d="M362 ${b - 54} V${b - 16} M410 ${b - 54} V${b - 16}" stroke="${INK}" stroke-width="5"/>` +
+    `<rect x="362" y="${b - 82}" width="48" height="16" rx="3" fill="${NAVY}"/><path d="M370 ${b - 74} h32" stroke="${GOLD}" stroke-width="3"/>`,
+    [352, b - 86, 68, 72]);
+  [[150, 0], [250, 1]].forEach(([x]) => {
+    s += `<rect x="${x}" y="${b - 52}" width="80" height="10" rx="5" fill="#C9D3E6"/><path d="M${x + 8} ${b - 42} V${b - 16} M${x + 72} ${b - 42} V${b - 16}" stroke="#9AA5B8" stroke-width="5"/>`;
+  });
+  return s;
+}
+
