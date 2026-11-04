@@ -43,3 +43,13 @@ export function relDay(d) {
   return dayShort(d);
 }
 
+export const timeOf = (t) => new Date(t).toLocaleTimeString('ru-RU', { timeZone: MSK, hour: '2-digit', minute: '2-digit' });
+export const dateOfTs = (t) => new Date(t).toLocaleDateString('en-CA', { timeZone: MSK });
+
+// Срок дедлайна простыми словами
+export function dueLabel(t) {
+  const d = dateOfTs(t);
+  const r = relDay(d);
+  return `${r === 'сегодня' || r === 'завтра' ? r : r.length < 12 ? 'в ' + r : r}, ${timeOf(t)}`;
+}
+
