@@ -20,3 +20,10 @@
 .auth-float .ic { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--navy-3); color: var(--navy); }
 .auth-float.f1 { left: 4%; top: 30px; }
 .auth-float.f1 .ic { background: var(--gold); color: var(--navy-ink); }
+.auth-float.f2 { right: 6%; top: 8px; animation-delay: .8s; }
+.auth-float.f3 { right: 2%; top: 120px; animation-delay: 1.6s; }
+.auth-float.f3 .ic { background: var(--red-2); color: var(--red-ink); }
+.auth-panel { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 48px 32px; background: #fff; }
+.auth-card { width: 100%; max-width: 440px; }
+.auth-mark { display: flex; align-items: center; gap: 9px; }
+.auth-form { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
