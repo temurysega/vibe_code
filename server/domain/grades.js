@@ -38,3 +38,25 @@ function current(d, items) {
   else if (forecast != null && forecast >= 75) status = 'good';
   if (pace != null && (pace < 0.6 || forecast < 60)) status = 'risk';
 
+  // Подсказка простыми словами: цель — та оценка, к которой студент идёт по прогнозу
+  const goal = targets.slice().reverse().find((t) => t.reachable && (forecast == null || t.min <= forecast + 3)) || targets.find((t) => t.reachable);
+  const goalName = (min) => (min === 90 ? '«отлично»' : min === 75 ? '«хорошо»' : d.control === 'credit' ? 'зачёта' : '«удовлетворительно»');
+  const nextItem = left.filter((a) => a.kind !== 'attendance').sort((a, b) => String(a.date || '9').localeCompare(String(b.date || '9')))[0];
+  let advice;
+  if (status === 'risk') advice = `Чтобы получить ${d.control === 'credit' ? 'зачёт' : '«удовлетворительно»'}, нужно ещё ${Math.max(0, 60 - earned)} из ${remaining} оставшихся баллов`;
+  else if (goal && goal.need > 0) advice = `До ${goalName(goal.min)} — ${goal.need} ${plural(goal.need, ['балл', 'балла', 'баллов'])} из ${remaining} возможных`;
+  else if (goal) advice = `Баллов на ${goalName(goal.min).replace('зачёта', 'зачёт')} уже достаточно — держите темп`;
+  else if (!remaining) advice = 'Все контрольные точки пройдены';
+  else advice = 'Держите темп — впереди ещё контрольные точки';
+
+  return {
+    id: d.discipline_id, name: d.name, short: d.short, color: d.color, control: d.control, controlLabel: CONTROL[d.control], credits: d.credits,
+    teacher: d.t_name ? { name: d.t_name, short: d.t_short, email: d.t_email, hours: d.t_hours } : null,
+    earned, gradedMax, remaining, pace, forecast, forecastVerdict: forecast == null ? null : verdictOf(forecast, d.control),
+    targets, status, advice,
+    attendance: att.length ? Math.round((sum(att, (a) => a.points) / sum(att, (a) => a.max_points)) * 100) : null,
+    next: nextItem ? { title: nextItem.title, date: nextItem.date, max: nextItem.max_points } : null,
+    items: items.map((a) => ({ id: a.id, title: a.title, kind: a.kind, max: a.max_points, points: a.points, date: a.date })),
+  };
+}
+
