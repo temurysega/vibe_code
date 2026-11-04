@@ -388,3 +388,24 @@ export class Campus {
     this.goTo({ floor, x: EX, kind: 'walk' });
   }
 
+  arrive(t) {
+    if (!t || t.kind === 'walk') return;
+    if (this.opts.onArrive) this.opts.onArrive(t);
+  }
+
+  nearest() {
+    const f = this.p.floor, x = this.p.x;
+    let best = null, bd = 70;
+    HOTS.forEach((h) => {
+      if (floorOf(h.zone) !== f) return;
+      const d = Math.abs(h.x - x);
+      if (d < bd) { bd = d; best = { kind: 'hot', id: h.id, act: h.act, label: h.label, floor: f, x: h.x }; }
+    });
+    Object.entries(NPC).forEach(([z, n]) => {
+      if (floorOf(z) !== f) return;
+      const d = Math.abs(n.x - x);
+      if (d < Math.min(bd, 58)) { bd = d; best = { kind: 'npc', id: z, label: n.name, floor: f, x: n.x }; }
+    });
+    return best;
+  }
+
