@@ -57,3 +57,37 @@ export function confirm({ title, text, yes = 'Да', no = 'Отмена', danger
   });
 }
 
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  if (document.querySelector('.menu')) { closeMenu(); return; }
+  if (stack.length) modal.close();
+});
+
+// ---------- выпадающее меню ----------
+let away = null;
+export function openMenu(anchor, html, onMount, opt = {}) {
+  closeMenu();
+  const m = document.createElement('div');
+  m.className = 'menu';
+  m.setAttribute('role', 'menu');
+  m.innerHTML = html;
+  document.body.appendChild(m);
+  if (opt.width) m.style.width = opt.width;
+  const r = anchor.getBoundingClientRect();
+  const w = m.offsetWidth;
+  if (opt.up) m.style.bottom = window.innerHeight - r.top + 8 + 'px';
+  else m.style.top = r.bottom + 8 + 'px';
+  m.style.left = Math.max(12, Math.min(window.innerWidth - w - 12, r.right - w)) + 'px';
+  setTimeout(() => {
+    away = (e) => { if (!m.contains(e.target)) closeMenu(); };
+    document.addEventListener('click', away);
+  }, 0);
+  if (onMount) onMount(m);
+  return m;
+}
+export function closeMenu() {
+  document.querySelectorAll('.menu').forEach((m) => m.remove());
+  if (away) document.removeEventListener('click', away);
+  away = null;
+}
+
