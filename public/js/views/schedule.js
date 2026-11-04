@@ -82,3 +82,12 @@ function lessonModal(it) {
   });
 }
 
+function bellsModal() {
+  modal.open({
+    label: 'Звонки',
+    html: `<div class="modal-title">Расписание звонков</div><p class="modal-sub">Перерыв между 2 и 3 парой — 30 минут на обед</p>
+      <div class="bells mt-20">${week.bells.map(([a, b], i) => `<div class="bell"><span class="muted">${i + 1} пара</span><b>${a}</b>${b}</div>`).join('')}</div>
+      <div class="modal-foot"><button class="btn btn-secondary btn-lg" data-close>Закрыть</button></div>`,
+  });
+}
+
