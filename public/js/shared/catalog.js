@@ -35,3 +35,10 @@ export const ITEMS = [
   I('focus-jacket', 'top', 'Куртка «В фокусе»', 'focus', { need: 5 }),
   I('gown', 'top', 'Мантия «Отличник»', 'grade', { how: 'Сессия без троек и долгов' }),
 
+  I('jeans', 'bottom', 'Джинсы', 'base', { colors: ['denim', 'black', 'lightdenim'] }),
+  I('trousers', 'bottom', 'Брюки', 'base', { colors: ['graphite', 'beige', 'navy', 'olive'] }),
+  I('joggers', 'bottom', 'Джоггеры', 'base', { colors: ['graphite', 'navy', 'violet', 'gray'] }),
+  I('shorts', 'bottom', 'Шорты', 'base', { colors: ['sand', 'denim', 'graphite'] }),
+  I('skirt', 'bottom', 'Юбка', 'base', { colors: ['graphite', 'navy', 'beige', 'violet', 'red'] }),
+  I('cargo', 'bottom', 'Карго', 'digital', { price: 400, colors: ['olive', 'sand'] }),
+
