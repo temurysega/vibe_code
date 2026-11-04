@@ -17,3 +17,21 @@ function act(fn) {
   };
 }
 
+export default function (router) {
+  router.get('/api/play', requireStudent, (ctx) => {
+    const s = play.load(ctx.store, ctx.student.id);
+    return { play: play.view(ctx.store, ctx.student.id, s, playCtx(ctx.store, ctx.student)) };
+  });
+
+  router.patch('/api/play/look', requireStudent, act((ctx, s, pc) => play.saveLook(s, ctx.body, pc)));
+  router.post('/api/play/visit', requireStudent, act((ctx, s) => play.visit(s, str(ctx.body.zone, 20))));
+  router.post('/api/play/focus', requireStudent, act((ctx, s) => play.focus(s, str(ctx.body.action, 10))));
+  router.post('/api/play/buy', requireStudent, act((ctx, s) => play.buy(s, str(ctx.body.slot, 20), str(ctx.body.id, 30))));
+  router.post('/api/play/quiz', requireStudent, act((ctx, s) => play.quiz(s, ctx.body.answers)));
+  router.post('/api/play/steps/claim', requireStudent, act((ctx, s, pc) => play.claimSteps(s, pc)));
+
+  router.post('/api/play/mark', requireStudent, act((ctx, s) => {
+    if (ctx.body.step !== 'schedule') fail(400, 'Неизвестный шаг');
+    s.steps.schedule = true;
+  }));
+
