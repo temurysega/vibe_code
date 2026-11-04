@@ -53,3 +53,14 @@ const POSES = {
   slide: { legL: 'rotate(-58 82 240) translate(-8 -10)', legR: 'rotate(-48 118 240) translate(-4 -14)', armL: 'rotate(-40 57 152)', armR: 'rotate(40 143 152)', body: 'translate(0 46) rotate(-8 100 240)' },
 };
 
+// Фигура: у мужской шире плечи и шея, у женской плечи и талия уже, бёдра шире
+const BODY = {
+  m: { sh: 42, waist: 39, hip: 39, neck: 24, arm: 4 },
+  f: { sh: 34, waist: 31, hip: 38, neck: 19, arm: -2 },
+};
+const bodyOf = (c) => BODY[c.body] || BODY.f;
+function torsoPath(b) {
+  const L = 100 - b.sh, R = 100 + b.sh, WL = 100 - b.waist, WR = 100 + b.waist, HL = 100 - b.hip, HR = 100 + b.hip;
+  return `M${L} 152 C${L} 145 ${L + 9} 141 86 140 L114 140 C${R - 9} 141 ${R} 145 ${R} 152 C${R} 170 ${WR} 182 ${WR} 196 C${WR} 210 ${HR} 218 ${HR} 228 Q${HR} 236 ${HR - 8} 236 L${HL + 8} 236 Q${HL} 236 ${HL} 228 C${HL} 218 ${WL} 210 ${WL} 196 C${WL} 182 ${L} 170 ${L} 152 Z`;
+}
+
