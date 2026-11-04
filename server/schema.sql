@@ -169,3 +169,15 @@ CREATE TABLE IF NOT EXISTS exams (
   teacher_id INTEGER REFERENCES teachers(id)
 );
 
+-- Дедлайны: эссе, контрольные, анкеты и запись на мероприятия
+CREATE TABLE IF NOT EXISTS deadlines (
+  id INTEGER PRIMARY KEY,
+  group_code TEXT REFERENCES groups(code),
+  student_id INTEGER REFERENCES students(id),
+  discipline_id INTEGER REFERENCES disciplines(id),
+  title TEXT NOT NULL,
+  due_at INTEGER NOT NULL,
+  kind TEXT NOT NULL,
+  link TEXT
+);
+
