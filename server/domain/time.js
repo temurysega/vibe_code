@@ -52,3 +52,12 @@ export const BELLS = [
 ];
 export const toMin = (hhmm) => { const [h, m] = hhmm.split(':').map(Number); return h * 60 + m; };
 
+// Учебный год: осенний семестр — с 1 сентября, весенний — с 9 февраля
+export function semesterOf(date) {
+  const y = Number(date.slice(0, 4));
+  const md = date.slice(5);
+  if (md >= '09-01') return { year: y, part: 1, start: `${y}-09-01`, end: `${y}-12-30`, sessionStart: `${y + 1}-01-11`, sessionEnd: `${y + 1}-01-31` };
+  if (md < '02-09') return { year: y - 1, part: 1, start: `${y - 1}-09-01`, end: `${y - 1}-12-30`, sessionStart: `${y}-01-11`, sessionEnd: `${y}-01-31` };
+  return { year: y - 1, part: 2, start: `${y}-02-09`, end: `${y}-06-06`, sessionStart: `${y}-06-08`, sessionEnd: `${y}-06-30` };
+}
+
