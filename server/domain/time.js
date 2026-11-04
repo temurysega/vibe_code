@@ -39,3 +39,16 @@ export function weekMonday(id) {
   return addDays(mondayOf(`${m[1]}-01-04`), (n - 1) * 7);
 }
 
+// Звонки: пары МГИМО в концепте
+export const BELLS = [
+  null,
+  ['09:00', '10:20'],
+  ['10:30', '11:50'],
+  ['12:20', '13:40'],
+  ['13:50', '15:10'],
+  ['15:20', '16:40'],
+  ['16:50', '18:10'],
+  ['18:20', '19:40'],
+];
+export const toMin = (hhmm) => { const [h, m] = hhmm.split(':').map(Number); return h * 60 + m; };
+
