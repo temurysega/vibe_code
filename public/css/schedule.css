@@ -6,3 +6,10 @@
 .week-tools { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
 .changes-strip { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: thin; padding-bottom: 4px; margin-bottom: 20px; }
 .change-pill { flex: none; display: flex; align-items: flex-start; gap: 10px; background: var(--warn-2); border-radius: 14px; padding: 12px 14px; max-width: 320px; font-size: 14px; border: 0; text-align: left; cursor: pointer; }
+.change-pill.cancel { background: var(--red-2); }
+.change-pill.extra { background: var(--good-2); }
+.change-pill.room, .change-pill.teacher { background: var(--blue-2); }
+.change-pill b { display: block; font-weight: 500; }
+.days-pick { display: none; gap: 6px; overflow-x: auto; scrollbar-width: none; margin-bottom: 16px; }
+.days-pick::-webkit-scrollbar { display: none; }
+.day-btn { flex: 1 0 52px; border: 0; background: var(--surface); border-radius: 14px; padding: 8px 4px; cursor: pointer; text-align: center; line-height: 1.2; position: relative; }
