@@ -427,3 +427,44 @@ function hat(c) {
   }
 }
 
+function headExtras(c) {
+  if (c.extra !== 'headphones') return '';
+  const k = col(c.extraColor, CLOTH.navy);
+  return `<path d="M53 100 C49 38 151 38 147 100" stroke="${dk(k, lum(k) > 0.6 ? 0.55 : 0.3)}" stroke-width="7" fill="none" stroke-linecap="round"/><rect x="44" y="84" width="17" height="30" rx="8" fill="${k}"/><rect x="139" y="84" width="17" height="30" rx="8" fill="${k}"/>`;
+}
+
+// ---------- сборка ----------
+export function svg(cfg, opt) {
+  opt = opt || {};
+  const c = Object.assign({}, DEFAULT, cfg || {});
+  const [skin, sh] = SKIN[c.skin] || SKIN.s2;
+  const h = HAIR[c.hairColor] || (c.hairColor && c.hairColor[0] === '#' ? c.hairColor : HAIR.dark);
+  const pose = POSES[opt.pose || 'stand'] || {};
+  const view = opt.view || 'full';
+  let inner;
+  if (opt.back) {
+    // Вид со спины для забега: без лица и принтов, рюкзак-сумка за плечом
+    const k = topColor(c);
+    inner = legs(c, skin, pose) + `<rect x="${100 - bodyOf(c).neck / 2}" y="120" width="${bodyOf(c).neck}" height="30" rx="8" fill="${sh}"/>` +
+      `<path d="${torsoPath(bodyOf(c))}" fill="${k}"/>` + (c.top === 'hoodie' || c.top === 'mgimo-hoodie' ? `<path d="M74 150 Q70 126 100 122 Q130 126 126 150 Q100 164 74 150 Z" fill="${dk(k, 0.18)}"/>` : '') +
+      `<rect x="76" y="160" width="48" height="56" rx="12" fill="${CLOTH.navy}"/><rect x="82" y="168" width="36" height="14" rx="5" fill="${lt(CLOTH.navy, 0.15)}"/><path d="M80 158 Q78 146 86 142 M120 158 Q122 146 114 142" stroke="${dk(CLOTH.navy, 0.3)}" stroke-width="4" fill="none" stroke-linecap="round"/>` +
+      arms(c, skin, pose) + hairBack(c.hair, h) + headBack(c, skin, sh, h) + hat(c) + headExtras(c);
+  } else {
+    inner =
+      hairBack(c.hair, h) +
+      topBack(c.top, topColor(c)) +
+      legs(c, skin, pose) +
+      `<rect x="${100 - bodyOf(c).neck / 2}" y="120" width="${bodyOf(c).neck}" height="30" rx="8" fill="${sh}"/>` +
+      torso(c, sh) +
+      bodyExtras(c) +
+      arms(c, skin, pose) +
+      bag(c) +
+      head(c, skin, sh, h) +
+      hat(c) +
+      headExtras(c);
+  }
+  const shadow = view === 'full' && opt.shadow !== false ? '<ellipse cx="100" cy="304" rx="50" ry="7" fill="#000" opacity=".09"/>' : '';
+  const size = opt.raster ? ` width="${opt.raster[0]}" height="${opt.raster[1]}"` : '';
+  return `<svg class="av ${opt.cls || ''}" viewBox="${VIEWS[view] || view}"${size} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${shadow}<g class="av-body"${pose.body ? ` transform="${pose.body}"` : ''}>${inner}</g></svg>`;
+}
+
