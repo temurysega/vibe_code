@@ -108,3 +108,18 @@ const sec = {
     </div>`;
   },
 
+  mood() {
+    const s = data.grades.summary;
+    const ic = s.mood === 'great' ? '🌟' : s.mood === 'warn' ? '⚡' : '🙂';
+    return `<div class="card mood mood-${s.mood}" data-sec="mood">
+      <div class="card-head" style="margin:0"><div class="card-title">Как у меня дела</div><a class="link-arrow" href="#/grades">Баллы ${icon('arrow', 16)}</a></div>
+      <div class="mood-head"><span class="mood-ic">${ic}</span><div><b>${esc(s.headline)}</b><span class="small muted">${esc(data.grades.semesterLabel)} · ${s.total} ${plural(s.total, ['дисциплина', 'дисциплины', 'дисциплин'])}</span></div></div>
+      <div class="stat-row">
+        <div class="stat"><div class="stat-v">${s.avg != null ? num(s.avg, 2) : '—'}</div><div class="stat-l">средний балл сессий</div></div>
+        <div class="stat"><div class="stat-v">${s.semPace != null ? s.semPace + '%' : '—'}</div><div class="stat-l">набрано от возможного</div></div>
+        <div class="stat"><div class="stat-v">${s.rank.place}<span class="small muted" style="font-weight:400">/${s.rank.of}</span></div><div class="stat-l">место в рейтинге группы</div></div>
+      </div>
+      ${s.tips.length ? `<div>${s.tips.slice(0, 3).map((t) => `<a class="tip ${t.kind}" href="${t.link}"><span class="dot"></span><span class="grow">${esc(t.text)}</span>${icon('arrow', 14)}</a>`).join('')}</div>` : `<div class="tip"><span class="dot" style="background:var(--mint)"></span><span>Рисков нет — так держать</span></div>`}
+    </div>`;
+  },
+
