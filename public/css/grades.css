@@ -41,3 +41,9 @@
 .exam-date b { display: block; font-size: 22px; font-weight: 600; }
 .exam-date span { font-size: 12px; color: var(--muted); }
 .exam-row.consult { opacity: .75; }
+.exam-row.consult .exam-date { background: transparent; box-shadow: inset 0 0 0 1px var(--border); }
+.chart svg { width: 100%; height: auto; overflow: visible; }
+.chart text { font-family: var(--font); }
+.scale-legend { display: flex; gap: 8px; flex-wrap: wrap; }
+.scale-legend span { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; background: #fff; border-radius: var(--pill); padding: 5px 10px; }
+.scale-legend i { display: inline-block; }
