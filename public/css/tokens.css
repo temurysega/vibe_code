@@ -1,0 +1,51 @@
+/* МГИМО Мания — концепт личного кабинета студента.
+   Визуальный язык прототипа: шрифт Onest, серые карточки, радиус 16px, кнопки-«таблетки».
+   Палитра — фирменный глубокий синий и золото, без копирования официальной символики. */
+
+:root {
+  --navy: #0F2D69;
+  --navy-2: #1C438F;
+  --navy-3: #DCE6F8;
+  --navy-4: #EEF3FC;
+  --navy-ink: #0B2150;
+  --gold: #C9A646;
+  --gold-2: #E9D7A0;
+  --gold-3: #F8F1DC;
+  --gold-ink: #7A5F12;
+  --ink: #1B1F2A;
+  --text: #2E3440;
+  --muted: #6B7280;
+  --muted-2: #6E7482;
+  --faint: #A3A8B0;
+  --bg: #FFFFFF;
+  --surface: #F3F4F6;
+  --surface-2: #E8EAED;
+  --border: #DEDFE1;
+  --hair: #ECEDEF;
+  --violet: #8E6CC4;
+  --violet-2: #F1EAFA;
+  --violet-ink: #6A49A0;
+  --blue: #5B8DEF;
+  --blue-2: #E6EEFD;
+  --blue-ink: #2457B8;
+  --mint: #3BAE8A;
+  --mint-2: #E3F5EE;
+  --warn: #B26A00;
+  --warn-2: #FFF1DC;
+  --red: #E5484D;
+  --red-2: #FDECEC;
+  --red-ink: #B3261E;
+  --good: #2F8A3B;
+  --good-2: #E6F4E8;
+  --r-sm: 12px;
+  --r: 16px;
+  --r-lg: 24px;
+  --pill: 100px;
+  --shadow: 0 8px 28px rgba(15, 45, 105, .08);
+  --shadow-lg: 0 24px 64px rgba(15, 45, 105, .18);
+  --font: 'Onest', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --emoji: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+  --concept-h: 34px;
+  --header-h: 72px;
+  --container: 1240px;
+}
