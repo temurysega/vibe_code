@@ -39,3 +39,10 @@ const NAV = [
 ];
 const TABS = [['home', 'Главная', 'home'], ['schedule', 'Расписание', 'calendar'], ['grades', 'Оценки', 'chart'], ['requests', 'Заявки', 'doc']];
 
+const $concept = document.getElementById('concept');
+const $head = document.getElementById('header');
+const $main = document.getElementById('main');
+const $tab = document.getElementById('tabbar');
+const $foot = document.getElementById('foot');
+const $ask = document.getElementById('ask');
+
