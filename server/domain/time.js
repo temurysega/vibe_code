@@ -21,3 +21,21 @@ export const weekday = (d) => { const w = new Date(noon(d)).getUTCDay(); return 
 export const mondayOf = (d) => addDays(d, 1 - weekday(d));
 export const daysBetween = (a, b) => Math.round((noon(b) - noon(a)) / DAY);
 
+// Момент времени (мс) для даты и времени по Москве (UTC+3, без перехода на летнее время)
+export const mskTime = (date, hhmm = '00:00') => Date.parse(`${date}T${hhmm}:00+03:00`);
+
+// ISO-неделя вида 2026-W45 и обратно — понедельник этой недели
+export function isoWeek(d) {
+  const thursday = addDays(d, 4 - weekday(d));
+  const year = thursday.slice(0, 4);
+  const first = mondayOf(addDays(`${year}-01-04`, 0));
+  return `${year}-W${String(Math.floor(daysBetween(first, mondayOf(d)) / 7) + 1).padStart(2, '0')}`;
+}
+export function weekMonday(id) {
+  const m = /^(\d{4})-W(\d{2})$/.exec(id || '');
+  if (!m) return null;
+  const n = Number(m[2]);
+  if (n < 1 || n > 53) return null;
+  return addDays(mondayOf(`${m[1]}-01-04`), (n - 1) * 7);
+}
+
