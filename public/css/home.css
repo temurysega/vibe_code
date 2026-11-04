@@ -1,0 +1,7 @@
+/* ---------- Главная ---------- */
+.hello { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; }
+.hello .h1 span { color: var(--muted); }
+.hello-sub { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; color: var(--muted); }
+.quick { display: flex; gap: 10px; flex-wrap: wrap; }
+.home-top { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 20px; }
+
