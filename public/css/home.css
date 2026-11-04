@@ -76,3 +76,11 @@
   .home-trio { grid-template-columns: 1fr; }
 }
 
+/* Изменения расписания */
+.chg { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-top: 1px solid #E4E6E9; }
+.chg:first-child { border-top: 0; padding-top: 0; }
+.chg-ic { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; flex: none; background: var(--warn-2); color: var(--warn); }
+.chg-ic.cancel { background: var(--red-2); color: var(--red-ink); }
+.chg-ic.extra { background: var(--good-2); color: var(--good); }
+.chg-ic.room, .chg-ic.teacher { background: var(--blue-2); color: var(--blue-ink); }
+.chg b { font-weight: 500; }
