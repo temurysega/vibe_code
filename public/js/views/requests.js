@@ -57,3 +57,23 @@ function fieldHtml(f) {
   return `<label class="field" data-field="${f.id}"><span class="field-label">${esc(f.label)}${req}</span>${input}${f.min && f.type === 'textarea' ? `<span class="field-hint">Не короче ${f.min} символов</span>` : ''}</label>`;
 }
 
+function formView(t) {
+  const p = me;
+  return `<div class="req-form"><form class="card" data-form novalidate>
+      <div><span class="eyebrow">${t.group === 'cert' ? 'Справка' : 'Заявление'} · до ${t.days} ${plural(t.days, ['дня', 'дней', 'дней'])}</span><p class="mt-8" style="font-size:17px">${esc(t.short)}</p></div>
+      <div class="prefill"><div class="row space" style="margin-bottom:10px"><b style="font-weight:500">Данные подставлены из профиля</b><span class="badge badge-gray">${icon('lock', 12)} только для деканата</span></div>
+        <dl class="kv"><dt>Студент</dt><dd>${esc(`${p.lastName} ${p.firstName} ${p.middleName || ''}`)}</dd><dt>Группа</dt><dd>${esc(p.group)}, ${p.course} курс</dd><dt>Факультет</dt><dd>${esc(p.faculty.name)}</dd></dl></div>
+      ${t.delivery.length > 1 ? `<div class="field"><span class="field-label">Формат</span><div class="opt-cards">${t.delivery.map((d, i) => `<label class="opt-card"><input type="radio" name="delivery" value="${d}" ${i === 0 ? 'checked' : ''}><b>${icon(d === 'electronic' ? 'download' : 'doc', 18)} ${DELIVERY[d][0]}</b><span>${DELIVERY[d][1]}</span></label>`).join('')}</div></div>` : ''}
+      ${t.langs && t.langs.length > 1 ? `<div class="field"><span class="field-label">Язык справки</span><div class="seg">${t.langs.map((l, i) => `<label style="display:contents"><input type="radio" name="lang" value="${l}" ${i === 0 ? 'checked' : ''} class="sr"><span class="lang-opt ${i === 0 ? 'on' : ''}" data-lang="${l}" style="height:36px;padding:0 16px;border-radius:100px;display:inline-flex;align-items:center;cursor:pointer">${LANG[l]}</span></label>`).join('')}</div></div>` : ''}
+      ${t.fields.map(fieldHtml).join('')}
+      <div data-form-error></div>
+      <div class="row-wrap"><button class="btn btn-primary btn-lg" type="submit" data-submit>${icon('send', 18)} Отправить в деканат</button><a class="btn btn-ghost btn-lg" href="#/requests/new">Отмена</a></div>
+    </form>
+    <aside class="sticky-side">
+      <div class="card"><div class="card-title">Что будет дальше</div>
+        <div class="stepper mt-16">${(t.group === 'cert' ? ['Заявка уходит в деканат', 'Специалист готовит справку', t.delivery.includes('electronic') ? 'Готово: скачайте или заберите' : 'Готово: заберите в деканате'] : ['Заявление регистрируют', 'Деканат рассматривает', 'Решение приходит уведомлением']).map((s, i) => `<div class="stepper-row"><span class="stepper-dot">${i + 1}</span><div><b>${s}</b></div></div>`).join('')}</div>
+        <div class="note mt-16">${icon('clock', 18)}<span>Срок — до ${t.days} ${plural(t.days, ['рабочего дня', 'рабочих дней', 'рабочих дней'])}. Статус обновляется сам, в кабинете и уведомлением</span></div></div>
+      ${t.delivery.includes('paper') ? `<div class="card"><div class="card-title">Где забрать оригинал</div><p class="muted mt-8">Деканат ${esc(p.faculty.short)}, ауд. ${esc(p.faculty.dean_office)}<br>${esc(p.faculty.hours)}</p></div>` : ''}
+    </aside></div>`;
+}
+
