@@ -200,3 +200,13 @@ async function signOut() {
   location.hash = '#/login';
 }
 
+on('unauthorized', () => {
+  if (!session.user) return;
+  reset();
+  stopPolling();
+  setCsrf(null);
+  import('./views/assistant.js').then((m) => m.resetAssistant()).catch(() => {});
+  toast('Сессия завершилась — войдите снова', { icon: 'lock' });
+  location.hash = '#/login';
+});
+
