@@ -145,3 +145,11 @@ select.input { appearance: none; background-image: url("data:image/svg+xml,%3Csv
 .skel-line { height: 14px; border-radius: 7px; }
 .error-box { text-align: center; padding: 48px 20px; }
 
+/* ---------- Аватары ---------- */
+.av { width: 100%; height: 100%; }
+.ava-w { position: relative; display: inline-grid; place-items: center; width: var(--s, 48px); height: var(--s, 48px); border-radius: 50%; flex: none; }
+.ava { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: radial-gradient(circle at 50% 30%, var(--ab1, #DCE6F8), var(--ab2, #1C438F)); display: block; }
+.ava svg { width: 100%; height: 100%; }
+.ava-w.f-navy { padding: 3px; background: var(--navy); }
+.ava-w.f-flame { padding: 3px; background: conic-gradient(from 200deg, #FF6B3D, #FFB341, #FFE066, #FF8A3D, #FF6B3D); }
+.ava-w.f-excellent { padding: 3px; background: conic-gradient(from 30deg, var(--gold), #FFF1C2, var(--gold), var(--navy), var(--gold)); }
