@@ -19,3 +19,10 @@ const teacherOf = (row, p = 't_') => (row[p + 'name'] ? {
   name: row[p + 'name'], short: row[p + 'short'], title: row[p + 'title'] || '', department: row[p + 'dept'] || '', email: row[p + 'email'] || '', hours: row[p + 'hours'] || '',
 } : null);
 
+// Этаж и корпус по номеру аудитории: первая цифра — этаж
+export function placeOf(room) {
+  const m = /^(\d)(\d{3})$/.exec(String(room));
+  if (m) return `${m[1]} этаж`;
+  return '';
+}
+
