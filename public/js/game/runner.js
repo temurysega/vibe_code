@@ -139,3 +139,22 @@ export class Runner {
     else if (dy < 0) this.jump(); else this.slide();
   }
 
+  async start() {
+    if (this.state === 'loading' || this.state === 'dead' || this.state === 'starting' || this.state === 'run') return;
+    this.state = 'starting';
+    this.show('starting');
+    let r = null;
+    try { r = await this.opt.onStart(); } catch (e) { r = null; }
+    if (this.state === 'dead') return;
+    if (!r || !r.run) { this.left = r ? r.left || 0 : this.left; this.state = 'ready'; this.show(this.left > 1 ? 'error' : 'limit'); return; }
+    this.runId = r.run;
+    this.left = r.left;
+    this.reset();
+    this.state = 'run';
+    this.hide();
+    this.last = 0;
+    try { this.wrap.focus({ preventScroll: true }); } catch (e) { /* ничего */ }
+    cancelAnimationFrame(this.raf);
+    this.raf = requestAnimationFrame(this.loop);
+  }
+
