@@ -48,3 +48,17 @@ export function requireDean(ctx) {
   if (!ctx.staff) fail(403, 'Профиль сотрудника не найден');
 }
 
+// Публичное описание пользователя для шапки кабинета
+export function publicUser(store, user) {
+  if (user.role === 'student') {
+    const s = studentOf(store, user.student_id);
+    return { role: 'student', login: user.login, name: `${s.first_name} ${s.last_name}`, firstName: s.first_name, gender: s.gender, group: s.group_code, course: s.course, faculty: s.faculty.short, lastLogin: user.last_login_at };
+  }
+  const st = staffOf(store, user.staff_id);
+  const [last, first, middle] = st.full_name.split(' ');
+  return { role: 'dean', login: user.login, name: `${first} ${last}`, firstName: first, middleName: middle, position: st.position, faculty: st.faculty.short, facultyName: st.faculty.name, lastLogin: user.last_login_at };
+}
+
+export function audit(store, userId, action, target, ip) {
+  store.run('INSERT INTO audit_log (user_id, action, target, ip, created_at) VALUES (?, ?, ?, ?, ?)', userId || null, action, target ? String(target).slice(0, 200) : null, ip || null, Date.now());
+}
