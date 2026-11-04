@@ -74,3 +74,23 @@ CREATE TABLE IF NOT EXISTS sessions (
 );
 CREATE INDEX IF NOT EXISTS sessions_user ON sessions(user_id);
 
+-- Преподаватели и дисциплины
+CREATE TABLE IF NOT EXISTS teachers (
+  id INTEGER PRIMARY KEY,
+  full_name TEXT NOT NULL,
+  short_name TEXT NOT NULL,
+  title TEXT,
+  department TEXT NOT NULL,
+  email TEXT NOT NULL,
+  office_hours TEXT
+);
+
+CREATE TABLE IF NOT EXISTS disciplines (
+  id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  short TEXT NOT NULL,
+  control TEXT NOT NULL CHECK (control IN ('exam', 'credit', 'graded')),
+  credits INTEGER NOT NULL,
+  color TEXT NOT NULL
+);
+
