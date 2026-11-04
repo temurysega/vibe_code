@@ -148,3 +148,14 @@ export const FIRST_STEPS = {
   ],
 };
 
+// Правила начислений и забега
+export const RULES = {
+  visitCoins: 20,
+  focusCoins: 10,
+  focusPerDay: 4,
+  focusMinutes: 25,
+  gameDailySec: 300,
+  gameCoinsPerDay: 60,
+  growth: { visit: 1, focus: 3, request: 1, steps: 3, game: 1 },
+};
+
