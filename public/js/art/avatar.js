@@ -233,3 +233,17 @@ function headBack(c, skin, sh, h) {
     (c.hair === 'afro' ? `<circle cx="100" cy="82" r="50" fill="${h}"/>` : '');
 }
 
+// ---------- одежда ----------
+function topBack(t, k) {
+  if (t === 'hoodie' || t === 'mgimo-hoodie') return `<path d="M70 152 Q66 118 100 116 Q134 118 130 152 Z" fill="${dk(k, 0.2)}"/>`;
+  return '';
+}
+
+function topColor(c) {
+  if (c.top === 'mgimo-tee' || c.top === 'mgimo-hoodie' || c.top === 'mun-bomber') return CLOTH.navy;
+  if (c.top === 'ling-knit') return CLOTH.sky;
+  if (c.top === 'focus-jacket') return CLOTH.royal;
+  if (c.top === 'gown') return CLOTH.black;
+  return col(c.topColor, CLOTH.white);
+}
+
