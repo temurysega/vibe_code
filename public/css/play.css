@@ -21,3 +21,8 @@
 .hero-av { width: 170px; height: 272px; margin-bottom: 14px; }
 .hero-av .av { width: 100%; height: 100%; }
 .hero-pet { position: absolute; right: 10px; bottom: 14px; width: 72px; height: 60px; }
+.hero-pet svg { width: 100%; height: 100%; }
+.hero-emoji { position: absolute; top: 14px; left: 14px; width: 42px; height: 42px; border-radius: 50%; background: rgba(255, 255, 255, .78); display: grid; place-items: center; font-size: 21px; font-family: var(--emoji); }
+.hero-edit { position: absolute; top: 14px; right: 14px; height: 32px; padding: 0 12px; border-radius: var(--pill); background: rgba(255, 255, 255, .88); display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--ink); }
+.hero-info { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+
