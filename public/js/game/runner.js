@@ -403,3 +403,24 @@ export class Runner {
     c.globalAlpha = 1;
   }
 
+  player(c) {
+    const u = this.u(PZ);
+    const x = this.sx(this.px, PZ);
+    const ground = this.gy(PZ);
+    const ph = u * 1.12, pw = (ph * 200) / 320;
+    // тень и питомец, который бежит чуть сзади
+    c.fillStyle = 'rgba(11,33,80,.18)';
+    c.beginPath(); c.ellipse(x, ground - 2, pw * 0.36 * Math.max(0.5, 1 - this.y / 2.5), u * 0.05, 0, 0, Math.PI * 2); c.fill();
+    if (this.petImg) {
+      const pz = PZ - 0.9, s = this.u(pz) * 0.4;
+      c.drawImage(this.petImg, this.sx(this.px + 0.42, pz) - s / 2, this.gy(pz) - s * 0.86 - Math.abs(Math.sin(this.t * 14)) * 4, s, s * 0.83);
+    }
+    const img = this.state !== 'run' && this.state !== 'over' ? this.run1 : this.slideT > 0 ? this.slideImg : this.y > 0 ? this.jumpImg : this.frame ? this.run2 : this.run1;
+    if (this.shield > 0) {
+      c.strokeStyle = `rgba(201,166,70,${0.5 + 0.3 * Math.sin(this.t * 10)})`;
+      c.lineWidth = 4;
+      c.beginPath(); c.ellipse(x, ground - ph * 0.5 - this.y * u, pw * 0.7, ph * 0.62, 0, 0, Math.PI * 2); c.stroke();
+    }
+    if (img) c.drawImage(img, x - pw / 2, ground - ph - this.y * u + ph * 0.04, pw, ph);
+  }
+
