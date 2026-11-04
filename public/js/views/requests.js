@@ -77,3 +77,32 @@ function formView(t) {
     </aside></div>`;
 }
 
+// ---------- карточка заявки ----------
+function detailView(r) {
+  const evAt = (st) => { const e = r.events.filter((x) => x.status === st).pop(); return e ? e.created_at : null; };
+  const bad = r.status === 'rejected' || r.status === 'cancelled';
+  const idx = r.steps.indexOf(r.status);
+  const steps = bad ? r.steps.slice(0, 1).concat([r.status]) : r.steps;
+  const payloadRows = Object.entries(r.payload).filter(([k]) => !['lang', 'kit'].includes(k)).map(([k, v]) => `<dt>${esc({ place: 'Куда', copies: 'Экземпляров', country: 'Страна', dates: 'Даты', office: 'Военкомат', purpose: 'Цель', from: 'С', to: 'По', reason: 'Причина', note: 'Комментарий', details: 'Подробности', disciplines: 'Дисциплины', partner: 'Направление', term: 'Семестр', motivation: 'Мотивация', discipline: 'Дисциплина', slot: 'Дата', size: 'Размер' }[k] || k)}</dt><dd>${esc(/^\d{4}-\d{2}-\d{2}$/.test(v) ? dayShort(v) : v)}</dd>`).join('');
+  return `<div class="req-detail"><div class="col" style="gap:20px">
+      <div class="card"><div class="row space" style="align-items:flex-start;flex-wrap:wrap"><div><span class="eyebrow">№ ${esc(r.number)}</span><p class="muted mt-4">Подана ${esc(stamp(r.createdAt))}${r.delivery !== 'none' ? ' · ' + DELIVERY[r.delivery][0].toLowerCase() : ''}${r.payload.lang ? ' · ' + (LANG[r.payload.lang] || '').toLowerCase() : ''}</p></div>${statusPill(r.status, r.statusLabel)}</div>
+        <div class="stepper mt-24">${steps.map((s, i) => {
+          const done = bad ? i === 0 : i <= idx;
+          const at = evAt(s);
+          const cls = bad && i === steps.length - 1 ? 'bad' : done ? 'done' : i === idx + 1 ? 'current' : '';
+          return `<div class="stepper-row ${cls}"><span class="stepper-dot">${done || cls === 'bad' ? icon(cls === 'bad' ? 'x' : 'check', 14, 2.6) : i + 1}</span><div><b>${esc(STEP_LABEL[s] || r.statusLabel)}</b><span class="small muted">${at ? esc(stamp(at)) : i === idx + 1 ? 'ожидается' : ''}</span></div></div>`;
+        }).join('')}</div>
+        ${r.dueAt && !bad && !['ready', 'issued', 'approved'].includes(r.status) ? `<div class="note note-navy mt-20">${icon('clock', 18)}<span>Срок — до ${esc(stamp(r.dueAt))}. Мы пришлём уведомление, когда статус изменится</span></div>` : ''}
+        ${r.deanComment ? `<div class="note mt-16" style="background:var(--surface)">${icon('chat', 18)}<span><b style="font-weight:500">Комментарий деканата:</b> ${esc(r.deanComment)}</span></div>` : ''}
+      </div>
+      <div class="card"><div class="card-title">История</div><div class="timeline mt-16">${r.events.slice().reverse().map((e) => `<div class="tl-item"><span class="when">${esc(stamp(e.created_at))}</span><span><b>${esc(STEP_LABEL[e.status] || ({ rejected: 'Отклонена', cancelled: 'Отменена' })[e.status] || e.status)}</b> · <span class="muted">${esc(e.actor)}</span>${e.comment ? `<br>${esc(e.comment)}` : ''}</span></div>`).join('')}</div></div>
+    </div>
+    <aside class="sticky-side">
+      ${r.downloadable ? `<div class="card card-navy"><div class="card-title">Справка готова</div><p class="muted mt-8">Подписана электронной подписью. Подлинность проверяется по QR-коду</p><a class="btn btn-gold btn-block mt-16" href="#/requests/${r.id}/doc">${icon('download', 18)} Открыть и скачать</a></div>` : ''}
+      ${r.pickup && r.status === 'ready' ? `<div class="pickup">${icon('pin', 20)}<span><b style="font-weight:500">Готово — можно забирать</b><br>${esc(r.pickup)}<br><span class="small">Возьмите студенческий билет</span></span></div>` : ''}
+      ${payloadRows ? `<div class="card"><div class="card-title">Что указано в заявке</div><dl class="kv mt-16" style="grid-template-columns:110px minmax(0,1fr);font-size:14px">${payloadRows}</dl></div>` : ''}
+      ${r.cancellable ? `<button class="btn btn-danger btn-block" data-cancel>${icon('undo', 18)} Отменить заявку</button>` : ''}
+      <a class="btn btn-secondary btn-block" href="#/requests">${icon('back', 18)} Все заявки</a>
+    </aside></div>`;
+}
+
