@@ -34,3 +34,13 @@ export function confetti(opt = {}) {
   })();
 }
 
+export function countUp(el, from, to, ms = 600) {
+  const t0 = performance.now();
+  (function step(t) {
+    const k = Math.min(1, (t - t0) / ms);
+    const e = 1 - Math.pow(1 - k, 3);
+    el.textContent = Math.round(from + (to - from) * e).toLocaleString('ru-RU');
+    if (k < 1) requestAnimationFrame(step);
+  })(t0);
+}
+
