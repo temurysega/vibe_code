@@ -27,3 +27,10 @@
 .auth-card { width: 100%; max-width: 440px; }
 .auth-mark { display: flex; align-items: center; gap: 9px; }
 .auth-form { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
+.auth-error { background: var(--red-2); color: var(--red-ink); border-radius: 12px; padding: 12px 14px; font-size: 14px; display: flex; gap: 10px; align-items: flex-start; }
+.auth-or { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 13px; margin: 26px 0 14px; }
+.auth-or::before, .auth-or::after { content: ''; flex: 1; height: 1px; background: var(--hair); }
+.acc-list { display: flex; flex-direction: column; gap: 8px; }
+.acc { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 16px; background: var(--surface); border: 0; cursor: pointer; text-align: left; width: 100%; transition: background .15s, transform .15s; }
+.acc:hover { background: var(--surface-2); transform: translateY(-1px); }
+.acc b { display: block; font-weight: 500; font-size: 15px; }
