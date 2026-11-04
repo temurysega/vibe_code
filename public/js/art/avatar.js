@@ -175,3 +175,12 @@ function mouth(t, fem) {
   }
 }
 
+function cheeks(t, sh) {
+  if (t === 'blush') return `<circle cx="73" cy="110" r="6.5" fill="#FF7A93" opacity=".26"/><circle cx="127" cy="110" r="6.5" fill="#FF7A93" opacity=".26"/>`;
+  if (t === 'freckles') {
+    return [[71, 106], [76, 109], [70, 111], [129, 106], [124, 109], [130, 111]]
+      .map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.2" fill="${dk(sh, 0.22)}"/>`).join('');
+  }
+  return '';
+}
+
