@@ -123,3 +123,15 @@ const sec = {
     </div>`;
   },
 
+  deadlines() {
+    const list = data.deadlines.slice(0, 5);
+    return `<div class="card" data-sec="deadlines"><div class="card-head"><div class="card-title">Дедлайны</div><span class="badge badge-gray">${data.deadlines.length}</span></div>
+      ${list.length ? list.map((d) => {
+        const soon = d.dueAt - Date.now() < 2 * 864e5;
+        const day = dateOfTs(d.dueAt);
+        return `<a class="dl ${soon ? 'soon' : ''}" href="${esc(d.link || '#/grades')}"><span class="dl-date"><b>${dateNum(day)}</b><span>${monthShort(day)}</span></span>
+          <span class="grow"><b>${esc(d.title)}</b><span class="small muted" style="display:block">${esc(dueLabel(d.dueAt))}${d.discipline ? ' · ' + esc(d.discipline) : ''}</span></span></a>`;
+      }).join('') : '<div class="empty"><span class="emoji">🗓️</span>Ближайшие две недели — без дедлайнов</div>'}
+    </div>`;
+  },
+
