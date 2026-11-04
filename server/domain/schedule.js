@@ -59,3 +59,51 @@ export function buildWeek(store, group, monday) {
   const days = [];
   const notes = [];
 
+  for (let i = 0; i < 6; i++) {
+    const date = addDays(monday, i);
+    const holiday = holidayOf(date);
+    const items = holiday ? [] : base
+      .filter((l) => l.weekday === i + 1 && (l.parity === 'all' || l.parity === parity))
+      .map((l) => item(l, date, l.pair));
+
+    changes.filter((c) => c.date === date && c.type !== 'extra').forEach((c) => {
+      const it = items.find((x) => x.lessonId === c.lesson_id && x.pair === c.pair);
+      if (!it) return;
+      const at = c.created_at;
+      if (c.type === 'cancel') { it.status = 'cancelled'; it.change = { type: 'cancel', reason: c.reason, at }; }
+      if (c.type === 'room') { it.change = { type: 'room', from: it.room, reason: c.reason, at }; it.room = c.room; it.place = placeOf(c.room); }
+      if (c.type === 'teacher') { it.change = { type: 'teacher', from: it.teacher, reason: c.reason, at }; it.teacher = tInfo(c.teacher_id) || it.teacher; }
+      if (c.type === 'move') { it.status = 'moved'; it.change = { type: 'move', to: { date: c.new_date, pair: c.new_pair, room: c.room || it.room }, reason: c.reason, at }; }
+    });
+
+    // Перенесённые на этот день и дополнительные пары
+    changes.filter((c) => (c.type === 'move' && c.new_date === date) || (c.type === 'extra' && c.date === date)).forEach((c) => {
+      if (holiday) return;
+      if (c.type === 'move') {
+        const l = byId.get(c.lesson_id);
+        if (!l) return;
+        const it = item(l, date, c.new_pair);
+        it.key = `${date}:${c.new_pair}:m${c.id}`;
+        if (c.room) { it.room = c.room; it.place = placeOf(c.room); }
+        it.status = 'moved-in';
+        it.change = { type: 'move', from: { date: c.date, pair: c.pair }, reason: c.reason, at: c.created_at };
+        items.push(it);
+      } else {
+        const [start, end] = BELLS[c.pair];
+        items.push({
+          key: `${date}:${c.pair}:x${c.id}`, date, pair: c.pair, start, end, lessonId: null, disciplineId: c.discipline_id,
+          discipline: c.d_name, short: c.d_short, color: c.d_color, kind: c.kind || 'consult', kindLabel: KIND[c.kind || 'consult'],
+          room: c.room, place: placeOf(c.room), teacher: tInfo(c.teacher_id), subgroup: null,
+          status: 'extra', change: { type: 'extra', reason: c.reason, at: c.created_at },
+        });
+      }
+    });
+
+    items.sort((a, b) => a.pair - b.pair || (a.status === 'moved' ? 1 : -1));
+    items.filter((x) => x.change).forEach((x) => notes.push(x));
+    days.push({ date, weekday: i + 1, holiday, items });
+  }
+
+  return { week: isoWeek(monday), monday, number: n, parity, days, changes: notes };
+}
+
