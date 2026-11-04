@@ -49,3 +49,20 @@ export function changeLine(it) {
   return { cls: 'move', icon: 'route', title: `${what}: ${it.pair} пара — перенос с ${esc(dayShort(c.from.date))}`, sub: c.reason };
 }
 
+// Карточка преподавателя: контакты и приёмные часы
+export function teacherModal(t, extra) {
+  if (!t) return;
+  modal.open({
+    label: t.name,
+    html: `<div class="teacher-card" style="background:transparent;padding:0"><span class="teacher-ava">${esc(initials(t.name.split(' ').slice(0, 2).join(' ')))}</span>
+        <div class="grow"><div class="modal-title" style="font-size:24px">${esc(t.name)}</div><div class="muted mt-4">${esc(t.title || '')}</div></div></div>
+      <dl class="kv mt-24">
+        <dt>Кафедра</dt><dd>${esc(t.department || '—')}</dd>
+        <dt>Приёмные часы</dt><dd>${esc(t.hours || 'по договорённости')}</dd>
+        <dt>Почта</dt><dd>${esc(t.email || '—')} <span class="small muted">· вымышленная</span></dd>
+        ${extra || ''}
+      </dl>
+      <div class="modal-foot"><button class="btn btn-secondary btn-lg" data-close>Понятно</button></div>`,
+  });
+}
+
