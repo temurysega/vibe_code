@@ -6,3 +6,10 @@
 .card-dark { background: var(--ink); color: #fff; }
 .card-dark .muted { color: rgba(255, 255, 255, .62); }
 .card-gold { background: var(--gold-3); }
+.card-tight { padding: 20px; }
+.card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.card-title { font-size: 21px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.25; }
+.card-sub { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.clickable { cursor: pointer; transition: transform .18s ease, box-shadow .18s ease; }
+.clickable:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
