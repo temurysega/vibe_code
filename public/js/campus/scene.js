@@ -44,3 +44,11 @@ export const HOTS = [
   { id: 'counter', zone: 'shop', x: 820, label: 'Прилавок Лавки', act: 'shop' },
 ];
 
+const floorOf = (zone) => ZONE_POS[zone][0];
+const top = (f) => SURF[f] - ROOM_H;
+const zoneAt = (f, x) => {
+  if (x < LX[1]) return ROOMS.find((r) => r.floor === f && r.side === 'l').id;
+  if (x > RX[0]) return ROOMS.find((r) => r.floor === f && r.side === 'r').id;
+  return null;
+};
+
