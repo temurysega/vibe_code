@@ -66,3 +66,13 @@ export default function (router) {
     };
   });
 
+  // Проверка подлинности справки по коду: открыта всем, но раскрывает только инициалы
+  router.get('/api/verify/:code', (ctx) => {
+    const code = String(ctx.params.code || '').toUpperCase();
+    if (!/^[0-9A-F]{8}$/.test(code)) fail(404, 'Документ не найден');
+    const r = ctx.store.get("SELECT r.number, r.title, r.status, r.updated_at, s.last_name, s.first_name, s.middle_name FROM requests r JOIN students s ON s.id = r.student_id WHERE r.verify_code = ? AND r.status IN ('ready', 'issued')", code);
+    if (!r) fail(404, 'Документ не найден');
+    const ini = [r.first_name, r.middle_name, r.last_name].filter(Boolean).map((x) => x[0] + '.').join(' ');
+    return { valid: true, number: r.number, title: r.title, issuedAt: r.updated_at, holder: ini };
+  });
+}
