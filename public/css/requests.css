@@ -13,3 +13,10 @@
 .req-card:hover { box-shadow: var(--shadow); }
 .req-card .cat-ic { width: 44px; height: 44px; }
 .req-card b { font-weight: 500; font-size: 16px; }
+.req-card .pipe { margin-top: 10px; max-width: 360px; }
+.pipe { display: flex; gap: 4px; }
+.pipe i { flex: 1; height: 5px; border-radius: 4px; background: var(--surface-2); }
+.card .pipe i, .req-card .pipe i { background: #fff; }
+.pipe i.on { background: var(--navy); }
+.pipe.bad i.on { background: var(--red); }
+.pipe.done i.on { background: var(--mint); }
