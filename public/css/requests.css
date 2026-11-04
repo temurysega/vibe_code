@@ -41,3 +41,10 @@
 .prefill { background: #fff; border-radius: 14px; padding: 14px 16px; }
 .prefill .kv { grid-template-columns: 120px minmax(0, 1fr); font-size: 14px; gap: 6px 12px; }
 .sticky-side { position: sticky; top: calc(var(--header-h) + 16px); display: flex; flex-direction: column; gap: 16px; }
+.req-detail { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 20px; align-items: start; }
+.stepper { display: flex; flex-direction: column; }
+.stepper-row { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 12px; position: relative; padding-bottom: 18px; }
+.stepper-row:last-child { padding-bottom: 0; }
+.stepper-row::before { content: ''; position: absolute; left: 13px; top: 28px; bottom: 0; width: 2px; background: var(--surface-2); }
+.stepper-row:last-child::before { display: none; }
+.stepper-row.done::before { background: var(--navy); }
