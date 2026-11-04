@@ -54,3 +54,10 @@ export function gameLeft(store, studentId) {
   return Math.max(0, Math.floor((RULES.gameDailySec * 1000 - used) / 1000));
 }
 
+// Титулы открываются за действия, купить их нельзя
+export function titlesOf(s, ctx) {
+  return TITLES.map((t) => Object.assign({}, t, { unlocked: t.id === 'none'
+    || (t.id === 'newbie' && !!s.steps.claimed) || (t.id === 'explorer' && ROOMS.every((r) => s.visited.includes(r.id)))
+    || (t.id === 'focus' && s.pet.sessions >= 10) || (t.id === 'runner' && s.game.best >= 2000) || (t.id === 'excellent' && !!ctx.excellent) }));
+}
+
