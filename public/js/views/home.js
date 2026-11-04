@@ -135,3 +135,13 @@ const sec = {
     </div>`;
   },
 
+  requests() {
+    const list = data.requests;
+    return `<div class="card" data-sec="requests"><div class="card-head"><div class="card-title">Мои заявки</div><a class="link-arrow" href="#/requests">Все ${icon('arrow', 16)}</a></div>
+      ${list.length ? list.map((r) => `<a class="req-mini" href="#/requests/${r.id}">
+        <span class="grow"><span class="req-mini-top"><b>${esc(r.title)}</b>${statusPill(r.status, r.statusLabel)}</span><span class="small muted">№ ${esc(r.number)} · ${esc(when(r.updatedAt))}</span><span style="display:block;margin-top:8px">${pipe(r.steps, r.status)}</span></span></a>`).join('')
+        : '<div class="empty"><span class="emoji">📄</span>Активных заявок нет</div>'}
+      <a class="btn btn-primary btn-block mt-16" href="#/requests/new">${icon('plus', 18)} Новая справка или заявление</a>
+    </div>`;
+  },
+
