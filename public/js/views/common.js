@@ -23,3 +23,18 @@ export function lessonState(it, now = mskNow()) {
   return 'future';
 }
 
+export const KIND_ICON = { lecture: 'people', seminar: 'chat', language: 'globe', practice: 'target', sport: 'bolt', consult: 'question' };
+
+// Что изменилось в паре — коротко для бейджа
+export function changeTag(it) {
+  if (!it.change) return '';
+  const c = it.change;
+  if (c.type === 'cancel') return `${icon('ban', 13)} Отменена`;
+  if (c.type === 'room') return `${icon('pin', 13)} Новая аудитория`;
+  if (c.type === 'teacher') return `${icon('user', 13)} Замена преподавателя`;
+  if (c.type === 'extra') return `${icon('plus', 13)} Дополнительно`;
+  if (c.type === 'move' && it.status === 'moved') return `${icon('route', 13)} Перенесена на ${esc(relDay(c.to.date))}, ${c.to.pair} пара`;
+  if (c.type === 'move') return `${icon('route', 13)} Перенос с ${esc(dayShort(c.from.date))}`;
+  return '';
+}
+
