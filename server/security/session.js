@@ -14,3 +14,17 @@ export function safeEqual(a, b) {
   return x.length === y.length && x.length > 0 && timingSafeEqual(x, y);
 }
 
+// Префикс __Host- запрещает подмену cookie с поддоменов, но требует HTTPS
+export const cookieName = () => (config.cookieSecure ? '__Host-mm_sid' : 'mm_sid');
+
+export function parseCookies(header) {
+  const out = {};
+  String(header || '').split(';').forEach((part) => {
+    const i = part.indexOf('=');
+    if (i < 0) return;
+    const k = part.slice(0, i).trim();
+    if (k && !(k in out)) out[k] = part.slice(i + 1).trim();
+  });
+  return out;
+}
+
