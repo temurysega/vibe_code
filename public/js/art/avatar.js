@@ -312,3 +312,27 @@ function torso(c, sh) {
   return s;
 }
 
+function arms(c, skin, pose) {
+  const t = c.top;
+  const k = topColor(c);
+  const long = LONG.includes(t);
+  const bomber = t === 'mun-bomber' || t === 'focus-jacket';
+  const one = (L) => {
+    const off = bodyOf(c).arm;
+    const x = L ? 49 - off : 134 + off;
+    let g = `<rect x="${x}" y="150" width="17" height="70" rx="8.5" fill="${skin}"/><circle cx="${x + 8.5}" cy="223" r="9.5" fill="${skin}"/>`;
+    if (long) {
+      g += `<rect x="${x - 3}" y="146" width="23" height="68" rx="10.5" fill="${k}"/>`;
+      g += t === 'blazer' || t === 'shirt' || t === 'gown'
+        ? `<rect x="${x - 3}" y="206" width="23" height="8" rx="4" fill="${t === 'shirt' ? lt(k, 0.35) : '#fff'}"/>`
+        : `<rect x="${x - 3}" y="205" width="23" height="9" rx="4.5" fill="${bomber ? GOLD : dk(k, 0.13)}"/>`;
+    } else {
+      g += `<rect x="${x - 3}" y="146" width="23" height="32" rx="10" fill="${k}"/><rect x="${x - 3}" y="172" width="23" height="6" rx="3" fill="${dk(k, 0.1)}"/>`;
+    }
+    const base = L ? `rotate(5 ${57 - off} 152)` : `rotate(-5 ${143 + off} 152)`;
+    const tr = pose[L ? 'armL' : 'armR'];
+    return `<g class="av-arm-${L ? 'l' : 'r'}"${tr ? ` transform="${tr}"` : ''}><g transform="${base}">${g}</g></g>`;
+  };
+  return one(true) + one(false);
+}
+
