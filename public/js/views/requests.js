@@ -161,3 +161,114 @@ function docView(d, grades) {
     </article></div>`;
 }
 
+export default {
+  title: 'Заявки и справки',
+  render(params) {
+    return `<div class="container" data-root>${head('Заявки и справки', 'Закажите справку или подайте заявление — и следите за статусом', params.length ? ['#/requests', 'Мои заявки'] : null)}<div data-body>${skeleton(3, 96)}</div></div>`;
+  },
+  async mount(el, params) {
+    const root = el.querySelector('[data-root]');
+    const box = () => el.querySelector('[data-body]');
+    const fail = (e) => { if (e.status !== 401) box().innerHTML = errorBox(e); };
+    const [a, b] = params;
+    let timer = null;
+    let offNotif = null;
+
+    // Каталог: #/requests/new
+    if (a === 'new' && !b) {
+      try { await loadTypes(); } catch (e) { fail(e); return null; }
+      root.innerHTML = head('Новая заявка', 'Выберите справку или заявление. Данные из профиля подставятся сами', ['#/requests', 'Мои заявки']) + `<div data-body>${catalogView()}</div>`;
+      el.addEventListener('click', (e) => { const t = e.target.closest('[data-type]'); if (t && !t.disabled) location.hash = `#/requests/new/${t.dataset.type}`; });
+      return null;
+    }
+
+    // Форма: #/requests/new/:type
+    if (a === 'new' && b) {
+      let t;
+      try {
+        await loadTypes();
+        if (!me) me = (await get('/api/me')).profile;
+        t = types.find((x) => x.id === b);
+      } catch (e) { fail(e); return null; }
+      if (!t || !t.available) { box().innerHTML = errorBox({ status: 404 }, false); return null; }
+      root.innerHTML = head(esc(t.title), '', ['#/requests/new', 'Все справки и заявления']) + `<div data-body>${formView(t)}</div>`;
+      const form = el.querySelector('[data-form]');
+      form.addEventListener('change', (e) => {
+        if (e.target.name === 'lang') el.querySelectorAll('[data-lang]').forEach((x) => x.classList.toggle('on', x.dataset.lang === e.target.value));
+      });
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('[data-submit]');
+        form.querySelectorAll('.field.invalid').forEach((x) => { x.classList.remove('invalid'); const er = x.querySelector('.field-error'); if (er) er.remove(); });
+        const fields = {};
+        t.fields.forEach((f) => { fields[f.id] = form.elements[f.id].value; });
+        const body = { type: t.id, fields, delivery: form.elements.delivery ? form.elements.delivery.value : t.delivery[0], lang: form.elements.lang ? form.elements.lang.value : (t.langs || ['ru'])[0] };
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spin"></span> Отправляем…';
+        try {
+          const r = await post('/api/requests', body);
+          types = null;
+          fx.confetti({ n: 90 });
+          toast(`Заявка № ${esc(r.request.number)} отправлена — статус придёт уведомлением`, { icon: 'send', ms: 4500 });
+          get('/api/play').then((p) => setPlay(p.play)).catch(() => {});
+          location.hash = `#/requests/${r.request.id}`;
+        } catch (er) {
+          btn.disabled = false;
+          btn.innerHTML = `${icon('send', 18)} Отправить в деканат`;
+          const fe = er.data && er.data.fields;
+          if (fe) {
+            Object.entries(fe).forEach(([k, msg]) => {
+              const f = form.querySelector(`[data-field="${k}"]`);
+              if (f) { f.classList.add('invalid'); f.insertAdjacentHTML('beforeend', `<span class="field-error">${icon('alert', 14)} ${esc(msg)}</span>`); }
+            });
+            const first = form.querySelector('.field.invalid .input');
+            if (first) first.focus();
+          }
+          form.querySelector('[data-form-error]').innerHTML = `<div class="auth-error">${icon('alert', 18)}<span>${esc(er.message)}${er.data && er.data.id ? ` · <a class="link" href="#/requests/${er.data.id}">Открыть заявку</a>` : ''}</span></div>`;
+        }
+      });
+      return null;
+    }
+
+    // Электронная справка: #/requests/:id/doc
+    if (a && b === 'doc') {
+      try {
+        const { document: d } = await get(`/api/requests/${encodeURIComponent(a)}/document`);
+        const grades = d.type === 'transcript' ? await get('/api/grades') : null;
+        root.innerHTML = docView(d, grades);
+        el.querySelector('[data-print]').onclick = () => window.print();
+      } catch (e) { fail(e); }
+      return null;
+    }
+
+    // Карточка заявки: #/requests/:id — сервер вернёт 404 для чужой
+    if (a && a !== 'all') {
+      const load = async () => {
+        try {
+          const { request: r } = await get(`/api/requests/${encodeURIComponent(a)}`);
+          root.innerHTML = head(esc(r.title), '', ['#/requests', 'Мои заявки']) + `<div data-body>${detailView(r)}</div>`;
+          if (['issued', 'approved', 'rejected', 'cancelled'].includes(r.status) || (r.status === 'ready' && r.delivery !== 'paper')) { clearInterval(timer); timer = null; }
+        } catch (e) { clearInterval(timer); timer = null; fail(e); }
+      };
+      await load();
+      timer = setInterval(load, 8000);
+      offNotif = on('notif', (n) => { if (n.kind === 'request') load(); });
+      el.addEventListener('click', async (e) => {
+        if (!e.target.closest('[data-cancel]')) return;
+        const ok = await confirm({ title: 'Отменить заявку?', text: 'Её ещё не взяли в работу — отмена бесплатна и мгновенна', yes: 'Отменить заявку', no: 'Оставить', danger: true });
+        if (!ok) return;
+        try { await post(`/api/requests/${encodeURIComponent(a)}/cancel`, {}); toast('Заявка отменена', { icon: 'undo' }); load(); } catch (er) { toast(esc(er.message), { icon: 'alert' }); }
+      });
+      return () => { clearInterval(timer); if (offNotif) offNotif(); };
+    }
+
+    // Список: #/requests и #/requests/all
+    const load = async () => {
+      try { const { requests } = await get('/api/requests'); box().innerHTML = listView(requests, a); } catch (e) { fail(e); }
+    };
+    await load();
+    timer = setInterval(load, 15000);
+    offNotif = on('notif', (n) => { if (n.kind === 'request') load(); });
+    return () => { clearInterval(timer); offNotif(); };
+  },
+};
