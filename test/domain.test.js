@@ -28,3 +28,11 @@ test('100-балльная шкала', () => {
   assert.equal(verdictOf(48, 'exam').passed, false);
 });
 
+test('хеширование паролей и требования к новому паролю', async () => {
+  const h = await hashPassword('Секрет-12345');
+  assert.ok(await verifyPassword('Секрет-12345', h));
+  assert.ok(!(await verifyPassword('секрет-12345', h)));
+  assert.ok(passwordProblems('short').length > 0);
+  assert.equal(passwordProblems('Длинный-пароль-2026', 'a.morozova').length, 0);
+});
+
