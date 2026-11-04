@@ -53,3 +53,16 @@ export function createSession(store, userId, meta) {
   return { token, csrf };
 }
 
+export function loadSession(store, token) {
+  if (!token || token.length > 128) return null;
+  const s = store.get('SELECT * FROM sessions WHERE id = ?', sha256(token));
+  if (!s) return null;
+  const now = Date.now();
+  if (s.expires_at < now || now - s.last_seen > config.sessionIdleHours * HOUR) {
+    store.run('DELETE FROM sessions WHERE id = ?', s.id);
+    return null;
+  }
+  if (now - s.last_seen > 60e3) store.run('UPDATE sessions SET last_seen = ? WHERE id = ?', now, s.id);
+  return s;
+}
+
