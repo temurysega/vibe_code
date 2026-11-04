@@ -40,3 +40,71 @@ function accounts(demo) {
     <div class="demo-hint">${icon('key', 15)} Пароль всех демо-аккаунтов: <code>${esc(demo.password)}</code></div>`;
 }
 
+export default {
+  title: 'Вход',
+  render() {
+    return `<div class="auth">${hero()}
+      <section class="auth-panel"><div class="auth-card">
+        <div class="auth-mark">${logoMark()}${wordmark(false)}</div>
+        <h2 class="h2 mt-24">Вход в кабинет</h2>
+        <form class="auth-form" data-form novalidate>
+          <div data-error></div>
+          <label class="field"><span class="field-label">Логин</span><input class="input" name="login" autocomplete="username" autocapitalize="none" spellcheck="false" required placeholder="Например, a.morozova"></label>
+          <label class="field"><span class="field-label">Пароль</span><span class="pass-wrap"><input class="input" name="password" type="password" autocomplete="current-password" required><button class="pass-eye" type="button" data-eye aria-label="Показать пароль">${icon('eye', 20)}</button></span></label>
+          <button class="btn btn-primary btn-lg btn-block" type="submit" data-submit>Войти</button>
+        </form>
+        <div data-demo></div>
+        <p class="auth-foot"><b>Концепт для конкурса, не официальный сервис МГИМО.</b> Не вводите здесь настоящий логин и пароль от вуза — подойдут только демо-аккаунты. Пароли хранятся в виде хеша, данные вымышлены.</p>
+      </div></section></div>`;
+  },
+  mount(el, params, app) {
+    const form = el.querySelector('[data-form]');
+    const errBox = el.querySelector('[data-error]');
+    const btn = el.querySelector('[data-submit]');
+    get('/api/demo/accounts').then((d) => { session.demo = d; el.querySelector('[data-demo]').innerHTML = accounts(d); }).catch(() => {});
+
+    async function submit() {
+      const login = form.login.value.trim();
+      const password = form.password.value;
+      errBox.innerHTML = '';
+      if (!login || !password) {
+        errBox.innerHTML = `<div class="auth-error">${icon('info', 18)}<span>Введите логин и пароль</span></div>`;
+        (login ? form.password : form.login).focus();
+        return;
+      }
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spin"></span> Проверяем…';
+      try {
+        const r = await post('/api/auth/login', { login, password });
+        setCsrf(r.csrf);
+        await app.signedIn(r.user);
+      } catch (e) {
+        errBox.innerHTML = `<div class="auth-error">${icon(e.status === 429 ? 'clock' : 'alert', 18)}<span>${esc(e.message)}</span></div>`;
+        form.password.value = '';
+        form.password.focus();
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Войти';
+      }
+    }
+
+    form.addEventListener('submit', (e) => { e.preventDefault(); submit(); });
+    el.addEventListener('click', (e) => {
+      const eye = e.target.closest('[data-eye]');
+      if (eye) {
+        const show = form.password.type === 'password';
+        form.password.type = show ? 'text' : 'password';
+        eye.innerHTML = icon(show ? 'eyeOff' : 'eye', 20);
+        eye.setAttribute('aria-label', show ? 'Скрыть пароль' : 'Показать пароль');
+        return;
+      }
+      const a = e.target.closest('[data-login]');
+      if (a && session.demo) {
+        form.login.value = a.dataset.login;
+        form.password.value = session.demo.password;
+        submit();
+      }
+    });
+    setTimeout(() => { if (matchMedia('(hover: hover)').matches) form.login.focus(); }, 50);
+  },
+};
