@@ -65,3 +65,17 @@ test('профиль и оценки — только свои', async () => {
   assert.equal((await c.req('GET', '/api/students/1')).status, 404);
 });
 
+test('деканат видит только свой факультет, студент не видит деканат', async () => {
+  const dean = client(app.base);
+  await dean.login('dekanat.mo');
+  const list = (await dean.req('GET', '/api/dean/requests?status=all')).data.requests;
+  assert.ok(list.length > 0);
+  assert.ok(list.every((r) => r.student.group.startsWith('МО-')));
+  const ksenia = client(app.base);
+  await ksenia.login('k.lebedeva');
+  const kReq = (await ksenia.req('GET', '/api/requests')).data.requests[0];
+  assert.equal((await dean.req('PATCH', `/api/dean/requests/${kReq.id}`, { status: 'in_work' })).status, 404);
+  assert.equal((await ksenia.req('GET', '/api/dean/requests')).status, 403);
+  assert.equal((await dean.req('GET', '/api/home')).status, 403);
+});
+
