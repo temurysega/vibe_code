@@ -19,3 +19,13 @@ export function profileOf(s) {
   };
 }
 
+// Сессия без троек и долгов открывает знаки «за учёбу»
+export function playCtx(store, s) {
+  const last = store.get("SELECT MAX(semester) AS m FROM enrollments WHERE student_id = ? AND status != 'current'", s.id).m;
+  const rows = last ? store.all('SELECT e.final_points, e.status, d.control FROM enrollments e JOIN disciplines d ON d.id = e.discipline_id WHERE e.student_id = ? AND e.semester = ?', s.id, last) : [];
+  const debts = store.get("SELECT COUNT(*) AS c FROM enrollments WHERE student_id = ? AND status = 'debt'", s.id).c;
+  const excellent = !!rows.length && !debts && rows.every((r) => (r.control === 'credit' ? r.final_points >= 60 : r.final_points >= 75));
+  const hasRequest = !!store.get("SELECT 1 AS x FROM requests WHERE student_id = ? AND type != 'merch' LIMIT 1", s.id);
+  return { excellent, hasRequest, newcomer: s.semester === 1 };
+}
+
