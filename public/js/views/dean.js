@@ -72,3 +72,11 @@ async function loadPairs(el) {
   } catch (e) { box.innerHTML = `<span class="small muted">${esc(e.message)}</span>`; }
 }
 
+async function audit() {
+  try {
+    const { log } = await get('/api/dean/audit');
+    const L = { login: 'Вход', logout: 'Выход', request_in_work: 'Взята в работу', request_ready: 'Справка готова', request_approved: 'Одобрено', request_rejected: 'Отклонено', request_issued: 'Выдано', announcement: 'Объявление', schedule_cancel: 'Отмена пары', schedule_room: 'Смена аудитории', password_change_demo: 'Проверка пароля (демо)' };
+    return `<div class="card"><div class="card-title">Журнал действий</div><div class="card-sub">Каждое решение сохраняется: кто, что и когда</div><div class="list mt-12">${log.map((x) => `<div class="list-item small"><span class="muted" style="min-width:120px">${esc(stamp(x.created_at))}</span><b style="font-weight:500">${esc(L[x.action] || x.action)}</b><span class="muted">${esc(x.target || '')}</span></div>`).join('') || '<div class="empty">Пока пусто</div>'}</div></div>`;
+  } catch (e) { return errorBox(e); }
+}
+
