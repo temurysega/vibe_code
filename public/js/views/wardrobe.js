@@ -27,3 +27,20 @@ function tagOf(st) {
   return '';
 }
 
+function tiles(slot) {
+  const list = ITEMS.filter((i) => i.slot === slot);
+  return `<div class="items">${list.map((it) => {
+    const st = itemState(it, play(), ctx());
+    const on = (PROFILE_SLOTS.some(([s]) => s === slot) ? prof[slot] : draft[slot]) === it.id;
+    let pic;
+    if (slot === 'pet') pic = it.id === 'none' ? '<span class="emoji">🚫</span>' : petSvg(it.id, it.colors ? (draft.pet === it.id ? draft.petColor : it.colors[0]) : '');
+    else if (slot === 'backdrop') pic = backdrop(it.id, prof.pattern, { w: 120, h: 120, cy: 60, r0: 10, dense: false });
+    else if (slot === 'pattern') pic = backdrop(prof.backdrop, it.id, { w: 120, h: 120, cy: 60, r0: 4 });
+    else if (slot === 'frame') pic = `<span class="ava-w f-${it.id}" style="--s:84px"><span class="ava" style="--ab1:${BACKDROPS[prof.backdrop].c1};--ab2:${BACKDROPS[prof.backdrop].c2}">${avatarSvg(draft, { view: 'bust' })}</span></span>`;
+    else pic = itemPreview(slot, it.id, it.colors ? (draft[slot] === it.id ? draft[slot + 'Color'] : it.colors[0]) : null, draft);
+    return `<button class="item ${on ? 'on' : ''} ${st.owned ? '' : 'locked'}" data-item="${slot}:${it.id}" ${st.hint ? `data-tip="${esc(st.hint)}"` : ''}>
+      ${!st.owned && st.kind === 'locked' ? `<span class="lock">${icon('lock', 13)}</span>` : st.kind === 'owned' ? `<span class="owned-mark">${icon('check', 12, 2.6)}</span>` : ''}
+      <span class="item-pic">${pic}</span><span class="item-name">${esc(it.name)}</span><span class="item-tag">${tagOf(st)}</span></button>`;
+  }).join('')}</div>`;
+}
+
