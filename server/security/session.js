@@ -78,3 +78,10 @@ export function deviceName(ua) {
   return `${br} · ${os}`;
 }
 
+// IP скрывается наполовину: в кабинете видно, откуда вход, но адрес целиком не раскрывается
+export function maskIp(ip) {
+  ip = String(ip || '').replace(/^::ffff:/, '');
+  if (/^\d+\.\d+\.\d+\.\d+$/.test(ip)) return ip.split('.').slice(0, 2).join('.') + '.*.*';
+  if (ip.includes(':')) return ip.split(':').slice(0, 2).join(':') + ':…';
+  return ip || '—';
+}
