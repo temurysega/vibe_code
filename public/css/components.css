@@ -42,3 +42,12 @@
 .btn-icon { width: 48px; padding: 0; }
 .btn-sm.btn-icon { width: 36px; }
 .btn .spin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: spinSlow .7s linear infinite; }
+
+/* ---------- Чипы, бейджи ---------- */
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { height: 36px; padding: 0 16px; border-radius: var(--pill); background: var(--surface); border: 0; cursor: pointer; font-size: 15px; display: inline-flex; align-items: center; gap: 6px; transition: background .15s; white-space: nowrap; }
+.chip:hover { background: var(--surface-2); }
+.chip.on { background: var(--navy); color: #fff; }
+.card .chip { background: #fff; }
+.card .chip.on { background: var(--navy); color: #fff; }
+.chip .cdot { width: 8px; height: 8px; border-radius: 50%; }
