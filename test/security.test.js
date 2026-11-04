@@ -134,3 +134,14 @@ test('закрытую вещь нельзя надеть через API', async
   assert.equal(r.status, 403);
 });
 
+test('ключ ИИ не уходит в браузер', async () => {
+  const c = client(app.base);
+  await c.login('a.morozova');
+  const r = await c.req('POST', '/api/assistant', { message: 'Где у меня завтра пары?' });
+  assert.equal(r.status, 200);
+  assert.ok(r.data.text.length > 0);
+  assert.ok(!JSON.stringify(r.data).includes('sk-ant'));
+  const demo = await fetch(app.base + '/api/demo/accounts').then((x) => x.json());
+  assert.equal(typeof demo.ai, 'boolean');
+  assert.ok(!JSON.stringify(demo).toLowerCase().includes('api_key'));
+});
