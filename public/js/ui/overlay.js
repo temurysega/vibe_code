@@ -106,3 +106,24 @@ export function toast(html, opt = {}) {
   t.addEventListener('click', (e) => { if (e.target.closest('a')) { clearTimeout(timer); hide(); } });
 }
 
+// ---------- подсказки ----------
+const tip = () => document.getElementById('tooltip');
+document.addEventListener('mouseover', (e) => {
+  const el = e.target.closest && e.target.closest('[data-tip]');
+  const t = tip();
+  if (!t) return;
+  if (!el) { t.hidden = true; return; }
+  t.innerHTML = el.getAttribute('data-tip');
+  t.hidden = false;
+});
+document.addEventListener('mousemove', (e) => {
+  const t = tip();
+  if (!t || t.hidden) return;
+  const w = t.offsetWidth, h = t.offsetHeight;
+  let x = e.clientX + 14, y = e.clientY - h - 12;
+  if (x + w > window.innerWidth - 8) x = e.clientX - w - 14;
+  if (y < 8) y = e.clientY + 18;
+  t.style.left = x + 'px';
+  t.style.top = y + 'px';
+});
+document.addEventListener('focusout', () => { const t = tip(); if (t) t.hidden = true; });
