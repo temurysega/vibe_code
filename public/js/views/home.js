@@ -145,3 +145,11 @@ const sec = {
     </div>`;
   },
 
+  changes() {
+    const list = data.changes;
+    return `<div class="card" data-sec="changes"><div class="card-head"><div><div class="card-title">Изменения расписания</div><div class="card-sub">Переносы, отмены и новые аудитории на две недели</div></div></div>
+      ${list.length ? list.map((it) => { const c = changeLine(it); return `<a class="chg" href="#/schedule"><span class="chg-ic ${c.cls}">${icon(c.icon, 18)}</span><span class="grow"><b>${c.title}</b>${c.sub ? `<span class="small muted" style="display:block">${esc(c.sub)}</span>` : ''}</span></a>`; }).join('')
+        : '<div class="empty"><span class="emoji">✅</span>Изменений нет — всё по плану</div>'}
+    </div>`;
+  },
+
