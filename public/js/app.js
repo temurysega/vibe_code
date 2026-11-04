@@ -143,3 +143,29 @@ async function go() {
   cleanup = typeof c === 'function' ? c : null;
 }
 
+// ---------- живые уведомления ----------
+let poll = null;
+let lastId = null;
+function startPolling() {
+  stopPolling();
+  lastId = null;
+  const tick = async () => {
+    if (document.hidden || !isStudent()) return;
+    try {
+      const r = await get('/api/notifications/count');
+      setUnread(r.unread);
+      if (r.latest) {
+        if (lastId != null && r.latest.id > lastId && !r.latest.read) {
+          toast(`${esc(r.latest.title)}${r.latest.link ? ` <a href="${esc(r.latest.link)}">Открыть</a>` : ''}`, { icon: 'bell', ms: 6000 });
+          emit('notif', r.latest);
+        }
+        lastId = Math.max(lastId || 0, r.latest.id);
+      }
+    } catch (e) { /* следующая попытка через 15 секунд */ }
+  };
+  tick();
+  poll = setInterval(tick, 15e3);
+}
+function stopPolling() { if (poll) clearInterval(poll); poll = null; }
+document.addEventListener('visibilitychange', () => { if (!document.hidden && poll) get('/api/notifications/count').then((r) => setUnread(r.unread)).catch(() => {}); });
+
