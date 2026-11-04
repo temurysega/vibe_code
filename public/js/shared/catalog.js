@@ -103,3 +103,20 @@ export const ITEMS = [
   I('route', 'frame', 'Исследователь', 'routeAll'),
 ];
 
+export const SLOTS = [
+  ['top', 'Верх'], ['bottom', 'Низ'], ['shoes', 'Обувь'], ['hat', 'Головной убор'], ['glasses', 'Очки'], ['extra', 'Аксессуар'], ['pet', 'Питомец'],
+];
+export const PROFILE_SLOTS = [['backdrop', 'Фон'], ['pattern', 'Узор'], ['frame', 'Рамка']];
+
+export const EMOJIS = ['📚', '🌍', '☕', '🎯', '🧠', '🗺️', '✈️', '🎓', '⚖️', '📈', '🎧', '🌿', '🏆', '⭐', '🐾', '💡', '🗣️', '🎨', '🌙', '⚡'];
+
+// Зоны кампуса: каждая ведёт в рабочий раздел кабинета
+export const ROOMS = [
+  { id: 'cloakroom', name: 'Гардероб', floor: 0, side: 'l', icon: 'hanger', desc: 'Переодеть аватар и выбрать питомца', link: '#/wardrobe' },
+  { id: 'dean', name: 'Деканат', floor: 0, side: 'r', icon: 'doc', desc: 'Справки и заявления онлайн, статус — в кабинете', link: '#/requests' },
+  { id: 'classroom', name: 'Аудитория', floor: 1, side: 'l', icon: 'calendar', desc: 'Расписание, переносы и оценки', link: '#/schedule' },
+  { id: 'library', name: 'Библиотека', floor: 1, side: 'r', icon: 'book', desc: 'Тихий час: 25 минут учёбы вместе с питомцем', link: '#/home' },
+  { id: 'clubs', name: 'Студклубы', floor: 2, side: 'l', icon: 'people', desc: 'Модель ООН, дебаты, спорт и волонтёры', link: '#/notifications' },
+  { id: 'shop', name: 'Лавка МГИМО', floor: 2, side: 'r', icon: 'bag', desc: 'Мерч и вещи для аватара за М-коины', link: '#/shop' },
+];
+
