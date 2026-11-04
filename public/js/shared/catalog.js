@@ -159,3 +159,36 @@ export const RULES = {
   growth: { visit: 1, focus: 3, request: 1, steps: 3, game: 1 },
 };
 
+export const itemOf = (slot, id) => ITEMS.find((i) => i.slot === slot && i.id === id) || null;
+export const keyOf = (it) => it.slot + ':' + it.id;
+
+const roomName = (id) => (ROOMS.find((r) => r.id === id) || {}).name;
+
+// Статус вещи для витрины и для проверки на сервере. ctx.excellent — сессия без троек и долгов
+export function itemState(it, s, ctx) {
+  if (!it) return { owned: false, kind: 'locked', label: '' };
+  const n = ROOMS.length;
+  const visited = s.visited || [];
+  switch (it.src) {
+    case 'base': return { owned: true, kind: 'free', label: 'Бесплатно' };
+    case 'digital':
+      return (s.owned || []).includes(keyOf(it)) ? { owned: true, kind: 'owned', label: 'Куплено' } : { owned: false, kind: 'buy', price: it.price, label: 'Только для аватара' };
+    case 'kit': {
+      const kit = KITS.find((k) => k.id === it.kit);
+      return (s.owned || []).includes(keyOf(it)) ? { owned: true, kind: 'owned', label: 'С реальной вещью' } : { owned: false, kind: 'kit', price: kit.price, label: 'Мерч из Лавки', kit };
+    }
+    case 'route':
+      return visited.includes(it.zone) ? { owned: true, kind: 'free', label: 'Маршрут кампуса' } : { owned: false, kind: 'locked', label: 'Маршрут кампуса', hint: `Загляните в зону «${roomName(it.zone)}» на кампусе` };
+    case 'routeAll':
+      return ROOMS.every((r) => visited.includes(r.id)) ? { owned: true, kind: 'free', label: 'Весь маршрут' } : { owned: false, kind: 'locked', label: `Маршрут ${visited.length}/${n}`, hint: `Пройдите все ${n} зон кампуса — открыто ${visited.length}` };
+    case 'game':
+      return (s.game && s.game.best >= it.need) ? { owned: true, kind: 'free', label: `Забег ${it.need}` } : { owned: false, kind: 'locked', label: `Забег ${it.need}`, hint: `Наберите ${it.need.toLocaleString('ru-RU')} очков в забеге «Бегом на пару»` };
+    case 'focus':
+      return (s.pet && s.pet.sessions >= it.need) ? { owned: true, kind: 'free', label: `${it.need} фокус-сессий` } : { owned: false, kind: 'locked', label: `${it.need} фокус-сессий`, hint: `Позанимайтесь с питомцем ${it.need} раз по 25 минут — сейчас ${(s.pet && s.pet.sessions) || 0}` };
+    case 'steps':
+      return (s.steps && s.steps.claimed) ? { owned: true, kind: 'free', label: 'Первые шаги' } : { owned: false, kind: 'locked', label: 'Первые шаги', hint: 'Пройдите чек-лист «Первые шаги» на главной' };
+    case 'grade':
+      return ctx && ctx.excellent ? { owned: true, kind: 'free', label: 'За учёбу' } : { owned: false, kind: 'locked', label: 'За учёбу', hint: `${it.how}. Знак за учёбу нельзя купить` };
+    default: return { owned: false, kind: 'locked', label: '' };
+  }
+}
