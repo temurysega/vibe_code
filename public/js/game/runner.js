@@ -28,3 +28,12 @@ function rr(c, x, y, w, h, r) {
   c.closePath();
 }
 
+// Типы препятствий: low — перепрыгнуть, high — проскочить подкатом, block — только сменить дорожку
+const KINDS = {
+  bench: { type: 'low', w: 0.9, h: 0.34 },
+  wet: { type: 'low', w: 0.55, h: 0.55 },
+  banner: { type: 'high', w: 1, h: 0.3, lift: 0.78 },
+  cart: { type: 'block', w: 0.86, h: 0.95 },
+  deadline: { type: 'block', w: 0.8, h: 1.35 },
+};
+
