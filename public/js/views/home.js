@@ -55,3 +55,24 @@ const sec = {
       </div></div>`;
   },
 
+  next() {
+    const n = data.next;
+    if (!n) return `<div class="next-card" data-sec="next"><span class="eyebrow">Ближайшая пара</span><div class="next-title">Пар в ближайшие дни нет</div><p style="color:rgba(255,255,255,.8)">Отдыхайте — или загляните в библиотеку кампуса</p></div>`;
+    const now = mskNow();
+    const live = n.date === now.date && toMin(n.start) <= now.minutes && toMin(n.end) > now.minutes;
+    const count = live
+      ? `<span class="live-dot"></span> Идёт сейчас · до конца <b>${toMin(n.end) - now.minutes} мин</b>`
+      : n.date === now.date ? `${icon('clock', 16)} Начнётся <b>${inMinutes(toMin(n.start) - now.minutes)}</b>`
+        : `${icon('calendar', 16)} <b>${esc(relDay(n.date).replace(/^./, (c) => c.toUpperCase()))}</b> в ${n.start}`;
+    const ch = n.change;
+    const chText = ch ? (ch.type === 'room' ? `Аудитория изменена: была ${esc(ch.from)}. ${esc(ch.reason || '')}` : ch.type === 'teacher' ? `Замена преподавателя. ${esc(ch.reason || '')}` : ch.type === 'move' ? `Пара перенесена сюда с другого дня. ${esc(ch.reason || '')}` : ch.type === 'extra' ? `Дополнительное занятие. ${esc(ch.reason || '')}` : '') : '';
+    return `<div class="next-card" data-sec="next">
+      <span class="eyebrow">${live ? 'Сейчас идёт' : 'Ближайшая пара'} · ${n.pair} пара</span>
+      <div class="next-title">${esc(n.discipline)}</div>
+      <div class="next-meta"><span>${icon('clock', 15)} ${n.start}–${n.end}</span><span class="hl">${icon('pin', 15)} ауд. ${esc(n.room)}${n.place ? ' · ' + esc(n.place) : ''}</span>${n.teacher ? `<span>${icon('user', 15)} ${esc(n.teacher.short)}</span>` : ''}<span>${esc(n.kindLabel)}</span></div>
+      <div class="next-count">${count}</div>
+      ${chText ? `<div class="next-change">${icon('alert', 16)}<span>${chText}</span></div>` : ''}
+      <a class="btn btn-light btn-sm" href="#/schedule">Расписание на неделю ${icon('arrow', 16)}</a>
+    </div>`;
+  },
+
