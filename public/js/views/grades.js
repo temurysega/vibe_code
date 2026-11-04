@@ -79,3 +79,19 @@ function sessionTab() {
     </div></div>`;
 }
 
+// Средний балл по семестрам — простой линейный график
+function chart(hist) {
+  const pts = hist.filter((h) => h.avg != null);
+  if (pts.length < 2) return '';
+  const W = 640, H = 200, L = 40, R = 20, T = 20, B = 30;
+  const x = (i) => L + ((W - L - R) * i) / (pts.length - 1);
+  const y = (v) => T + (H - T - B) * (1 - (v - 3) / 2);
+  const path = pts.map((p, i) => `${x(i)},${y(p.avg)}`).join(' ');
+  return `<div class="chart mt-16"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Средний балл по семестрам">
+    ${[3, 4, 5].map((v) => `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="#E4E6E9"/><text x="${L - 10}" y="${y(v) + 4}" text-anchor="end" font-size="12" fill="#6B7280">${v}</text>`).join('')}
+    <polygon points="${x(0)},${y(3)} ${path} ${x(pts.length - 1)},${y(3)}" fill="#0F2D69" opacity=".08"/>
+    <polyline points="${path}" fill="none" stroke="#0F2D69" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    ${pts.map((p, i) => `<circle cx="${x(i)}" cy="${y(p.avg)}" r="5" fill="#C9A646" stroke="#fff" stroke-width="2"/><text x="${x(i)}" y="${y(p.avg) - 12}" text-anchor="middle" font-size="12" font-weight="600" fill="#1B1F2A">${num(p.avg, 2)}</text><text x="${x(i)}" y="${H - 8}" text-anchor="middle" font-size="12" fill="#6B7280">${p.semester} сем.</text>`).join('')}
+  </svg></div>`;
+}
+
