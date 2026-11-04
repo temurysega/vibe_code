@@ -155,3 +155,16 @@ export function ruleAnswer(snap, question) {
   };
 }
 
+// ---------- ответ Claude ----------
+let client = null;
+let sdk = null;
+async function claude() {
+  if (!config.anthropicKey) return null;
+  if (!client) {
+    // SDK подгружается только когда задан ключ: без него сервер работает без внешних пакетов
+    sdk = (await import('@anthropic-ai/sdk')).default;
+    client = new sdk({ apiKey: config.anthropicKey, timeout: 30_000, maxRetries: 1 });
+  }
+  return client;
+}
+
