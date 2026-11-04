@@ -127,3 +127,12 @@ export const KITS = [
   { id: 'kit-hoodie', name: 'Худи МГИМО', price: 2500, twin: 'top:mgimo-hoodie', sizes: ['XS', 'S', 'M', 'L', 'XL'], desc: 'Тёплое худи с вышивкой и его цифровой двойник', stock: 6 },
 ];
 
+export const TITLES = [
+  { id: 'none', name: 'Без титула' },
+  { id: 'newbie', name: 'Свой человек в МГИМО', how: 'Пройти «Первые шаги»' },
+  { id: 'explorer', name: 'Знаток кампуса', how: 'Пройти все зоны кампуса' },
+  { id: 'focus', name: 'Мастер фокуса', how: '10 фокус-сессий' },
+  { id: 'runner', name: 'Всегда вовремя', how: 'Рекорд забега от 2 000' },
+  { id: 'excellent', name: 'Отличник', how: 'Сессия без троек и долгов' },
+];
+
