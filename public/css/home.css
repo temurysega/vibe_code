@@ -84,3 +84,13 @@
 .chg-ic.extra { background: var(--good-2); color: var(--good); }
 .chg-ic.room, .chg-ic.teacher { background: var(--blue-2); color: var(--blue-ink); }
 .chg b { font-weight: 500; }
+
+/* Питомец, кампус, игра */
+.pet-card { display: flex; flex-direction: column; }
+.pet-stage { position: relative; height: 150px; display: grid; place-items: end center; cursor: pointer; }
+.pet-stage svg { width: 150px; height: 125px; }
+/* Центрирование без transform: анимация появления сама управляет transform */
+.pet-bubble { position: absolute; top: 0; left: 0; right: 0; margin: 0 auto; width: fit-content; max-width: 92%; background: #fff; border-radius: 14px; padding: 8px 12px; font-size: 13px; line-height: 1.35; box-shadow: 0 4px 14px rgba(15, 45, 105, .08); text-align: center; animation: popIn .25s ease both; }
+.pet-bubble::after { content: ''; position: absolute; bottom: -6px; left: 50%; margin-left: -6px; border: 6px solid transparent; border-bottom: 0; border-top-color: #fff; }
+.focus-on { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 14px; padding: 10px 12px; }
+.focus-on .tnum { font-size: 22px; font-weight: 500; }
