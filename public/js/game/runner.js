@@ -255,3 +255,18 @@ export class Runner {
     }
   }
 
+  async over(reason) {
+    if (this.state !== 'run') return;
+    this.state = 'over';
+    cancelAnimationFrame(this.raf);
+    this.draw();
+    const score = Math.floor(this.score);
+    this.show('saving', score);
+    if (reason === 'hit') this.wrap.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-6px)' }, { transform: 'translateX(5px)' }, { transform: 'translateX(0)' }], { duration: 300 });
+    let res = null;
+    try { res = await this.opt.onFinish(this.runId, score, this.coins, reason); } catch (e) { res = null; }
+    if (this.state === 'dead') return;
+    if (res) { this.best = Math.max(this.best, res.best || 0); this.left = res.left; }
+    this.show('over', score, res, reason);
+  }
+
