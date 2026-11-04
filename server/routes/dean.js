@@ -20,3 +20,18 @@ function scoped(ctx, id) {
   return r;
 }
 
+const withStudent = (store, r, fac) => Object.assign(publicRequest(store, r, fac), {
+  student: { name: `${r.last_name} ${r.first_name} ${r.middle_name || ''}`.trim(), group: r.group_code },
+});
+
+// Какие решения доступны на текущем шаге
+function actionsFor(r) {
+  const t = typeOf(r.type);
+  const group = t ? t.group : 'app';
+  const out = [];
+  if (r.status === 'submitted') out.push('in_work', 'rejected');
+  if (r.status === 'in_work') out.push(...(group === 'cert' ? ['ready'] : ['approved']), 'rejected');
+  if (r.status === 'ready' && r.delivery === 'paper') out.push('issued');
+  return out;
+}
+
