@@ -67,3 +67,11 @@
 .emoji-btn.on { box-shadow: inset 0 0 0 2.5px var(--navy); }
 .try-note { display: flex; align-items: center; gap: 10px; background: #fff; border-radius: 14px; padding: 12px 14px; font-size: 14px; margin-top: 12px; }
 
+/* ---------- Кампус ---------- */
+.campus-card { padding: 0; overflow: hidden; background: #EAF1FF; }
+.campus-stage { position: relative; }
+.campus-svg { width: 100%; height: auto; display: block; user-select: none; -webkit-user-select: none; touch-action: manipulation; cursor: pointer; }
+.campus-svg .npc .av-body { animation-delay: var(--d, 0s); }
+.campus-svg .hot { cursor: pointer; }
+.campus-svg .hot .hot-glow { opacity: 0; transition: opacity .2s; }
+.campus-svg .hot:hover .hot-glow, .campus-svg .hot.near .hot-glow { opacity: 1; }
