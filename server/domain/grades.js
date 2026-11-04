@@ -11,3 +11,12 @@ export const SCALE = [
 ];
 export const CONTROL = { exam: 'Экзамен', credit: 'Зачёт', graded: 'Зачёт с оценкой' };
 
+export const gradeOf = (points) => SCALE.find((s) => points >= s.min);
+
+// Итог по дисциплине в словах: для зачёта — «зачтено», для экзамена — оценка
+export function verdictOf(points, control) {
+  const g = gradeOf(points);
+  if (control === 'credit') return { passed: points >= 60, label: points >= 60 ? 'зачтено' : 'не зачтено', letter: g.letter, grade: null };
+  return { passed: points >= 60, label: g.word, letter: g.letter, grade: g.grade };
+}
+
