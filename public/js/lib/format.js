@@ -24,3 +24,11 @@ const noon = (d) => new Date(d + 'T12:00:00Z');
 export const addDays = (d, n) => new Date(noon(d).getTime() + n * 864e5).toISOString().slice(0, 10);
 export const daysBetween = (a, b) => Math.round((noon(b) - noon(a)) / 864e5);
 
+const fmtDay = (d, o) => noon(d).toLocaleDateString('ru-RU', Object.assign({ timeZone: 'UTC' }, o));
+export const dayLabel = (d) => fmtDay(d, { weekday: 'long', day: 'numeric', month: 'long' });
+export const dayShort = (d) => fmtDay(d, { weekday: 'short', day: 'numeric', month: 'long' });
+export const dateNum = (d) => fmtDay(d, { day: 'numeric' });
+export const monthShort = (d) => fmtDay(d, { month: 'short' }).replace('.', '');
+export const weekdayShort = (d) => fmtDay(d, { weekday: 'short' });
+export const dateLong = (d) => fmtDay(d, { day: 'numeric', month: 'long', year: 'numeric' });
+
