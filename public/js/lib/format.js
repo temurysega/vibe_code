@@ -53,3 +53,15 @@ export function dueLabel(t) {
   return `${r === 'сегодня' || r === 'завтра' ? r : r.length < 12 ? 'в ' + r : r}, ${timeOf(t)}`;
 }
 
+export function when(t) {
+  const m = Math.floor((Date.now() - t) / 6e4);
+  if (m < 1) return 'только что';
+  if (m < 60) return `${m} ${plural(m, ['минуту', 'минуты', 'минут'])} назад`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h} ${plural(h, ['час', 'часа', 'часов'])} назад`;
+  const d = Math.floor(h / 24);
+  if (d === 1) return 'вчера';
+  if (d < 7) return `${d} ${plural(d, ['день', 'дня', 'дней'])} назад`;
+  return new Date(t).toLocaleDateString('ru-RU', { timeZone: MSK, day: 'numeric', month: 'long' });
+}
+
