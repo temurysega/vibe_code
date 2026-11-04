@@ -161,3 +161,25 @@ const sec = {
     </div>`;
   },
 
+  look() {
+    const p = session.play;
+    const title = p.titles.find((t) => t.id === p.prof.title && t.id !== 'none');
+    return `<div class="card hero-profile" data-sec="look">
+      <a class="hero-look" href="#/wardrobe" aria-label="Изменить образ">
+        <div class="tg-bg">${backdrop(p.prof.backdrop, p.prof.pattern, { w: 240, h: 320, cy: 140, r0: 64 })}</div>
+        <div class="hero-av">${avatarSvg(p.av, { view: 'full' })}</div>
+        ${p.av.pet && p.av.pet !== 'none' ? `<div class="hero-pet">${petSvg(p.av.pet, p.av.petColor)}</div>` : ''}
+        ${p.prof.emoji ? `<span class="hero-emoji">${p.prof.emoji}</span>` : ''}
+        <span class="hero-edit">${icon('edit', 14)} Образ</span>
+      </a>
+      <div class="hero-info">
+        <div><div class="h3">${esc(session.user.name)}</div><div class="muted small mt-4">${esc(session.user.faculty)} · ${session.user.course} курс · ${esc(session.user.group)}</div>${title ? `<span class="badge badge-gold mt-8">${icon('star', 12)} ${esc(title.name)}</span>` : ''}</div>
+        <div class="stat-row">
+          <a class="stat" href="#/shop"><div class="stat-v tnum">${coin(22)}${fmt(p.coins)}</div><div class="stat-l">М-коинов</div></a>
+          <a class="stat" href="#/campus"><div class="stat-v">${p.visited.length}<span class="small muted" style="font-weight:400">/${ROOMS.length}</span></div><div class="stat-l">зон кампуса</div></a>
+          <a class="stat" href="#/game"><div class="stat-v">${fmt(p.game.best)}</div><div class="stat-l">рекорд забега</div></a>
+        </div>
+        <div class="row-wrap"><a class="btn btn-primary" href="#/wardrobe">${icon('hanger', 18)} Гардероб</a><a class="btn btn-secondary" href="#/campus">${icon('building', 18)} В кампус</a></div>
+      </div></div>`;
+  },
+
