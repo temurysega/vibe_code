@@ -629,3 +629,15 @@ export function itemPreview(slot, id, color, base) {
   return svg(cfg, { view: SLOT_VIEW[slot] || 'bust' });
 }
 
+// Аватар в круге и карточка профиля
+export function ava(p, size, opt) {
+  opt = opt || {};
+  if (!p) return '';
+  const prof = p.prof || {};
+  const bd = BACKDROPS[prof.backdrop] || BACKDROPS.navy;
+  const frame = opt.frame === false ? 'none' : prof.frame || 'none';
+  return `<span class="ava-w f-${frame}" style="--s:${size || 44}px"><span class="ava" style="--ab1:${bd.c1};--ab2:${bd.c2}">${svg(p.av, { view: 'bust' })}</span></span>`;
+}
+
+export const PETS = ['cat', 'dog', 'fox', 'owl', 'hedgehog', 'bot'];
+export { SKIN, HAIR, PETC };
