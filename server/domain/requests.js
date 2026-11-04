@@ -170,3 +170,19 @@ export function insertRequest(store, student, faculty, type, payload, delivery, 
   });
 }
 
+// Переход статуса с записью в историю и уведомлением студенту
+export function setStatus(store, req, status, comment, actor) {
+  const now = Date.now();
+  store.run('UPDATE requests SET status = ?, updated_at = ?, dean_comment = COALESCE(?, dean_comment) WHERE id = ?', status, now, actor === 'system' ? null : comment || null, req.id);
+  store.run('INSERT INTO request_events (request_id, status, comment, actor, created_at) VALUES (?, ?, ?, ?, ?)', req.id, status, comment || null, actor === 'system' ? 'Деканат' : actor, now);
+  if (status === 'cancelled') return;
+  const text = {
+    in_work: 'взята в работу', ready: req.delivery === 'electronic' ? 'готова — можно скачать' : 'готова — можно забрать', issued: 'выдана',
+    approved: 'одобрена', rejected: 'отклонена',
+  }[status] || STATUS[status].toLowerCase();
+  notify(store, {
+    audience: 'student', audienceId: req.student_id, kind: 'request', important: ['ready', 'approved', 'rejected'].includes(status) ? 1 : 0,
+    title: `${req.title}: ${text}`, body: comment || `Заявка № ${req.number} — ${STATUS[status].toLowerCase()}`, link: `#/requests/${req.id}`,
+  });
+}
+
