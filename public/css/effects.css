@@ -35,3 +35,10 @@
 @keyframes stepR { 0%, 100% { transform: translateY(-9px); } 50% { transform: translateY(0); } }
 @keyframes armL { 0%, 100% { transform: rotate(14deg); } 50% { transform: rotate(0deg); } }
 @keyframes armR { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-14deg); } }
+@keyframes bodyBob { from { transform: translateY(0); } to { transform: translateY(-4px); } }
+@keyframes idleBreath { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+@keyframes waveArm { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-150deg); } }
+@keyframes tgtPulse { from { transform: scale(.5); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
+@keyframes tgtDrop { from { transform: translateY(-16px) scale(.8); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes tapRing { from { transform: scale(.25); opacity: 1; } to { transform: scale(1.35); opacity: 0; } }
+@keyframes tapSpark { from { transform: rotate(var(--a)) translateX(6px) scale(1); opacity: 1; } to { transform: rotate(var(--a)) translateX(30px) scale(.3); opacity: 0; } }
