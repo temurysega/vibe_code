@@ -74,3 +74,17 @@ export function flyCoins(fromRect, from, to) {
   }, 900);
 }
 
+// «Тыц»: кольцо и искры там, где нажали
+const TAP = 'button, a, [role="button"], .item, .zone, .prod, .acc, .swatch, .chip, .lesson, .disc, .cat-tile, .campus-svg';
+document.addEventListener('pointerdown', (e) => {
+  if (e.button !== 0 || !e.target.closest || quiet()) return;
+  const t = e.target.closest(TAP);
+  if (!t || t.disabled || t.closest('.runner-wrap')) return;
+  const tap = document.createElement('span');
+  tap.className = 'tap';
+  tap.style.left = e.clientX + 'px';
+  tap.style.top = e.clientY + 'px';
+  tap.innerHTML = '<i></i><i></i><i></i><i></i><i></i><i></i>';
+  document.body.appendChild(tap);
+  setTimeout(() => tap.remove(), 650);
+}, { passive: true });
