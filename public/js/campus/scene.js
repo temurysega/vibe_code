@@ -52,3 +52,27 @@ const zoneAt = (f, x) => {
   return null;
 };
 
+// ---------- художественные слои ----------
+function sky() {
+  let s = `<defs><linearGradient id="cp-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D3E2FA"/><stop offset="1" stop-color="#F4F8FF"/></linearGradient>
+    <linearGradient id="cp-mirror" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#DCE6F8"/></linearGradient></defs>
+    <rect width="${W}" height="${H}" fill="url(#cp-sky)"/>`;
+  [[150, 70, 1], [380, 40, 0.8], [880, 60, 1.1], [1080, 34, 0.7]].forEach(([x, y, k]) => {
+    s += `<g fill="#fff" opacity=".9"><ellipse cx="${x}" cy="${y}" rx="${46 * k}" ry="${15 * k}"/><ellipse cx="${x + 26 * k}" cy="${y - 10 * k}" rx="${26 * k}" ry="${15 * k}"/></g>`;
+  });
+  let x = 0;
+  s += '<g fill="#C7D7F0">';
+  while (x < W) {
+    const w = 40 + ((x * 37) % 50), h = 60 + ((x * 53) % 120);
+    s += `<rect x="${x}" y="${760 - h}" width="${w}" height="${h}"/>`;
+    x += w + 8;
+  }
+  s += '</g>';
+  s += `<rect y="756" width="${W}" height="64" fill="#E3E8F0"/><rect y="790" width="${W}" height="30" fill="#D3DAE4"/>`;
+  for (let i = 0; i < 12; i++) s += `<rect x="${20 + i * 104}" y="803" width="52" height="4" rx="2" fill="#fff"/>`;
+  [[30, 1], [1170, 0.9]].forEach(([tx, k]) => {
+    s += `<rect x="${tx - 4}" y="${756 - 40 * k}" width="8" height="${40 * k}" fill="#9AA5B8"/><circle cx="${tx}" cy="${756 - 58 * k}" r="${28 * k}" fill="#7FB89A"/><circle cx="${tx + 10 * k}" cy="${756 - 50 * k}" r="${16 * k}" fill="#5FA47E"/>`;
+  });
+  return s;
+}
+
