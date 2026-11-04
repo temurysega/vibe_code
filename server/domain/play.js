@@ -133,3 +133,14 @@ export function saveLook(s, body, ctx) {
   if (body.onboarded) s.steps.onboarded = true;
 }
 
+export function visit(s, zone) {
+  const room = ROOMS.find((r) => r.id === zone);
+  if (!room) fail(400, 'Нет такой зоны');
+  if (s.visited.includes(zone)) return { first: false };
+  s.visited.push(zone);
+  s.pet.growth += RULES.growth.visit;
+  earn(s, RULES.visitCoins, `Кампус: ${room.name}`);
+  const unlocked = ITEMS.filter((i) => (i.src === 'route' && i.zone === zone) || (i.src === 'routeAll' && ROOMS.every((r) => s.visited.includes(r.id)))).map((i) => i.name);
+  return { first: true, coins: RULES.visitCoins, unlocked, all: ROOMS.every((r) => s.visited.includes(r.id)) };
+}
+
