@@ -45,3 +45,16 @@ export function remindDeadlines(store, student, faculty) {
   });
 }
 
+export function listFor(store, userId, student, limit = 60) {
+  return store.all(
+    `SELECT n.id, n.kind, n.title, n.body, n.link, n.important, n.author, n.created_at, n.audience, r.read_at
+     FROM notifications n LEFT JOIN notification_reads r ON r.notification_id = n.id AND r.user_id = ?
+     WHERE ${AUDIENCE} ORDER BY n.created_at DESC, n.id DESC LIMIT ?`,
+    userId, student.faculty_id, student.group_code, String(student.id), limit,
+  ).map((n) => ({
+    id: n.id, kind: n.kind, kindLabel: KINDS[n.kind] || 'Кабинет', title: n.title, body: n.body, link: n.link,
+    important: !!n.important, author: n.author, at: n.created_at, read: !!n.read_at,
+    scope: { all: 'Весь МГИМО', faculty: 'Факультет', group: 'Группа', student: 'Лично вам' }[n.audience],
+  }));
+}
+
