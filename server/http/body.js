@@ -34,3 +34,17 @@ export function readJson(req) {
   });
 }
 
+// Проверка входных данных: строки обрезаются и ограничиваются по длине
+export function str(v, max = 500) {
+  return typeof v === 'string' ? v.replace(/\u0000/g, '').trim().slice(0, max) : '';
+}
+
+export function int(v, min, max) {
+  const n = Number(v);
+  if (!Number.isInteger(n) || n < min || n > max) return null;
+  return n;
+}
+
+export const oneOf = (v, list) => (list.includes(v) ? v : null);
+
+export const isDate = (v) => typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v + 'T00:00:00Z'));
