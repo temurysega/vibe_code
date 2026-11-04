@@ -29,3 +29,12 @@ export function playCtx(store, s) {
   return { excellent, hasRequest, newcomer: s.semester === 1 };
 }
 
+function deadlinesOf(store, s, days = 14) {
+  const now = Date.now();
+  return store.all(
+    `SELECT dl.id, dl.title, dl.due_at, dl.kind, dl.link, d.name AS discipline, d.color FROM deadlines dl LEFT JOIN disciplines d ON d.id = dl.discipline_id
+     WHERE (dl.group_code = ? OR dl.student_id = ?) AND dl.due_at > ? AND dl.due_at < ? ORDER BY dl.due_at`,
+    s.group_code, s.id, now - 3600e3, now + days * DAY,
+  ).map((d) => ({ id: d.id, title: d.title, dueAt: d.due_at, kind: d.kind, link: d.link, discipline: d.discipline, color: d.color, overdue: d.due_at < now }));
+}
+
