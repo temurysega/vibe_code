@@ -196,6 +196,6 @@ finally:
         'passed': sum(item['passed'] for item in checks),
         'failed': sum(not item['passed'] for item in checks),
     }
-    (OUT / 'browser-migration.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    (OUT / 'browser-migration.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
 
 raise SystemExit(0 if failure is None and all(item['passed'] for item in checks) else 1)

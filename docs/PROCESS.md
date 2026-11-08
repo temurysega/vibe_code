@@ -358,3 +358,8 @@ worker не устанавливается. Сам `/sw.js` отдаётся к�
 Результат: [browser-migration.json](evidence/deployment/browser-migration.json).
 Это пример доработки после обратной связи пользователя и расширения проверки
 на пропущенный сценарий; воспроизведение — `python test/browser-migration.py`.
+
+Исправление опубликовано на VPS в версии `6376d05`. Публичный `/sw.js` отвечает 200,
+имеет ожидаемые заголовки и побайтно совпадает с проверенным кодом. Чистый браузер
+открывает новый экран входа без установки service worker:
+[migration-deployed.json](evidence/deployment/migration-deployed.json).

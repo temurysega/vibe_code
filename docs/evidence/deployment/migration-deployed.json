@@ -1,0 +1,13 @@
+{
+  "base": "https://ai.neblanki.tech",
+  "release": "6376d05",
+  "sw_http": 200,
+  "sw_content_type": "text/javascript; charset=utf-8",
+  "sw_cache_control": "no-store",
+  "sw_sha256": "0814f1251fbba3ec41f903fb1f629b54dcc5f7e21948112fd036523b3ba9a872",
+  "script_matches_tested_source": true,
+  "clean_page_title": "Вход · МГИМО Мания",
+  "demo_accounts": 4,
+  "clean_registrations": 0,
+  "browser_errors": []
+}

@@ -447,4 +447,8 @@ worker не устанавливается. Сам <code>/sw.js</code> отда�
 Проверены также жёсткое обновление и чистое посещение без установки worker.
 Результат: <a href="evidence/deployment/browser-migration.json">browser-migration.json</a>.
 Это пример доработки после обратной связи пользователя и расширения проверки
-на пропущенный сценарий; воспроизведение — <code>python test/browser-migration.py</code>.</p></body></html>
+на пропущенный сценарий; воспроизведение — <code>python test/browser-migration.py</code>.</p>
+<p>Исправление опубликовано на VPS в версии <code>6376d05</code>. Публичный <code>/sw.js</code> отвечает 200,
+имеет ожидаемые заголовки и побайтно совпадает с проверенным кодом. Чистый браузер
+открывает новый экран входа без установки service worker:
+<a href="evidence/deployment/migration-deployed.json">migration-deployed.json</a>.</p></body></html>
