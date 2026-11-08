@@ -51,8 +51,6 @@ def run(command, name, env):
 env = os.environ.copy()
 env.update({'OPENROUTER_API_KEY': '', 'ANTHROPIC_API_KEY': '', 'COOKIE_SECURE': '0',
             'NODE_ENV': 'test', 'TRUST_PROXY': '0', 'DEMO_RESEED_HOURS': '0',
-            # Демо-автоматика заявок в 0,15 от скорости стенда: справка без деканата готова за ~72 с.
-            'DEMO_AUTOPILOT_SCALE': '0.15',
             'PYTHONIOENCODING': 'utf-8', 'QA_OUTPUT_DIR': str(OUT), 'HOST': '127.0.0.1'})
 source = hashlib.sha256()
 for directory in ['server', 'public', 'test']:
@@ -69,6 +67,9 @@ try:
     unit['tests'] = int(re.search(r'^# tests (\d+)', output, re.M).group(1))
     unit['passed'] = int(re.search(r'^# pass (\d+)', output, re.M).group(1))
     summary['stages'].append(unit)
+    # Браузерным серверам — демо-автоматика заявок в 0,15 от скорости стенда:
+    # справка без участия деканата готова примерно за 72 секунды вместо 8 минут.
+    env['DEMO_AUTOPILOT_SCALE'] = '0.15'
     with tempfile.TemporaryDirectory(prefix='mgimo-evidence-') as temporary:
         with socket.socket() as sock:
             sock.bind(('127.0.0.1', 0))

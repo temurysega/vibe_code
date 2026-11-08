@@ -5,6 +5,7 @@ import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { startApp, client } from './helpers.js';
 import { broadcasts } from '../server/routes/dean.js';
+import { config } from '../server/config.js';
 
 let app;
 before(async () => { app = await startApp(); });
@@ -40,7 +41,11 @@ test('деканат публикует не больше 10 объявлени�
   assert.equal(list.filter((n) => n.title.startsWith('Объявление для проверки')).length, 10);
 });
 
-test('демо-автоматика оставляет время на ручное решение деканата и отключается его действием', async () => {
+test('демо-автоматика оставляет время на ручное решение деканата и отключается его действием', async (t) => {
+  // Скорость как на стенде, даже если окружение ускоряет автоматику для браузерных проверок
+  const scale = config.demoAutopilotScale;
+  config.demoAutopilotScale = 1;
+  t.after(() => { config.demoAutopilotScale = scale; });
   const alina = client(app.base);
   await alina.login('a.morozova');
   const created = await alina.req('POST', '/api/requests', { type: 'study', delivery: 'electronic', lang: 'ru', fields: { place: 'Проверка автоматики', copies: 1 } });
