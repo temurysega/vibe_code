@@ -46,6 +46,9 @@ def open_guide(page):
     page.keyboard.press('Enter')
     dialog = page.locator('.modal-overlay:not(.closing) [role="dialog"]').last
     expect(dialog.locator('[data-start-route]')).to_have_count(3)
+    # The dialog sets its initial focus after opening. Wait for that transition
+    # before focusing another action, otherwise the deferred autofocus can win.
+    expect(dialog.locator('[data-start-route]').first).to_be_focused()
     return dialog
 
 
@@ -94,6 +97,7 @@ try:
                 dialog = open_guide(page)
                 link = dialog.locator(f'[data-start-route][href="{route}"]')
                 link.focus()
+                expect(link).to_be_focused()
                 page.keyboard.press('Enter')
                 page.wait_for_url('**/' + route)
                 page.locator(selector).first.wait_for()
