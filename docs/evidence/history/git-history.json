@@ -1,14 +1,21 @@
 {
   "source": "git log --reverse --date=iso-strict",
-  "snapshot_head": "e3ac392f0efffdf016ab9e58589ef6463972f7d9",
-  "interpretation": "Repository metadata, not a transcript or independent verification of model identity, prompts, authorship, or development duration. Dates are recorded Git author dates.",
+  "snapshot_head": "089a8d2f8fa39641a4a85e6f304024f2f1082863",
+  "interpretation": "Метаданные репозитория, а не стенограмма работы с ИИ. Коммиты 4 ноября созданы скриптом за 2–3 минуты в конце первой сессии и показывают устройство кода; с 8 ноября каждый коммит — отдельная итерация. Трейлер Co-Authored-By не удостоверяет текст промптов или версию модели.",
   "summary": {
-    "commits": 634,
+    "commits": 644,
     "by_day": {
       "2026-11-04": 629,
-      "2026-11-08": 5
+      "2026-11-08": 11,
+      "2026-11-09": 4
     },
-    "commits_with_claude_coauthor": 629
+    "commits_with_claude_coauthor": 633,
+    "replayed_on_2026_11_04": {
+      "commits": 629,
+      "first": "2026-11-04T22:09:47+03:00",
+      "last": "2026-11-04T22:12:08+03:00",
+      "note": "Готовый код первой сессии Claude Code разложен скриптом на последовательные коммиты; время коммитов не отражает хронологию работы."
+    }
   },
   "commits": [
     {
@@ -5706,6 +5713,84 @@
       "author": "temurysega",
       "subject": "test: record deployed offline-cache migration checks",
       "coauthors": []
+    },
+    {
+      "commit": "9c5de23b8d78176be2e720cf69f593cd3809d0d9",
+      "date": "2026-11-08T19:26:28+03:00",
+      "author": "temurysega",
+      "subject": "Улучшить кабинет и конкурсные материалы",
+      "coauthors": []
+    },
+    {
+      "commit": "8d376ad2f864ca3625a832b6b8345c18488d5af4",
+      "date": "2026-11-08T20:37:15+03:00",
+      "author": "temurysega",
+      "subject": "Improve student UX and document verified contest evidence",
+      "coauthors": []
+    },
+    {
+      "commit": "5eb2c844e50065426ef5d4d09bb28a963c83bdcb",
+      "date": "2026-11-08T21:04:48+03:00",
+      "author": "temurysega",
+      "subject": "Improve mobile workflows and complete contest evidence",
+      "coauthors": []
+    },
+    {
+      "commit": "19e9672300505f2fe0d2cd98574e858d86446f66",
+      "date": "2026-11-08T21:44:34+03:00",
+      "author": "temurysega",
+      "subject": "Clarify first actions and improve dashboard and timetable",
+      "coauthors": []
+    },
+    {
+      "commit": "5001f208dd4d63f3c166b96ec51ddb0ce8db6894",
+      "date": "2026-11-08T21:51:57+03:00",
+      "author": "temurysega",
+      "subject": "Wait for dialog focus before keyboard navigation checks",
+      "coauthors": []
+    },
+    {
+      "commit": "372122735e1cdee38b5eba526bfc759b647f8a72",
+      "date": "2026-11-08T21:59:28+03:00",
+      "author": "temurysega",
+      "subject": "Document student feedback and verified production release",
+      "coauthors": []
+    },
+    {
+      "commit": "0e3d1c334b0696166cccee293f602f9d25987196",
+      "date": "2026-11-09T00:05:34+03:00",
+      "author": "temurysega",
+      "subject": "Polish mobile UI and harden the shared demo stand",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a1aff22f7cc310e79f63abe4fd8d38251b322bb4",
+      "date": "2026-11-09T00:09:48+03:00",
+      "author": "temurysega",
+      "subject": "Give the jury time for the manual dean decision",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b85e995ff761f02e1a4aa5efef1bcd1f2c87e3a1",
+      "date": "2026-11-09T00:10:41+03:00",
+      "author": "temurysega",
+      "subject": "Apply the autopilot speed-up only to browser suites",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "089a8d2f8fa39641a4a85e6f304024f2f1082863",
+      "date": "2026-11-09T00:17:53+03:00",
+      "author": "temurysega",
+      "subject": "Add a browser regression suite for the 9 November fixes",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
     }
   ]
 }

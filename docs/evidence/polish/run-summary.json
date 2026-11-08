@@ -1,0 +1,193 @@
+{
+  "started_msk": "2026-11-09T00:17:55+03:00",
+  "passed": true,
+  "scope": "Local source, fresh disposable SQLite for each browser suite, external AI disabled",
+  "source_revision": "089a8d2f8fa39641a4a85e6f304024f2f1082863",
+  "tested_source_sha256": "59ba61de410ef8f0958b19282c748be596323099fe297e50579e9f9e9362c967",
+  "stages": [
+    {
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "test/*.test.js"
+      ],
+      "started_msk": "2026-11-09T00:17:55+03:00",
+      "finished_msk": "2026-11-09T00:17:57+03:00",
+      "exit_code": 0,
+      "journal": "unit-tests.txt",
+      "tests": 37,
+      "passed": 37
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-smoke.py",
+        "http://127.0.0.1:61377"
+      ],
+      "started_msk": "2026-11-09T00:17:57+03:00",
+      "finished_msk": "2026-11-09T00:18:21+03:00",
+      "exit_code": 0,
+      "journal": "browser-smoke.txt",
+      "checks": 52,
+      "passed": 52,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-flows.py",
+        "http://127.0.0.1:61377"
+      ],
+      "started_msk": "2026-11-09T00:18:22+03:00",
+      "finished_msk": "2026-11-09T00:18:42+03:00",
+      "exit_code": 0,
+      "journal": "browser-flows.txt",
+      "checks": 36,
+      "passed": 36,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-accessibility.py",
+        "http://127.0.0.1:61377"
+      ],
+      "started_msk": "2026-11-09T00:18:43+03:00",
+      "finished_msk": "2026-11-09T00:18:48+03:00",
+      "exit_code": 0,
+      "journal": "browser-accessibility.txt",
+      "checks": 23,
+      "passed": 23,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-polish.py",
+        "http://127.0.0.1:61377"
+      ],
+      "started_msk": "2026-11-09T00:18:49+03:00",
+      "finished_msk": "2026-11-09T00:18:54+03:00",
+      "exit_code": 0,
+      "journal": "browser-polish.txt",
+      "checks": 21,
+      "passed": 21,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-stipend.py",
+        "http://127.0.0.1:61377"
+      ],
+      "started_msk": "2026-11-09T00:18:56+03:00",
+      "finished_msk": "2026-11-09T00:20:28+03:00",
+      "exit_code": 0,
+      "journal": "browser-stipend.txt",
+      "checks": 45,
+      "passed": 45,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-review.py",
+        "http://127.0.0.1:61377"
+      ],
+      "started_msk": "2026-11-09T00:20:29+03:00",
+      "finished_msk": "2026-11-09T00:20:38+03:00",
+      "exit_code": 0,
+      "journal": "browser-review.txt",
+      "checks": 40,
+      "passed": 40,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-home-priority.py",
+        "http://127.0.0.1:61377"
+      ],
+      "started_msk": "2026-11-09T00:20:39+03:00",
+      "finished_msk": "2026-11-09T00:20:47+03:00",
+      "exit_code": 0,
+      "journal": "browser-home-priority.txt",
+      "checks": 31,
+      "passed": 31,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-grades-compact.py",
+        "http://127.0.0.1:61377"
+      ],
+      "started_msk": "2026-11-09T00:20:47+03:00",
+      "finished_msk": "2026-11-09T00:21:04+03:00",
+      "exit_code": 0,
+      "journal": "browser-grades-compact.txt",
+      "checks": 31,
+      "passed": 31,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-request-compact.py",
+        "http://127.0.0.1:61377"
+      ],
+      "started_msk": "2026-11-09T00:21:05+03:00",
+      "finished_msk": "2026-11-09T00:21:11+03:00",
+      "exit_code": 0,
+      "journal": "browser-request-compact.txt",
+      "checks": 19,
+      "passed": 19,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-schedule-readability.py",
+        "http://127.0.0.1:61377"
+      ],
+      "started_msk": "2026-11-09T00:21:12+03:00",
+      "finished_msk": "2026-11-09T00:21:29+03:00",
+      "exit_code": 0,
+      "journal": "browser-schedule-readability.txt",
+      "checks": 35,
+      "passed": 35,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-first-actions.py",
+        "http://127.0.0.1:61377"
+      ],
+      "started_msk": "2026-11-09T00:21:29+03:00",
+      "finished_msk": "2026-11-09T00:21:54+03:00",
+      "exit_code": 0,
+      "journal": "browser-first-actions.txt",
+      "checks": 34,
+      "passed": 34,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-audit-fixes.py",
+        "http://127.0.0.1:61377"
+      ],
+      "started_msk": "2026-11-09T00:21:55+03:00",
+      "finished_msk": "2026-11-09T00:22:16+03:00",
+      "exit_code": 0,
+      "journal": "browser-audit-fixes.txt",
+      "checks": 14,
+      "passed": 14,
+      "browser_errors": []
+    }
+  ],
+  "base": "http://127.0.0.1:61377",
+  "finished_msk": "2026-11-09T00:22:16+03:00"
+}

@@ -5,11 +5,14 @@ Inputs remain available as JSON/text beside the PDF for independent inspection.
 """
 import html
 import json
+import sys
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / 'docs'
+# Папка последнего прогона collect-evidence.py; можно передать другую первым аргументом
+RUN = sys.argv[1] if len(sys.argv) > 1 else 'polish'
 OUT = DOCS / 'evidence' / 'process'
 OUT.mkdir(parents=True, exist_ok=True)
 esc = lambda value: html.escape(str(value))
@@ -56,24 +59,24 @@ with sync_playwright() as p:
              'Редакционная иллюстрация для PDF · полные тексты и происхождение: docs/PROMPTS.json')
 
     history = json.loads((DOCS / 'evidence/history/git-history.json').read_text(encoding='utf-8'))
-    selected = ['9c74eef', '832c17b', '26a17f0', '4f1e623', '00882b7', '969bdf4', '6376d05', 'e3ac392']
+    selected = ['9c74eef', '832c17b', '26a17f0', '4f1e623', '00882b7', '969bdf4', '6376d05', '19e9672', '0e3d1c3']
     rows = [c for c in history['commits'] if c['commit'][:7] in selected]
     stat = history['summary']
-    content = f'<div class="notice">Данные экспортированы из Git. Атрибуция в коммите не раскрывает текст промпта и не удостоверяет версию модели.</div><div class="metrics"><div class="metric"><b>{stat["commits"]}</b>коммитов в снимке истории</div><div class="metric"><b>{stat["commits_with_claude_coauthor"]}</b>с атрибуцией Claude</div></div><table><thead><tr><th>Версия</th><th>Зафиксированное изменение</th></tr></thead><tbody>'
+    content = f'<div class="notice">Данные экспортированы из Git. Коммиты 4 ноября созданы скриптом за 2 мин 21 с в конце первой сессии Claude Code: они показывают устройство кода, а не хронологию работы. С 8 ноября каждый коммит — отдельная итерация. Атрибуция в коммите не раскрывает текст промпта.</div><div class="metrics"><div class="metric"><b>{stat["commits"]}</b>коммитов в снимке истории</div><div class="metric"><b>{stat["commits_with_claude_coauthor"]}</b>с атрибуцией Claude</div></div><table><thead><tr><th>Версия</th><th>Зафиксированное изменение</th></tr></thead><tbody>'
     for row in rows:
         content += f'<tr><td><span class="commit">{row["commit"][:7]}</span><br><span class="small">{esc(row["date"][:10])}</span></td><td>{esc(row["subject"])}</td></tr>'
     content += '</tbody></table><div class="sources">Полный экспорт: docs/evidence/history/git-history.json<br>Снимок до текущей доработки: ' + esc(history['snapshot_head'][:7]) + '</div>'
     card(page, 'git-history', 'От учебного ядра до опубликованного кабинета', 'Журнал изменений / Git', content,
          'Выборка реальных записей репозитория · даты взяты из метаданных Git')
 
-    summary = json.loads((DOCS / 'evidence/final/run-summary.json').read_text(encoding='utf-8'))
+    summary = json.loads((DOCS / 'evidence' / RUN / 'run-summary.json').read_text(encoding='utf-8'))
     unit = next(x for x in summary['stages'] if 'tests' in x)
-    log = (DOCS / 'evidence/final/unit-tests.txt').read_text(encoding='utf-8')
+    log = (DOCS / 'evidence' / RUN / 'unit-tests.txt').read_text(encoding='utf-8')
     lines = log.splitlines()
     test_names = [line for line in lines if line.startswith('# Subtest:')]
     totals = [line for line in lines if any(line.startswith('# ' + x) for x in ['tests ', 'suites ', 'pass ', 'fail ', 'cancelled ', 'skipped ', 'todo ', 'duration_ms '])]
     excerpt = '\n'.join(lines[:4] + [''] + test_names[:8] + ['… (полный журнал приложен отдельным файлом)', ''] + test_names[-6:] + [''] + totals)
-    content = f'<div class="metrics"><div class="metric"><b>{unit["passed"]}/{unit["tests"]}</b>автоматических тестов</div><div class="metric"><b>{unit["exit_code"]}</b>код завершения</div></div><div class="small">{esc(summary["started_msk"])} · отдельная тестовая база</div><pre>{esc(excerpt)}</pre><div class="sources">Полный журнал: docs/evidence/final/unit-tests.txt<br>Среда: Node.js; внешние ключи ИИ отключены.</div>'
+    content = f'<div class="metrics"><div class="metric"><b>{unit["passed"]}/{unit["tests"]}</b>автоматических тестов</div><div class="metric"><b>{unit["exit_code"]}</b>код завершения</div></div><div class="small">{esc(summary["started_msk"])} · отдельная тестовая база</div><pre>{esc(excerpt)}</pre><div class="sources">Полный журнал: docs/evidence/' + RUN + '/unit-tests.txt<br>Среда: Node.js; внешние ключи ИИ отключены.</div>'
     card(page, 'test-results', 'Права доступа, сохранение и предметная логика', 'Фактический вывод запуска / фрагмент', content,
          'Визуализация сохранённого журнала команд · строки тестов не реконструированы')
 
@@ -86,9 +89,9 @@ with sync_playwright() as p:
     content += '</tbody></table><div class="label">Выдержки из фактических журналов</div>'
     excerpt = []
     for stage in stages:
-        actual = (DOCS / 'evidence/final' / stage['journal']).read_text(encoding='utf-8').splitlines()
+        actual = (DOCS / 'evidence' / RUN / stage['journal']).read_text(encoding='utf-8').splitlines()
         excerpt.extend([line for line in actual if line.startswith('PASS ')][-3:])
-    content += '<pre>' + esc('\n'.join(excerpt)) + '</pre><div class="sources">Полные журналы и отчёты: docs/evidence/final/<br>Снимок кода SHA-256: ' + esc(summary['tested_source_sha256']) + '</div>'
+    content += '<pre>' + esc('\n'.join(excerpt)) + '</pre><div class="sources">Полные журналы и отчёты: docs/evidence/' + RUN + '/<br>Снимок кода SHA-256: ' + esc(summary['tested_source_sha256']) + '</div>'
     card(page, 'browser-results', 'Один кабинет на телефоне и компьютере', 'Журнал браузерных сценариев', content,
          'Скриншоты приложения и машиночитаемые JSON-отчёты приложены к документу')
     browser.close()
