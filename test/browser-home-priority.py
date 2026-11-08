@@ -103,6 +103,16 @@ try:
                 check('1366: mobile shortcuts do not duplicate the desktop overview', not page.locator('[data-sec="priority"]').is_visible())
                 check('1366: existing study, deadlines and request cards remain visible', page.locator('.home-trio > .card:visible').count() == 3)
                 page.screenshot(path=str(OUT / '1366-home-priority.png'), full_page=True, animations='disabled', style='#toast-root {visibility:hidden}')
+                deadlines = page.locator('[data-sec="deadlines"]')
+                more = deadlines.locator('[data-home-more="deadlines"]')
+                if more.count():
+                    check('1366: nearest deadlines are visible without a long list', deadlines.locator('.dl:visible').count() == 2)
+                    more.locator('summary').focus()
+                    page.keyboard.press('Enter')
+                    expect(deadlines.locator('.dl:visible')).to_have_count(len(payload['deadlines']))
+                    check('1366: keyboard reveals every remaining deadline', True)
+                    page.keyboard.press('Space')
+                    check('1366: full deadline list can be collapsed again', not more.evaluate('(el) => el.open'))
             check(f'{width}: home has no horizontal overflow', page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'))
 
             # Change accounts in the same SPA, so a fresh page cannot mask stale data.

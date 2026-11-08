@@ -55,7 +55,14 @@ with sync_playwright() as p:
                 check('360: keyboard reveals further deadlines', more.evaluate('(el) => el.open'))
             measurements.append({'viewport': width, 'home_collapsed_height': initial_height, 'home_expanded_height': expanded_height})
         else:
-            check('1366: all game content remains visible', play.evaluate('(el) => el.open'))
+            check('1366: optional game content starts collapsed', not play.evaluate('(el) => el.open'))
+            play.locator('summary').focus()
+            page.keyboard.press('Enter')
+            expect(play.locator('[data-focus-start]')).to_be_visible()
+            check('1366: one keyboard action reaches the study timer', play.evaluate('(el) => el.open'))
+            page.keyboard.press('Space')
+            expect(play.locator('[data-focus-start]')).not_to_be_visible()
+            check('1366: optional content can be collapsed again', not play.evaluate('(el) => el.open'))
             check('1366: every navigation label fits without clipping', page.locator('.header .nav').evaluate('(el) => el.scrollWidth <= el.clientWidth + 1'))
         check(f'{width}: home fits viewport', page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'))
 

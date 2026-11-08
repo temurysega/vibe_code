@@ -58,7 +58,12 @@ try:
 
             if width == 1366:
                 cards = page.locator('.home-trio > .card').evaluate_all('(els) => els.map(el => Math.round(el.getBoundingClientRect().height))')
-                check('1366: short home cards do not stretch to the longest list', max(cards) - min(cards) > 60)
+                deadlines = page.locator('[data-home-more="deadlines"] > summary')
+                deadlines.click()
+                expanded = page.locator('.home-trio > .card').evaluate_all('(els) => els.map(el => Math.round(el.getBoundingClientRect().height))')
+                check('1366: expanding deadlines does not stretch adjacent overview cards',
+                      expanded[1] > cards[1] and expanded[0] == cards[0] and expanded[2] == cards[2])
+                deadlines.click()
                 check('1366: four study destinations remain directly accessible', page.locator('.header .nav > a').count() == 4)
                 life = page.locator('[data-life]')
                 life.focus()

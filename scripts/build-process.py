@@ -89,6 +89,7 @@ attachments = [DOCS / 'PROMPTS.json', DOCS / 'evidence/history/git-history.json'
 attachments += [DOCS / 'evidence/dialogue-illustrations/manifest.json']
 attachments += [DOCS / 'evidence/review-session.json']
 attachments += [DOCS / 'evidence/quality-session.json']
+attachments += [DOCS / 'evidence/finalization-session.json']
 attachments += [DOCS / 'evidence/quality-before/run-summary.json']
 attachments += [DOCS / 'evidence/quality-before/browser-review.json']
 attachments += [DOCS / 'evidence/quality-before/grades-measurements.json']
@@ -96,11 +97,15 @@ attachments += [DOCS / 'evidence/deployment/review-deployment.json']
 attachments += sorted((DOCS / 'evidence/deployment/review-browser').glob('*.json'))
 attachments += sorted((DOCS / 'evidence/final').glob('*.txt'))
 attachments += sorted((DOCS / 'evidence/final').glob('*.json'))
+attachments += sorted((DOCS / 'evidence/finalization').glob('*.txt'))
+attachments += sorted((DOCS / 'evidence/finalization').glob('*.json'))
+attachments += [DOCS / 'evidence/deployment/finalization-deployment.json']
+attachments += sorted((DOCS / 'evidence/deployment/finalization-browser').glob('*.json'))
 attachments += [DOCS / 'evidence/deployment' / name for name in
                 ['openrouter-live.json', 'assistant-browser-live.json', 'production-persistence.json', 'migration-deployed.json']]
 for attachment in attachments:
     if attachment.is_file():
-        name = 'deployed-' + attachment.name if attachment.parent.name == 'review-browser' else 'before-quality-' + attachment.name if attachment.parent.name == 'quality-before' else attachment.name
+        name = attachment.relative_to(DOCS / 'evidence').as_posix().replace('/', '-') if attachment.is_relative_to(DOCS / 'evidence') else attachment.name
         writer.add_attachment(name, attachment.read_bytes())
 writer.add_metadata({'/Title': 'МГИМО Мания — история создания',
                      '/Subject': 'Сценарии, работа с ИИ, реальные результаты и журналы проверок',

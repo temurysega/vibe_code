@@ -13,12 +13,12 @@ import { openOnboarding, openQuiz } from './onboarding.js';
 
 let data = null;
 let phraseI = 0;
-let mobileExpanded = new Set();
+let expandedSections = new Set();
 
 const isMobile = () => matchMedia('(max-width: 720px)').matches;
-const detailOpen = (key) => !isMobile() || mobileExpanded.has(key) ? 'open' : '';
+const detailOpen = (key) => (key === 'day' && !isMobile()) || expandedSections.has(key) ? 'open' : '';
 
-// На телефоне показываем ближайшее, остальные записи доступны без ухода со страницы.
+// На главной показываем ближайшее, остальные записи раскрываются на месте.
 function compactList(key, rows, label, keep = 2) {
   if (rows.length <= keep) return rows.join('');
   return `${rows.slice(0, keep).join('')}<details class="home-more" data-home-more="${key}" ${detailOpen(key)}>
@@ -59,6 +59,7 @@ const sec = {
     return `<div class="hello" data-sec="hello"><div>
         <h1 class="h1">${greeting(now.minutes)}, ${esc(u.firstName)}</h1>
         <div class="hello-sub"><span>${esc(dayLabel(now.date).replace(/^./, (c) => c.toUpperCase()))}</span><span>·</span><span>${p.n}-я неделя, ${p.parity === 'odd' ? 'нечётная' : 'чётная'}</span>${data.holiday ? `<span class="badge badge-gold">${icon('star', 12)} ${esc(data.holiday)}</span>` : ''}</div>
+        <button class="home-guide" data-start-guide>${icon('info', 16)} С чего начать?</button>
       </div>
       <div class="quick">
         <a class="btn btn-primary" href="#/requests/new">${icon('doc', 18)} Заказать справку</a>
@@ -155,9 +156,9 @@ const sec = {
       <div class="card-head" style="margin:0"><div class="card-title">Как у меня дела</div><a class="link-arrow" href="#/grades">Баллы ${icon('arrow', 16)}</a></div>
       <div class="mood-head"><span class="mood-ic">${ic}</span><div><b>${esc(s.headline)}</b><span class="small muted">${esc(data.grades.semesterLabel)} · ${s.total} ${plural(s.total, ['дисциплина', 'дисциплины', 'дисциплин'])}</span></div></div>
       <div class="stat-row">
-        <div class="stat"><div class="stat-v">${s.avg != null ? num(s.avg, 2) : '—'}</div><div class="stat-l">средний балл сессий</div></div>
-        <div class="stat"><div class="stat-v">${s.semPace != null ? s.semPace + '%' : '—'}</div><div class="stat-l">набрано от возможного</div></div>
-        <div class="stat"><div class="stat-v">${s.rank.place}<span class="small muted" style="font-weight:400">/${s.rank.of}</span></div><div class="stat-l">место в рейтинге группы</div></div>
+        <div class="stat"><div class="stat-v">${s.avg != null ? num(s.avg, 2) : '—'}</div><div class="stat-l">средний за сессии</div></div>
+        <div class="stat"><div class="stat-v">${s.semPace != null ? s.semPace + '%' : '—'}</div><div class="stat-l">от возможного</div></div>
+        <div class="stat"><div class="stat-v">${s.rank.place}<span class="small muted" style="font-weight:400">/${s.rank.of}</span></div><div class="stat-l">место в группе</div></div>
       </div>
       ${s.tips.length ? `<div>${s.tips.slice(0, 3).map((t) => `<a class="tip ${t.kind}" href="${t.link}"><span class="dot"></span><span class="grow">${esc(t.text)}</span>${icon('arrow', 14)}</a>`).join('')}</div>` : `<div class="tip"><span class="dot" style="background:var(--mint)"></span><span>Рисков нет — так держать</span></div>`}
     </div>`;
@@ -276,7 +277,7 @@ function body() {
     <div class="grid home-trio mt-20">${sec.mood()}${sec.deadlines()}${sec.requests()}</div>
     <div class="grid g-2 mt-20">${sec.changes()}${sec.news()}</div>
     <details class="home-play mt-32" data-home-more="play" ${detailOpen('play')}>
-      <summary><span><span class="h3">МГИМО Мания</span><span class="small muted">Аватар, питомец, кампус и перерыв</span></span>${icon('down', 20)}</summary>
+      <summary><span><span class="h3">Питомец и кампус</span><span class="small muted">Фокус-сессия, образ и короткий перерыв</span></span>${icon('down', 20)}</summary>
       <div class="home-play-body">${sec.look()}<div class="grid g-3 mt-20">${sec.pet()}${sec.campus()}${sec.game()}</div></div>
     </details>`;
 }
@@ -288,17 +289,18 @@ export default {
   },
   async mount(el, params, app) {
     const box = el.querySelector('[data-body]');
-    mobileExpanded = new Set();
-    if (session.play?.pet.focusEnd > Date.now()) mobileExpanded.add('play');
+    expandedSections = new Set();
+    if (session.play?.pet.focusEnd > Date.now()) expandedSections.add('play');
     el.addEventListener('toggle', (e) => {
-      if (!isMobile() || !e.target.matches('[data-home-more]')) return;
+      if (!e.target.matches('[data-home-more]')) return;
       const key = e.target.dataset.homeMore;
-      if (e.target.open) mobileExpanded.add(key);
-      else mobileExpanded.delete(key);
+      if (key === 'day' && !isMobile()) return;
+      if (e.target.open) expandedSections.add(key);
+      else expandedSections.delete(key);
     }, true);
     const viewport = matchMedia('(max-width: 720px)');
     const syncDisclosure = () => box.querySelectorAll('[data-home-more]').forEach((item) => {
-      item.open = !viewport.matches || mobileExpanded.has(item.dataset.homeMore);
+      item.open = (item.dataset.homeMore === 'day' && !viewport.matches) || expandedSections.has(item.dataset.homeMore);
     });
     viewport.addEventListener('change', syncDisclosure);
     async function load() {
@@ -343,6 +345,7 @@ export default {
 
     el.addEventListener('click', async (e) => {
       if (e.target.closest('[data-retry]')) { load(); return; }
+      if (e.target.closest('[data-start-guide]')) { openOnboarding(); return; }
       if (e.target.closest('[data-ask]')) { app.ask(); return; }
       const fs = e.target.closest('[data-focus-start]');
       if (fs) {

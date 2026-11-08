@@ -4,6 +4,7 @@ Run: python scripts/collect-evidence.py
 Never starts the application against the user's data/ directory or a live AI key.
 """
 from datetime import datetime, timezone, timedelta
+import argparse
 import hashlib
 import json
 import os
@@ -18,7 +19,12 @@ from urllib.request import urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.stdout.reconfigure(encoding='utf-8')
-OUT = ROOT / 'docs' / 'evidence' / 'final'
+SUITES = ['browser-smoke', 'browser-flows', 'browser-accessibility', 'browser-polish', 'browser-stipend', 'browser-review', 'browser-home-priority', 'browser-grades-compact', 'browser-request-compact', 'browser-schedule-readability', 'browser-first-actions']
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--output', type=Path, default=ROOT / 'docs' / 'evidence' / 'final', help='Directory for this run; use a new path to preserve earlier evidence.')
+parser.add_argument('--suites', nargs='+', choices=SUITES, default=SUITES, help='Browser suites to execute after the unit tests.')
+args = parser.parse_args()
+OUT = args.output.resolve()
 OUT.mkdir(parents=True, exist_ok=True)
 MSK = timezone(timedelta(hours=3))
 
@@ -37,7 +43,7 @@ def run(command, name, env):
     print(f'{name}: exit {result.returncode}', flush=True)
     if result.returncode:
         print(output[-10000:], flush=True)
-        raise RuntimeError(f'{name} failed; see docs/evidence/final/{name}.txt')
+        raise RuntimeError(f'{name} failed; see {OUT / (name + ".txt")}')
     return {'command': command, 'started_msk': started, 'finished_msk': stamp(),
             'exit_code': result.returncode, 'journal': f'{name}.txt'}, output
 
@@ -52,7 +58,7 @@ for directory in ['server', 'public', 'test']:
         if path.is_file() and '__pycache__' not in path.parts:
             source.update(path.relative_to(ROOT).as_posix().encode())
             source.update(path.read_bytes())
-summary = {'started_msk': stamp(), 'scope': 'Local source, fresh disposable SQLite for each browser suite, external AI disabled',
+summary = {'started_msk': stamp(), 'passed': False, 'scope': 'Local source, fresh disposable SQLite for each browser suite, external AI disabled',
            'source_revision': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
            'tested_source_sha256': source.hexdigest(), 'stages': []}
 
@@ -68,7 +74,7 @@ try:
         env['PORT'] = str(port)
         base = f'http://127.0.0.1:{port}'
         summary['base'] = base
-        for name in ['browser-smoke', 'browser-flows', 'browser-accessibility', 'browser-polish', 'browser-stipend', 'browser-review', 'browser-home-priority', 'browser-grades-compact', 'browser-request-compact']:
+        for name in args.suites:
             # A suite must not inherit requests or notifications from another suite.
             script = ROOT / 'test' / f'{name}.py'
             if not script.exists():

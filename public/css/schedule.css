@@ -4,8 +4,22 @@
 .week-label { font-weight: 500; font-size: 17px; min-width: 190px; text-align: center; }
 .week-label small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
 .week-tools { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
-.changes-strip { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: thin; padding-bottom: 4px; margin-bottom: 20px; }
-.change-pill { flex: none; display: flex; align-items: flex-start; gap: 10px; background: var(--warn-2); border-radius: 14px; padding: 12px 14px; max-width: 320px; font-size: 14px; border: 0; text-align: left; cursor: pointer; }
+.schedule-changes { margin-bottom: 20px; border: 1px solid var(--hair); border-radius: 16px; background: #fff; }
+.schedule-changes summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; cursor: pointer; list-style: none; }
+.schedule-changes summary::-webkit-details-marker { display: none; }
+.schedule-changes-title, .schedule-changes-action { display: inline-flex; align-items: center; gap: 8px; }
+.schedule-changes-title { font-size: 15px; font-weight: 500; }
+.schedule-changes-title > svg { flex: none; color: var(--warn); }
+.schedule-changes-title b { display: inline-block; margin-left: 5px; padding: 2px 7px; border-radius: var(--pill); background: var(--warn-2); color: var(--gold-ink); font-size: 12px; font-weight: 500; }
+.schedule-changes-action { color: var(--navy); font-size: 13px; flex: none; }
+.changes-hide, .schedule-changes[open] .changes-show { display: none; }
+.schedule-changes[open] .changes-hide { display: inline; }
+.schedule-changes[open] .schedule-changes-action > svg { transform: rotate(180deg); }
+.changes-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 0 14px 14px; }
+.change-pill { display: flex; align-items: flex-start; gap: 10px; background: var(--warn-2); border-radius: 12px; padding: 12px 14px; min-width: 0; width: 100%; font-size: 14px; border: 0; text-align: left; cursor: pointer; }
+.change-pill > svg { flex: none; margin-top: 2px; }
+.change-pill > span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.change-pill .small { display: block; margin-top: 3px; }
 .change-pill.cancel { background: var(--red-2); }
 .change-pill.extra { background: var(--good-2); }
 .change-pill.room, .change-pill.teacher { background: var(--blue-2); }
@@ -19,7 +33,7 @@
 .day-btn.on span { color: rgba(255, 255, 255, .75); }
 .day-btn.today:not(.on) { box-shadow: inset 0 0 0 2px var(--navy); }
 .day-btn i { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; border-radius: 50%; background: var(--warn); }
-.week { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; align-items: start; }
+.week { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: start; }
 .day-col { background: var(--surface); border-radius: var(--r); padding: 14px; min-width: 0; }
 .day-col.today { background: var(--navy-4); box-shadow: inset 0 0 0 2px var(--navy-3); }
 .day-col-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
@@ -31,12 +45,15 @@
 .lesson + .lesson { margin-top: 8px; }
 .lesson::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--c, var(--navy)); }
 .lesson:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
-.lesson-time { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.lesson-time { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.lesson-time > span { white-space: nowrap; }
 .lesson-time b { color: var(--ink); font-weight: 500; }
-.lesson-name { font-weight: 500; font-size: 15px; line-height: 1.3; margin-top: 4px; }
+.lesson-name { font-weight: 500; font-size: 16px; line-height: 1.35; margin-top: 8px; overflow-wrap: anywhere; }
 .lesson-sub { font-size: 13px; color: var(--muted); margin-top: 3px; line-height: 1.35; }
+.lesson-teacher { display: block; font-size: 13px; line-height: 1.4; color: var(--muted); margin-top: 2px; overflow-wrap: anywhere; }
 .lesson-room { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 500; margin-top: 8px; color: var(--navy); }
-.lesson-tag { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; font-size: 12px; font-weight: 500; border-radius: var(--pill); padding: 3px 9px; background: var(--warn-2); color: var(--warn); }
+.lesson-tag { display: inline-flex; align-items: center; gap: 4px; max-width: 100%; margin-top: 8px; font-size: 12px; font-weight: 500; border-radius: 10px; padding: 4px 8px; background: var(--warn-2); color: var(--warn); }
+.lesson-tag > svg { flex: none; }
 .lesson.cancelled .lesson-name, .lesson.moved .lesson-name { text-decoration: line-through; color: var(--muted); }
 .lesson.cancelled .lesson-tag { background: var(--red-2); color: var(--red-ink); }
 .lesson.extra .lesson-tag, .lesson.moved-in .lesson-tag { background: var(--good-2); color: var(--good); }
@@ -55,3 +72,12 @@
 .kv { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 10px 16px; font-size: 15px; }
 .kv dt { color: var(--muted); }
 .kv dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+@media (min-width: 761px) and (max-width: 980px) {
+  .container .week { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .changes-grid { grid-template-columns: 1fr; }
+  .schedule-changes summary { padding: 12px; gap: 8px; }
+  .schedule-changes-title { font-size: 14px; }
+  .schedule-changes-action { font-size: 12px; gap: 4px; }
+}

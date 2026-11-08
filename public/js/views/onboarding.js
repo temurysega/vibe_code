@@ -1,4 +1,4 @@
-// Знакомство первокурсника: образ и питомец за минуту, а также квиз «Как устроен кабинет».
+// Первое действие в кабинете, затем необязательная настройка образа и питомца.
 import { patch, post } from '../lib/api.js';
 import { session, setPlay } from '../lib/bus.js';
 import { esc } from '../lib/format.js';
@@ -16,14 +16,13 @@ export function openOnboarding() {
   const hairs = APPEARANCE.hair.filter(([id]) => id !== 'none');
 
   const views = [
-    () => `<div class="modal-title">Добро пожаловать в МГИМО Манию</div>
-      <p class="modal-sub">Всё для учёбы в одном окне — и немного игры, чтобы туда хотелось заглядывать</p>
-      <div class="col mt-20" style="gap:10px">
-        ${[['calendar', 'Расписание с переносами', 'Отмены и новые аудитории подсвечены, на главной — ближайшая пара'], ['chart', 'Баллы и прогноз', 'Видно, сколько не хватает до «отлично» и что в зоне риска'], ['doc', 'Справки онлайн', 'Заказ за минуту, статус как у посылки, электронная справка с QR'], ['bell', 'Уведомления деканата', 'Новости, дедлайны и изменения — без чатов и стендов'], ['paw', 'Питомец, кампус и перерыв', 'Растут от учёбы: фокус-сессии, прогулка по кампусу, 5 минут забега в день']]
-          .map(([ic, t, d]) => `<div class="row" style="align-items:flex-start"><span class="way-n">${icon(ic, 18)}</span><div><b style="font-weight:500">${t}</b><div class="small muted">${d}</div></div></div>`).join('')}
+    () => `<div class="modal-title">С чего начать</div>
+      <p class="modal-sub">Выберите, что нужно сейчас. Кнопка сразу откроет нужный раздел.</p>
+      <div class="start-actions">
+        ${[['calendar', 'Посмотреть расписание', 'Выберите день и нажмите занятие: увидите аудиторию, преподавателя и изменения.', '#/schedule'], ['chart', 'Проверить учёбу', 'Откройте дисциплину: посмотрите баллы и что нужно сделать дальше.', '#/grades'], ['doc', 'Заказать справку об обучении', 'Укажите, куда нужна справка, и отправьте её в деканат. Данные профиля уже заполнены.', '#/requests/new/study']]
+          .map(([ic, title, description, route], index) => `<a class="start-action" data-start-route href="${route}"${index === 0 ? ' autofocus' : ''}>${icon(ic, 22)}<span><b>${title}</b><small>${description}</small></span>${icon('arrow', 18)}</a>`).join('')}
       </div>
-      <div class="steps"><i class="on"></i><i></i><i></i></div>
-      <div class="modal-foot"><button class="btn btn-primary btn-lg" data-next autofocus>Собрать аватар ${icon('arrow', 18)}</button></div>`,
+      <div class="modal-foot"><button class="btn btn-secondary" data-next>Настроить аватар</button><button class="btn btn-ghost" data-close>Пока закрыть</button></div>`,
     () => `<div class="modal-title">Ваш аватар</div><p class="modal-sub">Остальное — в гардеробе кампуса. Всё бесплатно</p>
       <div class="onb-grid mt-20"><div class="onb-ava">${avatarSvg(av, { view: 'full' })}</div><div>
         <div class="opt-title">Фигура</div><div class="chips">${APPEARANCE.body.map(([id, n]) => `<button class="chip ${av.body === id ? 'on' : ''}" data-body="${id}">${n}</button>`).join('')}</div>
@@ -41,13 +40,20 @@ export function openOnboarding() {
   ];
 
   const entry = modal.open({
-    label: 'Знакомство',
+    label: 'С чего начать',
     size: 'wide',
     html: views[0](),
     onMount(el, en, render) {
       const paint = () => render(views[step]());
       el.addEventListener('input', (e) => { if (e.target.matches('[data-petname]')) petName = e.target.value; });
       el.addEventListener('click', async (e) => {
+        const start = e.target.closest('[data-start-route]');
+        if (start) {
+          e.preventDefault();
+          modal.close(en);
+          location.hash = start.getAttribute('href');
+          return;
+        }
         const t = e.target.closest('button');
         if (!t) return;
         if (t.dataset.next != null) { step++; paint(); return; }

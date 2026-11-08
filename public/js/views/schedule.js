@@ -9,6 +9,7 @@ import { skeleton, errorBox, lessonState, changeTag, changeLine, teacherModal, K
 let week = null;
 let picked = null;
 let advancedToNextWeek = false;
+let changesOpen = false;
 
 // Отменённая или уже завершённая пара не определяет день, который нужен студенту первым.
 function nextStudyDay(w, now) {
@@ -31,9 +32,10 @@ function lessonCard(it, now) {
   const st = lessonState(it, now);
   const cls = [it.status, st, it.change && it.change.type === 'room' ? 'room-changed' : '', it.change && it.change.type === 'teacher' ? 'teacher-changed' : ''].join(' ');
   return `<button class="lesson ${cls}" style="--c:${it.color}" data-lesson="${esc(it.key)}">
-    <span class="lesson-time"><b>${it.start}</b>–${it.end} · ${it.pair} пара${st === 'now' && it.status !== 'cancelled' ? ' · <b style="color:var(--navy)">идёт</b>' : ''}</span>
+    <span class="lesson-time"><span><b>${it.start}</b>–${it.end}</span><span>${it.pair} пара${st === 'now' && it.status !== 'cancelled' ? ' · <b>идёт</b>' : ''}</span></span>
     <span class="lesson-name" style="display:block">${esc(it.discipline)}</span>
-    <span class="lesson-sub" style="display:block">${esc(it.kindLabel)}${it.teacher ? ' · ' + esc(it.teacher.short) : ''}${it.subgroup ? ' · подгруппа ' + esc(it.subgroup) : ''}</span>
+    <span class="lesson-sub" style="display:block">${esc(it.kindLabel)}${it.subgroup ? ' · подгруппа ' + esc(it.subgroup) : ''}</span>
+    ${it.teacher ? `<span class="lesson-teacher">${esc(it.teacher.short)}</span>` : ''}
     <span class="lesson-room">${icon('pin', 14)} ${/^\d+$/.test(it.room) ? 'ауд. ' : ''}${esc(it.room)}${it.change && it.change.type === 'room' ? ` <span class="old">${esc(it.change.from)}</span>` : ''}</span>
     ${st === 'past' && !['cancelled', 'moved'].includes(it.status) ? '<span class="lesson-past-note">Завершена</span>' : ''}
     ${it.change ? `<span class="lesson-tag">${changeTag(it)}</span>` : ''}
@@ -64,7 +66,10 @@ function body() {
       <div class="week-tools"><button class="btn btn-secondary btn-sm" data-bells>${icon('clock', 16)} Звонки</button><a class="btn btn-secondary btn-sm" href="/api/schedule.ics" download>${icon('download', 16)} В свой календарь</a></div>
     </div>
     ${advancedToNextWeek ? '<p class="schedule-context">На этой неделе больше нет предстоящих занятий — показана следующая.</p>' : ''}
-    ${w.changes.length ? `<div class="changes-strip" aria-label="Изменения на неделе">${w.changes.map((it) => { const c = changeLine(it); return `<button class="change-pill ${c.cls}" data-lesson="${esc(it.key)}">${icon(c.icon, 18)}<span><b>${c.title}</b>${c.sub ? `<span class="small">${esc(c.sub)}</span>` : ''}</span></button>`; }).join('')}</div>` : ''}
+    ${w.changes.length ? `<details class="schedule-changes" data-schedule-changes ${changesOpen ? 'open' : ''}>
+      <summary><span class="schedule-changes-title">${icon('alert', 18)}<span>Изменения на неделе <b>${w.changes.length}</b></span></span><span class="schedule-changes-action"><span class="changes-show">Показать все</span><span class="changes-hide">Свернуть</span>${icon('down', 16)}</span></summary>
+      <div class="changes-grid" aria-label="Все изменения на неделе">${w.changes.map((it) => { const c = changeLine(it); return `<button class="change-pill ${c.cls}" data-lesson="${esc(it.key)}">${icon(c.icon, 18)}<span><b>${c.title}</b>${c.sub ? `<span class="small">${esc(c.sub)}</span>` : ''}</span>${icon('arrow', 16)}</button>`; }).join('')}</div>
+    </details>` : ''}
     <div class="days-pick" role="group" aria-label="День недели">${w.days.map((d) => `<button class="day-btn ${picked === d.date ? 'on' : ''} ${d.date === now.date ? 'today' : ''}" data-pick="${d.date}" aria-controls="day-${d.date}" aria-pressed="${picked === d.date}" aria-label="${esc(dayShort(d.date))}${d.date === now.date ? ', сегодня' : ''}"><span>${esc(weekdayShort(d.date))}</span><b>${dateNum(d.date)}</b>${d.items.some((x) => x.change) ? '<i></i>' : ''}</button>`).join('')}</div>
     <div class="week">${w.days.map((d) => dayCol(d, now)).join('')}</div>`;
 }
@@ -113,6 +118,7 @@ export default {
     const box = el.querySelector('[data-body]');
     const q = params[0] && /^\d{4}-W\d{2}$/.test(params[0]) ? `?week=${params[0]}` : '';
     advancedToNextWeek = false;
+    changesOpen = false;
     try {
       week = await get('/api/schedule' + q);
       if (!q && !nextStudyDay(week, mskNow())) {
@@ -129,6 +135,9 @@ export default {
     if (session.play && session.play.newcomer && !session.play.steps.schedule) post('/api/play/mark', { step: 'schedule' }).then((r) => setPlay(r.play)).catch(() => {});
 
     const find = (key) => week.days.flatMap((d) => d.items).find((x) => x.key === key);
+    el.addEventListener('toggle', (e) => {
+      if (e.target.matches('[data-schedule-changes]')) changesOpen = e.target.open;
+    }, true);
     el.addEventListener('click', (e) => {
       if (e.target.closest('[data-retry]')) { location.reload(); return; }
       if (e.target.closest('[data-bells]')) { bellsModal(); return; }
