@@ -83,7 +83,7 @@ try:
                         time.sleep(.2)
                 else:
                     raise RuntimeError('Isolated server did not become ready')
-                for name in ['browser-smoke', 'browser-flows', 'browser-accessibility', 'browser-polish', 'browser-stipend']:
+                for name in ['browser-smoke', 'browser-flows', 'browser-accessibility', 'browser-polish', 'browser-stipend', 'browser-review']:
                     script = ROOT / 'test' / f'{name}.py'
                     if not script.exists():
                         continue

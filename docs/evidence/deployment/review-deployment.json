@@ -1,0 +1,576 @@
+{
+  "started_msk": "2026-11-08T20:27:40+03:00",
+  "version": "review-b27684eaebf8",
+  "source_sha256": "b27684eaebf869cf8dcc03bf6c1d8648c8536501e27964639b3d9932c56b278b",
+  "before": {
+    "containers": [
+      {
+        "id": "bd136939a3c8b9db6fcc8ec3d40ba62b553db8dcb38298f57645660efa1975e3",
+        "name": "/mgimo-mania",
+        "image": "mgimo-mania:6376d05",
+        "status": "running",
+        "started_at": "2026-11-08T15:54:45.947090372Z",
+        "health": "healthy",
+        "mounts": [
+          {
+            "name": "mgimo-mania-data",
+            "destination": "/data",
+            "type": "volume"
+          }
+        ]
+      },
+      {
+        "id": "4dd2efaeb3043ad3e8c5348e6e26a88eac9385a2c9a13becd296c57ba8ffbf19",
+        "name": "/predel-app-1",
+        "image": "predel-app",
+        "status": "running",
+        "started_at": "2026-10-29T15:43:21.141425143Z",
+        "health": "healthy",
+        "mounts": [
+          {
+            "name": "predel_predel_data",
+            "destination": "/app/server/data",
+            "type": "volume"
+          },
+          {
+            "name": null,
+            "destination": "/app/server/data/semantic-model",
+            "type": "bind"
+          },
+          {
+            "name": null,
+            "destination": "/app/server/data/semantic-runs",
+            "type": "bind"
+          }
+        ]
+      },
+      {
+        "id": "ba030210ac3c3059caef556c7476d4bd7f3bf672da797accb1cd2648f105b9b7",
+        "name": "/predel-caddy-1",
+        "image": "caddy:2.8",
+        "status": "running",
+        "started_at": "2026-10-29T15:43:21.145498328Z",
+        "health": null,
+        "mounts": [
+          {
+            "name": "predel_caddy_config",
+            "destination": "/config",
+            "type": "volume"
+          },
+          {
+            "name": "predel_caddy_data",
+            "destination": "/data",
+            "type": "volume"
+          },
+          {
+            "name": null,
+            "destination": "/etc/caddy/Caddyfile",
+            "type": "bind"
+          }
+        ]
+      }
+    ],
+    "current_release": "/opt/mgimo-mania/releases/6376d05",
+    "database": {
+      "seeded_at": "1794152033753",
+      "tables": {
+        "requests": {
+          "count": 14,
+          "max_id": 14,
+          "compared_through_id": 14,
+          "compared_count": 14,
+          "identity_sha256": "88cb0a01323b92f2ac27bb6ac8987b9be6e0062af3ab8adf3f9f3d8480b87454"
+        },
+        "request_events": {
+          "count": 32,
+          "max_id": 32,
+          "compared_through_id": 32,
+          "compared_count": 32,
+          "identity_sha256": "b120b614064ca02a5b2e34fd174f48dd2b97cb5c6d5ade6ba442a41aa145f3df"
+        },
+        "users": {
+          "count": 4,
+          "max_id": 4,
+          "compared_through_id": 4,
+          "compared_count": 4,
+          "identity_sha256": "53f05db42ae7a2448b803524370439977a258df1f2d7a31b4067debb28b2518a"
+        }
+      }
+    },
+    "observed_msk": "2026-11-08T20:27:38+03:00"
+  },
+  "deployment": {
+    "version": "review-b27684eaebf8",
+    "release": "/opt/mgimo-mania/releases/review-b27684eaebf8",
+    "health": "healthy",
+    "current_pointer_changed": false
+  },
+  "public_files": [
+    {
+      "path": "/css/auth.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "121ad64d91b0e11214b8e023afd2530595046c3d2b202e2105a0e0498555d6cf",
+      "actual_sha256": "121ad64d91b0e11214b8e023afd2530595046c3d2b202e2105a0e0498555d6cf"
+    },
+    {
+      "path": "/css/base.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "6065ae3f516cfa48c7baaf60f5c1c0e44ec1ba00ebc8aba29b1be7bf48b459b6",
+      "actual_sha256": "6065ae3f516cfa48c7baaf60f5c1c0e44ec1ba00ebc8aba29b1be7bf48b459b6"
+    },
+    {
+      "path": "/css/components.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "83b958cd6db2787f4a1e7d87776111495eca657adee840e0c07ffe1e425abda3",
+      "actual_sha256": "83b958cd6db2787f4a1e7d87776111495eca657adee840e0c07ffe1e425abda3"
+    },
+    {
+      "path": "/css/effects.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "cb6b3d56ae607564518bf581dad43fd3f67587b3f5776b8ed49280564be1da03",
+      "actual_sha256": "cb6b3d56ae607564518bf581dad43fd3f67587b3f5776b8ed49280564be1da03"
+    },
+    {
+      "path": "/css/grades.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "7b7ac5395049ef885fd1c45df03676e933d0bfc3f920341eebfe671edf4fa06b",
+      "actual_sha256": "7b7ac5395049ef885fd1c45df03676e933d0bfc3f920341eebfe671edf4fa06b"
+    },
+    {
+      "path": "/css/home.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "b57b94868bcbc6063bcae5d1712d5289f1645d548046ec06bc9a9b8b152d2328",
+      "actual_sha256": "b57b94868bcbc6063bcae5d1712d5289f1645d548046ec06bc9a9b8b152d2328"
+    },
+    {
+      "path": "/css/layout.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "55d041fcc504a95cfe09269574c3e2b183a5c23d0c3b3f0278a08700f583315c",
+      "actual_sha256": "55d041fcc504a95cfe09269574c3e2b183a5c23d0c3b3f0278a08700f583315c"
+    },
+    {
+      "path": "/css/pages.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "76c591e66d44da8e05ad39563bfb71b4207953e2c34773559655c28c2572502e",
+      "actual_sha256": "76c591e66d44da8e05ad39563bfb71b4207953e2c34773559655c28c2572502e"
+    },
+    {
+      "path": "/css/play.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "55b482234135ff6085442a2952a3a847d7aabb9d25c9e5c75bd31e9fb740db2b",
+      "actual_sha256": "55b482234135ff6085442a2952a3a847d7aabb9d25c9e5c75bd31e9fb740db2b"
+    },
+    {
+      "path": "/css/requests.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "c2d2fe53b8775c10d1de8eb417a42a63dc2b917339003e8f1a1d92f9c9be28b1",
+      "actual_sha256": "c2d2fe53b8775c10d1de8eb417a42a63dc2b917339003e8f1a1d92f9c9be28b1"
+    },
+    {
+      "path": "/css/responsive.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "9fa6cfd624bdfa3d7b3e2aa14f4a691cbb5879c4cf25229052a3f1289b581e64",
+      "actual_sha256": "9fa6cfd624bdfa3d7b3e2aa14f4a691cbb5879c4cf25229052a3f1289b581e64"
+    },
+    {
+      "path": "/css/schedule.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "b647cfd5e3a2e4c901c8a0869b0d60b00ed90ae0a8927b27d49d8a800a95b4fa",
+      "actual_sha256": "b647cfd5e3a2e4c901c8a0869b0d60b00ed90ae0a8927b27d49d8a800a95b4fa"
+    },
+    {
+      "path": "/css/tokens.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "04c933840d42a4176821fec8998f1df55b3f42bfdcff24c64af5a91d29d727d9",
+      "actual_sha256": "04c933840d42a4176821fec8998f1df55b3f42bfdcff24c64af5a91d29d727d9"
+    },
+    {
+      "path": "/fonts/OFL-Onest.txt",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "7805ccc507e6dc0c0796f1afa4f03ad413a9d302a30a24f8dbeb1aeef07a6c17",
+      "actual_sha256": "7805ccc507e6dc0c0796f1afa4f03ad413a9d302a30a24f8dbeb1aeef07a6c17"
+    },
+    {
+      "path": "/fonts/onest-cyrillic.woff2",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "68e5e01d6265bd68967746d4f5a9d18d0e6cbb5d15583c7082d6384ab1229b27",
+      "actual_sha256": "68e5e01d6265bd68967746d4f5a9d18d0e6cbb5d15583c7082d6384ab1229b27"
+    },
+    {
+      "path": "/fonts/onest-latin.woff2",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "052df74533250c2e0ca0c4bdd32de594e107d99c1648e63820ef9c6142067828",
+      "actual_sha256": "052df74533250c2e0ca0c4bdd32de594e107d99c1648e63820ef9c6142067828"
+    },
+    {
+      "path": "/img/logo.svg",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "b066a3f63694d3b0d0cabcd84a4a7a76aaafacbc0402e18de03e3ec62f702db1",
+      "actual_sha256": "b066a3f63694d3b0d0cabcd84a4a7a76aaafacbc0402e18de03e3ec62f702db1"
+    },
+    {
+      "path": "/index.html",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "0a2a6460333ec21cf8d6b993236d44c9a0ed8b8615d349443e2f59c8c1739222",
+      "actual_sha256": "0a2a6460333ec21cf8d6b993236d44c9a0ed8b8615d349443e2f59c8c1739222"
+    },
+    {
+      "path": "/js/app.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "a7709aa52f4dbbd6c7e3710ce0627a59ed6ec3de2074de15e36f5d707edb8fd2",
+      "actual_sha256": "a7709aa52f4dbbd6c7e3710ce0627a59ed6ec3de2074de15e36f5d707edb8fd2"
+    },
+    {
+      "path": "/js/art/avatar.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "42677cdbfda68d0f9d0fe42aded246f8715cec4eb1bcd53038f81c988854684c",
+      "actual_sha256": "42677cdbfda68d0f9d0fe42aded246f8715cec4eb1bcd53038f81c988854684c"
+    },
+    {
+      "path": "/js/art/logo.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "55d04fffca126e34d7041a80023ccdfc83b17f2cdb04c2756316a2dcf711b4d2",
+      "actual_sha256": "55d04fffca126e34d7041a80023ccdfc83b17f2cdb04c2756316a2dcf711b4d2"
+    },
+    {
+      "path": "/js/campus/scene.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "31fe7a161ce5f67ee14ebb0bc9311424654404043ab6424b77fe89d4c17d56c3",
+      "actual_sha256": "31fe7a161ce5f67ee14ebb0bc9311424654404043ab6424b77fe89d4c17d56c3"
+    },
+    {
+      "path": "/js/game/runner.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "4c9714d18b431fb952ef81bca654661ce9fc52e98f7747aa28e0c6b360c69439",
+      "actual_sha256": "4c9714d18b431fb952ef81bca654661ce9fc52e98f7747aa28e0c6b360c69439"
+    },
+    {
+      "path": "/js/legacy-worker.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "b523844cfe2ce458b6eab0885c606a626d2ecf46525d1136ef944d23e069fa09",
+      "actual_sha256": "b523844cfe2ce458b6eab0885c606a626d2ecf46525d1136ef944d23e069fa09"
+    },
+    {
+      "path": "/js/lib/api.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "92cbedb830b1edf19a837e2dab6cf5400263d1f7680e97bf3ae68581ac66f6bf",
+      "actual_sha256": "92cbedb830b1edf19a837e2dab6cf5400263d1f7680e97bf3ae68581ac66f6bf"
+    },
+    {
+      "path": "/js/lib/bus.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "877f537910607e894be48a4a33e843f2153daf8a9a97399360af812b7ba1cb79",
+      "actual_sha256": "877f537910607e894be48a4a33e843f2153daf8a9a97399360af812b7ba1cb79"
+    },
+    {
+      "path": "/js/lib/format.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "9cd942dcb3adf4397a63b8bdb61397763d13347a6caa4d96a03afa74c3739d52",
+      "actual_sha256": "9cd942dcb3adf4397a63b8bdb61397763d13347a6caa4d96a03afa74c3739d52"
+    },
+    {
+      "path": "/js/shared/catalog.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "28c40f38dadf74255982525c3fd2c927cc983d226f15e770cb40cd8f85ee4b76",
+      "actual_sha256": "28c40f38dadf74255982525c3fd2c927cc983d226f15e770cb40cd8f85ee4b76"
+    },
+    {
+      "path": "/js/ui/fx.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "01efed1cd7988b94ae9eec1107faff585c474eaaf4bb183ff3379f79b8c0eab0",
+      "actual_sha256": "01efed1cd7988b94ae9eec1107faff585c474eaaf4bb183ff3379f79b8c0eab0"
+    },
+    {
+      "path": "/js/ui/icons.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "68ad1e2fed72b7364e0fff5f3e8d588035dddffe2c5dfe22d07a77766d000d4c",
+      "actual_sha256": "68ad1e2fed72b7364e0fff5f3e8d588035dddffe2c5dfe22d07a77766d000d4c"
+    },
+    {
+      "path": "/js/ui/overlay.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "da7d9166a0fe02c8d18b75f057df55664aa559e30867e2e3e6c003efaf428fb2",
+      "actual_sha256": "da7d9166a0fe02c8d18b75f057df55664aa559e30867e2e3e6c003efaf428fb2"
+    },
+    {
+      "path": "/js/views/about.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "ec1d3cefc90ac12e2a904492bc98fbc66b9a7c0ba364b2ebbf35186ae56a615d",
+      "actual_sha256": "ec1d3cefc90ac12e2a904492bc98fbc66b9a7c0ba364b2ebbf35186ae56a615d"
+    },
+    {
+      "path": "/js/views/assistant.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "17b2fca4c29aa96ac9317297dd0adfd360cc891629c055c14861665f1c194710",
+      "actual_sha256": "17b2fca4c29aa96ac9317297dd0adfd360cc891629c055c14861665f1c194710"
+    },
+    {
+      "path": "/js/views/campus.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "40378357e10279fddf2a4cbc29e5ceac68843a9a5d355d343f1b665bd3237637",
+      "actual_sha256": "40378357e10279fddf2a4cbc29e5ceac68843a9a5d355d343f1b665bd3237637"
+    },
+    {
+      "path": "/js/views/common.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "b9efd7ee1453d32fdcf1f745be1651cd85995f8b75fce51a792a2c3f2022446c",
+      "actual_sha256": "b9efd7ee1453d32fdcf1f745be1651cd85995f8b75fce51a792a2c3f2022446c"
+    },
+    {
+      "path": "/js/views/dean.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "eff9a2308e86de457bb84cc6fc3a684762b511cd4e594f0e82b0e777cebb9011",
+      "actual_sha256": "eff9a2308e86de457bb84cc6fc3a684762b511cd4e594f0e82b0e777cebb9011"
+    },
+    {
+      "path": "/js/views/game.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "44e0526b49ba6dc2d286c4406454254354f0d211c53df0d87b7c7a5b6a1bb39e",
+      "actual_sha256": "44e0526b49ba6dc2d286c4406454254354f0d211c53df0d87b7c7a5b6a1bb39e"
+    },
+    {
+      "path": "/js/views/grades.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "c3831c73e6965bbddc4129db74be24a6bee668ec702f26a05fea59f3a9c2d327",
+      "actual_sha256": "c3831c73e6965bbddc4129db74be24a6bee668ec702f26a05fea59f3a9c2d327"
+    },
+    {
+      "path": "/js/views/home.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "42c999a869e1f817616146d1eb7c267a059c9afbded24c06fd1e113a4b8993bf",
+      "actual_sha256": "42c999a869e1f817616146d1eb7c267a059c9afbded24c06fd1e113a4b8993bf"
+    },
+    {
+      "path": "/js/views/login.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "cb1477da2e985987cc024911c5c36e1e13dfe62f8e9cb798549e1ed4ad711b59",
+      "actual_sha256": "cb1477da2e985987cc024911c5c36e1e13dfe62f8e9cb798549e1ed4ad711b59"
+    },
+    {
+      "path": "/js/views/notifications.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "269f04afbd72b7682f4162581bf85906f3870174dee3b54f2fa5577ed0125957",
+      "actual_sha256": "269f04afbd72b7682f4162581bf85906f3870174dee3b54f2fa5577ed0125957"
+    },
+    {
+      "path": "/js/views/onboarding.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "0e7398d08efcc5c5194441eda001a35b345214b8c339748b30e89472dea0b323",
+      "actual_sha256": "0e7398d08efcc5c5194441eda001a35b345214b8c339748b30e89472dea0b323"
+    },
+    {
+      "path": "/js/views/profile.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "d229f957c1de59414e0e4bc3ff35edeab1b089266112a6db9fd37b658b2559f5",
+      "actual_sha256": "d229f957c1de59414e0e4bc3ff35edeab1b089266112a6db9fd37b658b2559f5"
+    },
+    {
+      "path": "/js/views/requests.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "173018ac6ee9f34aa1c97d22f7e7a4031547443153e1ed3d3aff3720f4141b06",
+      "actual_sha256": "173018ac6ee9f34aa1c97d22f7e7a4031547443153e1ed3d3aff3720f4141b06"
+    },
+    {
+      "path": "/js/views/schedule.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "8b4878a73a95da15b2f645d76808b4827dbf23ca817c8cbbd6e5abc7a970a0d4",
+      "actual_sha256": "8b4878a73a95da15b2f645d76808b4827dbf23ca817c8cbbd6e5abc7a970a0d4"
+    },
+    {
+      "path": "/js/views/shop.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "c54812e16071ec59abd44f36f0f3925ee64a51fbd91a381476e8b0074a6902cc",
+      "actual_sha256": "c54812e16071ec59abd44f36f0f3925ee64a51fbd91a381476e8b0074a6902cc"
+    },
+    {
+      "path": "/js/views/verify.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "4f96f25f6c0dcb1a907ef9cac486fcb656358be13305c629a0293792cbbb16f8",
+      "actual_sha256": "4f96f25f6c0dcb1a907ef9cac486fcb656358be13305c629a0293792cbbb16f8"
+    },
+    {
+      "path": "/js/views/wardrobe.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "5bcf384de3fba60a8585a339952c5e79c68efb7004497dc6837135cbcda3fcfb",
+      "actual_sha256": "5bcf384de3fba60a8585a339952c5e79c68efb7004497dc6837135cbcda3fcfb"
+    },
+    {
+      "path": "/manifest.webmanifest",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "13e2991febf6104b7777245968dc201daacea899094f292b1165de3e0c9f3460",
+      "actual_sha256": "13e2991febf6104b7777245968dc201daacea899094f292b1165de3e0c9f3460"
+    },
+    {
+      "path": "/sw.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "0814f1251fbba3ec41f903fb1f629b54dcc5f7e21948112fd036523b3ba9a872",
+      "actual_sha256": "0814f1251fbba3ec41f903fb1f629b54dcc5f7e21948112fd036523b3ba9a872"
+    }
+  ],
+  "after": {
+    "containers": [
+      {
+        "id": "eee89cf347037064aa0168c229177f94e13eca4eb642976bcdc17d724b04107b",
+        "name": "/mgimo-mania",
+        "image": "mgimo-mania:review-b27684eaebf8",
+        "status": "running",
+        "started_at": "2026-11-08T17:28:02.54853797Z",
+        "health": "healthy",
+        "mounts": [
+          {
+            "name": "mgimo-mania-data",
+            "destination": "/data",
+            "type": "volume"
+          }
+        ]
+      },
+      {
+        "id": "4dd2efaeb3043ad3e8c5348e6e26a88eac9385a2c9a13becd296c57ba8ffbf19",
+        "name": "/predel-app-1",
+        "image": "predel-app",
+        "status": "running",
+        "started_at": "2026-10-29T15:43:21.141425143Z",
+        "health": "healthy",
+        "mounts": [
+          {
+            "name": "predel_predel_data",
+            "destination": "/app/server/data",
+            "type": "volume"
+          },
+          {
+            "name": null,
+            "destination": "/app/server/data/semantic-model",
+            "type": "bind"
+          },
+          {
+            "name": null,
+            "destination": "/app/server/data/semantic-runs",
+            "type": "bind"
+          }
+        ]
+      },
+      {
+        "id": "ba030210ac3c3059caef556c7476d4bd7f3bf672da797accb1cd2648f105b9b7",
+        "name": "/predel-caddy-1",
+        "image": "caddy:2.8",
+        "status": "running",
+        "started_at": "2026-10-29T15:43:21.145498328Z",
+        "health": null,
+        "mounts": [
+          {
+            "name": "predel_caddy_config",
+            "destination": "/config",
+            "type": "volume"
+          },
+          {
+            "name": "predel_caddy_data",
+            "destination": "/data",
+            "type": "volume"
+          },
+          {
+            "name": null,
+            "destination": "/etc/caddy/Caddyfile",
+            "type": "bind"
+          }
+        ]
+      }
+    ],
+    "current_release": "/opt/mgimo-mania/releases/6376d05",
+    "database": {
+      "seeded_at": "1794152033753",
+      "tables": {
+        "requests": {
+          "count": 14,
+          "max_id": 14,
+          "compared_through_id": 14,
+          "compared_count": 14,
+          "identity_sha256": "88cb0a01323b92f2ac27bb6ac8987b9be6e0062af3ab8adf3f9f3d8480b87454"
+        },
+        "request_events": {
+          "count": 32,
+          "max_id": 32,
+          "compared_through_id": 32,
+          "compared_count": 32,
+          "identity_sha256": "b120b614064ca02a5b2e34fd174f48dd2b97cb5c6d5ade6ba442a41aa145f3df"
+        },
+        "users": {
+          "count": 4,
+          "max_id": 4,
+          "compared_through_id": 4,
+          "compared_count": 4,
+          "identity_sha256": "53f05db42ae7a2448b803524370439977a258df1f2d7a31b4067debb28b2518a"
+        }
+      }
+    },
+    "observed_msk": "2026-11-08T20:28:44+03:00"
+  },
+  "checks": {
+    "seeded_at_unchanged": true,
+    "requests_count_not_reduced": true,
+    "requests_existing_identity_rows_preserved": true,
+    "request_events_count_not_reduced": true,
+    "request_events_existing_identity_rows_preserved": true,
+    "users_count_not_reduced": true,
+    "users_existing_identity_rows_preserved": true,
+    "/predel-app-1_id_and_start_unchanged": true,
+    "/predel-caddy-1_id_and_start_unchanged": true,
+    "persistent_volume_preserved": true,
+    "application_healthy": true,
+    "all_public_hashes_match": true
+  },
+  "pointer": {
+    "current_release": "/opt/mgimo-mania/releases/review-b27684eaebf8"
+  },
+  "passed": true,
+  "finished_msk": "2026-11-08T20:28:45+03:00"
+}

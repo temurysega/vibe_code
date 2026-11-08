@@ -1,0 +1,97 @@
+{
+  "containers": [
+    {
+      "id": "bd136939a3c8b9db6fcc8ec3d40ba62b553db8dcb38298f57645660efa1975e3",
+      "name": "/mgimo-mania",
+      "image": "mgimo-mania:6376d05",
+      "status": "running",
+      "started_at": "2026-11-08T15:54:45.947090372Z",
+      "health": "healthy",
+      "mounts": [
+        {
+          "name": "mgimo-mania-data",
+          "destination": "/data",
+          "type": "volume"
+        }
+      ]
+    },
+    {
+      "id": "4dd2efaeb3043ad3e8c5348e6e26a88eac9385a2c9a13becd296c57ba8ffbf19",
+      "name": "/predel-app-1",
+      "image": "predel-app",
+      "status": "running",
+      "started_at": "2026-10-29T15:43:21.141425143Z",
+      "health": "healthy",
+      "mounts": [
+        {
+          "name": "predel_predel_data",
+          "destination": "/app/server/data",
+          "type": "volume"
+        },
+        {
+          "name": null,
+          "destination": "/app/server/data/semantic-model",
+          "type": "bind"
+        },
+        {
+          "name": null,
+          "destination": "/app/server/data/semantic-runs",
+          "type": "bind"
+        }
+      ]
+    },
+    {
+      "id": "ba030210ac3c3059caef556c7476d4bd7f3bf672da797accb1cd2648f105b9b7",
+      "name": "/predel-caddy-1",
+      "image": "caddy:2.8",
+      "status": "running",
+      "started_at": "2026-10-29T15:43:21.145498328Z",
+      "health": null,
+      "mounts": [
+        {
+          "name": "predel_caddy_config",
+          "destination": "/config",
+          "type": "volume"
+        },
+        {
+          "name": "predel_caddy_data",
+          "destination": "/data",
+          "type": "volume"
+        },
+        {
+          "name": null,
+          "destination": "/etc/caddy/Caddyfile",
+          "type": "bind"
+        }
+      ]
+    }
+  ],
+  "current_release": "/opt/mgimo-mania/releases/6376d05",
+  "database": {
+    "seeded_at": "1794152033753",
+    "tables": {
+      "requests": {
+        "count": 14,
+        "max_id": 14,
+        "compared_through_id": 14,
+        "compared_count": 14,
+        "identity_sha256": "88cb0a01323b92f2ac27bb6ac8987b9be6e0062af3ab8adf3f9f3d8480b87454"
+      },
+      "request_events": {
+        "count": 32,
+        "max_id": 32,
+        "compared_through_id": 32,
+        "compared_count": 32,
+        "identity_sha256": "b120b614064ca02a5b2e34fd174f48dd2b97cb5c6d5ade6ba442a41aa145f3df"
+      },
+      "users": {
+        "count": 4,
+        "max_id": 4,
+        "compared_through_id": 4,
+        "compared_count": 4,
+        "identity_sha256": "53f05db42ae7a2448b803524370439977a258df1f2d7a31b4067debb28b2518a"
+      }
+    }
+  },
+  "observed_msk": "2026-11-08T20:27:14+03:00"
+}

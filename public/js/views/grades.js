@@ -29,12 +29,19 @@ function scale(c) {
 function discCard(c) {
   const st = { excellent: ['badge-good', 'идёт на «отлично»'], good: ['badge-soft', 'хорошо'], ok: ['badge-gray', 'стабильно'], risk: ['badge-red', 'в зоне риска'] }[c.status];
   return `<button class="disc ${c.status}" style="--c:${c.color}" data-disc="${c.id}">
-    <span class="disc-head"><span><span class="disc-name" style="display:block">${esc(c.name)}</span><span class="small muted">${esc(c.controlLabel)} · ${c.credits} ЗЕ${c.teacher ? ' · ' + esc(c.teacher.short) : ''}</span></span>
+    <span class="disc-head"><span><span class="disc-name" style="display:block">${esc(c.name)}</span><span class="small muted disc-meta">${esc(c.controlLabel)}<span class="disc-extra"> · ${c.credits} ЗЕ${c.teacher ? ' · ' + esc(c.teacher.short) : ''}</span></span></span>
       <span class="disc-points">${c.earned}<small> / 100</small></span></span>
-    <span class="row-wrap"><span class="badge ${st[0]}">${st[1]}</span>${c.forecast != null ? `<span class="small muted">прогноз ${c.forecast} · ${esc(c.forecastVerdict.label)}</span>` : ''}${c.attendance != null ? `<span class="small muted">посещаемость ${c.attendance}%</span>` : ''}</span>
+    <span class="row-wrap disc-status"><span class="badge ${st[0]}">${st[1]}</span>${c.forecast != null ? `<span class="small muted disc-forecast">прогноз ${c.forecast}<span class="disc-extra"> · ${esc(c.forecastVerdict.label)}</span></span>` : ''}${c.attendance != null ? `<span class="small muted disc-extra">посещаемость ${c.attendance}%</span>` : ''}</span>
     ${scale(c)}
     <span class="disc-advice">${icon(c.status === 'risk' ? 'alert' : 'target', 16)}<span>${esc(c.advice)}${c.next ? `. Дальше: ${esc(c.next.title.toLowerCase())}${c.next.date ? ', ' + esc(relDay(c.next.date)) : ''}` : ''}</span></span>
   </button>`;
+}
+
+function disciplines(filter = 'all') {
+  const list = g.current.filter((c) => filter !== 'attention' || c.status === 'risk');
+  return list.length
+    ? list.slice().sort((a, b) => Number(b.status === 'risk') - Number(a.status === 'risk')).map(discCard).join('')
+    : '<div class="card empty disc-empty"><span class="emoji">🌿</span><div class="h4">Дисциплин в зоне риска нет</div><p class="mt-8">Чтобы посмотреть остальные баллы, выберите «Все».</p></div>';
 }
 
 function current() {
@@ -58,7 +65,12 @@ function current() {
       </div>
     </div>
     <div class="section-head mt-32"><h2 class="h3">Дисциплины</h2><div class="scale-legend"><span><i style="width:14px;height:8px;border-radius:4px;background:var(--navy)"></i> набрано</span><span><i style="width:14px;height:8px;border-radius:4px;background:repeating-linear-gradient(-45deg,#DCE6F8 0 3px,#C9D6F0 3px 6px)"></i> прогноз</span><span>60 — зачёт · 75 — «хорошо» · 90 — «отлично»</span></div></div>
-    <div class="disc-grid">${g.current.slice().sort((a, b) => (a.status === 'risk' ? -1 : 0) - (b.status === 'risk' ? -1 : 0)).map(discCard).join('')}</div>`;
+    <div class="grade-filters" role="group" aria-label="Какие дисциплины показать">
+      <button type="button" class="on" data-grade-filter="all" aria-pressed="true" aria-controls="grade-disciplines">Все · ${g.current.length}</button>
+      <button type="button" data-grade-filter="attention" aria-pressed="false" aria-controls="grade-disciplines">Требуют внимания · ${g.current.filter((c) => c.status === 'risk').length}</button>
+    </div>
+    <div class="disc-list-hint"><span data-grade-count role="status" aria-live="polite">Показано ${g.current.length} из ${g.current.length} дисциплин</span><span>Нажмите дисциплину, чтобы открыть подробности</span></div>
+    <div class="disc-grid" id="grade-disciplines">${disciplines()}</div>`;
 }
 
 function sessionTab() {
@@ -154,6 +166,19 @@ export default {
     const id = Number(params[0]);
     if (id) { const c = g.current.find((x) => x.id === id); if (c) discModal(c); }
     el.addEventListener('click', (e) => {
+      const filter = e.target.closest('[data-grade-filter]');
+      if (filter) {
+        const value = filter.dataset.gradeFilter;
+        el.querySelectorAll('[data-grade-filter]').forEach((button) => {
+          const selected = button === filter;
+          button.classList.toggle('on', selected);
+          button.setAttribute('aria-pressed', String(selected));
+        });
+        el.querySelector('#grade-disciplines').innerHTML = disciplines(value);
+        const count = value === 'attention' ? g.current.filter((c) => c.status === 'risk').length : g.current.length;
+        el.querySelector('[data-grade-count]').textContent = `Показано ${count} из ${g.current.length} дисциплин`;
+        return;
+      }
       const d = e.target.closest('[data-disc]');
       if (d) { const c = g.current.find((x) => x.id === Number(d.dataset.disc)); if (c) discModal(c); return; }
       const s = e.target.closest('[data-sem]');

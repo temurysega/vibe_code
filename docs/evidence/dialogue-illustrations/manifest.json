@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "added_on": "2026-11-08",
+  "classification": "Иллюстрации вымышленного диалога / реконструкции",
+  "provenance": "Четыре PNG предоставлены автором проекта из папки Downloads для иллюстрации вымышленного примера диалогов, обсуждавшегося с ассистентом. Они не являются оригиналами ранней переписки и не подтверждают историческую последовательность разработки.",
+  "handling": "Файлы скопированы без изменения пикселей. Названия продуктов и оформление внутри изображений не подтверждают использование конкретного инструмента для конкретного изменения кода.",
+  "scope": "Иллюстрируют обсуждение идеи, цикла заявки, мобильных приоритетов и необязательного игрового слоя. Содержимое сопоставляется с текущей реализацией в docs/PROCESS.md; не все предложения на изображениях описывают фактическое поведение приложения.",
+  "files": [
+    {
+      "file": "01-concept.png",
+      "original_filename": "MGIMO Mania student portal concept.png",
+      "sha256": "fdc73e1ba7881ef05b959a7ef90fc74068153ed1259c2ef30662f58db2e96f81",
+      "bytes": 1627075
+    },
+    {
+      "file": "02-request-workflow.png",
+      "original_filename": "Qwen Code request workflow design.png",
+      "sha256": "d28c6c0128c7005d4fb6c3c1c9b616b05c2f97eea23262939fbabc2cacfff877",
+      "bytes": 1595128
+    },
+    {
+      "file": "03-mobile-priorities.png",
+      "original_filename": "Claude Code student app redesign.png",
+      "sha256": "c2ed26a82a39f4521092a08c94fbf794a3dae295afcfee2f7ae7452828e88be7",
+      "bytes": 1714730
+    },
+    {
+      "file": "04-optional-campus.png",
+      "original_filename": "Claude Code maps a playful virtual campus.png",
+      "sha256": "9ff8a1da1763fbbbe611850eacc3807e4dd17d7f3bcdc39aecc740e30529e891",
+      "bytes": 1670357
+    }
+  ]
+}

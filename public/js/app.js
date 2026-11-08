@@ -38,6 +38,7 @@ const NAV = [
   ['game', 'Перерыв', 'play'],
 ];
 const TABS = [['home', 'Главная', 'home'], ['schedule', 'Расписание', 'calendar'], ['grades', 'Оценки', 'chart'], ['requests', 'Заявки', 'doc']];
+const LIFE = NAV.slice(4);
 
 const $concept = document.getElementById('concept');
 const $head = document.getElementById('header');
@@ -82,7 +83,8 @@ function paintChrome(route) {
   const unread = session.unread;
   $head.innerHTML = `<div class="container">
     <a class="logo" href="#/home" aria-label="${APP_NAME} — главная">${logoMark()}${wordmark()}</a>
-    <nav class="nav" aria-label="Разделы">${NAV.map(([id, name]) => `<a href="#/${id}" class="${route === id ? 'on' : ''}">${name}</a>`).join('')}</nav>
+    <nav class="nav" aria-label="Разделы">${NAV.slice(0, 4).map(([id, name]) => `<a href="#/${id}" class="${route === id ? 'on' : ''}"${route === id ? ' aria-current="page"' : ''}>${name}</a>`).join('')}
+      <button type="button" class="${LIFE.some(([id]) => id === route) ? 'on' : ''}" data-life aria-label="Студенческая жизнь" aria-haspopup="dialog" aria-expanded="false">Студенческая жизнь ${icon('down', 14)}</button></nav>
     <div class="header-right">
       <a class="bal-pill" href="#/shop" data-bal title="М-коины — за активность, не за оценки">${coin(26)}<span class="bal-num tnum">${fmt(p ? p.coins : 0)}</span></a>
       <button class="icon-btn ask-header" data-ask aria-label="Спросить деканат" title="Спросить деканат">${icon('chat', 20)}</button>
@@ -253,6 +255,14 @@ $main.addEventListener('click', (e) => {
 }, true);
 
 $head.addEventListener('click', async (e) => {
+  const life = e.target.closest('[data-life]');
+  if (life) {
+    e.stopPropagation();
+    openMenu(life, LIFE.map(([id, name, ic]) => `<a class="menu-item" href="#/${id}">${icon(ic, 18)} ${name}</a>`).join(''), (menu) => {
+      menu.addEventListener('click', (event) => { if (event.target.closest('a')) closeMenu(); });
+    });
+    return;
+  }
   const bell = e.target.closest('[data-bell]');
   if (bell) {
     e.stopPropagation();

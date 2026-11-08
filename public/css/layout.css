@@ -20,9 +20,10 @@
 .logo-tag { display: block; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: 3px; font-style: normal; font-weight: 500; }
 .nav { display: flex; gap: 2px; flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; }
 .nav::-webkit-scrollbar { display: none; }
-.nav a { height: 38px; padding: 0 9px; display: inline-flex; align-items: center; border-radius: var(--pill); font-size: 14px; white-space: nowrap; color: var(--ink); transition: background .15s; }
-.nav a:hover { background: var(--surface); }
-.nav a.on { background: var(--navy-3); color: var(--navy-ink); font-weight: 500; }
+.nav a, .nav button { height: 38px; padding: 0 9px; display: inline-flex; align-items: center; gap: 6px; border-radius: var(--pill); font-size: 14px; white-space: nowrap; color: var(--ink); transition: background .15s; flex: none; }
+.nav button { background: transparent; border: 0; cursor: pointer; }
+.nav a:hover, .nav button:hover { background: var(--surface); }
+.nav a.on, .nav button.on { background: var(--navy-3); color: var(--navy-ink); font-weight: 500; }
 .nav a .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); margin-left: 6px; }
 .header-right { display: flex; align-items: center; gap: 8px; flex: none; margin-left: auto; }
 .bal-pill { height: 40px; border-radius: var(--pill); background: var(--surface); display: inline-flex; align-items: center; gap: 7px; padding: 0 14px 0 7px; font-weight: 500; font-size: 15px; cursor: pointer; border: 0; transition: background .15s, transform .15s; }

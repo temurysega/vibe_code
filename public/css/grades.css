@@ -47,3 +47,25 @@
 .scale-legend { display: flex; gap: 8px; flex-wrap: wrap; }
 .scale-legend span { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; background: #fff; border-radius: var(--pill); padding: 5px 10px; }
 .scale-legend i { display: inline-block; }
+.grade-filters { display: inline-flex; gap: 4px; padding: 4px; border-radius: var(--pill); background: var(--surface); }
+.grade-filters button { border: 0; background: transparent; border-radius: var(--pill); min-height: 44px; padding: 8px 16px; cursor: pointer; font-size: 14px; }
+.grade-filters button.on { background: #fff; color: var(--navy); font-weight: 500; box-shadow: 0 1px 4px rgba(15, 45, 105, .1); }
+.disc-list-hint { display: flex; justify-content: space-between; gap: 8px 20px; flex-wrap: wrap; margin: 12px 0 16px; font-size: 13px; color: var(--muted); }
+.disc-empty { grid-column: 1 / -1; }
+@media (max-width: 720px) {
+  .grade-filters { display: flex; }
+  .grade-filters button { padding: 8px 12px; }
+  .grade-filters button:last-child { flex: 1; }
+  .disc-grid { gap: 10px; }
+  .disc-grid .disc { padding: 14px 16px; gap: 8px; border-radius: 14px; }
+  .disc-grid .disc::before { right: auto; bottom: 0; width: 3px; height: auto; }
+  .disc-grid .disc-name { font-size: 16px; }
+  .disc-grid .disc-points { font-size: 25px; }
+  .disc-grid .disc-points small { font-size: 12px; }
+  .disc-grid .disc-meta { font-size: 13px; }
+  .disc-grid .disc-extra, .disc-grid .scale, .disc-grid .disc-advice { display: none; }
+  .disc-grid .disc-status { justify-content: space-between; gap: 5px; }
+  .disc-grid .disc-forecast { font-size: 13px; }
+  .disc-list-hint { font-size: 13px; }
+  .section-head:has(+ .grade-filters) .scale-legend { display: none; }
+}

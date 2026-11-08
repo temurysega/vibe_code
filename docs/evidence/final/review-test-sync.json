@@ -1,0 +1,11 @@
+{
+  "scope": "Only browser-review.py wait synchronization changed after the full collection; server/public code is unchanged.",
+  "source_sha256_after_test_sync_fix": "4e61f9adb54aa699d7cbd04bb80be14af320fdfdec2ec7640b07087d855fa409",
+  "local_review_rerun": {
+    "checks": 40,
+    "passed": 40,
+    "browser_errors": []
+  },
+  "original_full_run": "run-summary.json",
+  "public_initial_attempt": "../deployment/review-browser/browser-review-first-attempt.json"
+}

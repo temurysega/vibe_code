@@ -43,6 +43,10 @@ img[src*="prompt-"] {max-height:220mm;margin:8pt auto}
 .cover-shot img {width:100%;height:110mm;object-fit:cover;object-position:top;margin:8pt 0}
 .cover-shot + h2 {break-before:page}
 .wide-shot img {max-height:160mm}
+.dialogue-illustration img {width:100%;max-height:160mm}
+.comparison-pair {display:flex;align-items:flex-start;gap:7mm;break-inside:avoid}
+.comparison-pair figure {flex:1;min-width:0}
+.comparison-pair img {max-height:175mm}
 .prompt-page {break-before:page;break-inside:avoid}
 .prompt-page h3 {margin-top:0}
 .prompt-page > p {font-size:8pt;margin:5pt 0}
@@ -69,13 +73,18 @@ with sync_playwright() as p:
 pdf = DOCS / 'PROCESS.pdf'
 writer = PdfWriter(str(pdf), incremental=True)
 attachments = [DOCS / 'PROMPTS.json', DOCS / 'evidence/history/git-history.json']
+attachments += [DOCS / 'evidence/dialogue-illustrations/manifest.json']
+attachments += [DOCS / 'evidence/review-session.json']
+attachments += [DOCS / 'evidence/deployment/review-deployment.json']
+attachments += sorted((DOCS / 'evidence/deployment/review-browser').glob('*.json'))
 attachments += sorted((DOCS / 'evidence/final').glob('*.txt'))
 attachments += sorted((DOCS / 'evidence/final').glob('*.json'))
 attachments += [DOCS / 'evidence/deployment' / name for name in
                 ['openrouter-live.json', 'assistant-browser-live.json', 'production-persistence.json', 'migration-deployed.json']]
 for attachment in attachments:
     if attachment.is_file():
-        writer.add_attachment(attachment.name, attachment.read_bytes())
+        name = 'deployed-' + attachment.name if attachment.parent.name == 'review-browser' else attachment.name
+        writer.add_attachment(name, attachment.read_bytes())
 writer.add_metadata({'/Title': 'МГИМО Мания — история создания',
                      '/Subject': 'Сценарии, работа с ИИ, реальные результаты и журналы проверок',
                      '/Author': 'Команда проекта МГИМО Мания'})

@@ -1,7 +1,7 @@
 /* ---------- Адаптив: от широкого экрана до телефона 360 px ---------- */
 @media (max-width: 1340px) {
   .header .container { gap: 12px; }
-  .nav a { padding: 0 9px; font-size: 14px; }
+  .nav a, .nav button { padding: 0 9px; font-size: 14px; }
 }
 @media (max-width: 1180px) {
   .home-top, .grades-hero { grid-template-columns: 1fr; }
@@ -116,7 +116,7 @@
   .card { padding: 16px; }
   .h1 { font-size: 27px; }
   .header .bal-pill .coin { display: none; }
-  .tabbar a { font-size: 10px; }
+  .tabbar a { font-size: 11px; }
   .tb-ic { width: 40px; }
   .stat-v { font-size: 20px; }
   .next-title { font-size: 22px; }
