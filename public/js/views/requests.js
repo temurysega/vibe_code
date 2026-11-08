@@ -62,9 +62,11 @@ function formView(t) {
   const p = me;
   return `<div class="req-form"><form class="card" data-form novalidate>
       <div><span class="eyebrow">${t.group === 'cert' ? 'Справка' : 'Заявление'} · до ${t.days} ${plural(t.days, ['дня', 'дней', 'дней'])}</span><p class="mt-8" style="font-size:17px">${esc(t.short)}</p></div>
-      <div class="prefill"><div class="row space" style="margin-bottom:10px"><b style="font-weight:500">Данные подставлены из профиля</b><span class="badge badge-gray">${icon('lock', 12)} только для деканата</span></div>
-        <dl class="kv"><dt>Студент</dt><dd>${esc(`${p.lastName} ${p.firstName} ${p.middleName || ''}`)}</dd><dt>Группа</dt><dd>${esc(p.group)}, ${p.course} курс</dd><dt>Факультет</dt><dd>${esc(p.faculty.name)}</dd></dl></div>
-      ${t.delivery.length > 1 ? `<div class="field"><span class="field-label">Формат</span><div class="opt-cards">${t.delivery.map((d, i) => `<label class="opt-card"><input type="radio" name="delivery" value="${d}" ${i === 0 ? 'checked' : ''}><b>${icon(d === 'electronic' ? 'download' : 'doc', 18)} ${DELIVERY[d][0]}</b><span>${DELIVERY[d][1]}</span></label>`).join('')}</div></div>` : ''}
+      <details class="prefill" data-prefill ${matchMedia('(max-width: 720px)').matches ? '' : 'open'}>
+        <summary><span><span class="field-hint">Данные подставлены из профиля</span><strong>${esc(`${p.lastName} ${p.firstName} ${p.middleName || ''}`)}</strong><span class="small muted">${esc(p.group)} · ${p.course} курс</span></span>${icon('down', 18)}</summary>
+        <div class="prefill-details"><dl class="kv"><dt>Факультет</dt><dd>${esc(p.faculty.name)}</dd></dl><span class="badge badge-gray">${icon('lock', 12)} только для деканата</span></div>
+      </details>
+      ${t.delivery.length > 1 ? `<fieldset class="field request-format"><legend class="field-label">Формат</legend><div class="opt-cards">${t.delivery.map((d, i) => `<label class="opt-card"><input type="radio" name="delivery" value="${d}" ${i === 0 ? 'checked' : ''}><b>${icon(d === 'electronic' ? 'download' : 'doc', 18)} ${DELIVERY[d][0]}</b><span>${DELIVERY[d][1]}</span></label>`).join('')}</div></fieldset>` : ''}
       ${t.langs && t.langs.length > 1 ? `<div class="field"><span class="field-label">Язык справки</span><div class="seg">${t.langs.map((l, i) => `<label style="display:contents"><input type="radio" name="lang" value="${l}" ${i === 0 ? 'checked' : ''} class="sr"><span class="lang-opt ${i === 0 ? 'on' : ''}" data-lang="${l}" style="height:36px;padding:0 16px;border-radius:100px;display:inline-flex;align-items:center;cursor:pointer">${LANG[l]}</span></label>`).join('')}</div></div>` : ''}
       ${t.fields.map(fieldHtml).join('')}
       <div data-form-error role="alert"></div>

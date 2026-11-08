@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:50797",
+  "base": "http://127.0.0.1:59760",
   "checks": [
     {
       "check": "360: all bottom navigation labels are at least 11px",
@@ -166,7 +166,7 @@
   "measurements": [
     {
       "viewport": 360,
-      "grades_all_height": 2936,
+      "grades_all_height": 2096,
       "discipline_count": 9,
       "discipline_card_heights": [
         105,
@@ -179,11 +179,11 @@
         105,
         105
       ],
-      "grades_attention_height": 1934
+      "grades_attention_height": 1094
     },
     {
       "viewport": 1366,
-      "grades_all_height": 1920,
+      "grades_all_height": 1893,
       "discipline_count": 9,
       "discipline_card_heights": [
         268,
@@ -196,7 +196,7 @@
         269,
         269
       ],
-      "grades_attention_height": 1350
+      "grades_attention_height": 1323
     }
   ],
   "fixtures": "No-risk response is intercepted in the browser; database grades are unchanged."

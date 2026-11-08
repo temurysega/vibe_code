@@ -1,6 +1,6 @@
-Command: C:\Users\alsutem\AppData\Local\Programs\Python\Python312\python.exe C:\Users\alsutem\Desktop\вайбкод\vibe_code\test\browser-flows.py http://127.0.0.1:50797
-Started (MSK): 2026-11-08T20:23:29+03:00
-Finished (MSK): 2026-11-08T20:23:51+03:00
+Command: C:\Users\alsutem\AppData\Local\Programs\Python\Python312\python.exe C:\Users\alsutem\Desktop\вайбкод\vibe_code\test\browser-flows.py http://127.0.0.1:59760
+Started (MSK): 2026-11-08T20:57:39+03:00
+Finished (MSK): 2026-11-08T20:57:59+03:00
 Exit code: 0
 
 PASS 360: first student login

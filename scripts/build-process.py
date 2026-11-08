@@ -3,9 +3,11 @@
 Install requirements-qa.txt; collect evidence and render its cards before rebuilding.
 """
 from pathlib import Path
+from html import escape, unescape
 import json
 import re
 import sys
+from urllib.parse import urljoin, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'data' / 'qa-tools'))
@@ -15,6 +17,17 @@ from pypdf import PdfReader, PdfWriter
 
 DOCS = ROOT / 'docs'
 body = markdown.markdown((DOCS / 'PROCESS.md').read_text(encoding='utf-8'), extensions=['tables', 'fenced_code'])
+# PDF readers must not receive links to the author's local checkout. Images stay
+# local for rendering; document/evidence links open the same files in the repo.
+def portable_link(match):
+    reference = unescape(match.group(1))
+    if reference.startswith('#') or urlsplit(reference).scheme or urlsplit(reference).netloc:
+        return match.group(0)
+    target = urljoin('https://github.com/temurysega/vibe_code/blob/main/docs/', reference)
+    return 'href="' + escape(target, quote=True) + '"'
+
+
+body = re.sub(r'href="([^"]*)"', portable_link, body)
 body = re.sub(r'(<h3>Карточка [\s\S]*?</figure>)', r'<section class="prompt-page">\1</section>', body)
 css = """
 @font-face {font-family:Onest;src:url('../public/fonts/onest-cyrillic.woff2') format('woff2');font-weight:100 900}
@@ -75,6 +88,10 @@ writer = PdfWriter(str(pdf), incremental=True)
 attachments = [DOCS / 'PROMPTS.json', DOCS / 'evidence/history/git-history.json']
 attachments += [DOCS / 'evidence/dialogue-illustrations/manifest.json']
 attachments += [DOCS / 'evidence/review-session.json']
+attachments += [DOCS / 'evidence/quality-session.json']
+attachments += [DOCS / 'evidence/quality-before/run-summary.json']
+attachments += [DOCS / 'evidence/quality-before/browser-review.json']
+attachments += [DOCS / 'evidence/quality-before/grades-measurements.json']
 attachments += [DOCS / 'evidence/deployment/review-deployment.json']
 attachments += sorted((DOCS / 'evidence/deployment/review-browser').glob('*.json'))
 attachments += sorted((DOCS / 'evidence/final').glob('*.txt'))
@@ -83,7 +100,7 @@ attachments += [DOCS / 'evidence/deployment' / name for name in
                 ['openrouter-live.json', 'assistant-browser-live.json', 'production-persistence.json', 'migration-deployed.json']]
 for attachment in attachments:
     if attachment.is_file():
-        name = 'deployed-' + attachment.name if attachment.parent.name == 'review-browser' else attachment.name
+        name = 'deployed-' + attachment.name if attachment.parent.name == 'review-browser' else 'before-quality-' + attachment.name if attachment.parent.name == 'quality-before' else attachment.name
         writer.add_attachment(name, attachment.read_bytes())
 writer.add_metadata({'/Title': 'МГИМО Мания — история создания',
                      '/Subject': 'Сценарии, работа с ИИ, реальные результаты и журналы проверок',

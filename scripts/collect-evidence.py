@@ -52,7 +52,7 @@ for directory in ['server', 'public', 'test']:
         if path.is_file() and '__pycache__' not in path.parts:
             source.update(path.relative_to(ROOT).as_posix().encode())
             source.update(path.read_bytes())
-summary = {'started_msk': stamp(), 'scope': 'Local source, disposable SQLite, external AI disabled',
+summary = {'started_msk': stamp(), 'scope': 'Local source, fresh disposable SQLite for each browser suite, external AI disabled',
            'source_revision': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
            'tested_source_sha256': source.hexdigest(), 'stages': []}
 
@@ -65,38 +65,43 @@ try:
         with socket.socket() as sock:
             sock.bind(('127.0.0.1', 0))
             port = sock.getsockname()[1]
-        env.update({'PORT': str(port), 'DB_FILE': str(Path(temporary) / 'evidence.db')})
+        env['PORT'] = str(port)
         base = f'http://127.0.0.1:{port}'
         summary['base'] = base
-        with (Path(temporary) / 'server.txt').open('w', encoding='utf-8') as server_log:
-            server = subprocess.Popen(['node', 'server/index.js'], cwd=ROOT, env=env,
-                                      stdout=server_log, stderr=subprocess.STDOUT)
-            try:
-                for _ in range(80):
-                    if server.poll() is not None:
-                        raise RuntimeError('Isolated server stopped before becoming ready')
-                    try:
-                        with urlopen(base, timeout=1) as response:
-                            if response.status == 200:
-                                break
-                    except OSError:
-                        time.sleep(.2)
-                else:
-                    raise RuntimeError('Isolated server did not become ready')
-                for name in ['browser-smoke', 'browser-flows', 'browser-accessibility', 'browser-polish', 'browser-stipend', 'browser-review']:
-                    script = ROOT / 'test' / f'{name}.py'
-                    if not script.exists():
-                        continue
+        for name in ['browser-smoke', 'browser-flows', 'browser-accessibility', 'browser-polish', 'browser-stipend', 'browser-review', 'browser-home-priority', 'browser-grades-compact', 'browser-request-compact']:
+            # A suite must not inherit requests or notifications from another suite.
+            script = ROOT / 'test' / f'{name}.py'
+            if not script.exists():
+                raise FileNotFoundError(script)
+            env['DB_FILE'] = str(Path(temporary) / f'{name}.db')
+            with (Path(temporary) / f'{name}-server.txt').open('w', encoding='utf-8') as server_log:
+                server = subprocess.Popen(['node', 'server/index.js'], cwd=ROOT, env=env,
+                                          stdout=server_log, stderr=subprocess.STDOUT)
+                try:
+                    for _ in range(80):
+                        if server.poll() is not None:
+                            raise RuntimeError('Isolated server stopped before becoming ready')
+                        try:
+                            with urlopen(base, timeout=1) as response:
+                                if response.status == 200:
+                                    break
+                        except OSError:
+                            time.sleep(.2)
+                    else:
+                        raise RuntimeError('Isolated server did not become ready')
                     stage, _ = run([sys.executable, str(script), base], name, env)
                     report_name = 'browser-results' if name == 'browser-smoke' else name
-                    report = json.loads((OUT / f'{report_name}.json').read_text(encoding='utf-8'))
+                    report_path = OUT / f'{report_name}.json'
+                    report = json.loads(report_path.read_text(encoding='utf-8'))
+                    # Keep committed evidence identical across Windows and Unix.
+                    report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
                     stage.update({'checks': len(report['checks']),
                                   'passed': sum(bool(c['passed']) for c in report['checks']),
                                   'browser_errors': report.get('browser_errors', [])})
                     summary['stages'].append(stage)
-            finally:
-                server.terminate()
-                server.wait(timeout=10)
+                finally:
+                    server.terminate()
+                    server.wait(timeout=10)
     summary['passed'] = True
 finally:
     summary['finished_msk'] = stamp()

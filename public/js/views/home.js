@@ -93,19 +93,47 @@ const sec = {
     const useTomorrow = data.today.holiday || !data.today.items.length || data.today.items.every((it) => lessonState(it, now) === 'past');
     const d = useTomorrow ? data.tomorrow : data.today;
     const title = useTomorrow ? `Завтра, ${esc(dayLabel(d.date).split(', ')[1] || '')}` : 'Сегодня';
+    const hasNext = d.items.some((it) => it.key === data.next?.key);
+    const remaining = d.items.length - Number(hasNext);
     let body;
     if (d.holiday || !d.items.length) {
       body = `<div class="day-empty"><span class="emoji">${d.holiday ? '🎉' : '🌿'}</span><div><b style="font-weight:500">${d.holiday ? esc(d.holiday) : 'Пар нет'}</b><div class="small muted">${d.holiday ? 'Выходной день — занятий нет' : 'Свободный день'}</div></div></div>`;
     } else {
       body = `<div class="day-line">${d.items.map((it) => {
         const st = lessonState(it, now);
-        return `<a class="day-item ${st} ${it.status}" href="#/schedule" style="--c:${it.color}">
+        return `<a class="day-item ${st} ${it.status}${it.key === data.next?.key ? ' day-item-next' : ''}" data-day-lesson="${esc(it.key)}" href="#/schedule" style="--c:${it.color}">
           <span class="t"><b>${it.start}</b>${it.end}</span><span class="stripe"></span>
           <span class="what"><b>${esc(it.discipline)}</b><span class="small muted">${esc(it.kindLabel)} · ауд. ${esc(it.room)}${it.teacher ? ' · ' + esc(it.teacher.short) : ''}</span>
           ${it.status === 'cancelled' ? `<span class="lesson-tag" style="background:var(--red-2);color:var(--red-ink)">${icon('ban', 12)} Отменена</span>` : it.status === 'moved' ? `<span class="lesson-tag">${icon('route', 12)} Перенесена на ${esc(relDay(it.change.to.date))}</span>` : it.change ? `<span class="lesson-tag" style="background:var(--blue-2);color:var(--blue-ink)">${icon('info', 12)} ${it.change.type === 'room' ? 'Новая аудитория' : it.change.type === 'teacher' ? 'Замена' : it.change.type === 'extra' ? 'Дополнительно' : 'Перенос'}</span>` : ''}</span></a>`;
       }).join('')}</div>`;
     }
-    return `<div class="card" data-sec="day"><div class="card-head"><div class="card-title">${title}</div><a class="link-arrow" href="#/schedule">Неделя ${icon('arrow', 16)}</a></div>${body}</div>`;
+    const count = `${remaining} ${plural(remaining, ['занятие', 'занятия', 'занятий'])}`;
+    return `<details class="card home-day" data-sec="day" data-day-date="${d.date}" data-home-more="day" ${detailOpen('day')}>
+      <summary><span><b>${hasNext ? 'Остальные пары' : title}</b><span class="small muted">${hasNext ? `${title} · ${remaining ? count : 'Других пар нет'}` : d.holiday ? esc(d.holiday) : count}</span></span>${icon('down', 18)}</summary>
+      <div class="home-day-body"><div class="card-head home-day-desktop-head"><div class="card-title">${title}</div><a class="link-arrow" href="#/schedule">Неделя ${icon('arrow', 16)}</a></div>
+        ${hasNext ? '<p class="home-day-note small muted">Ближайшая пара показана в карточке выше.</p>' : ''}${body}
+        <a class="home-day-week link-arrow" href="#/schedule">Расписание на неделю ${icon('arrow', 16)}</a>
+      </div></details>`;
+  },
+
+  priority() {
+    const summary = data.grades.summary;
+    const tip = summary.tips.find((item) => ['debt', 'risk', 'att'].includes(item.kind));
+    const risk = data.grades.risk[0];
+    const study = tip
+      ? { label: 'Требует внимания', text: tip.kind === 'risk' && risk ? risk.name : tip.text, link: tip.link, icon: 'alert' }
+      : { label: session.play.newcomer ? 'Ваш первый семестр' : 'Учебных рисков нет', text: summary.total ? 'Посмотреть успеваемость' : 'Открыть раздел учёбы', link: '#/grades', icon: 'chart' };
+    const request = data.requests.find((item) => item.status === 'ready')
+      || data.requests.find((item) => !['issued', 'approved', 'rejected', 'cancelled'].includes(item.status))
+      || data.requests[0];
+    return `<section class="home-priority" data-sec="priority" aria-label="Важное по учёбе">
+      <a class="home-priority-link${tip ? ' attention' : ''}" data-home-priority="study" href="${esc(study.link)}">
+        <span class="home-priority-icon">${icon(study.icon, 18)}</span><span class="grow"><span class="home-priority-label">${esc(study.label)}</span><b>${esc(study.text)}</b></span>${icon('arrow', 16)}
+      </a>
+      <a class="home-priority-link" data-home-priority="request" href="${request ? `#/requests/${request.id}` : '#/requests/new/study'}">
+        <span class="home-priority-icon">${icon('doc', 18)}</span><span class="grow"><span class="home-priority-label">${request ? esc(request.statusLabel) : 'Заявок пока нет'}</span><b>${request ? esc(request.title) : 'Заказать первую справку'}</b></span>${icon('arrow', 16)}
+      </a>
+    </section>`;
   },
 
   steps() {
@@ -243,7 +271,7 @@ const sec = {
 
 function body() {
   return `${sec.hello()}
-    <div class="home-top">${sec.next()}${sec.day()}</div>
+    <div class="home-top">${sec.next()}${sec.priority()}${sec.day()}</div>
     ${sec.steps()}
     <div class="grid home-trio mt-20">${sec.mood()}${sec.deadlines()}${sec.requests()}</div>
     <div class="grid g-2 mt-20">${sec.changes()}${sec.news()}</div>
@@ -305,7 +333,11 @@ export default {
         }
       }
     }, 1000);
-    const minute = setInterval(() => { repaint('next'); repaint('day'); }, 30e3);
+    const minute = setInterval(() => {
+      repaint('next');
+      // Не сбрасываем клавиатурный фокус в раскрытом расписании при обновлении таймера.
+      if (!box.querySelector('[data-sec="day"]')?.contains(document.activeElement)) repaint('day');
+    }, 30e3);
     const offPlay = on('play', () => { ['look', 'pet', 'campus', 'game', 'steps'].forEach(repaint); });
     const offRefresh = on('refresh', load);
 

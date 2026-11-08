@@ -1,8 +1,8 @@
 {
-  "started_msk": "2026-11-08T20:23:03+03:00",
-  "scope": "Local source, disposable SQLite, external AI disabled",
-  "source_revision": "9c5de23b8d78176be2e720cf69f593cd3809d0d9",
-  "tested_source_sha256": "7707d4df427a16fe6303bd45de15a4d2a842197f60f58a212c24830f3b71fd25",
+  "started_msk": "2026-11-08T20:57:12+03:00",
+  "scope": "Local source, fresh disposable SQLite for each browser suite, external AI disabled",
+  "source_revision": "8d376ad2f864ca3625a832b6b8345c18488d5af4",
+  "tested_source_sha256": "73f6ea7cd6938361937c5184fac6c3cd2ac004a38660f18eee324a1f2dc7eb9f",
   "stages": [
     {
       "command": [
@@ -11,8 +11,8 @@
         "--test-reporter=tap",
         "test/*.test.js"
       ],
-      "started_msk": "2026-11-08T20:23:03+03:00",
-      "finished_msk": "2026-11-08T20:23:05+03:00",
+      "started_msk": "2026-11-08T20:57:12+03:00",
+      "finished_msk": "2026-11-08T20:57:14+03:00",
       "exit_code": 0,
       "journal": "unit-tests.txt",
       "tests": 35,
@@ -22,10 +22,10 @@
       "command": [
         "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
         "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-smoke.py",
-        "http://127.0.0.1:50797"
+        "http://127.0.0.1:59760"
       ],
-      "started_msk": "2026-11-08T20:23:05+03:00",
-      "finished_msk": "2026-11-08T20:23:29+03:00",
+      "started_msk": "2026-11-08T20:57:14+03:00",
+      "finished_msk": "2026-11-08T20:57:38+03:00",
       "exit_code": 0,
       "journal": "browser-smoke.txt",
       "checks": 52,
@@ -36,10 +36,10 @@
       "command": [
         "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
         "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-flows.py",
-        "http://127.0.0.1:50797"
+        "http://127.0.0.1:59760"
       ],
-      "started_msk": "2026-11-08T20:23:29+03:00",
-      "finished_msk": "2026-11-08T20:23:51+03:00",
+      "started_msk": "2026-11-08T20:57:39+03:00",
+      "finished_msk": "2026-11-08T20:57:59+03:00",
       "exit_code": 0,
       "journal": "browser-flows.txt",
       "checks": 36,
@@ -50,10 +50,10 @@
       "command": [
         "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
         "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-accessibility.py",
-        "http://127.0.0.1:50797"
+        "http://127.0.0.1:59760"
       ],
-      "started_msk": "2026-11-08T20:23:51+03:00",
-      "finished_msk": "2026-11-08T20:23:56+03:00",
+      "started_msk": "2026-11-08T20:58:00+03:00",
+      "finished_msk": "2026-11-08T20:58:06+03:00",
       "exit_code": 0,
       "journal": "browser-accessibility.txt",
       "checks": 23,
@@ -64,10 +64,10 @@
       "command": [
         "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
         "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-polish.py",
-        "http://127.0.0.1:50797"
+        "http://127.0.0.1:59760"
       ],
-      "started_msk": "2026-11-08T20:23:56+03:00",
-      "finished_msk": "2026-11-08T20:24:01+03:00",
+      "started_msk": "2026-11-08T20:58:06+03:00",
+      "finished_msk": "2026-11-08T20:58:11+03:00",
       "exit_code": 0,
       "journal": "browser-polish.txt",
       "checks": 19,
@@ -78,10 +78,10 @@
       "command": [
         "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
         "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-stipend.py",
-        "http://127.0.0.1:50797"
+        "http://127.0.0.1:59760"
       ],
-      "started_msk": "2026-11-08T20:24:01+03:00",
-      "finished_msk": "2026-11-08T20:25:29+03:00",
+      "started_msk": "2026-11-08T20:58:12+03:00",
+      "finished_msk": "2026-11-08T20:59:41+03:00",
       "exit_code": 0,
       "journal": "browser-stipend.txt",
       "checks": 45,
@@ -92,18 +92,60 @@
       "command": [
         "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
         "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-review.py",
-        "http://127.0.0.1:50797"
+        "http://127.0.0.1:59760"
       ],
-      "started_msk": "2026-11-08T20:25:29+03:00",
-      "finished_msk": "2026-11-08T20:25:38+03:00",
+      "started_msk": "2026-11-08T20:59:41+03:00",
+      "finished_msk": "2026-11-08T20:59:51+03:00",
       "exit_code": 0,
       "journal": "browser-review.txt",
       "checks": 40,
       "passed": 40,
       "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-home-priority.py",
+        "http://127.0.0.1:59760"
+      ],
+      "started_msk": "2026-11-08T20:59:52+03:00",
+      "finished_msk": "2026-11-08T21:00:00+03:00",
+      "exit_code": 0,
+      "journal": "browser-home-priority.txt",
+      "checks": 28,
+      "passed": 28,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-grades-compact.py",
+        "http://127.0.0.1:59760"
+      ],
+      "started_msk": "2026-11-08T21:00:01+03:00",
+      "finished_msk": "2026-11-08T21:00:18+03:00",
+      "exit_code": 0,
+      "journal": "browser-grades-compact.txt",
+      "checks": 31,
+      "passed": 31,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-request-compact.py",
+        "http://127.0.0.1:59760"
+      ],
+      "started_msk": "2026-11-08T21:00:18+03:00",
+      "finished_msk": "2026-11-08T21:00:25+03:00",
+      "exit_code": 0,
+      "journal": "browser-request-compact.txt",
+      "checks": 19,
+      "passed": 19,
+      "browser_errors": []
     }
   ],
-  "base": "http://127.0.0.1:50797",
+  "base": "http://127.0.0.1:59760",
   "passed": true,
-  "finished_msk": "2026-11-08T20:25:38+03:00"
+  "finished_msk": "2026-11-08T21:00:25+03:00"
 }

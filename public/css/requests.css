@@ -40,6 +40,22 @@
 .opt-card:has(input:focus-visible) { outline: 2px solid var(--navy); outline-offset: 2px; }
 .prefill { background: #fff; border-radius: 14px; padding: 14px 16px; }
 .prefill .kv { grid-template-columns: 120px minmax(0, 1fr); font-size: 14px; gap: 6px 12px; }
+.prefill > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; list-style: none; cursor: pointer; }
+.prefill > summary::-webkit-details-marker { display: none; }
+.prefill > summary > span { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.prefill > summary strong { font-size: 15px; font-weight: 500; line-height: 1.4; }
+.prefill > summary > .ic { flex: none; transition: transform .15s; }
+.prefill[open] > summary > .ic { transform: rotate(180deg); }
+.prefill-details { padding-top: 12px; display: flex; flex-direction: column; gap: 10px; }
+.prefill-details > .badge { align-self: flex-start; }
+.request-format { min-width: 0; border: 0; padding: 0; margin: 0; }
+.request-format > legend { padding: 0 0 8px; }
+@media (max-width: 720px) {
+  .req-form .request-format .opt-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .req-form .request-format .opt-card { padding: 12px 10px; }
+  .req-form .request-format .opt-card b { gap: 5px; font-size: 14px; flex-wrap: wrap; }
+  .req-form .request-format .opt-card span { font-size: 13px; line-height: 1.4; }
+}
 .sticky-side { position: sticky; top: calc(var(--header-h) + 16px); display: flex; flex-direction: column; gap: 16px; }
 .req-detail { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 20px; align-items: start; }
 .stepper { display: flex; flex-direction: column; }

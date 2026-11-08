@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:50797",
+  "base": "http://127.0.0.1:59760",
   "checks": [
     {
       "check": "360: secondary game content starts collapsed",
@@ -82,8 +82,8 @@
   "measurements": [
     {
       "viewport": 360,
-      "home_collapsed_height": 3132,
-      "home_expanded_height": 5001
+      "home_collapsed_height": 3021,
+      "home_expanded_height": 4889
     }
   ],
   "clock": "Browser clock frozen to Sunday for the schedule regression only; API schedule is real."

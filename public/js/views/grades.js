@@ -47,7 +47,12 @@ function disciplines(filter = 'all') {
 function current() {
   const s = g.summary;
   const ic = s.mood === 'great' ? '🌟' : s.mood === 'warn' ? '⚡' : '🙂';
-  return `<div class="grades-hero">
+  return `<details class="grades-overview" data-grade-overview ${matchMedia('(min-width: 721px)').matches ? 'open' : ''}>
+    <summary>
+      <span class="grade-overview-title"><b>${esc(s.headline)}</b><span>${s.earned} из ${s.possible} баллов · ${esc(g.semesterLabel)}</span></span>
+      <span class="grade-overview-toggle"><span class="grade-overview-collapsed">Статистика семестра</span><span class="grade-overview-expanded">Свернуть статистику</span>${icon('down', 18)}</span>
+    </summary>
+    <div class="grades-hero">
       <div class="card verdict"><div class="row" style="align-items:flex-start;gap:16px"><span class="verdict-ic">${ic}</span><div><span class="eyebrow">Как у меня дела</span><div class="verdict-big mt-4">${esc(s.headline)}</div></div></div>
         <div class="stat-row">
           <div class="stat"><div class="stat-v">${s.avg != null ? num(s.avg, 2) : '—'}</div><div class="stat-l">средний балл прошлых сессий</div></div>
@@ -63,7 +68,7 @@ function current() {
         </div></div>
         <div class="note mt-16">${icon(s.stipend.kind === 'high' ? 'star' : s.stipend.kind === 'none' ? 'info' : 'coins', 18)}<span><b style="font-weight:500">${esc(s.stipend.label)}</b><br><span class="muted">${esc(s.stipend.hint)}</span></span></div>
       </div>
-    </div>
+    </div></details>
     <div class="section-head mt-32"><h2 class="h3">Дисциплины</h2><div class="scale-legend"><span><i style="width:14px;height:8px;border-radius:4px;background:var(--navy)"></i> набрано</span><span><i style="width:14px;height:8px;border-radius:4px;background:repeating-linear-gradient(-45deg,#DCE6F8 0 3px,#C9D6F0 3px 6px)"></i> прогноз</span><span>60 — зачёт · 75 — «хорошо» · 90 — «отлично»</span></div></div>
     <div class="grade-filters" role="group" aria-label="Какие дисциплины показать">
       <button type="button" class="on" data-grade-filter="all" aria-pressed="true" aria-controls="grade-disciplines">Все · ${g.current.length}</button>
@@ -126,7 +131,7 @@ function history() {
 }
 
 function body() {
-  return `<div class="seg" style="margin-bottom:22px">${[['current', 'Текущий семестр'], ['session', 'Сессия'], ['history', 'Зачётка']].map(([id, n]) => `<a href="#/grades${id === 'current' ? '' : '/' + id}" class="${tab === id ? 'on' : ''}">${n}</a>`).join('')}</div>
+  return `<div class="seg grades-tabs">${[['current', 'Текущий семестр'], ['session', 'Сессия'], ['history', 'Зачётка']].map(([id, n]) => `<a href="#/grades${id === 'current' ? '' : '/' + id}" class="${tab === id ? 'on' : ''}">${n}</a>`).join('')}</div>
     ${tab === 'session' ? sessionTab() : tab === 'history' ? history() : current()}`;
 }
 
@@ -151,13 +156,19 @@ export default {
   title: 'Успеваемость',
   render(params) {
     tab = params[0] === 'session' || params[0] === 'history' ? params[0] : 'current';
-    return `<div class="container"><div class="page-head"><div><h1 class="h1">Успеваемость</h1><p class="lead">100-балльная система: видно, сколько набрано и сколько не хватает до нужной оценки</p></div></div>
+    return `<div class="container grades-page"><div class="page-head"><div><h1 class="h1">Успеваемость</h1><p class="lead">Баллы, прогноз и ближайшие экзамены</p></div></div>
       <div data-body>${skeleton(1, 46)}<div class="grades-hero mt-20"><div class="skel" style="height:280px"></div><div class="skel" style="height:280px"></div></div></div></div>`;
   },
   async mount(el, params) {
     const box = el.querySelector('[data-body]');
+    const user = session.user;
+    let loaded = null;
+    // Не переносим выбор семестра или раскрытую статистику между посещениями.
+    semPick = null;
     try {
-      g = await get('/api/grades');
+      loaded = await get('/api/grades');
+      if (!el.isConnected || session.user !== user) return null;
+      g = loaded;
       box.innerHTML = body();
     } catch (e) {
       if (e.status !== 401) box.innerHTML = errorBox(e);
@@ -165,6 +176,12 @@ export default {
     }
     const id = Number(params[0]);
     if (id) { const c = g.current.find((x) => x.id === id); if (c) discModal(c); }
+    const desktop = matchMedia('(min-width: 721px)');
+    const resizeOverview = () => {
+      const overview = el.querySelector('[data-grade-overview]');
+      if (overview) overview.open = desktop.matches;
+    };
+    desktop.addEventListener('change', resizeOverview);
     el.addEventListener('click', (e) => {
       const filter = e.target.closest('[data-grade-filter]');
       if (filter) {
@@ -184,6 +201,9 @@ export default {
       const s = e.target.closest('[data-sem]');
       if (s) { semPick = Number(s.dataset.sem); box.innerHTML = body(); }
     });
-    return null;
+    return () => {
+      desktop.removeEventListener('change', resizeOverview);
+      if (g === loaded) { g = null; semPick = null; }
+    };
   },
 };
