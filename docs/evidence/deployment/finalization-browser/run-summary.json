@@ -1,0 +1,63 @@
+{
+  "started_msk": "2026-11-08T21:53:27+03:00",
+  "base": "https://ai.neblanki.tech",
+  "scope": "Public HTTPS demo at 360/1366 px. The separate deployment report covers a real request surviving container replacement.",
+  "stages": [
+    {
+      "suite": "browser-smoke",
+      "started_msk": "2026-11-08T21:53:27+03:00",
+      "finished_msk": "2026-11-08T21:53:53+03:00",
+      "exit_code": 0,
+      "checks": 52,
+      "passed": 52,
+      "browser_errors": []
+    },
+    {
+      "suite": "browser-accessibility",
+      "started_msk": "2026-11-08T21:53:53+03:00",
+      "finished_msk": "2026-11-08T21:54:04+03:00",
+      "exit_code": 0,
+      "checks": 23,
+      "passed": 23,
+      "browser_errors": []
+    },
+    {
+      "suite": "browser-grades-compact",
+      "started_msk": "2026-11-08T21:54:04+03:00",
+      "finished_msk": "2026-11-08T21:54:26+03:00",
+      "exit_code": 0,
+      "checks": 31,
+      "passed": 31,
+      "browser_errors": []
+    },
+    {
+      "suite": "browser-request-compact",
+      "started_msk": "2026-11-08T21:54:26+03:00",
+      "finished_msk": "2026-11-08T21:54:40+03:00",
+      "exit_code": 0,
+      "checks": 19,
+      "passed": 19,
+      "browser_errors": []
+    },
+    {
+      "suite": "browser-schedule-readability",
+      "started_msk": "2026-11-08T21:54:40+03:00",
+      "finished_msk": "2026-11-08T21:55:00+03:00",
+      "exit_code": 0,
+      "checks": 35,
+      "passed": 35,
+      "browser_errors": []
+    },
+    {
+      "suite": "browser-first-actions",
+      "started_msk": "2026-11-08T21:55:00+03:00",
+      "finished_msk": "2026-11-08T21:55:32+03:00",
+      "exit_code": 0,
+      "checks": 34,
+      "passed": 34,
+      "browser_errors": []
+    }
+  ],
+  "passed": true,
+  "finished_msk": "2026-11-08T21:55:32+03:00"
+}

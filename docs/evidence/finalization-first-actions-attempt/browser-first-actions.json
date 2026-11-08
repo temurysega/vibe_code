@@ -1,0 +1,51 @@
+{
+  "base": "http://127.0.0.1:60652",
+  "checks": [
+    {
+      "check": "360: start guide is visible in the first screen",
+      "passed": true
+    },
+    {
+      "check": "360: home has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "360: Enter opens three useful study actions",
+      "passed": true
+    },
+    {
+      "check": "360: guide offers schedule, grades and a study certificate",
+      "passed": true
+    },
+    {
+      "check": "360: avatar setup remains optional",
+      "passed": true
+    },
+    {
+      "check": "360: guide has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "360: Escape restores focus to the guide button",
+      "passed": true
+    },
+    {
+      "check": "360: guide opens the real #/schedule screen",
+      "passed": true
+    },
+    {
+      "check": "360: #/schedule has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "360: guide opens the real #/grades screen",
+      "passed": true
+    },
+    {
+      "check": "360: #/grades has no horizontal overflow",
+      "passed": true
+    }
+  ],
+  "browser_errors": [],
+  "unwanted_writes": []
+}

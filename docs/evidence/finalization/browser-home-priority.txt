@@ -1,0 +1,37 @@
+Command: C:\Users\alsutem\AppData\Local\Programs\Python\Python312\python.exe C:\Users\alsutem\Desktop\вайбкод\vibe_code\test\browser-home-priority.py http://127.0.0.1:60652
+Started (MSK): 2026-11-08T21:47:18+03:00
+Finished (MSK): 2026-11-08T21:47:26+03:00
+Exit code: 0
+
+PASS 360: day retains every lesson, including schedule changes
+PASS 360: daily list starts collapsed instead of repeating the nearest lesson
+PASS 360: study and request shortcuts appear before the daily list
+PASS 360: both shortcuts fit above the bottom navigation
+PASS 360: expanded day does not repeat the nearest lesson card
+PASS 360: all other lessons are accessible with one keyboard action
+PASS 360: expanded day keeps the full weekly schedule reachable
+PASS Resize: desktop restores the complete day without losing any lesson
+PASS 360: Space collapses the day again
+PASS 360: priority opens the actual at-risk discipline
+PASS 360: one click reaches the explanation and advice for that risk
+PASS 360: ready document takes priority over a pending request
+PASS 360: request shortcut opens the matching document status
+PASS 360: home has no horizontal overflow
+PASS 360: first-year account has a direct first-request route
+PASS 360: account switch resets the daily disclosure
+PASS 360: newcomer shortcut reaches the prefilled study-certificate form
+PASS 360: no-risk fixture keeps a useful study destination
+PASS 360: empty day has an explicit state and schedule access
+PASS 1366: day retains every lesson, including schedule changes
+PASS 1366: full day remains visible without an extra action
+PASS 1366: mobile shortcuts do not duplicate the desktop overview
+PASS 1366: existing study, deadlines and request cards remain visible
+PASS 1366: nearest deadlines are visible without a long list
+PASS 1366: keyboard reveals every remaining deadline
+PASS 1366: full deadline list can be collapsed again
+PASS 1366: home has no horizontal overflow
+PASS 1366: first-year account has a direct first-request route
+PASS 1366: no-risk fixture keeps a useful study destination
+PASS 1366: empty day has an explicit state and schedule access
+PASS Home priority scenarios: no uncaught JavaScript errors
+{"checks": 31, "failed": []}

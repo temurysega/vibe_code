@@ -1,0 +1,41 @@
+Command: C:\Users\alsutem\AppData\Local\Programs\Python\Python312\python.exe C:\Users\alsutem\Desktop\вайбкод\vibe_code\test\browser-schedule-readability.py http://127.0.0.1:58078
+Started (MSK): 2026-11-08T21:40:15+03:00
+Finished (MSK): 2026-11-08T21:40:32+03:00
+Exit code: 1
+
+PASS 1366px: all six days are present
+PASS 1366px: timetable fits the screen
+PASS 1366px: changes have a visible count
+PASS 1366px: all changes are available without sideways scrolling
+PASS 1366px: change opens its lesson — 2026-11-10:2:3
+PASS 1366px: change opens its lesson — 2026-11-12:2:11
+PASS 1366px: change opens its lesson — 2026-11-12:6:x5
+PASS 1366px: change opens its lesson — 2026-11-13:1:14
+PASS 1366px: change opens its lesson — 2026-11-13:2:7
+PASS 1366px: visible subject and teacher text is not clipped
+PASS 1366px: lesson details contain the teacher
+PASS 1366px: teacher contacts open from lesson details
+FAIL 1366px: next week navigation changes the timetable
+PASS 1366px: calendar export contains lessons
+PASS 360px: all six days are present
+PASS 360px: timetable fits the screen
+PASS 360px: changes have a visible count
+PASS 360px: all changes are available without sideways scrolling
+PASS 360px: change opens its lesson — 2026-11-10:2:3
+PASS 360px: change opens its lesson — 2026-11-12:2:11
+PASS 360px: change opens its lesson — 2026-11-12:6:x5
+PASS 360px: change opens its lesson — 2026-11-13:1:14
+PASS 360px: change opens its lesson — 2026-11-13:2:7
+PASS 360px: keyboard opens 2026-11-09
+PASS 360px: keyboard opens 2026-11-10
+PASS 360px: keyboard opens 2026-11-11
+PASS 360px: keyboard opens 2026-11-12
+PASS 360px: keyboard opens 2026-11-13
+PASS 360px: keyboard opens 2026-11-14
+PASS 360px: visible subject and teacher text is not clipped
+PASS 360px: lesson details contain the teacher
+PASS 360px: teacher contacts open from lesson details
+PASS 360px: next week navigation changes the timetable
+PASS 360px: calendar export contains lessons
+PASS No uncaught browser errors
+{"checks": 35, "failed": [{"check": "1366px: next week navigation changes the timetable", "passed": false}], "output": "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\docs\\evidence\\finalization"}

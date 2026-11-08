@@ -1,0 +1,18 @@
+{
+  "recorded_msk": "2026-11-08T21:51:58+03:00",
+  "command": [
+    "python",
+    "test/browser-first-actions.py",
+    "http://127.0.0.1:63498"
+  ],
+  "exit_code": 0,
+  "checks": 34,
+  "passed": 34,
+  "browser_errors": [],
+  "scope": "Second of two successful focused runs on fresh disposable SQLite. Exact start/end times were not captured. Only test focus synchronization changed.",
+  "source_sha256": "0884fcf74b32333fd506e9f013a65b7a155175e2031f53ae8d82e41d2649ef68",
+  "stability_runs": [
+    "first-pass.json",
+    "browser-first-actions.json"
+  ]
+}

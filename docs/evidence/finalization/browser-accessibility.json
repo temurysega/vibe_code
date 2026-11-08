@@ -1,0 +1,100 @@
+{
+  "base": "http://127.0.0.1:60652",
+  "viewport": "360x800",
+  "checks": [
+    {
+      "check": "503 renders a readable error",
+      "passed": true
+    },
+    {
+      "check": "Retry recovers grades without a manual reload",
+      "passed": true
+    },
+    {
+      "check": "Modal blocks interaction with background",
+      "passed": true
+    },
+    {
+      "check": "Tab and Shift+Tab stay in the modal",
+      "passed": true
+    },
+    {
+      "check": "Escape restores focus to the opener",
+      "passed": true
+    },
+    {
+      "check": "Background is available after closing modal",
+      "passed": true
+    },
+    {
+      "check": "360px: every schedule day switches with Enter",
+      "passed": true
+    },
+    {
+      "check": "Calendar downloads a valid non-empty ICS",
+      "passed": true
+    },
+    {
+      "check": "Nested dialog makes lower dialog inert",
+      "passed": true
+    },
+    {
+      "check": "Closing nested dialog restores teacher button focus",
+      "passed": true
+    },
+    {
+      "check": "360px: session is reachable from grades",
+      "passed": true
+    },
+    {
+      "check": "360px: record book is reachable from grades",
+      "passed": true
+    },
+    {
+      "check": "profile: fields have accessible labels",
+      "passed": true
+    },
+    {
+      "check": "profile: fits 360px",
+      "passed": true
+    },
+    {
+      "check": "requests/new/study: fields have accessible labels",
+      "passed": true
+    },
+    {
+      "check": "requests/new/study: fits 360px",
+      "passed": true
+    },
+    {
+      "check": "notifications: fields have accessible labels",
+      "passed": true
+    },
+    {
+      "check": "notifications: fits 360px",
+      "passed": true
+    },
+    {
+      "check": "Skip link focuses content and keeps current route",
+      "passed": true
+    },
+    {
+      "check": "Malformed escaped route does not crash app",
+      "passed": true
+    },
+    {
+      "check": "Reduced-motion interaction creates no tap particles",
+      "passed": true
+    },
+    {
+      "check": "No external font or asset requests",
+      "passed": true
+    },
+    {
+      "check": "No uncaught browser errors",
+      "passed": true
+    }
+  ],
+  "browser_errors": [],
+  "external_requests": []
+}

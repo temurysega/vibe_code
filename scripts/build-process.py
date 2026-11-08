@@ -100,7 +100,11 @@ attachments += sorted((DOCS / 'evidence/final').glob('*.json'))
 attachments += sorted((DOCS / 'evidence/finalization').glob('*.txt'))
 attachments += sorted((DOCS / 'evidence/finalization').glob('*.json'))
 attachments += [DOCS / 'evidence/deployment/finalization-deployment.json']
+attachments += [DOCS / 'evidence/deployment/finalization-ai.json']
 attachments += sorted((DOCS / 'evidence/deployment/finalization-browser').glob('*.json'))
+for run in ['finalization-first-attempt', 'finalization-schedule-attempt', 'finalization-first-actions-attempt', 'finalization-first-actions-retry']:
+    attachments += sorted((DOCS / 'evidence' / run).glob('*.json'))
+    attachments += sorted((DOCS / 'evidence' / run).glob('*.txt'))
 attachments += [DOCS / 'evidence/deployment' / name for name in
                 ['openrouter-live.json', 'assistant-browser-live.json', 'production-persistence.json', 'migration-deployed.json']]
 for attachment in attachments:

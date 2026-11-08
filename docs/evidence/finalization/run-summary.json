@@ -1,0 +1,187 @@
+{
+  "started_msk": "2026-11-08T21:44:37+03:00",
+  "passed": true,
+  "scope": "Combined local acceptance: 333 passed browser checks from the complete run plus 34 passed focused checks after test-only focus synchronization; application runtime unchanged. Fresh disposable SQLite, external AI disabled.",
+  "source_revision": "5001f208dd4d63f3c166b96ec51ddb0ce8db6894",
+  "tested_source_sha256": "0884fcf74b32333fd506e9f013a65b7a155175e2031f53ae8d82e41d2649ef68",
+  "stages": [
+    {
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "test/*.test.js"
+      ],
+      "started_msk": "2026-11-08T21:44:38+03:00",
+      "finished_msk": "2026-11-08T21:44:39+03:00",
+      "exit_code": 0,
+      "journal": "unit-tests.txt",
+      "tests": 35,
+      "passed": 35
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-smoke.py",
+        "http://127.0.0.1:60652"
+      ],
+      "started_msk": "2026-11-08T21:44:40+03:00",
+      "finished_msk": "2026-11-08T21:45:04+03:00",
+      "exit_code": 0,
+      "journal": "browser-smoke.txt",
+      "checks": 52,
+      "passed": 52,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-flows.py",
+        "http://127.0.0.1:60652"
+      ],
+      "started_msk": "2026-11-08T21:45:05+03:00",
+      "finished_msk": "2026-11-08T21:45:26+03:00",
+      "exit_code": 0,
+      "journal": "browser-flows.txt",
+      "checks": 36,
+      "passed": 36,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-accessibility.py",
+        "http://127.0.0.1:60652"
+      ],
+      "started_msk": "2026-11-08T21:45:26+03:00",
+      "finished_msk": "2026-11-08T21:45:32+03:00",
+      "exit_code": 0,
+      "journal": "browser-accessibility.txt",
+      "checks": 23,
+      "passed": 23,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-polish.py",
+        "http://127.0.0.1:60652"
+      ],
+      "started_msk": "2026-11-08T21:45:33+03:00",
+      "finished_msk": "2026-11-08T21:45:38+03:00",
+      "exit_code": 0,
+      "journal": "browser-polish.txt",
+      "checks": 21,
+      "passed": 21,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-stipend.py",
+        "http://127.0.0.1:60652"
+      ],
+      "started_msk": "2026-11-08T21:45:38+03:00",
+      "finished_msk": "2026-11-08T21:47:07+03:00",
+      "exit_code": 0,
+      "journal": "browser-stipend.txt",
+      "checks": 45,
+      "passed": 45,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-review.py",
+        "http://127.0.0.1:60652"
+      ],
+      "started_msk": "2026-11-08T21:47:08+03:00",
+      "finished_msk": "2026-11-08T21:47:18+03:00",
+      "exit_code": 0,
+      "journal": "browser-review.txt",
+      "checks": 40,
+      "passed": 40,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-home-priority.py",
+        "http://127.0.0.1:60652"
+      ],
+      "started_msk": "2026-11-08T21:47:18+03:00",
+      "finished_msk": "2026-11-08T21:47:26+03:00",
+      "exit_code": 0,
+      "journal": "browser-home-priority.txt",
+      "checks": 31,
+      "passed": 31,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-grades-compact.py",
+        "http://127.0.0.1:60652"
+      ],
+      "started_msk": "2026-11-08T21:47:27+03:00",
+      "finished_msk": "2026-11-08T21:47:43+03:00",
+      "exit_code": 0,
+      "journal": "browser-grades-compact.txt",
+      "checks": 31,
+      "passed": 31,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-request-compact.py",
+        "http://127.0.0.1:60652"
+      ],
+      "started_msk": "2026-11-08T21:47:44+03:00",
+      "finished_msk": "2026-11-08T21:47:51+03:00",
+      "exit_code": 0,
+      "journal": "browser-request-compact.txt",
+      "checks": 19,
+      "passed": 19,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-schedule-readability.py",
+        "http://127.0.0.1:60652"
+      ],
+      "started_msk": "2026-11-08T21:47:52+03:00",
+      "finished_msk": "2026-11-08T21:48:09+03:00",
+      "exit_code": 0,
+      "journal": "browser-schedule-readability.txt",
+      "checks": 35,
+      "passed": 35,
+      "browser_errors": []
+    },
+    {
+      "recorded_msk": "2026-11-08T21:51:58+03:00",
+      "command": [
+        "python",
+        "test/browser-first-actions.py",
+        "http://127.0.0.1:63498"
+      ],
+      "exit_code": 0,
+      "checks": 34,
+      "passed": 34,
+      "browser_errors": [],
+      "scope": "Second of two successful focused runs on fresh disposable SQLite. Exact start/end times were not captured. Only test focus synchronization changed.",
+      "source_sha256": "0884fcf74b32333fd506e9f013a65b7a155175e2031f53ae8d82e41d2649ef68",
+      "journal": "browser-first-actions.txt"
+    }
+  ],
+  "base": "http://127.0.0.1:60652",
+  "recorded_msk": "2026-11-08T21:51:58+03:00",
+  "runtime_source_commit": "19e9672300505f2fe0d2cd98574e858d86446f66",
+  "runtime_sha256": "21595807feafd468eb788af27f51b4ce98d0415a1e181f1d74b92befcfbc4d9c",
+  "verification_runs": [
+    "../finalization-first-actions-attempt/run-summary.json",
+    "../finalization-first-actions-retry/run-summary.json"
+  ],
+  "test_only_change": "test/browser-first-actions.py waits for initial autofocus before selecting another action."
+}

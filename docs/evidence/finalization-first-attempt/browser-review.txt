@@ -1,0 +1,30 @@
+Command: C:\Users\alsutem\AppData\Local\Programs\Python\Python312\python.exe C:\Users\alsutem\Desktop\вайбкод\vibe_code\test\browser-review.py http://127.0.0.1:61763
+Started (MSK): 2026-11-08T21:35:58+03:00
+Finished (MSK): 2026-11-08T21:36:04+03:00
+Exit code: 1
+
+PASS 360: all bottom navigation labels are at least 11px
+PASS 360: all disciplines appear before filtering
+PASS 360: compact overview preserves every score and assessment type
+PASS 360: grades fit the viewport
+PASS 360: each overview card is under 180px high
+PASS 360: detailed advice stays out of the compact overview
+PASS 360: keyboard filter shows exactly the current risks
+PASS 360: filter keeps keyboard focus and exposes its selected state
+PASS 360: live result count matches filtered list
+PASS 360: keyboard opens full discipline details and all control points
+PASS 360: closing details preserves the filter and restores card focus
+PASS 360: Space returns all disciplines
+PASS 360: account switch resets the filter and shows only the new student courses
+PASS 360: session remains reachable
+PASS 360: first-year empty record book remains reachable
+PASS 360: no-risk API fixture gives a clear empty state
+PASS 360: all courses remain available after the empty state
+FAIL 1366: short home cards do not stretch to the longest list
+Traceback (most recent call last):
+  File "<project>\test\browser-review.py", line 61, in <module>
+    check('1366: short home cards do not stretch to the longest list', max(cards) - min(cards) > 60)
+  File "<project>\test\browser-review.py", line 21, in check
+    assert condition, name
+           ^^^^^^^^^
+AssertionError: 1366: short home cards do not stretch to the longest list

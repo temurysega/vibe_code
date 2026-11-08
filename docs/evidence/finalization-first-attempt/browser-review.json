@@ -1,0 +1,98 @@
+{
+  "base": "http://127.0.0.1:61763",
+  "checks": [
+    {
+      "check": "360: all bottom navigation labels are at least 11px",
+      "passed": true
+    },
+    {
+      "check": "360: all disciplines appear before filtering",
+      "passed": true
+    },
+    {
+      "check": "360: compact overview preserves every score and assessment type",
+      "passed": true
+    },
+    {
+      "check": "360: grades fit the viewport",
+      "passed": true
+    },
+    {
+      "check": "360: each overview card is under 180px high",
+      "passed": true
+    },
+    {
+      "check": "360: detailed advice stays out of the compact overview",
+      "passed": true
+    },
+    {
+      "check": "360: keyboard filter shows exactly the current risks",
+      "passed": true
+    },
+    {
+      "check": "360: filter keeps keyboard focus and exposes its selected state",
+      "passed": true
+    },
+    {
+      "check": "360: live result count matches filtered list",
+      "passed": true
+    },
+    {
+      "check": "360: keyboard opens full discipline details and all control points",
+      "passed": true
+    },
+    {
+      "check": "360: closing details preserves the filter and restores card focus",
+      "passed": true
+    },
+    {
+      "check": "360: Space returns all disciplines",
+      "passed": true
+    },
+    {
+      "check": "360: account switch resets the filter and shows only the new student courses",
+      "passed": true
+    },
+    {
+      "check": "360: session remains reachable",
+      "passed": true
+    },
+    {
+      "check": "360: first-year empty record book remains reachable",
+      "passed": true
+    },
+    {
+      "check": "360: no-risk API fixture gives a clear empty state",
+      "passed": true
+    },
+    {
+      "check": "360: all courses remain available after the empty state",
+      "passed": true
+    },
+    {
+      "check": "1366: short home cards do not stretch to the longest list",
+      "passed": false
+    }
+  ],
+  "browser_errors": [],
+  "measurements": [
+    {
+      "viewport": 360,
+      "grades_all_height": 2096,
+      "discipline_count": 9,
+      "discipline_card_heights": [
+        105,
+        105,
+        105,
+        126,
+        126,
+        126,
+        126,
+        105,
+        105
+      ],
+      "grades_attention_height": 1094
+    }
+  ],
+  "fixtures": "No-risk response is intercepted in the browser; database grades are unchanged."
+}

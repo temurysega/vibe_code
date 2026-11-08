@@ -1,0 +1,26 @@
+{
+  "checked_msk": "2026-11-08T21:53:33+03:00",
+  "base": "https://ai.neblanki.tech",
+  "scope": "Live HTTP requests, no provider substitution. API credentials and cookies stay in memory.",
+  "checks": [
+    {
+      "login": "a.morozova",
+      "http_status": 200,
+      "expected_group": "МО-25-03",
+      "source": "ai",
+      "provider": "openrouter",
+      "group_matches": true,
+      "answer": "Ваша группа — МО-25-03."
+    },
+    {
+      "login": "t.aliev",
+      "http_status": 200,
+      "expected_group": "МЭО-26-07",
+      "source": "ai",
+      "provider": "openrouter",
+      "group_matches": true,
+      "answer": "Ваша группа — МЭО-26-07, Факультет международных экономических отношений."
+    }
+  ],
+  "live_ai_passed": true
+}

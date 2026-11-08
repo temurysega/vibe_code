@@ -1,0 +1,39 @@
+Command: C:\Users\alsutem\AppData\Local\Programs\Python\Python312\python.exe C:\Users\alsutem\Desktop\вайбкод\vibe_code\test\browser-first-actions.py http://127.0.0.1:60652
+Started (MSK): 2026-11-08T21:48:09+03:00
+Finished (MSK): 2026-11-08T21:48:47+03:00
+Exit code: 1
+
+PASS 360: start guide is visible in the first screen
+PASS 360: home has no horizontal overflow
+PASS 360: Enter opens three useful study actions
+PASS 360: guide offers schedule, grades and a study certificate
+PASS 360: avatar setup remains optional
+PASS 360: guide has no horizontal overflow
+PASS 360: Escape restores focus to the guide button
+PASS 360: guide opens the real #/schedule screen
+PASS 360: #/schedule has no horizontal overflow
+PASS 360: guide opens the real #/grades screen
+PASS 360: #/grades has no horizontal overflow
+Traceback (most recent call last):
+  File "<project>\test\browser-first-actions.py", line 98, in <module>
+    page.wait_for_url('**/' + route)
+  File "C:\Users\alsutem\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\sync_api\_generated.py", line 10057, in wait_for_url
+    self._sync(
+  File "C:\Users\alsutem\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "C:\Users\alsutem\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_page.py", line 590, in wait_for_url
+    return await self._main_frame.wait_for_url(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\alsutem\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py", line 289, in wait_for_url
+    async with self.expect_navigation(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\alsutem\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_event_context_manager.py", line 33, in __aexit__
+    await self._future
+  File "C:\Users\alsutem\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py", line 265, in continuation
+    event = await waiter.result()
+            ^^^^^^^^^^^^^^^^^^^^^
+playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.
+=========================== logs ===========================
+waiting for navigation to "**/#/requests/new/study" until 'load'
+============================================================
