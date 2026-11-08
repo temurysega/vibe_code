@@ -1,6 +1,7 @@
 // Заявки и справки: каталог, проверка полей, статусы и история изменений.
 // Студент видит и меняет только свои заявки, деканат — заявки своего факультета.
 import { randomBytes } from 'node:crypto';
+import { config } from '../config.js';
 import { str, int, isDate } from '../http/body.js';
 import { fail } from '../http/router.js';
 import { msk, addDays, semesterNumber, DAY } from './time.js';
@@ -173,17 +174,19 @@ function nextNumber(store) {
   return `${msk().date.slice(0, 4)}/${String(seq).padStart(5, '0')}`;
 }
 
-// План автоматической обработки для демо: заявка сама проходит статусы, пока деканат не вмешается
+// План автоматической обработки для демо: заявка сама проходит статусы, пока деканат не вмешается.
+// Готовность наступает через несколько минут: жюри успевает открыть кабинет деканата
+// и принять решение вручную — действие сотрудника отключает автоматику для этой заявки.
 function planFor(type, delivery) {
-  const s = (sec) => Date.now() + sec * 1000;
+  const s = (sec) => Date.now() + Math.round(sec * 1000 * config.demoAutopilotScale);
   if (type.group === 'shop') return [{ at: s(25), status: 'ready', comment: 'Комплект собран — заберите в Лавке МГИМО, 1 этаж' }];
   if (type.group === 'cert') {
     return delivery === 'electronic'
-      ? [{ at: s(20), status: 'in_work', comment: 'Специалист деканата взял заявку в работу' }, { at: s(70), status: 'ready', comment: 'Демонстрационная справка готова — можно скачать и проверить по коду' }]
-      : [{ at: s(30), status: 'in_work', comment: 'Специалист деканата взял заявку в работу' }, { at: s(150), status: 'ready', comment: 'Справка готова — заберите оригинал в деканате' }];
+      ? [{ at: s(60), status: 'in_work', comment: 'Специалист деканата взял заявку в работу' }, { at: s(8 * 60), status: 'ready', comment: 'Демонстрационная справка готова — можно скачать и проверить по коду' }]
+      : [{ at: s(60), status: 'in_work', comment: 'Специалист деканата взял заявку в работу' }, { at: s(15 * 60), status: 'ready', comment: 'Справка готова — заберите оригинал в деканате' }];
   }
-  if (type.manual) return [{ at: s(40), status: 'in_work', comment: 'Заявка передана в отдел академической мобильности. Решение комиссии — до 1 декабря' }];
-  return [{ at: s(40), status: 'in_work', comment: 'Заявление зарегистрировано и передано на рассмотрение' }, { at: s(180), status: 'approved', comment: type.id === 'absence' ? 'Согласовано. Преподаватели предупреждены' : 'Заявление одобрено' }];
+  if (type.manual) return [{ at: s(60), status: 'in_work', comment: 'Заявка передана в отдел академической мобильности. Решение комиссии — до 1 декабря' }];
+  return [{ at: s(60), status: 'in_work', comment: 'Заявление зарегистрировано и передано на рассмотрение' }, { at: s(15 * 60), status: 'approved', comment: type.id === 'absence' ? 'Согласовано. Преподаватели предупреждены' : 'Заявление одобрено' }];
 }
 
 export function createRequest(store, student, faculty, body) {

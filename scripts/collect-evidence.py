@@ -51,6 +51,8 @@ def run(command, name, env):
 env = os.environ.copy()
 env.update({'OPENROUTER_API_KEY': '', 'ANTHROPIC_API_KEY': '', 'COOKIE_SECURE': '0',
             'NODE_ENV': 'test', 'TRUST_PROXY': '0', 'DEMO_RESEED_HOURS': '0',
+            # Демо-автоматика заявок в 0,15 от скорости стенда: справка без деканата готова за ~72 с.
+            'DEMO_AUTOPILOT_SCALE': '0.15',
             'PYTHONIOENCODING': 'utf-8', 'QA_OUTPUT_DIR': str(OUT), 'HOST': '127.0.0.1'})
 source = hashlib.sha256()
 for directory in ['server', 'public', 'test']:

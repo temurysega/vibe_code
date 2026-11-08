@@ -1,5 +1,6 @@
-// Публичный демо-аккаунт деканата: объявления видят все студенты факультета,
-// поэтому массовые публикации ограничены, а ошибочные формы лимит не расходуют.
+// Общий демо-стенд для жюри. Объявления деканата видят все студенты факультета, поэтому
+// массовые публикации ограничены, а ошибочные формы лимит не расходуют. Демо-автоматика
+// заявок оставляет время на ручное решение сотрудника.
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { startApp, client } from './helpers.js';
@@ -37,4 +38,21 @@ test('деканат публикует не больше 10 объявлени�
   await alina.login('a.morozova');
   const list = (await alina.req('GET', '/api/notifications')).data.list;
   assert.equal(list.filter((n) => n.title.startsWith('Объявление для проверки')).length, 10);
+});
+
+test('демо-автоматика оставляет время на ручное решение деканата и отключается его действием', async () => {
+  const alina = client(app.base);
+  await alina.login('a.morozova');
+  const created = await alina.req('POST', '/api/requests', { type: 'study', delivery: 'electronic', lang: 'ru', fields: { place: 'Проверка автоматики', copies: 1 } });
+  assert.equal(created.status, 201);
+  const id = created.data.request.id;
+  const row = app.store.get('SELECT created_at, plan FROM requests WHERE id = ?', id);
+  const ready = JSON.parse(row.plan).find((step) => step.status === 'ready');
+  assert.ok(ready.at - row.created_at >= 7 * 60e3, 'электронная справка не становится готовой раньше чем через 7 минут');
+
+  const dean = client(app.base);
+  await dean.login('dekanat.mo');
+  const taken = await dean.req('PATCH', `/api/dean/requests/${id}`, { status: 'in_work', comment: 'Беру в работу' });
+  assert.equal(taken.status, 200);
+  assert.equal(app.store.get('SELECT plan FROM requests WHERE id = ?', id).plan, null);
 });

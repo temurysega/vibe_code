@@ -32,5 +32,8 @@ export const config = {
   anthropicKey: env.ANTHROPIC_API_KEY || '',
   anthropicModel: env.ANTHROPIC_MODEL || 'claude-opus-5-5',
   demoReseedHours: num(env.DEMO_RESEED_HOURS, 0),
+  // Скорость демо-автоматики заявок: 1 — как на стенде (готовность справки ≈ 8 минут),
+  // меньше 1 — быстрее, например 0.15 для браузерных проверок без участия деканата.
+  demoAutopilotScale: Math.min(1, Math.max(0.01, num(env.DEMO_AUTOPILOT_SCALE, 1))),
   timeZone: 'Europe/Moscow',
 };
