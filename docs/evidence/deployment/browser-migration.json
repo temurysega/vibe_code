@@ -1,0 +1,70 @@
+{
+  "checked_at": "2026-11-08T15:53:01.494681+00:00",
+  "scope": "Isolated localhost Chromium; original legacy worker, current migration scripts",
+  "checks": [
+    {
+      "check": "Exact legacy worker controls both open tabs",
+      "passed": true
+    },
+    {
+      "check": "Legacy release cache is present",
+      "passed": true
+    },
+    {
+      "check": "Origin serves current content after replacement",
+      "passed": true
+    },
+    {
+      "check": "Old worker still serves cached content after origin replacement",
+      "passed": true
+    },
+    {
+      "check": "Replacement migrates both existing tabs without closing them",
+      "passed": true
+    },
+    {
+      "check": "Migration preserves each open tab URL including query and hash",
+      "passed": true
+    },
+    {
+      "check": "Only legacy cache is deleted; other cache and browser data survive",
+      "passed": true
+    },
+    {
+      "check": "Replacement unregisters the legacy service worker",
+      "passed": true
+    },
+    {
+      "check": "Reload stays on current site without a service worker",
+      "passed": true
+    },
+    {
+      "check": "Hard refresh helper updates the existing worker from the network",
+      "passed": true
+    },
+    {
+      "check": "Hard refresh migration preserves unrelated cache, cookie and localStorage",
+      "passed": true
+    },
+    {
+      "check": "Current site comes from network after bypass is disabled",
+      "passed": true
+    },
+    {
+      "check": "Clean visit creates no registration or cache",
+      "passed": true
+    },
+    {
+      "check": "Clean visit never requests a service worker",
+      "passed": true
+    },
+    {
+      "check": "No browser JavaScript errors",
+      "passed": true
+    }
+  ],
+  "browser_errors": [],
+  "failure": null,
+  "passed": 15,
+  "failed": 0
+}

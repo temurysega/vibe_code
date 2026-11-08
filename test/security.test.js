@@ -116,6 +116,16 @@ test('заголовки безопасности и защита статики
   }
 });
 
+test('старый URL service worker доступен без входа и без HTTP-кеша', async () => {
+  const response = await fetch(app.base + '/sw.js');
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get('content-type'), /^text\/javascript/);
+  assert.equal(response.headers.get('cache-control'), 'no-store');
+  const head = await fetch(app.base + '/sw.js', { method: 'HEAD' });
+  assert.equal(head.status, 200);
+  assert.equal(head.headers.get('cache-control'), 'no-store');
+});
+
 test('счёт забега не подделать из браузера', async () => {
   const c = client(app.base);
   await c.login('a.morozova');

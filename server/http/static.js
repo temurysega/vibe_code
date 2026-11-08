@@ -40,7 +40,7 @@ export async function serveStatic(req, res, pathname, publicDir) {
     'Content-Type': type,
     ETag: etag,
     // Браузер хранит копию, но каждый раз сверяет ETag: после обновления стенда старый код не залипает
-    'Cache-Control': 'no-cache',
+    'Cache-Control': rel === '/sw.js' ? 'no-store' : 'no-cache',
   };
   if (req.headers['if-none-match'] === etag) {
     res.writeHead(304, headers);
