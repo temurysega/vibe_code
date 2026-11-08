@@ -116,6 +116,21 @@ const countryEn = (c) => COUNTRY_EN[String(c || '').trim().toLowerCase()] || tra
 const TR = { а: 'a', б: 'b', в: 'v', г: 'g', д: 'd', е: 'e', ё: 'e', ж: 'zh', з: 'z', и: 'i', й: 'i', к: 'k', л: 'l', м: 'm', н: 'n', о: 'o', п: 'p', р: 'r', с: 's', т: 't', у: 'u', ф: 'f', х: 'kh', ц: 'ts', ч: 'ch', ш: 'sh', щ: 'shch', ъ: 'ie', ы: 'y', ь: '', э: 'e', ю: 'iu', я: 'ia' };
 const translit = (s) => String(s).split('').map((c) => { const l = c.toLowerCase(); const t = TR[l]; if (t == null) return c; return c === l ? t : t.charAt(0).toUpperCase() + t.slice(1); }).join('');
 
+function stipendTable(statement) {
+  const month = (value) => new Date(`${value}-01T12:00:00Z`).toLocaleDateString('ru-RU', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+  const money = (value) => new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 2 }).format(value);
+  return `<section aria-label="Начисления стипендии">
+    <p class="mt-16">Академическая стипендия за шесть завершённых месяцев перед подачей заявки: <b>${esc(month(statement.from))} — ${esc(month(statement.to))}</b>.</p>
+    <table class="tbl mt-16" style="font-size:13px" aria-label="Стипендия по месяцам">
+      <thead><tr><th scope="col" style="white-space:normal">Месяц и основание</th><th scope="col" class="num">Начислено</th></tr></thead>
+      <tbody>${statement.months.map((row) => `<tr><td>${esc(month(row.month))}<br><span class="small muted">${esc(row.reason)}</span></td><td class="num">${esc(money(row.amount))}</td></tr>`).join('')}</tbody>
+      <tfoot><tr><th scope="row" style="white-space:normal">Итого за 6 месяцев</th><td class="num"><b>${esc(money(statement.total))}</b></td></tr></tfoot>
+    </table>
+    ${statement.total === 0 ? '<p class="mt-16">За указанный период академическая стипендия не начислялась.</p>' : ''}
+    <p class="small mt-16">${esc(statement.note)}</p>
+  </section>`;
+}
+
 function docView(d, grades) {
   const fio = `${d.student.lastName} ${d.student.firstName} ${d.student.middleName || ''}`.trim();
   const f = d.student.gender === 'f';
@@ -128,9 +143,9 @@ function docView(d, grades) {
   } else {
     text = `<p>Дана <b>${esc(fio)}</b> в том, что ${f ? 'она' : 'он'} действительно является ${f ? 'студенткой' : 'студентом'} ${d.course} курса (${esc(d.faculty.toLowerCase())}), направление подготовки «${esc(d.program)}», профиль «${esc(d.profile)}», форма обучения — ${esc(d.studyForm)}, основа — ${esc(d.funding === 'бюджет' ? 'бюджетная' : 'договорная')}.</p>
       <p>Срок обучения: ${d.admissionYear}–${d.graduationYear}. Номер зачётной книжки: ${esc(d.recordBook)}.</p>
-      ${d.type === 'stipend' ? '<p>Справка подтверждает назначение академической стипендии в текущем семестре (демо-данные).</p>' : ''}
       ${d.payload.place ? `<p>Справка выдана для предоставления: ${esc(d.payload.place)}.</p>` : '<p>Справка выдана по месту требования.</p>'}`;
   }
+  if (d.type === 'stipend' && d.stipend) text += stipendTable(d.stipend);
   if (d.type === 'transcript' && grades) {
     text += `<table class="tbl" style="font-size:13px;margin-top:14px"><thead><tr><th>${en ? 'Course' : 'Дисциплина'}</th><th class="num">${en ? 'Term' : 'Семестр'}</th><th class="num">${en ? 'Points' : 'Баллы'}</th><th class="num">ECTS</th></tr></thead><tbody>${grades.history.flatMap((h) => h.list.map((x) => `<tr><td>${esc(en ? translit(x.name) : x.name)}</td><td class="num">${h.semester}</td><td class="num">${x.points}</td><td class="num">${x.verdict.letter}</td></tr>`)).join('')}</tbody></table>`;
   }
@@ -138,7 +153,7 @@ function docView(d, grades) {
     <div class="doc-actions"><button class="btn btn-primary" data-print>${icon('print', 18)} Скачать PDF или распечатать</button><a class="btn btn-secondary" href="#/requests/${location.hash.split('/')[2]}">${icon('back', 18)} К заявке</a></div>
     <article class="doc" aria-label="Электронная справка (демо)">
       <div class="doc-head">${logoMark()}<div class="doc-org"><b>МГИМО Мания — демонстрационный концепт</b><br>${en ? 'Sample of an electronic certificate · not an official document' : 'Образец электронной справки · не является официальным документом'}</div></div>
-      <div class="doc-title">${en ? 'Certificate' : 'Справка'}</div>
+      <div class="doc-title">${en ? 'Certificate' : esc(d.title)}</div>
       <div class="doc-no">№ ${esc(d.number)} ${en ? 'of' : 'от'} ${esc(en ? new Date(d.issuedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : dateLong(new Date(d.issuedAt).toISOString().slice(0, 10)))}</div>
       ${text}
       <div class="doc-foot"><div class="doc-sign">${en ? 'Demo dean’s office' : 'Демонстрационный деканат'}<span class="line"></span><span class="small">${en ? 'Sample, without an electronic signature' : 'Образец без электронной подписи'}</span></div>

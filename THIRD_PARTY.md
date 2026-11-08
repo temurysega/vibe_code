@@ -14,6 +14,7 @@
 | `json-schema-to-ts` 3.1.1 | Транзитивная зависимость SDK | MIT |
 | `standardwebhooks` 1.1.1 | Транзитивная зависимость SDK | MIT |
 | `ts-algebra` 2.0.0 | Транзитивная зависимость SDK | MIT |
+| `pypdf` 6.16.2 | Инструмент подготовки PDF: встраивание журналов и метаданных; не входит в сервер приложения | BSD-3-Clause, лицензия в установленном Python-пакете; версия закреплена в `requirements-qa.txt` |
 
 Файлы Onest получены из официальной выдачи Google Fonts 8 ноября 2026 года:
 [кириллица](https://fonts.gstatic.com/s/onest/v11/gNMKW3F-SZuj7xmb-HY6EQ.woff2),

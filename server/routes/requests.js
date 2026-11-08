@@ -3,7 +3,7 @@
 import { fail } from '../http/router.js';
 import { int, str } from '../http/body.js';
 import { requireStudent } from '../security/auth.js';
-import { catalogFor, createRequest, setStatus, applyPlans, publicRequest, typeOf } from '../domain/requests.js';
+import { catalogFor, createRequest, setStatus, applyPlans, publicRequest, typeOf, stipendForRequest } from '../domain/requests.js';
 import { semesterOf, msk } from '../domain/time.js';
 import * as play from '../domain/play.js';
 
@@ -51,7 +51,7 @@ export default function (router) {
     const type = typeOf(r.type);
     if (r.delivery !== 'electronic' || !['ready', 'issued'].includes(r.status) || !type || type.group !== 'cert') fail(409, 'Документ ещё не готов');
     const s = ctx.student;
-    const payload = JSON.parse(r.payload || '{}');
+    const { _stipend, ...payload } = JSON.parse(r.payload || '{}');
     const ready = ctx.store.get("SELECT created_at FROM request_events WHERE request_id = ? AND status = 'ready' ORDER BY created_at DESC LIMIT 1", r.id);
     const sem = semesterOf(msk().date);
     return {
@@ -62,6 +62,7 @@ export default function (router) {
         group: s.group_code, course: s.course, faculty: s.faculty.name, program: s.program, profile: s.profile,
         studyForm: s.study_form, funding: s.funding, admissionYear: s.admission_year, graduationYear: s.admission_year + 4, recordBook: s.record_book,
         academicYear: `${sem.year}/${sem.year + 1}`,
+        ...(r.type === 'stipend' ? { stipend: stipendForRequest(ctx.store, s, r) } : {}),
       },
     };
   });

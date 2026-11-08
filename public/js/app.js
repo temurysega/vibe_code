@@ -85,6 +85,7 @@ function paintChrome(route) {
     <nav class="nav" aria-label="Разделы">${NAV.map(([id, name]) => `<a href="#/${id}" class="${route === id ? 'on' : ''}">${name}</a>`).join('')}</nav>
     <div class="header-right">
       <a class="bal-pill" href="#/shop" data-bal title="М-коины — за активность, не за оценки">${coin(26)}<span class="bal-num tnum">${fmt(p ? p.coins : 0)}</span></a>
+      <button class="icon-btn ask-header" data-ask aria-label="Спросить деканат" title="Спросить деканат">${icon('chat', 20)}</button>
       <button class="icon-btn" data-bell aria-label="Уведомления${unread ? `: ${unread} новых` : ''}">${icon('bell', 20)}${unread ? `<span class="badge-dot">${unread > 9 ? '9+' : unread}</span>` : ''}</button>
       <button class="me-btn" data-me aria-label="Меню профиля">${p ? ava(p, 40) : ''}</button>
     </div>
@@ -92,7 +93,8 @@ function paintChrome(route) {
   $tab.className = 'tabbar';
   $tab.innerHTML = TABS.map(([id, name, ic]) => `<a href="#/${id}" class="${route === id ? 'on' : ''}"><span class="tb-ic">${icon(ic, 20)}</span>${name}</a>`).join('') +
     `<a href="#more" data-more class="${['notifications', 'campus', 'wardrobe', 'shop', 'game', 'profile'].includes(route) ? 'on' : ''}"><span class="tb-ic">${icon('plus', 20)}</span>Ещё${unread ? '<span class="tb-dot"></span>' : ''}</a>`;
-  $ask.innerHTML = `<button class="ask-fab" data-ask aria-label="Спросить деканат"><span class="fab-ic">${icon('chat', 18)}</span><span class="fab-text">Спросить деканат</span></button>`;
+  // Помощник остаётся в закреплённой шапке и не перекрывает формы и карточки.
+  $ask.innerHTML = '';
 }
 
 // ---------- роутер ----------

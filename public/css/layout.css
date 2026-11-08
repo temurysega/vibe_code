@@ -20,7 +20,7 @@
 .logo-tag { display: block; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: 3px; font-style: normal; font-weight: 500; }
 .nav { display: flex; gap: 2px; flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; }
 .nav::-webkit-scrollbar { display: none; }
-.nav a { height: 38px; padding: 0 12px; display: inline-flex; align-items: center; border-radius: var(--pill); font-size: 15px; white-space: nowrap; color: var(--ink); transition: background .15s; }
+.nav a { height: 38px; padding: 0 9px; display: inline-flex; align-items: center; border-radius: var(--pill); font-size: 14px; white-space: nowrap; color: var(--ink); transition: background .15s; }
 .nav a:hover { background: var(--surface); }
 .nav a.on { background: var(--navy-3); color: var(--navy-ink); font-weight: 500; }
 .nav a .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); margin-left: 6px; }
@@ -38,9 +38,8 @@
 .tabbar { display: none; }
 
 /* ---------- Помощник ---------- */
-.ask-fab { position: fixed; right: 24px; bottom: 24px; z-index: 70; height: 56px; padding: 0 22px 0 16px; border-radius: var(--pill); border: 0; background: var(--navy); color: #fff; display: inline-flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; cursor: pointer; box-shadow: 0 12px 30px rgba(15, 45, 105, .35); transition: transform .15s, background .15s; }
-.ask-fab:hover { background: var(--navy-2); transform: translateY(-2px); }
-.ask-fab .fab-ic { width: 32px; height: 32px; border-radius: 50%; background: var(--gold); color: var(--navy-ink); display: grid; place-items: center; }
+.ask-header { background: var(--gold-3); color: var(--navy); }
+.ask-header:hover { background: var(--gold-2); }
 .drawer { position: fixed; right: 24px; bottom: 24px; z-index: 110; width: min(420px, calc(100vw - 24px)); height: min(640px, calc(100vh - 48px)); background: #fff; border-radius: var(--r-lg); box-shadow: var(--shadow-lg); display: flex; flex-direction: column; overflow: hidden; animation: popIn .22s cubic-bezier(.2, .9, .3, 1.2) both; }
 .drawer-head { display: flex; align-items: center; gap: 12px; padding: 16px 16px 14px 20px; background: var(--navy); color: #fff; }
 .drawer-head .grow small { display: block; font-size: 12px; color: rgba(255, 255, 255, .7); margin-top: 2px; }

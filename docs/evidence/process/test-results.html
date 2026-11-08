@@ -1,0 +1,46 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>Права доступа, сохранение и предметная логика</title><style>
+@font-face{font-family:Onest;src:url('../../../public/fonts/onest-cyrillic.woff2');font-weight:100 900}
+@font-face{font-family:Onest;src:url('../../../public/fonts/onest-latin.woff2');font-weight:100 900;unicode-range:U+0000-024F}
+*{box-sizing:border-box}body{margin:0;width:1000px;background:#eef2f8;color:#17243c;font-family:Onest,Arial,sans-serif}
+.page{padding:35px}.brand{display:flex;justify-content:space-between;font-size:14px;letter-spacing:1.1px;color:#52617a;margin-bottom:25px}
+.brand b{color:#14336d}.card{background:#fff;border-radius:22px;overflow:hidden;border:1px solid #d8e1ef}
+.head{padding:28px 32px;background:#132f6a;color:#fff}.tag{font-size:14px;letter-spacing:.8px;text-transform:uppercase;color:#eed17a}
+h1{font-size:30px;line-height:1.25;margin:10px 0 0;font-weight:650}.body{padding:28px 32px;font-size:19px;line-height:1.48}
+.notice{padding:14px 18px;background:#fff6df;border-left:4px solid #c9a646;font-size:16px;line-height:1.45;margin-bottom:22px}
+.label{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#53647e;margin:20px 0 9px}
+.prompt{white-space:pre-wrap}.result{background:#eef6f1;border-radius:12px;padding:18px 20px;margin-top:24px;font-size:17px}
+.sources{font-size:14px;color:#53647e;overflow-wrap:anywhere;margin-top:18px}.footer{font-size:13px;color:#53647e;margin-top:18px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:16px/1.5 Consolas,monospace;background:#111d34;color:#e7eefc;padding:24px;border-radius:14px;margin:15px 0}
+table{width:100%;border-collapse:collapse;font-size:17px}td,th{text-align:left;vertical-align:top;padding:14px 10px;border-bottom:1px solid #e1e7f0}th{color:#53647e;font-size:14px}
+.metrics{display:flex;gap:14px;margin-bottom:22px}.metric{flex:1;background:#eef3fb;padding:18px;border-radius:14px;font-size:14px}.metric b{display:block;font-size:32px;color:#14336d}
+.commit{font-family:Consolas,monospace;color:#14336d;font-weight:bold}.small{font-size:15px;color:#53647e}
+</style><div class="page"><div class="brand"><b>МГИМО МАНИЯ</b><span>ИСТОРИЯ СОЗДАНИЯ</span></div><article class="card"><header class="head"><div class="tag">Фактический вывод запуска / фрагмент</div><h1>Права доступа, сохранение и предметная логика</h1></header><div class="body"><div class="metrics"><div class="metric"><b>35/35</b>автоматических тестов</div><div class="metric"><b>0</b>код завершения</div></div><div class="small">2026-11-08T19:20:41+03:00 · отдельная тестовая база</div><pre>Command: node --test --test-reporter=tap test/*.test.js
+Started (MSK): 2026-11-08T19:20:41+03:00
+Finished (MSK): 2026-11-08T19:20:43+03:00
+Exit code: 0
+
+# Subtest: OpenRouter получает только снимок текущего студента, ключ не возвращается клиенту
+# Subtest: ошибка, лимит, пустой ответ и сетевой сбой OpenRouter возвращают управление локальным правилам
+# Subtest: без ключей помощник работает по персональным данным и распознаёт слово «пара»
+# Subtest: ответ модели может ссылаться только на разрешённые разделы
+# Subtest: помощник не включает личный дедлайн другого студента из той же группы
+# Subtest: невозможные даты и несуществующая ISO-неделя отклоняются
+# Subtest: личный дедлайн с указанной группой не раскрывается другому студенту
+# Subtest: прочитать все очищает длинную историю и не меняет чужие уведомления
+… (полный журнал приложен отдельным файлом)
+
+# Subtest: закрытую вещь нельзя надеть через API
+# Subtest: ключ ИИ не уходит в браузер
+# Subtest: справка: шесть полных месяцев по Москве, переход года и отсутствие начислений до зачисления
+# Subtest: справка: сессии владельца определяют сумму, договор и задолженность дают нулевые месяцы
+# Subtest: справка: API игнорирует чужой student_id и суммы клиента, сохраняет снимок и запрещает чужое чтение
+# Subtest: справка: старой заявке добавляется снимок за её период, который переживает повторное открытие БД
+
+# tests 35
+# suites 0
+# pass 35
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1608.7517</pre><div class="sources">Полный журнал: docs/evidence/final/unit-tests.txt<br>Среда: Node.js; внешние ключи ИИ отключены.</div></div></article><div class="footer">Визуализация сохранённого журнала команд · строки тестов не реконструированы</div></div></html>

@@ -1,0 +1,5711 @@
+{
+  "source": "git log --reverse --date=iso-strict",
+  "snapshot_head": "e3ac392f0efffdf016ab9e58589ef6463972f7d9",
+  "interpretation": "Repository metadata, not a transcript or independent verification of model identity, prompts, authorship, or development duration. Dates are recorded Git author dates.",
+  "summary": {
+    "commits": 634,
+    "by_day": {
+      "2026-11-04": 629,
+      "2026-11-08": 5
+    },
+    "commits_with_claude_coauthor": 629
+  },
+  "commits": [
+    {
+      "commit": "9c74eef968fb3fe26bad170afb32a99f94b39a86",
+      "date": "2026-11-04T22:09:47+03:00",
+      "author": "temurysega",
+      "subject": "chore(package): проект Node.js: скрипты запуска, сида и тестов",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "4e342ddbebd9f78120add8dfaa453b3a4b8cc6c8",
+      "date": "2026-11-04T22:09:47+03:00",
+      "author": "temurysega",
+      "subject": "chore(.gitignore): не коммитить базу демо, node_modules и секреты",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "672ae912a09f625f7bc813daa537740caa6b4c9a",
+      "date": "2026-11-04T22:09:48+03:00",
+      "author": "temurysega",
+      "subject": "chore(.env): пример окружения: ключи сервисов только в переменных",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5d3d36bffd268cc72d36fdeeafa3d10fd824de3a",
+      "date": "2026-11-04T22:09:48+03:00",
+      "author": "temurysega",
+      "subject": "chore(license): лицензия MIT",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "baaa5aa4320e99f33b5ac1592c3be604b6e8c850",
+      "date": "2026-11-04T22:09:48+03:00",
+      "author": "temurysega",
+      "subject": "feat(server): config.js: настройки сервера. Всё берётся из окружения: ключи и пароли сервисов не лежа…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e761ff4358da84725f63c9b64f7d2daed0889ebc",
+      "date": "2026-11-04T22:09:48+03:00",
+      "author": "temurysega",
+      "subject": "feat(server): добавить env",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "832c17bdd182b7f0894c477828b0b212784b644c",
+      "date": "2026-11-04T22:09:48+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): schema.sql: Схема демо-стенда «МГИМО Мания». Все данные вымышленные.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a57e9467053dbd3028823e6aa39be9ef49685390",
+      "date": "2026-11-04T22:09:48+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица faculties: справочник факультетов и контактов деканатов",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f8c0d474c4b07c324188b9e28b52b8e2226d9963",
+      "date": "2026-11-04T22:09:49+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица groups: учебные группы: курс, направление и профиль",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "25a74038827046f00d89c9134259b7c7b4336e5d",
+      "date": "2026-11-04T22:09:49+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица students: студенты: только учебные данные, без паспортов и СНИЛС",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "377694c64d2d1195137ef932f1808299f68b7479",
+      "date": "2026-11-04T22:09:49+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица staff: сотрудники деканатов: видят заявки только своего факультета",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "af660c58b1d4a13991a9d8d466c1541669838d51",
+      "date": "2026-11-04T22:09:49+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица users: учётные записи. Пароль хранится только как хеш scrypt с солью",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ac28cdafd9144e597dd80154eeea7c39c0511b27",
+      "date": "2026-11-04T22:09:49+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица sessions: сессии: в базе лежит SHA-256 от токена, сам токен знает только браузер",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5347a4f363f69c4f2ebef682e564d9ebb81f9e44",
+      "date": "2026-11-04T22:09:50+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица teachers: преподаватели и дисциплины",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "cf1e7a812d4436a6ef15a78d890d362308bdc08e",
+      "date": "2026-11-04T22:09:50+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица lessons: регулярное расписание группы: день недели, пара, чётность недели",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "96467d1528f841b7034fb3cccbcf672a5d4858cf",
+      "date": "2026-11-04T22:09:50+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица schedule_changes: изменения расписания: отмена, перенос, замена аудитории или п…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "890d93ec9ecf6180df8150255f6a926c6695d984",
+      "date": "2026-11-04T22:09:50+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица enrollments: дисциплины студента по семестрам и итоговые баллы закрытых семестров",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7adbad913761fbfdcc2f6f840f2d5574d9f7f3f3",
+      "date": "2026-11-04T22:09:50+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица assessments: контрольные точки балльно-рейтинговой системы",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "baa547ffe0520ccfd20d406653d79a209be708f1",
+      "date": "2026-11-04T22:09:51+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица exams: расписание сессии и консультаций",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "92a312bb05fc14dc68ab0f6e6a8827f5fe0ef17f",
+      "date": "2026-11-04T22:09:51+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица deadlines: дедлайны: эссе, контрольные, анкеты и запись на мероприятия",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "47da3e76b3f0a0d9291326ac099c9d9d8876985f",
+      "date": "2026-11-04T22:09:51+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица requests: заявки и справки",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "fc82368f72a0f064d3812b15509df368b2b6707b",
+      "date": "2026-11-04T22:09:51+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица request_events: история статусов: кто и когда менял заявку",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "45bbdd82ab8b0733d16036c338713ebb8fb97fc8",
+      "date": "2026-11-04T22:09:51+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица notifications: уведомления: адресат — весь вуз, факультет, группа или один студент",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6f0bd93c66f5fd5c9ebb5c831b8e9c7b6edb01da",
+      "date": "2026-11-04T22:09:51+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица play_state: игровой слой: аватар, питомец, М-коины, маршрут по кампусу",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "4c08a8c16d3a17be79adcd40ed07ec98b465dad4",
+      "date": "2026-11-04T22:09:52+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица game_runs: забеги «Бегом на пару»: сервер считает время, лимит — 5 минут в день",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ab1013cd753a8424fcd8691ad17242105ec6ed53",
+      "date": "2026-11-04T22:09:52+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): таблица audit_log: журнал действий: входы, смена пароля, решения деканата",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7b4e9915a327b527519eb979bcd624bdbab476f9",
+      "date": "2026-11-04T22:09:52+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): db.js: хранилище на встроенном node:sqlite. Подготовленные запросы кешируются,",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "08aebd2a9e886864f82ee4a03a56cf1ff87462d6",
+      "date": "2026-11-04T22:09:52+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): DATA_TABLES — таблицы с данными демо: очищаются при пересоздании стенда (порядок важен…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d341940d348ca95c6e81efe7b7a2186d9a452c37",
+      "date": "2026-11-04T22:09:53+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): добавить класс Store",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "be5fc5d3a2a18d0a538ebd902458de981fd58412",
+      "date": "2026-11-04T22:09:53+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): добавить st()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "2ae2338ad081fe5c56a83a3b10412036655e2078",
+      "date": "2026-11-04T22:09:53+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): tx() — транзакция: всё или ничего",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0b36e6dcfc761cef7a9cfd0972a5ba151085be75",
+      "date": "2026-11-04T22:09:53+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): добавить meta()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b1ea8994249903873d6229a4cbd59646e2ef6f74",
+      "date": "2026-11-04T22:09:53+03:00",
+      "author": "temurysega",
+      "subject": "feat(db): добавить close()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "26a17f0eda88554b369cdfd6e77b0e5de0b0cae8",
+      "date": "2026-11-04T22:09:54+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): password.js: пароли: scrypt со случайной солью. В базе — только строка вида scrypt$N$r$…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "34bb4288b1373d3ffce75f1c8f2d935c98ad8950",
+      "date": "2026-11-04T22:09:54+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): добавить derive()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a1a293af13f5ba7cdb32afd015ffb7f319c12ffc",
+      "date": "2026-11-04T22:09:54+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): verifyPassword() — сравнение за постоянное время: по времени ответа нельзя угадать совп…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "30ed98ed30711fba8d6833fa6d26aa67ce255ab7",
+      "date": "2026-11-04T22:09:54+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): dummy — хеш-пустышка: если логина нет, всё равно считаем scrypt — время ответа не выдаё…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "af67a6995865e70c1dc31ff8bca84f3bbe6e74e8",
+      "date": "2026-11-04T22:09:55+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): passwordProblems() — требования к новому паролю",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ec133385be8e764e2fbb9df0fedaf46ac4048107",
+      "date": "2026-11-04T22:09:55+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): session.js: сессии на сервере: случайный токен в httpOnly-cookie, в базе — только его S…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c05af991813e697a686f30f8dcdc696e29a0d1c4",
+      "date": "2026-11-04T22:09:55+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): добавить sha256",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ae3e699ca7934add5ea6dab5ad1a448f8c1ef283",
+      "date": "2026-11-04T22:09:55+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): cookieName — префикс __Host- запрещает подмену cookie с поддоменов, но требует HTTPS",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "edb85497306283ae9fd4179130d15d5a045799fe",
+      "date": "2026-11-04T22:09:55+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): добавить sessionCookie()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b16b348a45692bc390a44c8b03533dde68438dcd",
+      "date": "2026-11-04T22:09:56+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): добавить createSession()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "57447b9d331b65d4fa6d6a861dd32e004aca2226",
+      "date": "2026-11-04T22:09:56+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): добавить loadSession()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e628cf3490b842340710d61fc9a4fbd91ee66c6a",
+      "date": "2026-11-04T22:09:56+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): deviceName() — описание устройства для списка «Активные сеансы» — без полного User-Agent",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "22e7d96901d42247a32d74eb8353f9eb4197e1a3",
+      "date": "2026-11-04T22:09:56+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): maskIp() — IP скрывается наполовину: в кабинете видно, откуда вход, но адрес целиком не…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a7057e87e74f46f31f59d502a09f15fb53bbc3e0",
+      "date": "2026-11-04T22:09:57+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): rateLimit.js: класс RateLimiter — ограничение частоты: скользящее окно в памяти процесса.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "297372c85125d2bd169a1aff2a3e71551470fee4",
+      "date": "2026-11-04T22:09:57+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): добавить recent()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d252a29c359ddd39a14b6ccca84a5e7884bf83ee",
+      "date": "2026-11-04T22:09:57+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): добавить hit()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "05506aaa7287c67a4ccaafe652c23e08b10c2cd8",
+      "date": "2026-11-04T22:09:57+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): sweep() — периодическая чистка, чтобы карта не росла бесконечно",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "cd8749c4b9a6922b7bfacfc512ab248b6798c984",
+      "date": "2026-11-04T22:09:58+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): headers.js: CSP — заголовки безопасности для каждого ответа.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "80c500d8b5faabc12060dcf553e421347112f712",
+      "date": "2026-11-04T22:09:58+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): добавить securityHeaders()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "632d6fc44d7263e7be4876f4be6b8483e75d8785",
+      "date": "2026-11-04T22:09:58+03:00",
+      "author": "temurysega",
+      "subject": "feat(http): router.js: класс HttpError — маленький маршрутизатор без зависимостей: шаблоны вида /ap…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9da4ede6140568e0a0c04aaba7a7c8593d3e8c43",
+      "date": "2026-11-04T22:09:58+03:00",
+      "author": "temurysega",
+      "subject": "feat(http): добавить fail",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "edf043a74b0b1993ed1383daad0f77ade0f0f5c1",
+      "date": "2026-11-04T22:09:59+03:00",
+      "author": "temurysega",
+      "subject": "feat(http): добавить match()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e1568f6516917bbadd56301fb176d65f26d205e5",
+      "date": "2026-11-04T22:09:59+03:00",
+      "author": "temurysega",
+      "subject": "feat(http): добавить sendJson()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9a69f183ecfe31a79e3a68c80bd754705e600b24",
+      "date": "2026-11-04T22:09:59+03:00",
+      "author": "temurysega",
+      "subject": "feat(http): body.js: тело запроса: только JSON и не больше 64 КБ — большие и битые запросы отсекают…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "04bffc484edde181958d118b5ff29223a628bc21",
+      "date": "2026-11-04T22:09:59+03:00",
+      "author": "temurysega",
+      "subject": "feat(http): str() — проверка входных данных: строки обрезаются и ограничиваются по длине",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d474338b6541226db9f11d120b7e8f59294a3a9a",
+      "date": "2026-11-04T22:10:00+03:00",
+      "author": "temurysega",
+      "subject": "feat(http): static.js: раздача фронтенда. Путь нормализуется и обязан остаться внутри public/ — обх…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "411cc1a9a5328822c4e164ac2b8f9fd5fa03b5ef",
+      "date": "2026-11-04T22:10:00+03:00",
+      "author": "temurysega",
+      "subject": "feat(http): добавить serveStatic()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "60225bae3310c6cecb5f30a0d0335490d93a4fa5",
+      "date": "2026-11-04T22:10:00+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): time.js: время вуза: всё считается по Москве, даже если сервер живёт в UTC.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d0a4eb35852c9a7ee49466f70294347f7e8baff0",
+      "date": "2026-11-04T22:10:00+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): msk() — дата и минуты от полуночи по Москве",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1eff74126134352e8731cd9c020ec349647c5bbb",
+      "date": "2026-11-04T22:10:00+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): noon — календарная арифметика на строках YYYY-MM-DD через полдень UTC — без сюрпризов с…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "093dda82519cbb45b666574f6a2379eb2420e374",
+      "date": "2026-11-04T22:10:01+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): mskTime — момент времени (мс) для даты и времени по Москве (UTC+3, без перехода на летн…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f0f363a6e8f11ef448b2a19e8ae231b1a00cd7fa",
+      "date": "2026-11-04T22:10:01+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): BELLS — звонки: пары МГИМО в концепте",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "361fd1d82ffc5d24a5501feb43f57de719427783",
+      "date": "2026-11-04T22:10:01+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): semesterOf() — учебный год: осенний семестр — с 1 сентября, весенний — с 9 февраля",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0763ca133e864b7f80d38666ec9213ce68cc19cd",
+      "date": "2026-11-04T22:10:01+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): semesterNumber() — номер семестра студента по году поступления: 1 — осень первого курса",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e56515924f1cdc8143f66e25ab62f3905b1821e5",
+      "date": "2026-11-04T22:10:02+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): parityOf() — чётность недели считается от недели начала семестра: первая неделя — нечётная",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "716d1fe8821694c960900b053aa8f7a8aec1d95f",
+      "date": "2026-11-04T22:10:02+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): HOLIDAYS — праздничные и выходные дни: пар нет",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5b9088a63bf1ca6f14fabd5ce68a10cfcd539f3a",
+      "date": "2026-11-04T22:10:02+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): schedule.js: расписание группы: регулярные пары + изменения (отмена, перенос, аудитория…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e6db7340320993ecfa60cb30a255387c0b586930",
+      "date": "2026-11-04T22:10:02+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить LESSON_SQL",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5bb4374f44687f7e52a13a4a045c9b16505306ae",
+      "date": "2026-11-04T22:10:02+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): placeOf() — этаж и корпус по номеру аудитории: первая цифра — этаж",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c9fdd1a3a2360720fcb1be5bd5f5717fd47e76c8",
+      "date": "2026-11-04T22:10:03+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить item()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "431496eb1a56c4d3c89847a23e870538eb455ada",
+      "date": "2026-11-04T22:10:03+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить buildWeek()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b983a89e13652552013a1496c1f2aa43137011f5",
+      "date": "2026-11-04T22:10:03+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить date",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "90b9c890309de2d79fe8e7a5d85dda0c7d891ab8",
+      "date": "2026-11-04T22:10:03+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): upcoming() — ближайшая пара с учётом изменений: текущая или следующая в течение недели",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "046c279476803fbc5afea385e11f427d58a86495",
+      "date": "2026-11-04T22:10:04+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): icsFor() — календарь .ics на четыре недели вперёд — подключается в Google, Яндекс или A…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1cac6aee106734ec5dba7815221bef3961d5eb6b",
+      "date": "2026-11-04T22:10:04+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): grades.js: успеваемость по 100-балльной шкале: текущие баллы, прогноз, сессия, долги и…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "85aa00dddb59a4415fc9d8f5bb193656ff0fc293",
+      "date": "2026-11-04T22:10:04+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): verdictOf() — итог по дисциплине в словах: для зачёта — «зачтено», для экзамена — оценка",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5d3f63b2351184ca262a72448017729fa9b415f0",
+      "date": "2026-11-04T22:10:04+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): current() — карточка дисциплины текущего семестра с прогнозом «что нужно, чтобы…»",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "11fe935ad00d3052d3fd9fdeec4fa0b9ca8c5ef1",
+      "date": "2026-11-04T22:10:05+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): goal — подсказка простыми словами: цель — та оценка, к которой студент идёт по прогнозу",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0394843c84dcf24df65516976480831dd890774f",
+      "date": "2026-11-04T22:10:06+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить plural()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a905630171f9beb5fa3dd5e3731f48e984cdaa73",
+      "date": "2026-11-04T22:10:06+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): groupRank() — синтетический рейтинг группы: распределение баллов однокурсников без перс…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ccf93289cd5987671facc8e63877d2a94bc37443",
+      "date": "2026-11-04T22:10:06+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить gradesFor()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "aa4e4d5ab5927bfb3ead5bcec41860b063c25830",
+      "date": "2026-11-04T22:10:06+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): exams — сессия: экзамены и зачёты группы",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "fa86381b82bfbdb90ec2cef20ad8e29106cf15ad",
+      "date": "2026-11-04T22:10:06+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): mood — короткий ответ на вопрос «как у меня дела»",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "80a3910b1cdcb0d13556f04292c6e22413f66c1f",
+      "date": "2026-11-04T22:10:07+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): notifications.js: уведомления: новости деканата, изменения расписания, дедлайны, статус…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "19b9bf7df6ed955f20e525468dd049d7e35b67c3",
+      "date": "2026-11-04T22:10:07+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): has — напоминание с тем же ключом создаётся один раз",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "da83fd4c1a8a2d0fd3d12199453896c10ca896c8",
+      "date": "2026-11-04T22:10:07+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): remindDeadlines() — напоминания о дедлайнах за 3 дня: материализуются при чтении, по од…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b8113328e59996280ee312e082b0b649fd7dcf24",
+      "date": "2026-11-04T22:10:07+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить listFor()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5551b2dd6fedfde092b6124c3412142a8615834f",
+      "date": "2026-11-04T22:10:08+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить unreadCount()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "909cc5f7e13e335cec29446ee3927ddec623e4e1",
+      "date": "2026-11-04T22:10:08+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): markRead() — отметить прочитанными можно только уведомления, адресованные этому студенту",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "937f4c4cb6a896200a9f7dba3782f6726b4abc8a",
+      "date": "2026-11-04T22:10:08+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): requests.js: заявки и справки: каталог, проверка полей, статусы и история изменений.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5688bf555f30c0efc8797b9f19c3bce51151ca9b",
+      "date": "2026-11-04T22:10:08+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить STATUS",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9f34d64e4b9370971b0367ff9d8ca19304bf848c",
+      "date": "2026-11-04T22:10:08+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): TYPES — каталог: справки готовятся сами, заявления решает деканат",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "43d4c6e497fccbaf3538c32f1b365c109ce5f261",
+      "date": "2026-11-04T22:10:09+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): slots() — даты пересдач: ближайшие будни через неделю",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d1430d920805df1bfcf98cfcc2f75cf80a282fae",
+      "date": "2026-11-04T22:10:09+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): catalogFor() — каталог для конкретного студента: подставляем его долги и даты, скрываем…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "459c50cd1b8b1b3f2346750d096af822849e3bdc",
+      "date": "2026-11-04T22:10:09+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): validate() — проверка полей формы по описанию в каталоге",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "daee5ef1ba1f944f772d745aba1c1b60aafd502c",
+      "date": "2026-11-04T22:10:09+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): planFor() — план автоматической обработки для демо: заявка сама проходит статусы, пока…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e263b98929ed6025a143353afb7705789f35122e",
+      "date": "2026-11-04T22:10:09+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить createRequest()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7fa9057f4f46b9a825dd8fa081745943b344ed1d",
+      "date": "2026-11-04T22:10:10+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): open — защита от дублей: та же справка в работе — не создаём вторую",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3435ea25e4cd27b746e9dadf2be908429042501b",
+      "date": "2026-11-04T22:10:10+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): setStatus() — переход статуса с записью в историю и уведомлением студенту",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1c4f24e7e90218c3b96f8c9d512dcf44a1fd7ec2",
+      "date": "2026-11-04T22:10:10+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): RANK — статусы только движутся вперёд: автоматика не откатит решение, которое уже приня…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6bc5ddcfa43d7ff956573202d2c83bbc0df9db07",
+      "date": "2026-11-04T22:10:10+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить publicRequest()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e438cf253549fda884efdbf22107bf898d6e3883",
+      "date": "2026-11-04T22:10:10+03:00",
+      "author": "temurysega",
+      "subject": "feat(catalog): catalog.js: APPEARANCE — общий каталог игрового слоя: внешность, вещи, зоны кампуса, ти…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a3a36732fbee25a06c5a8a16dacd41684137d01a",
+      "date": "2026-11-04T22:10:11+03:00",
+      "author": "temurysega",
+      "subject": "feat(catalog): COLORS — цвета одежды, которые можно выбрать",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "51f9606fefc4cad6c28eaccead27b62bf8c3779a",
+      "date": "2026-11-04T22:10:11+03:00",
+      "author": "temurysega",
+      "subject": "feat(catalog): вещи каталога: низ",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d83be7b9b4cc226e80c7f0a80c7a327d4c47b5ed",
+      "date": "2026-11-04T22:10:11+03:00",
+      "author": "temurysega",
+      "subject": "feat(catalog): вещи каталога: обувь",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f8cdb1b52cccc72c49575930cdb61aafafe2bb78",
+      "date": "2026-11-04T22:10:11+03:00",
+      "author": "temurysega",
+      "subject": "feat(catalog): вещи каталога: очки",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "dae23b5f4b13cc53a62f23045f26c29c7d8957a0",
+      "date": "2026-11-04T22:10:11+03:00",
+      "author": "temurysega",
+      "subject": "feat(catalog): вещи каталога: питомцы",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "cced589353b231975a9ad9f31362c79cd0a56cbb",
+      "date": "2026-11-04T22:10:11+03:00",
+      "author": "temurysega",
+      "subject": "feat(catalog): вещи каталога: фоны профиля",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "459bcf624479035264f533aaa52d9eeba11c0033",
+      "date": "2026-11-04T22:10:12+03:00",
+      "author": "temurysega",
+      "subject": "feat(catalog): вещи каталога: узоры",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "672af4a69b9ac17aa6e87e1e6b8a1262fbede9f9",
+      "date": "2026-11-04T22:10:12+03:00",
+      "author": "temurysega",
+      "subject": "feat(catalog): вещи каталога: рамки аватара",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1025d84e17f36697e218514caab4aa834f2ae280",
+      "date": "2026-11-04T22:10:12+03:00",
+      "author": "temurysega",
+      "subject": "feat(catalog): ROOMS — зоны кампуса: каждая ведёт в рабочий раздел кабинета",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "2f8efadad3eec5b7a70b86b085cda67d04b8e6cb",
+      "date": "2026-11-04T22:10:12+03:00",
+      "author": "temurysega",
+      "subject": "feat(catalog): KITS — мерч: реальная вещь в Лавке и её цифровая копия для аватара",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f59e05e0ac74207c21ce5107d0069a51cadc21d1",
+      "date": "2026-11-04T22:10:13+03:00",
+      "author": "temurysega",
+      "subject": "feat(catalog): добавить TITLES",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e6225e496ab6ea067fa6e8c1377a2efaf0cfcad1",
+      "date": "2026-11-04T22:10:13+03:00",
+      "author": "temurysega",
+      "subject": "feat(catalog): FIRST_STEPS — «Первые шаги»: чек-лист первокурсника, награда — один раз",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "db051e4ae8cfcc161c7d1c081d8b870a5bb30f27",
+      "date": "2026-11-04T22:10:13+03:00",
+      "author": "temurysega",
+      "subject": "feat(catalog): RULES — правила начислений и забега",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "fe7d42f8e17b62600bf0630217114b2f93bdc745",
+      "date": "2026-11-04T22:10:13+03:00",
+      "author": "temurysega",
+      "subject": "feat(catalog): itemState() — статус вещи для витрины и для проверки на сервере. ctx.excellent — сессия…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "428d9c726f4d68495f3c6e95b921091f959f4629",
+      "date": "2026-11-04T22:10:14+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): play.js: игровой слой на сервере: аватар, питомец, М-коины, маршрут по кампусу и забег.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5d87f8b7e79b54b57be4f8a41c5cbb0e5d4c209b",
+      "date": "2026-11-04T22:10:14+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить AV_KEYS",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3dc2ff436309d690ae97f6175f5a91b3ba351939",
+      "date": "2026-11-04T22:10:14+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить load()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "98b6bfd161591ff10474bd3a59a28c175eb46d03",
+      "date": "2026-11-04T22:10:14+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): gameLeft() — сколько секунд забега осталось сегодня: учитываются и незавершённые забеги",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d08196eed27ec0146762da4ac7eeab34ebbbc576",
+      "date": "2026-11-04T22:10:14+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): titlesOf() — титулы открываются за действия, купить их нельзя",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3b394dfdfb6af50c8ad087decfd62a309857cbed",
+      "date": "2026-11-04T22:10:15+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить view()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "bc078a782363995832a23e607da1955014e3118f",
+      "date": "2026-11-04T22:10:15+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): saveLook() — сохранение образа: каждая вещь проверяется по каталогу и по тому, открыта…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "115fa298e8c1ac58ad813a99846e5f16438384a2",
+      "date": "2026-11-04T22:10:15+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить visit()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a6080457e5081a01a425927445fa20ed45b5be1b",
+      "date": "2026-11-04T22:10:15+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): focus() — фокус-сессия «Посиди со мной»: награда только если прошло 25 минут",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "442d9bbf6dc2400fb9364a8f39f80be13a89442a",
+      "date": "2026-11-04T22:10:15+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить buy()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9daffb2e55655fcaed8ccd39cc520e168c415306",
+      "date": "2026-11-04T22:10:16+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить takeKit()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3b141ae6ac753f7e4c52eff48c6f557bc3a3a08a",
+      "date": "2026-11-04T22:10:16+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить quiz()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ed881a5c32fec542148f46cbf03a96b6f503d19e",
+      "date": "2026-11-04T22:10:16+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить claimSteps()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "94d937a519bb2f0c8a078514dd66552e828f8484",
+      "date": "2026-11-04T22:10:16+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): gameStart() — забег «Бегом на пару»: время считает сервер",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "789135528b518748ca23f11d5e06c2a59c37432b",
+      "date": "2026-11-04T22:10:17+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): score — счёт не может расти быстрее, чем позволяет игра: подделанный результат обрезается",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b6463beac8be1ac82e45504f58e59bd9cd827d52",
+      "date": "2026-11-04T22:10:17+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): assistant.js: «Спросить деканат»: помощник отвечает только по данным самого студента.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "348895f6d31dc5fc5d6e9f2d7c8aa8341c88cb90",
+      "date": "2026-11-04T22:10:17+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): LINKS — куда помощник может отправить студента: только разделы кабинета",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a749f63f8a27a5a189ae381f3c90d1b649e454db",
+      "date": "2026-11-04T22:10:17+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить SYSTEM",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "4a3ce9de32bbcfc082fefe24221061f309ba1345",
+      "date": "2026-11-04T22:10:18+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): snapshot() — снимок данных студента: только его собственные пары, баллы, дедлайны и заявки",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b7be97a663a1ab0e96bc0b451b0e9338aeb0d37b",
+      "date": "2026-11-04T22:10:18+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить lessonLine()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "faa0e914b0a7835c8d03069b81dc5c4d3d35da98",
+      "date": "2026-11-04T22:10:18+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): extractLink() — ссылка [[#/...]] из ответа модели проходит через белый список",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8c5322b538c4938cbdacaefbe6d7796c0cbdd20d",
+      "date": "2026-11-04T22:10:18+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): ruleAnswer() — ответы без ИИ: правила на тех же данных",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b9467cab02d5f25ce53f238d452e2b847b87332a",
+      "date": "2026-11-04T22:10:18+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): client — ответ Claude",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "791426d06899f5099ca5adbc55c46e13f2ebc8a1",
+      "date": "2026-11-04T22:10:19+03:00",
+      "author": "temurysega",
+      "subject": "feat(domain): добавить aiAnswer()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7a748e5902c563f2b7ed95b1f20e924c5bf23f24",
+      "date": "2026-11-04T22:10:19+03:00",
+      "author": "temurysega",
+      "subject": "chore(package-lock): зафиксировать версию официального SDK Anthropic",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "2536ac4bce640ddb313093f1a2ec971dab9b4d59",
+      "date": "2026-11-04T22:10:19+03:00",
+      "author": "temurysega",
+      "subject": "feat(seed): data.js: FACULTIES — демо-данные. Все люди, номера зачёток, телефоны и адреса почты вым…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "690d3584f579f73085dda2d4d8091260e6aa9f47",
+      "date": "2026-11-04T22:10:19+03:00",
+      "author": "temurysega",
+      "subject": "feat(seed): GROUPS — группы: код = факультет-год поступления-номер",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9574691c51ae8c1eef2ceff991df32f816e7bba5",
+      "date": "2026-11-04T22:10:19+03:00",
+      "author": "temurysega",
+      "subject": "feat(seed): TEACHERS — [ключ, ФИО, кратко, звание, кафедра, приёмные часы]",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "fdba1c342af8df5b7a8439fe72bce953a0a8cd36",
+      "date": "2026-11-04T22:10:20+03:00",
+      "author": "temurysega",
+      "subject": "feat(seed): PLAN — учебный план текущего семестра: [дисциплина, форма контроля, ЗЕ, преподаватель…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d9b53d0fb9ef643984a9234f7b92d050fe56c6ff",
+      "date": "2026-11-04T22:10:20+03:00",
+      "author": "temurysega",
+      "subject": "feat(seed): PAST — прошлые семестры: дисциплины для истории оценок",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e78d6309f760e0b885928ceb47c971b4588ec31f",
+      "date": "2026-11-04T22:10:20+03:00",
+      "author": "temurysega",
+      "subject": "feat(seed): STUDENTS — студенты с учётными записями — герои демо. strength — насколько хорошо учитс…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8b9cae56e6df22a2c7343dbd9978b6c0eb14adc8",
+      "date": "2026-11-04T22:10:20+03:00",
+      "author": "temurysega",
+      "subject": "feat(seed): EXTRA_STUDENTS — однокурсники без учётных записей: нужны, чтобы у деканата была живая о…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0f3464d437f8a7be05a67ef5b09c404d020a46f5",
+      "date": "2026-11-04T22:10:21+03:00",
+      "author": "temurysega",
+      "subject": "feat(seed): seed.js: наполнение демо-стенда. Даты строятся от «сегодня» по Москве, поэтому стенд вс…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "bf9d461e0e0eb3a45918a7ebc638f916e4714ac7",
+      "date": "2026-11-04T22:10:21+03:00",
+      "author": "temurysega",
+      "subject": "feat(seed): DEMO_PASSWORD — публичный тестовый пароль демо-аккаунтов. В базу попадает только его хе…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "26804128da5828874bb298ab0e588f31419bd8fb",
+      "date": "2026-11-04T22:10:21+03:00",
+      "author": "temurysega",
+      "subject": "feat(seed): rng() — детерминированный генератор: у каждого студента одни и те же баллы при каждом п…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0d231c110b85147b5d2cd0bf4743f98cc36229e7",
+      "date": "2026-11-04T22:10:21+03:00",
+      "author": "temurysega",
+      "subject": "feat(seed): TPL — контрольные точки семестра: [название, вид, максимум, доля семестра; null — в сес…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a490c1a4e7858e70f296dbfa5fabdd2992667de3",
+      "date": "2026-11-04T22:10:21+03:00",
+      "author": "temurysega",
+      "subject": "feat(seed): nextOccurrence() — ближайший день, когда у группы стоит эта пара (с учётом чётности и п…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "fffc8a0d89a3371a95d89c223a4881b4286c7f7d",
+      "date": "2026-11-04T22:10:22+03:00",
+      "author": "temurysega",
+      "subject": "feat(seed): workday() — ближайший будний день не раньше даты",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b1a310bd3216ba0ea4ad85c9d97f9ca4d331533e",
+      "date": "2026-11-04T22:10:22+03:00",
+      "author": "temurysega",
+      "subject": "feat(seed): пересоздать демо-данные вручную: npm run seed",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "115c13770807d3bf99e9035fe502855d8cab6f38",
+      "date": "2026-11-04T22:10:22+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): auth.js: кто делает запрос: сессия из cookie → пользователь → студент или сотрудник дек…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "333672d020d2a47adc131e4d53de9eff18e5d2f6",
+      "date": "2026-11-04T22:10:22+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): добавить studentOf()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8a65aefcd225477436135cb5e2d8d1f6070c9c87",
+      "date": "2026-11-04T22:10:22+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): добавить staffOf()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "51acc11927779931772e5b84de4bc3c2e9fee8aa",
+      "date": "2026-11-04T22:10:23+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): добавить requireStudent()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "871e746d4a4bc7c4661fc481ed98b96ca600d2f0",
+      "date": "2026-11-04T22:10:23+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): добавить requireDean()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "14ef5a3f0b8fa668c4e1092b7dfb081804c973bf",
+      "date": "2026-11-04T22:10:23+03:00",
+      "author": "temurysega",
+      "subject": "feat(security): publicUser() — публичное описание пользователя для шапки кабинета",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6871bc181a818b5e7e9f9bd2a9d472d2d1fdee52",
+      "date": "2026-11-04T22:10:23+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): auth.js: вход, выход, смена пароля и управление сеансами.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a888449980dc83662ad37c4bc7edb80887562988",
+      "date": "2026-11-04T22:10:23+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): perAccount — пять неудачных попыток на логин и тридцать на адрес за 15 минут",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9e9852d7bbc23c8a567651d2b32994878ab935ca",
+      "date": "2026-11-04T22:10:24+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): добавить экспорт раздела",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "045f3a01861f63d11c99077e792803095d94ac69",
+      "date": "2026-11-04T22:10:24+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): маршрут /api/auth/sessions — активные сеансы: видно, откуда входили, и можно закрыть чу…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a3d2050f49e4af35cda57c2e4d46b417dbbd1c4d",
+      "date": "2026-11-04T22:10:24+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): student.js: данные студента: профиль, главная, расписание, успеваемость и уведомления.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0806504a6d549f14d1c2816f3a2d18ad1c1cebcd",
+      "date": "2026-11-04T22:10:24+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): добавить profileOf()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a9773f28603bde425fcf9c22567a1336dac12c95",
+      "date": "2026-11-04T22:10:25+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): playCtx() — сессия без троек и долгов открывает знаки «за учёбу»",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "463be382ce30cc4223c1dae1e4ee81cb90c666d8",
+      "date": "2026-11-04T22:10:25+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): добавить deadlinesOf()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c56a4e887d6e5cfa1d3872834112bc73201d179e",
+      "date": "2026-11-04T22:10:25+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): маршрут /api/home — главная собирается одним запросом — на мобильном интернете это заме…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "705260ec8316002a056b2702d5b643233f411bc9",
+      "date": "2026-11-04T22:10:25+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): маршрут /api/schedule.ics — подписка на календарь: файл с парами на 4 недели",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "bb02ff8fe92520356a315c1fc70667e4ab766243",
+      "date": "2026-11-04T22:10:25+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): маршрут /api/notifications/count — лёгкий опрос для колокольчика: число непрочитанных и…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "47ae0d1d701cb44c7647aedaf5a8a971494574d1",
+      "date": "2026-11-04T22:10:26+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): requests.js: заявки студента. Каждый запрос к конкретной заявке проверяет владельца",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7d2d147e1b0718809c4831c1e3d465401fdbb490",
+      "date": "2026-11-04T22:10:26+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): добавить own()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "27b7d9004f5a97f3eb87ef462e558fef866ea1ca",
+      "date": "2026-11-04T22:10:26+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): добавить экспорт раздела",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "201dc0890a3540997965b65305d2b7cf670a1708",
+      "date": "2026-11-04T22:10:26+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): маршрут /api/requests/:id/document — электронная справка: данные для печатной формы с к…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "88c3074366ceaf96d796a4d7eb9457021c650acc",
+      "date": "2026-11-04T22:10:26+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): маршрут /api/verify/:code — проверка подлинности справки по коду: открыта всем, но раск…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d6e5f08d6ce8f21e4904c0f1163ec655fd372f4e",
+      "date": "2026-11-04T22:10:27+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): play.js: игровой слой: образ, питомец, прогулка по кампусу, Лавка и забег.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c794e839812c91660098b91d3b55aeacc8175072",
+      "date": "2026-11-04T22:10:27+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): act() — обёртка: загрузить состояние, выполнить действие, сохранить и вернуть свежий вид",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0ac1d0c1deaeba93736860a0a1cce36d5daa4e4c",
+      "date": "2026-11-04T22:10:27+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): добавить экспорт раздела",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "dd9508b48e9616ac57936e37f47399974681f564",
+      "date": "2026-11-04T22:10:27+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): маршрут /api/play/kit — мерч: М-коины списываются, в «Заявках» появляется выдача в Лавке",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e260247a127f11be64119507a8bab04e4cb60bf2",
+      "date": "2026-11-04T22:10:28+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): dean.js: кабинет деканата: очередь заявок факультета, решения, объявления и изменения р…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c26148b8e2b2e96c6ef3408ad3666f8becd41d1c",
+      "date": "2026-11-04T22:10:28+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): добавить facultyRow",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3126a39c0a4593a74bbe6ccee9bf71d1d268f015",
+      "date": "2026-11-04T22:10:28+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): actionsFor() — какие решения доступны на текущем шаге",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c9c80dca03ad020d2a82dfcd0625fc40a9d61dac",
+      "date": "2026-11-04T22:10:28+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): добавить экспорт раздела",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8611c5b5671972b2e4b7befe4888c4f4b7e497ce",
+      "date": "2026-11-04T22:10:29+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): маршрут /api/dean/announcements — объявление факультету или группе — сразу появляется в…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "73c09ad223635e5e72787ef71500fc171ca41bc3",
+      "date": "2026-11-04T22:10:29+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): маршрут /api/dean/day — пары группы на дату — чтобы отметить отмену или новую аудиторию",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c15a7be479b07605104d449626d4b27d9e622b98",
+      "date": "2026-11-04T22:10:29+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): assistant.js: помощник «Спросить деканат» и служебные маршруты демо-стенда.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "4f23b869a1f350c7da65e26c91a5da3bbc460112",
+      "date": "2026-11-04T22:10:29+03:00",
+      "author": "temurysega",
+      "subject": "feat(api): perUser — 20 вопросов за 10 минут на студента: защищает и бюджет ИИ, и сервер",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5c49cde69a3468160c9870f20ebe7ddd87dde145",
+      "date": "2026-11-04T22:10:29+03:00",
+      "author": "temurysega",
+      "subject": "feat(server): app.js: сборка приложения: заголовки безопасности, CSRF, разбор тела, маршруты API и ра…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6150ac3bb241538ce2ceb418cddd9d9909eda790",
+      "date": "2026-11-04T22:10:30+03:00",
+      "author": "temurysega",
+      "subject": "feat(server): добавить MUTATING",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "cf6f5e23fe6e1ad5d9985da64455a2775518de28",
+      "date": "2026-11-04T22:10:30+03:00",
+      "author": "temurysega",
+      "subject": "feat(server): sameOrigin() — запрос с чужого сайта отсекается: Origin должен совпадать с хостом",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "55199dfb4ab560eed5fea533f3fc001df0681c29",
+      "date": "2026-11-04T22:10:30+03:00",
+      "author": "temurysega",
+      "subject": "feat(server): добавить createApp()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8288c08947645393a521467919b133aeaddb8e9e",
+      "date": "2026-11-04T22:10:30+03:00",
+      "author": "temurysega",
+      "subject": "feat(server): index.js: точка входа: открывает базу, наполняет демо-данными и запускает HTTP-сервер.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "088bc0558fbad5fb96513c4d342da525c9fad961",
+      "date": "2026-11-04T22:10:31+03:00",
+      "author": "temurysega",
+      "subject": "feat(server): lastActivity — стенд пересоздаётся, если данные устарели, а им никто не пользуется полчаса",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7082d17a166b0fe3306731f5e37ea0160b76ee8d",
+      "date": "2026-11-04T22:10:31+03:00",
+      "author": "temurysega",
+      "subject": "feat(server): добавить app",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ec1499868fb5594b72c8b9f6fad499b94f1bb885",
+      "date": "2026-11-04T22:10:31+03:00",
+      "author": "temurysega",
+      "subject": "feat(server): добавить server",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3af0d368ee93efa60de1f2400b0462089b6ebab5",
+      "date": "2026-11-04T22:10:31+03:00",
+      "author": "temurysega",
+      "subject": "feat(server): timers — фоновые задачи: автоматические шаги заявок демо, чистка лимитов и пересоздание…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e5d87fb5c1255f1c6d30567b70d031bc8fa39b16",
+      "date": "2026-11-04T22:10:31+03:00",
+      "author": "temurysega",
+      "subject": "feat(server): добавить shutdown()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f6c4c7cf597e869ab11c2f059b891df3a200d3cf",
+      "date": "2026-11-04T22:10:32+03:00",
+      "author": "temurysega",
+      "subject": "feat(web): собственный знак концепта: «М» из меридианов и путеводная звезда",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "99152b0cafa9f7d36b13f12a3f81810b0643095c",
+      "date": "2026-11-04T22:10:32+03:00",
+      "author": "temurysega",
+      "subject": "feat(web): манифест для установки кабинета на телефон",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5f31c6e537894e3501360b86b5574655acd985a9",
+      "date": "2026-11-04T22:10:32+03:00",
+      "author": "temurysega",
+      "subject": "feat(web): оболочка страницы: полоса концепта, шапка, нижнее меню",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "04b465eea3fd9be0aeaed90f84590c3ed14f7d54",
+      "date": "2026-11-04T22:10:32+03:00",
+      "author": "temurysega",
+      "subject": "style(tokens): мГИМО Мания — концепт личного кабинета студента.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ee0650c921271d7d930b10ce09d5e4636ac82fb0",
+      "date": "2026-11-04T22:10:33+03:00",
+      "author": "temurysega",
+      "subject": "style(base): base.css: основа",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "948fda8f135259c99e59344d4426274236e988fa",
+      "date": "2026-11-04T22:10:33+03:00",
+      "author": "temurysega",
+      "subject": "style(base): правила svg.ic",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "589c8e5db3bf14bbc22b2a68977e3c3ab4d4226f",
+      "date": "2026-11-04T22:10:33+03:00",
+      "author": "temurysega",
+      "subject": "style(base): правила .emoji",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "524bd358445039639d6efd0e8b62ca4e404d072d",
+      "date": "2026-11-04T22:10:33+03:00",
+      "author": "temurysega",
+      "subject": "style(base): правила .skip",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f47054d8ce8dfeba77697ec8cfcfbe7db8a25028",
+      "date": "2026-11-04T22:10:33+03:00",
+      "author": "temurysega",
+      "subject": "style(base): типографика",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "78e08ccc5431580cd57e25b18bc09733de3cf972",
+      "date": "2026-11-04T22:10:33+03:00",
+      "author": "temurysega",
+      "subject": "style(base): сетки",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "12b0a658f4ce578df473ba1ee282328d878f9c66",
+      "date": "2026-11-04T22:10:34+03:00",
+      "author": "temurysega",
+      "subject": "style(base): правила .row-wrap",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "4a33bd9773ab84413d47caf3625a2637dca68dd9",
+      "date": "2026-11-04T22:10:34+03:00",
+      "author": "temurysega",
+      "subject": "style(base): страница",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a42b700414d30130fd423995619c3f2795f653d0",
+      "date": "2026-11-04T22:10:34+03:00",
+      "author": "temurysega",
+      "subject": "style(base): правила .section",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "50877102aca9f9986fae056f9f8985bd5dd0f355",
+      "date": "2026-11-04T22:10:34+03:00",
+      "author": "temurysega",
+      "subject": "style(components): components.css: карточки",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5a444e609722569bc5dc326ce2523013cae481ef",
+      "date": "2026-11-04T22:10:34+03:00",
+      "author": "temurysega",
+      "subject": "style(components): правила .card-tight",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7c50bfffd20c009ab348a1ad3eb37ed8cd53e8cf",
+      "date": "2026-11-04T22:10:35+03:00",
+      "author": "temurysega",
+      "subject": "style(components): кнопки",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "60449ece60b78006cd4bb1325c0c3f1794784e07",
+      "date": "2026-11-04T22:10:35+03:00",
+      "author": "temurysega",
+      "subject": "style(components): правила .card .btn-secondary, .modal .card .btn-secondar",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7c2d0d21e8b80591399ae031b52b4c35e7555fc1",
+      "date": "2026-11-04T22:10:35+03:00",
+      "author": "temurysega",
+      "subject": "style(components): правила .btn-light:hover",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5e24c4bb17ca41f6d249acca75ecfdc497db8335",
+      "date": "2026-11-04T22:10:35+03:00",
+      "author": "temurysega",
+      "subject": "style(components): правила .btn-lg",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f2d78177c83b5a317d0d92b4f54bf51d087ff139",
+      "date": "2026-11-04T22:10:35+03:00",
+      "author": "temurysega",
+      "subject": "style(components): чипы, бейджи",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "958d84e4c581172ee23151c950a43200845153d4",
+      "date": "2026-11-04T22:10:36+03:00",
+      "author": "temurysega",
+      "subject": "style(components): правила .chip .count",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a78adb0dd521e0e3e5e8bc3e86e6a1c52e8324bd",
+      "date": "2026-11-04T22:10:36+03:00",
+      "author": "temurysega",
+      "subject": "style(components): правила .badge-blue",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "16c23243958e7a79af9218dd8580b8c94db2900e",
+      "date": "2026-11-04T22:10:36+03:00",
+      "author": "temurysega",
+      "subject": "style(components): м-коины",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "42fbebd56d757d77deeb795bf75c6a968b5767c4",
+      "date": "2026-11-04T22:10:36+03:00",
+      "author": "temurysega",
+      "subject": "style(components): прогресс",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a3af46c2035a551b0f47424b7aa16b50f4b3965f",
+      "date": "2026-11-04T22:10:37+03:00",
+      "author": "temurysega",
+      "subject": "style(components): правила .bar-warn > i",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "87e5f8fea72b166b471befc9a48bea24bd32fc7d",
+      "date": "2026-11-04T22:10:37+03:00",
+      "author": "temurysega",
+      "subject": "style(components): поля",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c873cd42780c1eacdd08e9ed7da7f0c5aa9f18b1",
+      "date": "2026-11-04T22:10:37+03:00",
+      "author": "temurysega",
+      "subject": "style(components): правила select.input",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5fd00017351fc15cbfebfe3eecb04657dfee97f1",
+      "date": "2026-11-04T22:10:37+03:00",
+      "author": "temurysega",
+      "subject": "style(components): правила .pass-eye",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b6942aaf8aef79eb5e3683d37c3b53c6e948cd57",
+      "date": "2026-11-04T22:10:37+03:00",
+      "author": "temurysega",
+      "subject": "style(components): правила .switch i::after",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "14d0d92cab871d7c4f9500780ba6f4e07e27896f",
+      "date": "2026-11-04T22:10:38+03:00",
+      "author": "temurysega",
+      "subject": "style(components): сегменты",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e2c69329e67c36acd5ceb9ec4047389027c97ca4",
+      "date": "2026-11-04T22:10:38+03:00",
+      "author": "temurysega",
+      "subject": "style(components): списки и таблицы",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "582c8492b0008302793b4b3f1f34f9a23c8b9262",
+      "date": "2026-11-04T22:10:38+03:00",
+      "author": "temurysega",
+      "subject": "style(components): правила .tbl tr:last-child td",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7d2ddadcb6f5f781a6c45ff7dedf0e6fb865eb1a",
+      "date": "2026-11-04T22:10:38+03:00",
+      "author": "temurysega",
+      "subject": "style(components): правила .note",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d8f87619f154b3f8264b75c49d15acb3126375e4",
+      "date": "2026-11-04T22:10:39+03:00",
+      "author": "temurysega",
+      "subject": "style(components): скелетоны",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "4c21fc9a2faae014c98a37130c8f8203eb3c9c29",
+      "date": "2026-11-04T22:10:39+03:00",
+      "author": "temurysega",
+      "subject": "style(components): аватары",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7fa8dbc2b38ed678d1179532450f3d91d039b185",
+      "date": "2026-11-04T22:10:39+03:00",
+      "author": "temurysega",
+      "subject": "style(components): правила .ava-w.f-route",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "cfdee37758fb720fa213de41b44dbd3375854690",
+      "date": "2026-11-04T22:10:39+03:00",
+      "author": "temurysega",
+      "subject": "style(components): карточка профиля",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3bc95ae9dcac6ffb28878f914e4f000f0cdf7063",
+      "date": "2026-11-04T22:10:39+03:00",
+      "author": "temurysega",
+      "subject": "style(components): правила .tg-badge",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ba858324591c16587ec3ddb67972fb3b77c9c753",
+      "date": "2026-11-04T22:10:40+03:00",
+      "author": "temurysega",
+      "subject": "style(components): модальные окна",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3d19509b08f3fdb0aa7b398879c0c9d3af30c851",
+      "date": "2026-11-04T22:10:40+03:00",
+      "author": "temurysega",
+      "subject": "style(components): правила .modal-title",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "05f9fee523fa0a4791bb4f44a2b1636f1f202c32",
+      "date": "2026-11-04T22:10:40+03:00",
+      "author": "temurysega",
+      "subject": "style(components): тосты, подсказки, меню",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "68a8431e67b156f33093661060a8e3c05da28ee2",
+      "date": "2026-11-04T22:10:40+03:00",
+      "author": "temurysega",
+      "subject": "style(components): правила .menu",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "22d48a05d2758fce7d800cef72d9f4128375e6eb",
+      "date": "2026-11-04T22:10:41+03:00",
+      "author": "temurysega",
+      "subject": "style(components): правила .notif.unread .notif-ic",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f9e2293cc1a11a95c3b128709fa650a364f9f1a6",
+      "date": "2026-11-04T22:10:41+03:00",
+      "author": "temurysega",
+      "subject": "style(layout): layout.css: полоса концепта: сразу видно, что это не официальный сервис",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b77c5d89b34739683973b267038f62f4527fb2f2",
+      "date": "2026-11-04T22:10:41+03:00",
+      "author": "temurysega",
+      "subject": "style(layout): шапка",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "950ad36e26d3d990d75697e4999d239c15cdbcb9",
+      "date": "2026-11-04T22:10:41+03:00",
+      "author": "temurysega",
+      "subject": "style(layout): правила .logo-word i",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "2bbdcf610888d618ed91ef8e1a80b207e0b05cf8",
+      "date": "2026-11-04T22:10:41+03:00",
+      "author": "temurysega",
+      "subject": "style(layout): правила .nav a .dot",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8bad8da3837df94ef77f8f682942098270a23960",
+      "date": "2026-11-04T22:10:42+03:00",
+      "author": "temurysega",
+      "subject": "style(layout): правила .icon-btn .badge-dot",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "75fd13112e23a7c712c2174b7663791b01ed6e2f",
+      "date": "2026-11-04T22:10:42+03:00",
+      "author": "temurysega",
+      "subject": "style(layout): нижняя панель (мобильная)",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "717105fdcf2db43b65ba6499a906aa3086110ae1",
+      "date": "2026-11-04T22:10:42+03:00",
+      "author": "temurysega",
+      "subject": "style(layout): помощник",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3d82f093cb9ad7e224526f4c5ad1724d8451fbaa",
+      "date": "2026-11-04T22:10:42+03:00",
+      "author": "temurysega",
+      "subject": "style(layout): правила .drawer-head .icon-btn:hover",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c3fb4d3652b1aeca61ab1b8d9419c5719e82f423",
+      "date": "2026-11-04T22:10:42+03:00",
+      "author": "temurysega",
+      "subject": "style(layout): правила .typing",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c29b61e1d86baa920207c4a1b57069bb29821236",
+      "date": "2026-11-04T22:10:43+03:00",
+      "author": "temurysega",
+      "subject": "style(layout): правила .chat-form",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c3957a8f5e04c4e07961c3b2d1683c54e5747e55",
+      "date": "2026-11-04T22:10:43+03:00",
+      "author": "temurysega",
+      "subject": "style(layout): подвал",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e0c01e4a7ae7925dfab634d9db2e4bcc2c38fb0f",
+      "date": "2026-11-04T22:10:43+03:00",
+      "author": "temurysega",
+      "subject": "style(layout): вход",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "820c4694dfd35d0012a6d1a9b5de8f15961ef4e0",
+      "date": "2026-11-04T22:10:43+03:00",
+      "author": "temurysega",
+      "subject": "style(auth): auth.css: вход",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "89e65fae9af8844acda584558c6a7daec876c01d",
+      "date": "2026-11-04T22:10:44+03:00",
+      "author": "temurysega",
+      "subject": "style(auth): правила .auth-title",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d41c1fb7dcc38592c56c4dbae3f7152a5333f9da",
+      "date": "2026-11-04T22:10:44+03:00",
+      "author": "temurysega",
+      "subject": "style(auth): правила .auth-crowd .p .av",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ebac13650a25d15e2cb126936b1bc27b179c932d",
+      "date": "2026-11-04T22:10:44+03:00",
+      "author": "temurysega",
+      "subject": "style(auth): правила .auth-float.f2",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "33bd6e9b25464ff42836c608a37438a3abb52f7c",
+      "date": "2026-11-04T22:10:44+03:00",
+      "author": "temurysega",
+      "subject": "style(auth): правила .auth-error",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c73be983474164767dcb6b83193232a66c6e3166",
+      "date": "2026-11-04T22:10:45+03:00",
+      "author": "temurysega",
+      "subject": "style(auth): правила .acc small",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e8e562d065f7f8a80c6407c70bb06b681e954cac",
+      "date": "2026-11-04T22:10:45+03:00",
+      "author": "temurysega",
+      "subject": "style(auth): правила .demo-hint",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "510ab18c93147b3e9d65d9b2ed32949cf4c8fd6e",
+      "date": "2026-11-04T22:10:45+03:00",
+      "author": "temurysega",
+      "subject": "style(auth): правила @media (max-width: 520px)",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9fbfceb90b1ce2585cb0bd4254fdd0341b9403d4",
+      "date": "2026-11-04T22:10:45+03:00",
+      "author": "temurysega",
+      "subject": "style(home): home.css: главная",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "09be496a9bfdc49083c4991b90d0d986fe255425",
+      "date": "2026-11-04T22:10:45+03:00",
+      "author": "temurysega",
+      "subject": "style(home): ближайшая пара",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "953e0d29aebc5f32d7d41b3a50206d2f59c52472",
+      "date": "2026-11-04T22:10:46+03:00",
+      "author": "temurysega",
+      "subject": "style(home): правила .next-count",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b06866d0b7d12fc9d2f62da56c296376ad84be19",
+      "date": "2026-11-04T22:10:46+03:00",
+      "author": "temurysega",
+      "subject": "style(home): лента дня",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "fdd74e4e645ce3b9fbe15eb7cd6a1e4d86eff773",
+      "date": "2026-11-04T22:10:46+03:00",
+      "author": "temurysega",
+      "subject": "style(home): правила .day-item .what .small",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5f7e33eabf53a3eece254d20b7054623dff53730",
+      "date": "2026-11-04T22:10:46+03:00",
+      "author": "temurysega",
+      "subject": "style(home): как у меня дела",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "efa5c138a34d317035b9d82af6508955dfc76541",
+      "date": "2026-11-04T22:10:47+03:00",
+      "author": "temurysega",
+      "subject": "style(home): правила .stat",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "75933746ee79ccd013e05103c217d7f1907737fc",
+      "date": "2026-11-04T22:10:47+03:00",
+      "author": "temurysega",
+      "subject": "style(home): правила .tip.exam .dot",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "cc6dd4ff8fbdb28b5942c6e6c29b0516ad042fe5",
+      "date": "2026-11-04T22:10:47+03:00",
+      "author": "temurysega",
+      "subject": "style(home): дедлайны и заявки",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "71b9852309d7da8712aa2306381dc51c5df2fb17",
+      "date": "2026-11-04T22:10:47+03:00",
+      "author": "temurysega",
+      "subject": "style(home): правила .dl b",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e731360388bdc0cdfcfeb57eb683ec6c62402b28",
+      "date": "2026-11-04T22:10:47+03:00",
+      "author": "temurysega",
+      "subject": "style(home): правила @media (max-width: 1180px)",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "80a559a4b4c86c9a394cea39c1381bd749c71a35",
+      "date": "2026-11-04T22:10:48+03:00",
+      "author": "temurysega",
+      "subject": "style(home): изменения расписания",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "567ea63ce25ed6ef896aa8755e9182f9f113eb96",
+      "date": "2026-11-04T22:10:48+03:00",
+      "author": "temurysega",
+      "subject": "style(home): питомец, кампус, игра",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ff305fd16c3d46df67707dbe1c7417bc082466be",
+      "date": "2026-11-04T22:10:48+03:00",
+      "author": "temurysega",
+      "subject": "style(home): правила .campus-teaser",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b57a071064c440e87a333bb9550f654df2c2f841",
+      "date": "2026-11-04T22:10:48+03:00",
+      "author": "temurysega",
+      "subject": "style(home): правила .game-teaser .bar",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1f783922e4b0ca80d9b4168fd32fd44c75682819",
+      "date": "2026-11-04T22:10:48+03:00",
+      "author": "temurysega",
+      "subject": "style(home): первые шаги",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b76397db00d3d8ba69cc078c352dba437e5cdd2d",
+      "date": "2026-11-04T22:10:49+03:00",
+      "author": "temurysega",
+      "subject": "style(home): правила .quiz-q",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "fd0aee46bc548374b2facb4b9e2211b218112eaf",
+      "date": "2026-11-04T22:10:49+03:00",
+      "author": "temurysega",
+      "subject": "style(schedule): schedule.css: расписание",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9a970eb01766c30e9676712388a53bc7ecac5e59",
+      "date": "2026-11-04T22:10:49+03:00",
+      "author": "temurysega",
+      "subject": "style(schedule): правила .change-pill.cancel",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "cf6fbf013a9a13e892860d08d61db6470ba5c86a",
+      "date": "2026-11-04T22:10:49+03:00",
+      "author": "temurysega",
+      "subject": "style(schedule): правила .day-btn b",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ad2c7250d25c9e525f6eb49e5ecc3bb07be4968f",
+      "date": "2026-11-04T22:10:50+03:00",
+      "author": "temurysega",
+      "subject": "style(schedule): правила .day-col",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f341e3a6b6a5204016477b9d117e5e8ca2e93fc4",
+      "date": "2026-11-04T22:10:50+03:00",
+      "author": "temurysega",
+      "subject": "style(schedule): правила .lesson",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f5d9d1d6ce25a8f105e5ce766ed0b2c50d1e2f9c",
+      "date": "2026-11-04T22:10:50+03:00",
+      "author": "temurysega",
+      "subject": "style(schedule): правила .lesson-sub",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "dbbd11e2b6da5128e56762a236f37f4a74d763cb",
+      "date": "2026-11-04T22:10:50+03:00",
+      "author": "temurysega",
+      "subject": "style(schedule): правила .lesson.now",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c6a9b3437b3222ffe4f5d47a00abb6d768345112",
+      "date": "2026-11-04T22:10:50+03:00",
+      "author": "temurysega",
+      "subject": "style(schedule): правила .teacher-ava",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "2bb83084c880d4542545c40ce74dd3a2f7e3fd78",
+      "date": "2026-11-04T22:10:51+03:00",
+      "author": "temurysega",
+      "subject": "style(grades): grades.css: успеваемость",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b64feb87d77a5b3dfdec4df0057786695abfffbc",
+      "date": "2026-11-04T22:10:51+03:00",
+      "author": "temurysega",
+      "subject": "style(grades): правила .ring-v",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a7f9762dbf333318a5aaa611eed8ff301ade1a8c",
+      "date": "2026-11-04T22:10:51+03:00",
+      "author": "temurysega",
+      "subject": "style(grades): правила .disc-head",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "29b77054ba471691e53c3a8e816512746105c5e0",
+      "date": "2026-11-04T22:10:51+03:00",
+      "author": "temurysega",
+      "subject": "style(grades): правила .scale .mark",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "cc83eaf0916daccbe18ab21bd9204427e84c9cd5",
+      "date": "2026-11-04T22:10:52+03:00",
+      "author": "temurysega",
+      "subject": "style(grades): правила .items-tbl td:first-child",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "320e764bf14b1eb2bbed49acc2b52729b758bc47",
+      "date": "2026-11-04T22:10:52+03:00",
+      "author": "temurysega",
+      "subject": "style(grades): правила .letter.D, .letter.E",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "684b15091f0d3036b4faa643a04d1cc87f001567",
+      "date": "2026-11-04T22:10:52+03:00",
+      "author": "temurysega",
+      "subject": "style(grades): правила .exam-row.consult .exam-date",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "02ea1d37124de7a55143af23fdbf21d765122862",
+      "date": "2026-11-04T22:10:52+03:00",
+      "author": "temurysega",
+      "subject": "style(requests): requests.css: заявки и справки",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "28ef3271846bcedf36357572a61df6a604918ca3",
+      "date": "2026-11-04T22:10:53+03:00",
+      "author": "temurysega",
+      "subject": "style(requests): правила .cat-tile .small",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d80590b4867856988e5ea8580ac2c6294534bec8",
+      "date": "2026-11-04T22:10:53+03:00",
+      "author": "temurysega",
+      "subject": "style(requests): правила .req-card .pipe",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "be33729ba1fa8a0c8f44c7789281117ac96bf7a8",
+      "date": "2026-11-04T22:10:53+03:00",
+      "author": "temurysega",
+      "subject": "style(requests): правила .st",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8a29deaf9a30e904c9619f41f971064bd1f39675",
+      "date": "2026-11-04T22:10:53+03:00",
+      "author": "temurysega",
+      "subject": "style(requests): правила .st i",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8554f4db576fca37a1086243b342c1ed63ce0128",
+      "date": "2026-11-04T22:10:53+03:00",
+      "author": "temurysega",
+      "subject": "style(requests): правила .opt-card b",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "84223159708f1bd4c5d888d9ce250f5ddabfd1e7",
+      "date": "2026-11-04T22:10:54+03:00",
+      "author": "temurysega",
+      "subject": "style(requests): правила .req-detail",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d5d8d77962c92e747f1e50dba2e359a0ca42fd38",
+      "date": "2026-11-04T22:10:54+03:00",
+      "author": "temurysega",
+      "subject": "style(requests): правила .stepper-dot",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1b325ccf36f8cc6eb39af59c5643e0cc0bc0c519",
+      "date": "2026-11-04T22:10:54+03:00",
+      "author": "temurysega",
+      "subject": "style(requests): правила .tl-item .when",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "04568a020390ecc1ed1d79d20d275753b71fb444",
+      "date": "2026-11-04T22:10:54+03:00",
+      "author": "temurysega",
+      "subject": "style(requests): электронная справка: печатная форма с водяным знаком демо",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "be7821870e3edce1d82596e01afadc3c91ec3ce8",
+      "date": "2026-11-04T22:10:54+03:00",
+      "author": "temurysega",
+      "subject": "style(requests): правила .doc-title",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "bc6aba207c05d2caf82d9521c88fb44aacfc47d5",
+      "date": "2026-11-04T22:10:55+03:00",
+      "author": "temurysega",
+      "subject": "style(requests): правила .doc-qr svg",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7e96e174e60d23fbf9bce2361f379e3a5bd7edeb",
+      "date": "2026-11-04T22:10:55+03:00",
+      "author": "temurysega",
+      "subject": "style(pages): pages.css: уведомления",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f883a1c7dbad4f489f9880943cd7d53d3682ba14",
+      "date": "2026-11-04T22:10:55+03:00",
+      "author": "temurysega",
+      "subject": "style(pages): правила .n-item.unread::after",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a5dcfadc30518e30b040c4a0af1b1115a6a8fdd8",
+      "date": "2026-11-04T22:10:55+03:00",
+      "author": "temurysega",
+      "subject": "style(pages): правила .pref-row:first-child",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6d67d366014874b4952c147c1e0be3b7c124f90c",
+      "date": "2026-11-04T22:10:55+03:00",
+      "author": "temurysega",
+      "subject": "style(pages): профиль",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "80357c1f705d06abcd674c64b9e9bf8b1a863530",
+      "date": "2026-11-04T22:10:56+03:00",
+      "author": "temurysega",
+      "subject": "style(pages): правила .sec-score",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c41b8efdf1ed69d421d7b546d7e2ecff63ee798b",
+      "date": "2026-11-04T22:10:56+03:00",
+      "author": "temurysega",
+      "subject": "style(pages): деканат",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9f82e8ec31b70f0bbfebab3f77ece35b24b82bcb",
+      "date": "2026-11-04T22:10:56+03:00",
+      "author": "temurysega",
+      "subject": "style(pages): правила .q-top",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "448e9eb066d453ff1850c38c8b4995f5139e8dba",
+      "date": "2026-11-04T22:10:56+03:00",
+      "author": "temurysega",
+      "subject": "style(pages): правила .dean-forms",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "663d459831c1cdcc4a1c790f4ca7b29f21020da6",
+      "date": "2026-11-04T22:10:56+03:00",
+      "author": "temurysega",
+      "subject": "style(play): play.css: анимация аватара (шаг и покачивание)",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "fd9cc5107ee4bb4797f0c6a17a8ef19fce31c0e4",
+      "date": "2026-11-04T22:10:57+03:00",
+      "author": "temurysega",
+      "subject": "style(play): правила .walking .av-arm-l",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e8bec48c877d9c05e7b98f21a9e8ec6f1d60b7aa",
+      "date": "2026-11-04T22:10:57+03:00",
+      "author": "temurysega",
+      "subject": "style(play): образ на главной",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3f345561df3fc54f691abd3d601ba13f93363d50",
+      "date": "2026-11-04T22:10:57+03:00",
+      "author": "temurysega",
+      "subject": "style(play): правила .hero-pet svg",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c72f9b4568b4d22906e7c7fe62a15c7b0d27f755",
+      "date": "2026-11-04T22:10:57+03:00",
+      "author": "temurysega",
+      "subject": "style(play): гардероб",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5cfb593629dce3cfb451fab123dfd40da225d36a",
+      "date": "2026-11-04T22:10:58+03:00",
+      "author": "temurysega",
+      "subject": "style(play): правила .mirror-pet",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "96205b0d4ac7c0ead8d56057ef7b98bc206a6832",
+      "date": "2026-11-04T22:10:58+03:00",
+      "author": "temurysega",
+      "subject": "style(play): правила .curtain.r",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a95cecb3e9ede715cff412b92507dea7d66c1352",
+      "date": "2026-11-04T22:10:58+03:00",
+      "author": "temurysega",
+      "subject": "style(play): правила .item-pic svg",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9fa40658999239efccf037ec6a18b05c25f87eff",
+      "date": "2026-11-04T22:10:58+03:00",
+      "author": "temurysega",
+      "subject": "style(play): правила .swatches",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7ac18414e972f84ba22b457adf78c65f4471c87c",
+      "date": "2026-11-04T22:10:58+03:00",
+      "author": "temurysega",
+      "subject": "style(play): правила .emoji-btn",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "588813257bfa7ac6338090182720b4466350d00b",
+      "date": "2026-11-04T22:10:59+03:00",
+      "author": "temurysega",
+      "subject": "style(play): кампус",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a6d0c5531d23a749a367b6e323a411245535cfd9",
+      "date": "2026-11-04T22:10:59+03:00",
+      "author": "temurysega",
+      "subject": "style(play): правила .campus-svg .npc",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1cd87393b77be24168905ed3232cda2724c7d901",
+      "date": "2026-11-04T22:10:59+03:00",
+      "author": "temurysega",
+      "subject": "style(play): правила .campus-hud > *",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f92461a8b4763f79c98064953d4ed582ac40d0d0",
+      "date": "2026-11-04T22:10:59+03:00",
+      "author": "temurysega",
+      "subject": "style(play): правила .zone-cards",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "307f92209fff2b3def4617d51be5f5d14400610a",
+      "date": "2026-11-04T22:11:00+03:00",
+      "author": "temurysega",
+      "subject": "style(play): лавка",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "2d200edef789bebe441d7ff5f3e9ea646279939c",
+      "date": "2026-11-04T22:11:00+03:00",
+      "author": "temurysega",
+      "subject": "style(play): правила .prod-name",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "436bea5e1b3bea82b74bc5dc74722bd0e21887f3",
+      "date": "2026-11-04T22:11:00+03:00",
+      "author": "temurysega",
+      "subject": "style(play): перерыв: забег",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "011a9060214e10a6c7c788906b405dfbd30f5e54",
+      "date": "2026-11-04T22:11:00+03:00",
+      "author": "temurysega",
+      "subject": "style(play): правила .runner-overlay .h3",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "66dd65955458de8c8a2afec3d60c2bd9ba983ff6",
+      "date": "2026-11-04T22:11:00+03:00",
+      "author": "temurysega",
+      "subject": "style(play): правила .limit-clock",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b998bb0d1acb737e74c487a874425aeb384d982d",
+      "date": "2026-11-04T22:11:01+03:00",
+      "author": "temurysega",
+      "subject": "style(play): онбординг",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "34ceec2fec7f7130b73ec8f4fbae93f8761dc2dc",
+      "date": "2026-11-04T22:11:01+03:00",
+      "author": "temurysega",
+      "subject": "style(effects): effects.css: эффекты",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9d9d8e3b330ee0f667e6f923b2158c4caa074201",
+      "date": "2026-11-04T22:11:01+03:00",
+      "author": "temurysega",
+      "subject": "style(effects): «Тыц»: кольцо и искры в точке клика",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "78b058e243c04d79ef168c70a8429765d7626474",
+      "date": "2026-11-04T22:11:01+03:00",
+      "author": "temurysega",
+      "subject": "style(effects): правила .tap i:nth-child(5)",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c9b754ea11fa943fb2eaf34e487e171534cfc742",
+      "date": "2026-11-04T22:11:01+03:00",
+      "author": "temurysega",
+      "subject": "style(effects): правила @keyframes toastIn",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e72dc405dbe3953ca83f805f55c075b247eb1932",
+      "date": "2026-11-04T22:11:02+03:00",
+      "author": "temurysega",
+      "subject": "style(effects): правила @keyframes spinSlow",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a744ad948d48ac110d5607e4d6b447e1608d0d7a",
+      "date": "2026-11-04T22:11:02+03:00",
+      "author": "temurysega",
+      "subject": "style(effects): правила @keyframes bodyBob",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "401e2ac98a26682800bcd13f333f7b27e6380264",
+      "date": "2026-11-04T22:11:02+03:00",
+      "author": "temurysega",
+      "subject": "style(effects): правила @media (prefers-reduced-motion: reduce)",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6107c05f8ea8727694463ca92f587fd5b1a76f97",
+      "date": "2026-11-04T22:11:02+03:00",
+      "author": "temurysega",
+      "subject": "style(effects): демо-тур для жюри",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "aea48ab2166ae28e4416393187d3ba9b55bb8275",
+      "date": "2026-11-04T22:11:02+03:00",
+      "author": "temurysega",
+      "subject": "style(responsive): responsive.css: адаптив: от широкого экрана до телефона 360 px",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "181353e5f5a3cfd1be8379344d11a921d7b184e8",
+      "date": "2026-11-04T22:11:03+03:00",
+      "author": "temurysega",
+      "subject": "style(responsive): правила @media (max-width: 980px)",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a4e8857c9a3790885502b8e07efa17b3109f9dca",
+      "date": "2026-11-04T22:11:03+03:00",
+      "author": "temurysega",
+      "subject": "style(responsive): правила @media (max-width: 520px)",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f46dc7707a40032bcca33173e29256592247d360",
+      "date": "2026-11-04T22:11:03+03:00",
+      "author": "temurysega",
+      "subject": "style(responsive): правила @media (max-width: 720px)",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "164ac09a28f0b5944c7e2da2a750418d823ddf70",
+      "date": "2026-11-04T22:11:03+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): format.js: esc — форматирование: числа, склонения, даты по Москве и экранирование.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "93784bdc0663033cb861112ae5861fc077355d3b",
+      "date": "2026-11-04T22:11:04+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): MSK — москва — единый часовой пояс вуза, где бы ни открыли кабинет",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "cf1d7e3b7f5f303929648f56be0877b5cd43b79f",
+      "date": "2026-11-04T22:11:04+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): добавить fmtDay",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "657ed2f041d9eb0bdf86b3af55e4292d6de1b5d5",
+      "date": "2026-11-04T22:11:04+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): relDay() — «сегодня», «завтра», «в четверг» — относительно Москвы",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "4f53924e9578c5ea11f828d2bb13cd701d77326f",
+      "date": "2026-11-04T22:11:04+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): dueLabel() — срок дедлайна простыми словами",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9f40d6560e1a9063a4f45f32f7f36d328226976a",
+      "date": "2026-11-04T22:11:04+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): добавить when()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b4a47874a5b2440836d74e4c1876594e8896aab1",
+      "date": "2026-11-04T22:11:05+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): inMinutes() — через сколько начнётся пара",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9cbf295cbc2fb20556aa73dd02d0c27ad3243789",
+      "date": "2026-11-04T22:11:05+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): bus.js: handlers — общая шина событий и данные текущего сеанса в памяти вкладки.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0a72c02e73132cfed17f950ff30be42270858173",
+      "date": "2026-11-04T22:11:05+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): добавить emit()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "4d9075df6beb9ac6c9176399e2a20daea344da13",
+      "date": "2026-11-04T22:11:05+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): добавить setPlay()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "303fb066cc5aa874a6f87c53645359cc58b4a464",
+      "date": "2026-11-04T22:11:06+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): api.js: запросы к API: cookie сессии отправляет браузер сам, CSRF-токен добавляется к и…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8897f4b6e7d2a60d9b2c83d1d21a8e5d5aafe3c9",
+      "date": "2026-11-04T22:11:06+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): добавить api()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ec1026145bb690d0a1ee81110530c6af1d5f1961",
+      "date": "2026-11-04T22:11:06+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): icons.js: P — линейные иконки 24×24: один стиль на весь кабинет.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "4afb3b1582876e750431ff53905a6e5feae909fd",
+      "date": "2026-11-04T22:11:06+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): coin() — М-коин: золотой жетон с буквой «М»",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "86bcfcb7a8f7977c5873fb8830a92bca49d2fc30",
+      "date": "2026-11-04T22:11:06+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): overlay.js: модальные окна, выпадающие меню, тосты и подсказки.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "84458aeba50ef59c0f672d1ac9d0a17d0a1361be",
+      "date": "2026-11-04T22:11:07+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): confirm() — простое подтверждение: «Да» / «Отмена»",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "925d544ca7c78547242d05560fd82c42dce6281a",
+      "date": "2026-11-04T22:11:07+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): away — выпадающее меню",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "72514fc18c5e0fb45b4deefb1b1afc85eeae9c11",
+      "date": "2026-11-04T22:11:07+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): toast() — тосты",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "43bf63f9b94d7c9e7e8bf4f7aa79f23002b7becc",
+      "date": "2026-11-04T22:11:07+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): tip — подсказки",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e7c0d9a6efa7ad7548af36cea23fd9b3192903ea",
+      "date": "2026-11-04T22:11:08+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): fx.js: маленькие радости: конфетти, монеты к балансу, счётчик и отклик на каждое нажатие.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d912b776e184e0bcf4f430a6a888ccc33cad7b20",
+      "date": "2026-11-04T22:11:08+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): добавить countUp()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "60354bd9ae5312366cac72ceef2a50ef80defafc",
+      "date": "2026-11-04T22:11:10+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): flyCoins() — М-коины летят от кнопки к балансу в шапке, затем счётчик досчитывает",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0298fc02cffad3daf9953e199544626cdd7fa63c",
+      "date": "2026-11-04T22:11:10+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): TAP — «Тыц»: кольцо и искры там, где нажали",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1f5ff52aeaa7082678a7a5f9ca7a578eba8010e7",
+      "date": "2026-11-04T22:11:11+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): logoMark() — собственный знак концепта «МГИМО Мания»: «М» из меридианов глобуса и путев…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "103f54e0ae3d700c73550465bada0e267640704d",
+      "date": "2026-11-04T22:11:11+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): avatar.js: SKIN — конструктор аватара: один SVG-рендер в координатах 200×320.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f6751566da68eda51e001268c1899fab0c37de64",
+      "date": "2026-11-04T22:11:11+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): hex() — цвет",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1be27962af226a164cb6ea64c602f1a57cdf6368",
+      "date": "2026-11-04T22:11:11+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): добавить DEFAULT",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "22979e19565730ae2e2492b9bbde95b355c2d2a8",
+      "date": "2026-11-04T22:11:11+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): POSES — позы для растровых кадров игры. В DOM шаг анимируется CSS-классом .walking",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "98a8dbad20c2e1965a530e5eebaf931bbff5c5cb",
+      "date": "2026-11-04T22:11:12+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): BODY — фигура: у мужской шире плечи и шея, у женской плечи и талия уже, бёдра шире",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a33ec5d21b21751170fc8e5ef6b1bcdb7e2b95ce",
+      "date": "2026-11-04T22:11:12+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): applyBody() — быстрая смена фигуры: заодно меняет явно «женские» или «мужские» детали",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "399af09c5eaa857739cf45cf7658513e37e25c8f",
+      "date": "2026-11-04T22:11:12+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): print() — принт МГИМО Мании на мерче: знак-меридианы и надпись",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1bf306eca4666ff8dd4bb6b61001fd80da4a05fd",
+      "date": "2026-11-04T22:11:12+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): добавить hairFront()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9c4ff8fb149c141f8d096e0800a25cd22aa9077f",
+      "date": "2026-11-04T22:11:13+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): hairNape() — затылок для вида со спины: волосы закрывают голову целиком",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9b3a7eafd48f8cac540ea369d8bc638d317d8ec9",
+      "date": "2026-11-04T22:11:13+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): eyes() — лицо",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "2299cd194828bd2870f8b6f3ab75b612f31e7eda",
+      "date": "2026-11-04T22:11:13+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): добавить mouth()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8aa5e10d66417910075943e7ac2d2e2a63e0aac3",
+      "date": "2026-11-04T22:11:13+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): добавить cheeks()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "da167c7bad7e7e8f90708ef0339f998edd09e065",
+      "date": "2026-11-04T22:11:13+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): добавить facial()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "696603462f4b84a740253b03e0fde9b032b33e40",
+      "date": "2026-11-04T22:11:14+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): добавить glasses()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "995a3f437f865be9df895d95b8860e0241b5b551",
+      "date": "2026-11-04T22:11:14+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): добавить head()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "49caf69afa50e095a4da8813d97290cffec8dfff",
+      "date": "2026-11-04T22:11:14+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): headBack() — голова со спины: уши, затылок и причёска",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e76945da8e18e470d40aea5b31b010ec231af257",
+      "date": "2026-11-04T22:11:14+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): topBack() — одежда",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ff00a9be99d3fb60cb8a2385e39b47371f5b0ac7",
+      "date": "2026-11-04T22:11:14+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): добавить torso()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d07d5b61b5d4323d006977fa179668d516fdb788",
+      "date": "2026-11-04T22:11:15+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): добавить arms()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "93be7b8c650f09d5d6414b1708beea7f43bd9c77",
+      "date": "2026-11-04T22:11:15+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): добавить shoe()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "842736ec6e3fa12ebf2b41cb31392585af90c37d",
+      "date": "2026-11-04T22:11:15+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): добавить legs()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0e0b71123f1d5fe1312cfd7ed8863addbe3487c0",
+      "date": "2026-11-04T22:11:15+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): добавить bodyExtras()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5240c9ea38a1e432b581f0c4e52abac0e8ba5a46",
+      "date": "2026-11-04T22:11:16+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): добавить bag()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ff89a46e71c7588f80d0318271a1b4952e930c44",
+      "date": "2026-11-04T22:11:16+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): svg() — сборка",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ab203f29738677eece8ca8de2b1d27a139257333",
+      "date": "2026-11-04T22:11:16+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): pet() — питомцы (смотрят вправо, земля на y=96)",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "dc3ff4fa629abe939fe997ee45db7e175268f6dd",
+      "date": "2026-11-04T22:11:16+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): BACKDROPS — фон профиля: радиальный градиент и узор кольцами",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "08152b850f51a06700b66fb0cd554d0865b3253c",
+      "date": "2026-11-04T22:11:17+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): добавить SYM",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "cb1055d7c5c2dc2a1d8a7aee151a95787c736f49",
+      "date": "2026-11-04T22:11:17+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): добавить uid",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "552fc44f00b20174848f22b6fbefce1f6688a693",
+      "date": "2026-11-04T22:11:17+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): SLOT_VIEW — превью вещи в гардеробе: персонаж в этой вещи, кадрированный по нужной зоне",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a17ea470c75426a67c4363ad97018a6b94268a9c",
+      "date": "2026-11-04T22:11:17+03:00",
+      "author": "temurysega",
+      "subject": "feat(art): ava() — аватар в круге и карточка профиля",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "85cf187914d0f11ab58b0f8668663772652c5b5e",
+      "date": "2026-11-04T22:11:17+03:00",
+      "author": "temurysega",
+      "subject": "feat(common): common.js: общие кусочки разметки для разделов кабинета.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "dd91e9fb815e3a8fb5abb1086ff4019c3a2ca32c",
+      "date": "2026-11-04T22:11:18+03:00",
+      "author": "temurysega",
+      "subject": "feat(common): lessonState() — статус пары относительно текущего времени по Москве",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "aced1b5dae80ee0258d58b92252668805aba1ca6",
+      "date": "2026-11-04T22:11:18+03:00",
+      "author": "temurysega",
+      "subject": "feat(common): changeTag() — что изменилось в паре — коротко для бейджа",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c452a2bc048cdcb8a4432768a56dcfda05e25d80",
+      "date": "2026-11-04T22:11:18+03:00",
+      "author": "temurysega",
+      "subject": "feat(common): добавить changeLine()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "447171b8c586639f59932d7f8640806598032371",
+      "date": "2026-11-04T22:11:18+03:00",
+      "author": "temurysega",
+      "subject": "feat(common): teacherModal() — карточка преподавателя: контакты и приёмные часы",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9256632f4d8182fd17c35edfd8174b08539d95af",
+      "date": "2026-11-04T22:11:19+03:00",
+      "author": "temurysega",
+      "subject": "feat(common): pipe() — полоска прогресса заявки по шагам",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5936b3a84e1eb49660c15b2b7c878788388f2dd4",
+      "date": "2026-11-04T22:11:19+03:00",
+      "author": "temurysega",
+      "subject": "feat(login): login.js: вход по логину и паролю. В демо-режиме под формой — тестовые учётные записи д…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e6d69540b003bfda803eb7391f4553466f7fdd81",
+      "date": "2026-11-04T22:11:19+03:00",
+      "author": "temurysega",
+      "subject": "feat(login): CROWD — персонажи обложки — не связаны с учётными записями",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b0163de2afab58d893b82dad27da834a50d62321",
+      "date": "2026-11-04T22:11:19+03:00",
+      "author": "temurysega",
+      "subject": "feat(login): добавить hero()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "18018b149de9e94e46a64988f2eb29cd1990ea28",
+      "date": "2026-11-04T22:11:19+03:00",
+      "author": "temurysega",
+      "subject": "feat(login): добавить accounts()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "05e0d26e41d248d8ee85796cedcd3ea49fa1a42a",
+      "date": "2026-11-04T22:11:20+03:00",
+      "author": "temurysega",
+      "subject": "feat(login): добавить экспорт раздела",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f6dbd04e4beb6eec4277126e6cde93c187516650",
+      "date": "2026-11-04T22:11:20+03:00",
+      "author": "temurysega",
+      "subject": "feat(onboarding): onboarding.js: знакомство первокурсника: образ и питомец за минуту, а также квиз «Как у…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e8c762d1fbca53b06ae98d56626bf897a0205342",
+      "date": "2026-11-04T22:11:20+03:00",
+      "author": "temurysega",
+      "subject": "feat(onboarding): добавить openOnboarding()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9650db90e90ebd43098498f62b4d8143e7847cb2",
+      "date": "2026-11-04T22:11:20+03:00",
+      "author": "temurysega",
+      "subject": "feat(onboarding): добавить openQuiz()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "50b6d4d766604f7971a11c2d78e77c3f7d56bb08",
+      "date": "2026-11-04T22:11:21+03:00",
+      "author": "temurysega",
+      "subject": "feat(home): home.js: главная: ближайшая пара, день, «как у меня дела», дедлайны, заявки, изменения…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9ff66765a3f668a1d91e658c729ecff28b9d4e66",
+      "date": "2026-11-04T22:11:21+03:00",
+      "author": "temurysega",
+      "subject": "feat(home): petPhrases() — питомец подсказывает мягко и по делу: берёт фразы из настоящих данных ст…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f844270c4e8aa1651281050d27ef7fe00f8a3aec",
+      "date": "2026-11-04T22:11:21+03:00",
+      "author": "temurysega",
+      "subject": "feat(home): добавить sec",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ef2e2ed5c2893bb12d15f8fc247f3a49953f73f3",
+      "date": "2026-11-04T22:11:21+03:00",
+      "author": "temurysega",
+      "subject": "feat(home): карточка ближайшей пары",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "dbb172c85be435a6f1c3a451cad9124b1e948df3",
+      "date": "2026-11-04T22:11:21+03:00",
+      "author": "temurysega",
+      "subject": "feat(home): лента дня на главной",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "662d6731b31fa7d7fd2166f52eb8e4155ec20b5c",
+      "date": "2026-11-04T22:11:22+03:00",
+      "author": "temurysega",
+      "subject": "feat(home): чек-лист «Первые шаги»",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5d87614e882a4043f5fc224d870e0d0c8efbc098",
+      "date": "2026-11-04T22:11:22+03:00",
+      "author": "temurysega",
+      "subject": "feat(home): карточка «Как у меня дела»",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "183cd8c04f123dcc90731b6c22a545dd5a19e0bf",
+      "date": "2026-11-04T22:11:22+03:00",
+      "author": "temurysega",
+      "subject": "feat(home): блок дедлайнов",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1ea6c2c778f77b0937f97b4dc92a894ac9abba1d",
+      "date": "2026-11-04T22:11:22+03:00",
+      "author": "temurysega",
+      "subject": "feat(home): мини-список заявок",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "092b5a850a5cbc9699e6f7af7abc50fa887a357e",
+      "date": "2026-11-04T22:11:22+03:00",
+      "author": "temurysega",
+      "subject": "feat(home): карточка изменений расписания",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "948bbe98ad637c82220ee447c7a37a52f41179f5",
+      "date": "2026-11-04T22:11:23+03:00",
+      "author": "temurysega",
+      "subject": "feat(home): последние уведомления",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9ba28bea2f001c1d47f1ba22499d6d366ced2061",
+      "date": "2026-11-04T22:11:23+03:00",
+      "author": "temurysega",
+      "subject": "feat(home): карточка образа студента",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c25828f9d0c3077bf0cbeb7bd669de7950345c74",
+      "date": "2026-11-04T22:11:23+03:00",
+      "author": "temurysega",
+      "subject": "feat(home): карточка питомца с фокус-таймером",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "22cc80325954b5fdab05af4f65bfce89d6afdb0d",
+      "date": "2026-11-04T22:11:23+03:00",
+      "author": "temurysega",
+      "subject": "feat(home): мини-карта кампуса",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d73c28a2d96c08298916be629435b9bc959fa8ea",
+      "date": "2026-11-04T22:11:24+03:00",
+      "author": "temurysega",
+      "subject": "feat(home): карточка перерыва",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5eac9c212cb44df2e924c018b7d6af4e1662e8cd",
+      "date": "2026-11-04T22:11:24+03:00",
+      "author": "temurysega",
+      "subject": "feat(home): добавить body()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c5d3210373bf15a12c6e3c5feed20293ef837b5d",
+      "date": "2026-11-04T22:11:25+03:00",
+      "author": "temurysega",
+      "subject": "feat(home): tick — таймер фокус-сессии и обратный отсчёт до пары",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e779ae67436178264ef5fa84a73a4cc44b7eb389",
+      "date": "2026-11-04T22:11:25+03:00",
+      "author": "temurysega",
+      "subject": "feat(schedule): schedule.js: расписание на неделю: изменения подсвечены, на телефоне — выбор дня, экспо…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b6c2f3e1fec5916bdbda4afba601824a341891a6",
+      "date": "2026-11-04T22:11:26+03:00",
+      "author": "temurysega",
+      "subject": "feat(schedule): добавить week",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "096c439faf2cd1aa92df30516aa17c78925efb12",
+      "date": "2026-11-04T22:11:26+03:00",
+      "author": "temurysega",
+      "subject": "feat(schedule): добавить lessonCard()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "064470c09d71c4f6ce975e417337b3323d608480",
+      "date": "2026-11-04T22:11:26+03:00",
+      "author": "temurysega",
+      "subject": "feat(schedule): добавить dayCol()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "54d88de91d13def81acdc3af4245eead56efa300",
+      "date": "2026-11-04T22:11:26+03:00",
+      "author": "temurysega",
+      "subject": "feat(schedule): добавить body()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d8540a1b059d1f5b04a6d5a943049dfc3882d32a",
+      "date": "2026-11-04T22:11:26+03:00",
+      "author": "temurysega",
+      "subject": "feat(schedule): добавить lessonModal()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "883ce7dda2872f5736bb8732e1a4fe8671533d8e",
+      "date": "2026-11-04T22:11:27+03:00",
+      "author": "temurysega",
+      "subject": "feat(schedule): добавить bellsModal()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ef9d17cf338b2f50bc738a43a7322b8df10ae599",
+      "date": "2026-11-04T22:11:27+03:00",
+      "author": "temurysega",
+      "subject": "feat(schedule): t — каждую минуту обновляем отметку «идёт сейчас»",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "89bda08994c111322016ad217043149efd026375",
+      "date": "2026-11-04T22:11:27+03:00",
+      "author": "temurysega",
+      "subject": "feat(grades): grades.js: успеваемость: «как у меня дела» простыми словами, баллы с прогнозом, сессия…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "36b17965acdbda97dadf50ed16780731a6313645",
+      "date": "2026-11-04T22:11:27+03:00",
+      "author": "temurysega",
+      "subject": "feat(grades): добавить g",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3108999367748f99d6c032b2a0f637ad2b60c3b2",
+      "date": "2026-11-04T22:11:27+03:00",
+      "author": "temurysega",
+      "subject": "feat(grades): scale() — шкала дисциплины: набранное, прогноз пунктиром и пороги 60 / 75 / 90",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d69de86c0e7da3e3078c92257a86eadc92751887",
+      "date": "2026-11-04T22:11:28+03:00",
+      "author": "temurysega",
+      "subject": "feat(grades): добавить discCard()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "bff26357edca13caa816873bdb15c4e9f3054a91",
+      "date": "2026-11-04T22:11:28+03:00",
+      "author": "temurysega",
+      "subject": "feat(grades): добавить current()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "09efa30e2c0c5ca9e90dbc3598d1b6af1c50f7f2",
+      "date": "2026-11-04T22:11:28+03:00",
+      "author": "temurysega",
+      "subject": "feat(grades): добавить sessionTab()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b63b2a8777752289cf35ee677c0210ed03f4cbf8",
+      "date": "2026-11-04T22:11:28+03:00",
+      "author": "temurysega",
+      "subject": "feat(grades): chart() — средний балл по семестрам — простой линейный график",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f8f6e0b1cd828985e192a5dc2413286d266d6643",
+      "date": "2026-11-04T22:11:29+03:00",
+      "author": "temurysega",
+      "subject": "feat(grades): добавить history()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c414973e8552b6820c98be5f59099042d4f5fc62",
+      "date": "2026-11-04T22:11:29+03:00",
+      "author": "temurysega",
+      "subject": "feat(grades): добавить body()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6d78f320b3332217e8c90e3c883bfd2156b55ad2",
+      "date": "2026-11-04T22:11:29+03:00",
+      "author": "temurysega",
+      "subject": "feat(grades): добавить экспорт раздела",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c8cd8319d3225e7b65c1d65d032e728b0c1becad",
+      "date": "2026-11-04T22:11:29+03:00",
+      "author": "temurysega",
+      "subject": "feat(requests): requests.js: заявки и справки: каталог, форма с автозаполнением, статус «как у посылки»…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1e551f9b7ea44aaec625a9206ce81de9448f5c95",
+      "date": "2026-11-04T22:11:29+03:00",
+      "author": "temurysega",
+      "subject": "feat(requests): добавить STEP_LABEL",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "12b34fa34cbf37edac5a8d37fd29084e7dc3875e",
+      "date": "2026-11-04T22:11:30+03:00",
+      "author": "temurysega",
+      "subject": "feat(requests): listView() — список",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f637732fae7d3976effe2f3720f65dcf3a9a2a63",
+      "date": "2026-11-04T22:11:30+03:00",
+      "author": "temurysega",
+      "subject": "feat(requests): catalogView() — каталог",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ceb37486f46222a83a383d2a102903644af53b2d",
+      "date": "2026-11-04T22:11:30+03:00",
+      "author": "temurysega",
+      "subject": "feat(requests): fieldHtml() — форма",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0bacf5648c8c46d2baf09b8c3e7258899fafe0f0",
+      "date": "2026-11-04T22:11:30+03:00",
+      "author": "temurysega",
+      "subject": "feat(requests): добавить formView()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f262722f7f777a86e610d71826b0538e28e4b5e9",
+      "date": "2026-11-04T22:11:31+03:00",
+      "author": "temurysega",
+      "subject": "feat(requests): detailView() — карточка заявки",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "eee3bdaaf6bc02dd042a935e4c4cd672b4315e4f",
+      "date": "2026-11-04T22:11:31+03:00",
+      "author": "temurysega",
+      "subject": "feat(requests): FAC_EN — электронная справка",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3f526d672b60103012121fdd87e718bf306401b4",
+      "date": "2026-11-04T22:11:31+03:00",
+      "author": "temurysega",
+      "subject": "feat(requests): qr() — узор в духе QR-кода из кода проверки (демо, не сканируется)",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "947a79c3c3cc08c39041a81a7b465efbede567bd",
+      "date": "2026-11-04T22:11:31+03:00",
+      "author": "temurysega",
+      "subject": "feat(requests): добавить docView()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ea0164f862497e50ea8c2014d467a66896c8efe4",
+      "date": "2026-11-04T22:11:32+03:00",
+      "author": "temurysega",
+      "subject": "feat(requests): load — список: #/requests и #/requests/all",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "314b73e4f9806a116250c2f4e23f84f2ba05eb64",
+      "date": "2026-11-04T22:11:32+03:00",
+      "author": "temurysega",
+      "subject": "feat(notifications): notifications.js: уведомления: деканат, расписание, дедлайны, заявки и оценки в одной л…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8ebf7bb7879cd645981bedec87cdc202a9af4b3a",
+      "date": "2026-11-04T22:11:32+03:00",
+      "author": "temurysega",
+      "subject": "feat(notifications): добавить KIC",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "891e9621d8d76417a9ffa2d9c85486fe517fb7a1",
+      "date": "2026-11-04T22:11:32+03:00",
+      "author": "temurysega",
+      "subject": "feat(notifications): добавить prefs()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "4a2ad838c6d70b2b05c1d2777f6933f3a3872dff",
+      "date": "2026-11-04T22:11:32+03:00",
+      "author": "temurysega",
+      "subject": "feat(notifications): добавить body()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "2614753ddd0a26caac076728706d3d3dc11f90e8",
+      "date": "2026-11-04T22:11:33+03:00",
+      "author": "temurysega",
+      "subject": "feat(notifications): добавить экспорт раздела",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "baf066574374858cd845bf5f01177cfc8cb91af9",
+      "date": "2026-11-04T22:11:33+03:00",
+      "author": "temurysega",
+      "subject": "feat(profile): profile.js: профиль: учебные данные, контакты деканата и безопасность — сеансы, смена п…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "bd5931a02ec120f0267cbbe7d4789ab64bc1fad8",
+      "date": "2026-11-04T22:11:33+03:00",
+      "author": "temurysega",
+      "subject": "feat(profile): mask — чувствительное по умолчанию скрыто: номер зачётки и телефон открываются по нажатию",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0795d2bbe37d17befdafde792241aae5e93beb99",
+      "date": "2026-11-04T22:11:33+03:00",
+      "author": "temurysega",
+      "subject": "feat(profile): добавить body()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3eb53318158b2169db3a48b6ce7781a8927bb8a8",
+      "date": "2026-11-04T22:11:34+03:00",
+      "author": "temurysega",
+      "subject": "feat(profile): добавить экспорт раздела",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3ebc9cd8005489c1b66813d904234404c058f06a",
+      "date": "2026-11-04T22:11:34+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): scene.js: кампус МГИМО Мании: учебный корпус в разрезе — три этажа, шесть зон и лифт.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "773fb0ee70cab61450163b04bdfa99ae2077eabf",
+      "date": "2026-11-04T22:11:34+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): NPC — сотрудники и завсегдатаи кампуса — вымышленные персонажи",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5e8824d8202f42fdcd1d2241635ee6da77e3fcc2",
+      "date": "2026-11-04T22:11:34+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить HOTS",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "09a31eab8035a54082a85c36d9c7069d9dcca0b0",
+      "date": "2026-11-04T22:11:34+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить floorOf",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "061cf8a8aadbc96c5fc74ca1794cc30b8dce193b",
+      "date": "2026-11-04T22:11:35+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): sky() — художественные слои",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6d4eca7816baccd8e497aa3ee013797c5e82fb83",
+      "date": "2026-11-04T22:11:35+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить shell()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a47ad497e2192ab13a989f3b0b669f8022fed23c",
+      "date": "2026-11-04T22:11:35+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить room()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9e81d1e3e49534fd1ce9ab90d8006769f5c6e4aa",
+      "date": "2026-11-04T22:11:35+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить glow",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7feed77ade757ec55f1e9120339f4616fa8f34f6",
+      "date": "2026-11-04T22:11:36+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): cloakroom() — гардероб: вешалки с номерками и зеркало",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "fd43aabcae7a2ce71d23666342cec07c5028e44a",
+      "date": "2026-11-04T22:11:36+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): dean() — деканат: окно приёма, электронная очередь, табличка",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "afb276ccee0d7cd8aa1675754502ff5dca250fb1",
+      "date": "2026-11-04T22:11:36+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): classroom() — аудитория: доска с расписанием и парты",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0885c99141c7af9eee1a3c46787325bb3feb735c",
+      "date": "2026-11-04T22:11:36+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): library() — библиотека: полки и лампа читального зала",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f9edbcdee30479bb5c880ffb14fbd37e5a81bc6e",
+      "date": "2026-11-04T22:11:36+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): clubs() — студклубы: трибуна и флажки клубов (условные цвета, не флаги стран)",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e778b812703b7869130b51e249d6a79df9e36d46",
+      "date": "2026-11-04T22:11:37+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): shop() — лавка МГИМО: прилавок и стойка с мерчем",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1fa1524284920abc101ff20338776d5fda581368",
+      "date": "2026-11-04T22:11:37+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить LABEL_POS",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0a55668dcb132b6853d5021274188cac080c9b50",
+      "date": "2026-11-04T22:11:37+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить avatarNested()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b0695502e25c5128d75853b17c3da4eb87aa69a8",
+      "date": "2026-11-04T22:11:37+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): класс Campus — сцена",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e6096394dd7c3b24d10cfd969d4b8287f244e5df",
+      "date": "2026-11-04T22:11:38+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): разметка раздела",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3e3569d6aad09af9f1b372fe44d2d6027385c5d9",
+      "date": "2026-11-04T22:11:38+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): mark() — метка цели на полу и подпись «Идём к…», чтобы было видно, что клик сработал",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6cac172bcabb5d27177dd0957a7e53e5b32cfd84",
+      "date": "2026-11-04T22:11:38+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить bind()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "15099bc4dd7fbc7464da6fdddac24617878d7ac5",
+      "date": "2026-11-04T22:11:38+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить blocked()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "60dce649d8aa566ec3b32f68f0ef1d084ed501a8",
+      "date": "2026-11-04T22:11:38+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): goTo() — маршрут: по этажу до лифта, лифт, по этажу до цели",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9816034e6bd8a2b17740c6a48f7d4711e5b22e15",
+      "date": "2026-11-04T22:11:39+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить goZone()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "785cdb3c50321f69433a1a593df7b0545597d51d",
+      "date": "2026-11-04T22:11:39+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить arrive()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d8eb338e820c06a9a66d0ef36e9f1b0f22b7011e",
+      "date": "2026-11-04T22:11:39+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить tick()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "40dfb726943f6d92ac7415c49ac0452aa706c3ec",
+      "date": "2026-11-04T22:11:39+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): st — на узком экране сцена шире окна — камера следует за аватаром",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "30d6ba7d9ca26a084e5842da4218562603be5d72",
+      "date": "2026-11-04T22:11:39+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): очистка при уходе со страницы",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c54607ca50a6ee9b2e139a9ba668ad2af733170e",
+      "date": "2026-11-04T22:11:40+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): campus.js: экран кампуса: сцена, подсказки, отметки маршрута и быстрые переходы по зонам.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6e32efbc7b1daff3823f1e316658a446ee7354fc",
+      "date": "2026-11-04T22:11:40+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить scene",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "4c899750203bca11fc41c1210ee05f36961a0f8f",
+      "date": "2026-11-04T22:11:40+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить zoneCards()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8005d1b69d730e5da78a7b6149edd78f608e778d",
+      "date": "2026-11-04T22:11:40+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить firstVisit()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0d22727eefc14aa55e67fac6c7dee086320c1376",
+      "date": "2026-11-04T22:11:40+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить npcModal()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8a23b70a402f7c11f8dab8e5ded272d5f545482b",
+      "date": "2026-11-04T22:11:41+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить act()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7f7b5fa1df1718eb167338b92e2a62d1ce3a0af8",
+      "date": "2026-11-04T22:11:41+03:00",
+      "author": "temurysega",
+      "subject": "feat(campus): добавить экспорт раздела",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1924380d81f30d919cd57f1f6ca62ef1f1f412dd",
+      "date": "2026-11-04T22:11:41+03:00",
+      "author": "temurysega",
+      "subject": "feat(wardrobe): wardrobe.js: гардероб: примерочная с зеркалом. Внешность бесплатна, вещи открываются за…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5c7d7f91dcfe7cb1802233729dd47a164e23d991",
+      "date": "2026-11-04T22:11:41+03:00",
+      "author": "temurysega",
+      "subject": "feat(wardrobe): добавить PETC",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "81d99f230bcb00c3aec6950abb8f2daa8645cdc9",
+      "date": "2026-11-04T22:11:41+03:00",
+      "author": "temurysega",
+      "subject": "feat(wardrobe): добавить play",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e6b4633b966a44cd6f3746fa65582f9343f6f293",
+      "date": "2026-11-04T22:11:42+03:00",
+      "author": "temurysega",
+      "subject": "feat(wardrobe): добавить tiles()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "31f28b6ccc61896eb8f6848ea8da679d926d2cf7",
+      "date": "2026-11-04T22:11:42+03:00",
+      "author": "temurysega",
+      "subject": "feat(wardrobe): добавить swatches()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "231b81a98227f3a5c2b366ea646f28142e1f6ec5",
+      "date": "2026-11-04T22:11:42+03:00",
+      "author": "temurysega",
+      "subject": "feat(wardrobe): добавить lookTab()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3063df72e8d7e01806f9d4379eb72f84a4599386",
+      "date": "2026-11-04T22:11:42+03:00",
+      "author": "temurysega",
+      "subject": "feat(wardrobe): добавить tilesLook()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "cd061530062fb56c3141789a5c880d14f840b0a2",
+      "date": "2026-11-04T22:11:42+03:00",
+      "author": "temurysega",
+      "subject": "feat(wardrobe): добавить panel()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d6ccbb421548849278848d900028fc739fb9f686",
+      "date": "2026-11-04T22:11:43+03:00",
+      "author": "temurysega",
+      "subject": "feat(wardrobe): добавить mirror()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "73e3cead375c6f74de1815c2c49051b80f7c1ffa",
+      "date": "2026-11-04T22:11:43+03:00",
+      "author": "temurysega",
+      "subject": "feat(wardrobe): добавить body()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7ed04a6ad3a97b929f806d319ca69d5b7184dd37",
+      "date": "2026-11-04T22:11:43+03:00",
+      "author": "temurysega",
+      "subject": "feat(wardrobe): добавить экспорт раздела",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c40998c0f63eb58aff063e4fcf387d74d4592cf9",
+      "date": "2026-11-04T22:11:43+03:00",
+      "author": "temurysega",
+      "subject": "feat(shop): shop.js: лавка МГИМО: мерч с цифровой копией и вещи только для аватара. М-коины — за ак…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e00ecda3e024baa62d5238dbb99dcd2954aa19f0",
+      "date": "2026-11-04T22:11:44+03:00",
+      "author": "temurysega",
+      "subject": "feat(shop): kitPic() — иллюстрация мерча: вещь крупно и аватар в ней в кружке",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "641b880a65552978a2b9eef1074fe402ed06b162",
+      "date": "2026-11-04T22:11:44+03:00",
+      "author": "temurysega",
+      "subject": "feat(shop): добавить kits()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "72de883e580f93429e0514616cd1f58e410e2be6",
+      "date": "2026-11-04T22:11:44+03:00",
+      "author": "temurysega",
+      "subject": "feat(shop): добавить digital()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "34e2746ac3d89c8dfc9037ccedec4fc87bea641c",
+      "date": "2026-11-04T22:11:44+03:00",
+      "author": "temurysega",
+      "subject": "feat(shop): добавить earn()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "94ff39df37265a4aad6ae5401d233a8b4f124615",
+      "date": "2026-11-04T22:11:45+03:00",
+      "author": "temurysega",
+      "subject": "feat(shop): добавить body()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "de4591d3c1a72bf7d36dc91743c0fd1de7fe0aea",
+      "date": "2026-11-04T22:11:45+03:00",
+      "author": "temurysega",
+      "subject": "feat(shop): добавить экспорт раздела",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "bd95db79789cfebdf52be7fa0aab2ee94967ea8f",
+      "date": "2026-11-04T22:11:45+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): runner.js: «Бегом на пару»: аватар бежит по коридору учебного корпуса к аудитории.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "588af6cb3f2455c4845bf6a096090699093d659c",
+      "date": "2026-11-04T22:11:45+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): добавить toImg()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c3dd1bdb758c9b1b80bbfd3342f7105d6ae007e7",
+      "date": "2026-11-04T22:11:45+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): добавить rr()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "39142ed8a24f0d161e57803ae66c264b1fbbcae9",
+      "date": "2026-11-04T22:11:46+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): KINDS — типы препятствий: low — перепрыгнуть, high — проскочить подкатом, block — тольк…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ee4c40126658c26b09ddf53b316463933185da21",
+      "date": "2026-11-04T22:11:46+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): добавить класс Runner",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c2847ca13ee024e47fa21393271762c35da0d271",
+      "date": "2026-11-04T22:11:46+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): добавить load()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "29f36b4a1c2fa0c0297c4948c4a04be141bda6a5",
+      "date": "2026-11-04T22:11:46+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): добавить resize()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "2e9510920cebe36224cbef4c5661a5b664f0e285",
+      "date": "2026-11-04T22:11:46+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): s() — проекция: дорожка laneX на глубине z → точка на экране и масштаб",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9752b805331c131ad09ae025e4b9aa098a13607d",
+      "date": "2026-11-04T22:11:47+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): move() — управление",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "16bea19138ab5c115426a1c56c1f4a2fa08270db",
+      "date": "2026-11-04T22:11:47+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): добавить start()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f11e820974e21dd171958dee0ee3f9f7005fa2cb",
+      "date": "2026-11-04T22:11:47+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): добавить loop()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "782e1da286faa2881468d545bf19da2e32a871ff",
+      "date": "2026-11-04T22:11:47+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): spawnRow() — ряд препятствий: всегда остаётся хотя бы один проход",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "83a7e6240c8e15393d3b5777eebf34204dbef770",
+      "date": "2026-11-04T22:11:48+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): lane — столкновения в зоне игрока",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d04d9d2a554e7fe2e12bf73d2e42e981c0af6876",
+      "date": "2026-11-04T22:11:48+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): добавить over()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e9f1febe695d4034d6ed6315b815c30d6600e8b8",
+      "date": "2026-11-04T22:11:48+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): draw() — отрисовка",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c9cef61e88e37925724675d2ae81eef280307b7b",
+      "date": "2026-11-04T22:11:48+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): добавить object()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8b902f79681a7d96082fb0f910e21bb0bb8baf67",
+      "date": "2026-11-04T22:11:48+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): добавить player()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "96afbad4b13deb5a4c23785abf0d1f71cd7e03da",
+      "date": "2026-11-04T22:11:49+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): left — сколько осталось сегодня",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5719f51a8a43da3ecd094afdae112ce149943e8a",
+      "date": "2026-11-04T22:11:49+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): show() — оверлей",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "024c7429b7a71a3fe8fe32fc40318ac11a4ccf18",
+      "date": "2026-11-04T22:11:49+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): очистка при уходе со страницы",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f646a642e3f1b841e0445d7eebe4a7f0e37cbd47",
+      "date": "2026-11-04T22:11:49+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): game.js: перерыв: забег «Бегом на пару». Пять минут в день — лимит хранит сервер, а не…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6ffe8b7959a4af5209314a088b69d68b28f20a51",
+      "date": "2026-11-04T22:11:50+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): добавить clock",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "50c99994f29309151a1d217fc15d2c3588d9b4c0",
+      "date": "2026-11-04T22:11:50+03:00",
+      "author": "temurysega",
+      "subject": "feat(game): t — обновляем отображение остатка каждую секунду, пока идёт забег",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6a490480d58bad36e7bcb70704d73292b039814a",
+      "date": "2026-11-04T22:11:50+03:00",
+      "author": "temurysega",
+      "subject": "feat(dean): dean.js: кабинет сотрудника деканата: очередь заявок факультета, решения с комментарием,",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "eabea26549d6857bf14b5b1d115dfd8155bfeb35",
+      "date": "2026-11-04T22:11:50+03:00",
+      "author": "temurysega",
+      "subject": "feat(dean): добавить ACTION",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ba2520763d169d8cf0528b7887c4f48cb9a95f69",
+      "date": "2026-11-04T22:11:50+03:00",
+      "author": "temurysega",
+      "subject": "feat(dean): добавить ov",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9c089ed389cfc1fac37e23ae159ea379305d8b3a",
+      "date": "2026-11-04T22:11:51+03:00",
+      "author": "temurysega",
+      "subject": "feat(dean): добавить payload()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "057b3520e2886791422c3985dc4e795c1bcbb476",
+      "date": "2026-11-04T22:11:51+03:00",
+      "author": "temurysega",
+      "subject": "feat(dean): добавить announce()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "fe2cd46011b2e5bb37133471f9a356530701e696",
+      "date": "2026-11-04T22:11:51+03:00",
+      "author": "temurysega",
+      "subject": "feat(dean): добавить loadPairs()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "cb01852ff97b709e16c8629a59ebe97d0c88d29c",
+      "date": "2026-11-04T22:11:51+03:00",
+      "author": "temurysega",
+      "subject": "feat(dean): добавить audit()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7d80efde8b4f280f1ce6f093c3feff7457aebc10",
+      "date": "2026-11-04T22:11:52+03:00",
+      "author": "temurysega",
+      "subject": "feat(dean): E — поля берём через form.elements: у формы есть свои свойства title и target",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "4044d4494bad88040e9a4ac3a0511b83d311244d",
+      "date": "2026-11-04T22:11:52+03:00",
+      "author": "temurysega",
+      "subject": "feat(assistant): assistant.js: «Спросить деканат»: чат с помощником, который видит только данные самого…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "eb4ddffec9f204a835d9a301d5d416c6e1ab880c",
+      "date": "2026-11-04T22:11:52+03:00",
+      "author": "temurysega",
+      "subject": "feat(assistant): добавить SUGGEST",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "154fd031e3346db5f9f2dcc1d4b06e2749cd7fb0",
+      "date": "2026-11-04T22:11:52+03:00",
+      "author": "temurysega",
+      "subject": "feat(assistant): sug — после первого вопроса подсказки уступают место переписке",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d2a309315e1b0bc28d75c614b843c55561af3b27",
+      "date": "2026-11-04T22:11:52+03:00",
+      "author": "temurysega",
+      "subject": "feat(about): about.js: «Как защищены данные» и демо-тур для жюри: короткий проход по главным сценари…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "25eb4827cea8c92ad406b949a7035616b93c63d6",
+      "date": "2026-11-04T22:11:53+03:00",
+      "author": "temurysega",
+      "subject": "feat(about): STEPS — демо-тур",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5a46e760727e14d71169b807ef2c1045670a9934",
+      "date": "2026-11-04T22:11:53+03:00",
+      "author": "temurysega",
+      "subject": "feat(about): добавить stopTour()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "04c64de5d50f3b8cbcdf89c6d64c9e6d01663f22",
+      "date": "2026-11-04T22:11:53+03:00",
+      "author": "temurysega",
+      "subject": "feat(about): добавить step()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ee15933b81b5e09f8c8776c7220b59363710f036",
+      "date": "2026-11-04T22:11:53+03:00",
+      "author": "temurysega",
+      "subject": "feat(about): добавить startTour()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a3ab272a06ac98f2a50387e114bce6f7cd46d489",
+      "date": "2026-11-04T22:11:54+03:00",
+      "author": "temurysega",
+      "subject": "feat(verify): verify.js: проверка подлинности электронной справки по коду. Доступна без входа, раскры…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "99744a4c72797a2e807cb97824d497fda8ef147c",
+      "date": "2026-11-04T22:11:54+03:00",
+      "author": "temurysega",
+      "subject": "feat(verify): добавить экспорт раздела",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e462344f1de831a4916fecaf95e9747bb2bd1e90",
+      "date": "2026-11-04T22:11:54+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): app.js: каркас кабинета: полоса концепта, шапка, нижнее меню, роутер, вход и выход, жив…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a693918f36e8d158ba3b77b36e1b384af47a4c3a",
+      "date": "2026-11-04T22:11:54+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): VIEWS — разделы подгружаются по требованию: телефону не нужно качать весь кабинет сразу",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1167f8e51c3d4fe077be3d1a2db202f6a73deb6c",
+      "date": "2026-11-04T22:11:55+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): добавить NAV",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "09812b65230e414635215a9ae6f81cc2377c2d2b",
+      "date": "2026-11-04T22:11:55+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): дополнить app.js",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "dddb401054d42344617e1b861aa17ffde488b860",
+      "date": "2026-11-04T22:11:55+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): paintConcept() — оформление",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "db7507a7891be152764f74df625bfe9e7c9208f4",
+      "date": "2026-11-04T22:11:55+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): добавить paintFoot()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f853601b2de62921639b3a1ae97ab60c63d418bc",
+      "date": "2026-11-04T22:11:55+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): current — роутер",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "968f203c557363bbb3c07f76dcb3e6ca1a397143",
+      "date": "2026-11-04T22:11:56+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): добавить go()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ed4e5672ca1c8c0fb041d8de6df888a27b0eeb52",
+      "date": "2026-11-04T22:11:56+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): poll — живые уведомления",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e11e252b42d470c2c7f450842c3781692efcdc81",
+      "date": "2026-11-04T22:11:56+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): loadPlay() — вход и выход",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1f128c0429e5dd64f5635674d950eb68e5911a58",
+      "date": "2026-11-04T22:11:56+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): добавить signOut()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8d1c96924309df6584af69a65f96c6efbae450ea",
+      "date": "2026-11-04T22:11:56+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): дополнить app.js",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0b858e08c56e5b2a5f1f23056f189793fc762a9d",
+      "date": "2026-11-04T22:11:57+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): добавить pill",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c1acf5697d3b9001d82f0ee02e6025168a4e56ed",
+      "date": "2026-11-04T22:11:57+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): дополнить app.js",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "4c8cdeb671a96ff786ff9c9e103108dae5f003d5",
+      "date": "2026-11-04T22:11:57+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): добавить bell",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "eb64948c6d11140f32c7e7fc44c94a8a40e417bc",
+      "date": "2026-11-04T22:11:57+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): добавить more",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "db580a4974e47a22fbc9bbdb4bcf533e6cfd0357",
+      "date": "2026-11-04T22:11:57+03:00",
+      "author": "temurysega",
+      "subject": "feat(ui): добавить boot()",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6b6c3cc6cfd14cbb9f33d18163bbc43eca2935dc",
+      "date": "2026-11-04T22:11:58+03:00",
+      "author": "temurysega",
+      "subject": "test(helpers): helpers.js: тестовый стенд: приложение на свободном порту и база в памяти — реальные да…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "def40f002e8e1c4dbc268828fde7b05699331e3e",
+      "date": "2026-11-04T22:11:58+03:00",
+      "author": "temurysega",
+      "subject": "test(helpers): client() — клиент с собственной cookie-сессией и CSRF-токеном",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ab240511f84392a44a4c46bb589fb3d090c790bf",
+      "date": "2026-11-04T22:11:58+03:00",
+      "author": "temurysega",
+      "subject": "test(security): security.test.js: требования конкурса по безопасности — автоматической проверкой.",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "606f61e01580d563a483c014b17d1bcd267fb3ca",
+      "date": "2026-11-04T22:11:58+03:00",
+      "author": "temurysega",
+      "subject": "test(security): добавить rows",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "580a7d628c58fc7d72957d0862a852a6da922ae6",
+      "date": "2026-11-04T22:11:59+03:00",
+      "author": "temurysega",
+      "subject": "test(security): добавить c",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b91b294e6b8935029e1d9d7454c349601da89b96",
+      "date": "2026-11-04T22:11:59+03:00",
+      "author": "temurysega",
+      "subject": "test(security): добавить c",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1e0175b2c2e4666543b85ebcc2a9072da8aaff2b",
+      "date": "2026-11-04T22:11:59+03:00",
+      "author": "temurysega",
+      "subject": "test(security): list — и не видит её в своём списке",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a8d91a1c698fef3720e588d247b2045c04be13eb",
+      "date": "2026-11-04T22:11:59+03:00",
+      "author": "temurysega",
+      "subject": "test(security): добавить c",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6c576c34c5366bf64ed7163ab120eb7bc5f5b262",
+      "date": "2026-11-04T22:11:59+03:00",
+      "author": "temurysega",
+      "subject": "test(security): добавить dean",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "50888a8b560e86a808fcb0e48caf95aa7913a0c3",
+      "date": "2026-11-04T22:12:00+03:00",
+      "author": "temurysega",
+      "subject": "test(security): добавить c",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3e9cf9dcafa30a75c527dee4d4ab5922d8044b39",
+      "date": "2026-11-04T22:12:00+03:00",
+      "author": "temurysega",
+      "subject": "test(security): добавить c",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e3c76a26dcfb0675c572a109650dc01d52261c12",
+      "date": "2026-11-04T22:12:00+03:00",
+      "author": "temurysega",
+      "subject": "test(security): добавить c",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f603ccb7f0aaca9bc6c5c95a92453da6adc8963f",
+      "date": "2026-11-04T22:12:00+03:00",
+      "author": "temurysega",
+      "subject": "test(security): добавить r",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9f343f7078f9ab56155c04413a27176662f41d38",
+      "date": "2026-11-04T22:12:00+03:00",
+      "author": "temurysega",
+      "subject": "test(security): добавить c",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "82229f2925490c502ee3085b97f1e1ec2d5b72f9",
+      "date": "2026-11-04T22:12:01+03:00",
+      "author": "temurysega",
+      "subject": "test(security): добавить c",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b9cd1102f2d9126918409aa2b8a887473a71466a",
+      "date": "2026-11-04T22:12:01+03:00",
+      "author": "temurysega",
+      "subject": "test(security): добавить c",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3e9ef576d56538ea34e0fffc61a78e698c2e75c8",
+      "date": "2026-11-04T22:12:01+03:00",
+      "author": "temurysega",
+      "subject": "test(domain): domain.test.js: предметная логика: время по Москве, шкала оценок, пароли и сценарий зая…",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ede71952a983f2a199f0b5212b25711a20214e53",
+      "date": "2026-11-04T22:12:01+03:00",
+      "author": "temurysega",
+      "subject": "test(domain): добавить app",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "dc5ad3161474996f00d14b2e71d0c8812e651016",
+      "date": "2026-11-04T22:12:02+03:00",
+      "author": "temurysega",
+      "subject": "test(domain): дополнить domain.test.js",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "81cb042ec24320668b3791b03111c9621258da9f",
+      "date": "2026-11-04T22:12:02+03:00",
+      "author": "temurysega",
+      "subject": "test(domain): добавить h",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "4920f92fc677bf89a6cbcc4bb8d91a93246cfccb",
+      "date": "2026-11-04T22:12:02+03:00",
+      "author": "temurysega",
+      "subject": "test(domain): добавить st",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7737042bd3e3553b463209da50af32fbdda1f3c4",
+      "date": "2026-11-04T22:12:02+03:00",
+      "author": "temurysega",
+      "subject": "test(domain): добавить st",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a6ac74341794ccbe3f4f056168db2f2fe043db03",
+      "date": "2026-11-04T22:12:03+03:00",
+      "author": "temurysega",
+      "subject": "chore(dockerfile): образ для запуска стенда в Docker",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f504bfdf8e61ec72f0bb6b14e2f844efed9375fc",
+      "date": "2026-11-04T22:12:03+03:00",
+      "author": "temurysega",
+      "subject": "chore(.dockerignore): исключить из образа базу, тесты и секреты",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8d51a692e874de059809fbe0c292af98fd8b9c74",
+      "date": "2026-11-04T22:12:03+03:00",
+      "author": "temurysega",
+      "subject": "chore(render): Blueprint для публикации на Render",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5c211e36608712b9ca1a14677922bad17d971114",
+      "date": "2026-11-04T22:12:03+03:00",
+      "author": "temurysega",
+      "subject": "docs(readme): README.md: раздел «МГИМО Мания — концепт личного кабинета студента» в README.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "bc4cf7c1d5e3783b6311fa79be24912340ab7c70",
+      "date": "2026-11-04T22:12:03+03:00",
+      "author": "temurysega",
+      "subject": "docs(readme): раздел «Что внутри» в README.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5dd910257136c991f163833551ece4e4c2ba2504",
+      "date": "2026-11-04T22:12:04+03:00",
+      "author": "temurysega",
+      "subject": "docs(readme): раздел «Демо-аккаунты» в README.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "34e2fe39e3f41c1b6551b1d8573e364c40478415",
+      "date": "2026-11-04T22:12:04+03:00",
+      "author": "temurysega",
+      "subject": "docs(readme): раздел «Запуск» в README.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7eb638e8cd91109d17e1b8d50edc8d157bdb84c3",
+      "date": "2026-11-04T22:12:04+03:00",
+      "author": "temurysega",
+      "subject": "docs(readme): раздел «Публикация по ссылке» в README.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0b688b68f5b0d2278f773b35b7d69c9d20ac4628",
+      "date": "2026-11-04T22:12:04+03:00",
+      "author": "temurysega",
+      "subject": "docs(readme): раздел «Безопасность» в README.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0d9870bd733e050d1657c1aa89578bb5f8e0e048",
+      "date": "2026-11-04T22:12:04+03:00",
+      "author": "temurysega",
+      "subject": "docs(readme): раздел «Стек» в README.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c33c64bc56c14c057e2b503dfeda14bf048f5bf3",
+      "date": "2026-11-04T22:12:05+03:00",
+      "author": "temurysega",
+      "subject": "docs(readme): раздел «Лицензии» в README.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9666503e7f4efbe2fd715a9ad917b0768f960544",
+      "date": "2026-11-04T22:12:05+03:00",
+      "author": "temurysega",
+      "subject": "docs(security): SECURITY.md: раздел «Безопасность» в SECURITY.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b3b7d043349ba12d01aae1fa9812d32eab11bab4",
+      "date": "2026-11-04T22:12:05+03:00",
+      "author": "temurysega",
+      "subject": "docs(security): раздел «Студент видит только свои данные» в SECURITY.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "735d7818f3635f77bf967a001265b871c38b0d1a",
+      "date": "2026-11-04T22:12:05+03:00",
+      "author": "temurysega",
+      "subject": "docs(security): раздел «Пароли не хранятся в открытом виде» в SECURITY.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "71f4b563295fb4f1576a1fcaeaee9b5e50d06082",
+      "date": "2026-11-04T22:12:05+03:00",
+      "author": "temurysega",
+      "subject": "docs(security): раздел «Ключи сервисов не лежат в коде и в браузере» в SECURITY.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7e4fbce94a3ad5be5f9d2ffa420654d891fbffb8",
+      "date": "2026-11-04T22:12:06+03:00",
+      "author": "temurysega",
+      "subject": "docs(security): раздел «Сессии и запросы» в SECURITY.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "4fa669a24018ccb52ea69eec378938507255e638",
+      "date": "2026-11-04T22:12:06+03:00",
+      "author": "temurysega",
+      "subject": "docs(security): раздел «Заголовки и вывод» в SECURITY.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9a5e155e9e42c89687b962a69178b209ee5d93df",
+      "date": "2026-11-04T22:12:06+03:00",
+      "author": "temurysega",
+      "subject": "docs(security): раздел «Персональные данные» в SECURITY.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "fb2b9278e41f0c0d55267049a90cac109bb8ff0b",
+      "date": "2026-11-04T22:12:06+03:00",
+      "author": "temurysega",
+      "subject": "docs(security): раздел «Игровой слой» в SECURITY.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "af3052c36a0a0736367cf07a2c11b00e2872dfee",
+      "date": "2026-11-04T22:12:06+03:00",
+      "author": "temurysega",
+      "subject": "docs(architecture): ARCHITECTURE.md: раздел «Архитектура» в ARCHITECTURE.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "15c9bd20e84b365057475d7afcfd4ed59496cd74",
+      "date": "2026-11-04T22:12:07+03:00",
+      "author": "temurysega",
+      "subject": "docs(architecture): раздел «Сервер» в ARCHITECTURE.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "19cfc6bc3409898cd1aa909761cae8b4cbecfd02",
+      "date": "2026-11-04T22:12:07+03:00",
+      "author": "temurysega",
+      "subject": "docs(architecture): раздел «Фронтенд» в ARCHITECTURE.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e1a3036896fac97a2e54d1430dd89f23d3445bfd",
+      "date": "2026-11-04T22:12:07+03:00",
+      "author": "temurysega",
+      "subject": "docs(architecture): раздел «Масштабирование» в ARCHITECTURE.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5cb8d28ef38d3eef2487f730950fed644d9c9dce",
+      "date": "2026-11-04T22:12:07+03:00",
+      "author": "temurysega",
+      "subject": "docs(architecture): раздел «Модель данных» в ARCHITECTURE.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "4f1e623c1d59c7652dd3b6b178b130929cda295c",
+      "date": "2026-11-04T22:12:08+03:00",
+      "author": "temurysega",
+      "subject": "docs(third_party): раздел «Сторонние материалы» в THIRD_PARTY.md",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "00882b798d1f0ec9d13da46427022889ac956cb2",
+      "date": "2026-11-08T18:29:28+03:00",
+      "author": "temurysega",
+      "subject": "fix: prepare student portal for contest review and OpenRouter",
+      "coauthors": []
+    },
+    {
+      "commit": "969bdf4fe70091f0bba033b6d498621acdb56de6",
+      "date": "2026-11-08T18:32:48+03:00",
+      "author": "temurysega",
+      "subject": "deploy: configure isolated VPS service for ai.neblanki.tech",
+      "coauthors": []
+    },
+    {
+      "commit": "2e48826210225c5ebbfc4ca439b6a5a9fd47b5a0",
+      "date": "2026-11-08T18:45:49+03:00",
+      "author": "temurysega",
+      "subject": "docs: record VPS deployment and production acceptance checks",
+      "coauthors": []
+    },
+    {
+      "commit": "6376d0563732b81c2e49b7f8fcab766015aad688",
+      "date": "2026-11-08T18:54:09+03:00",
+      "author": "temurysega",
+      "subject": "fix: retire legacy offline cache after domain migration",
+      "coauthors": []
+    },
+    {
+      "commit": "e3ac392f0efffdf016ab9e58589ef6463972f7d9",
+      "date": "2026-11-08T18:55:46+03:00",
+      "author": "temurysega",
+      "subject": "test: record deployed offline-cache migration checks",
+      "coauthors": []
+    }
+  ]
+}

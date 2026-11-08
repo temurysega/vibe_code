@@ -8,6 +8,13 @@ import { skeleton, errorBox, lessonState, changeTag, changeLine, teacherModal, K
 
 let week = null;
 let picked = null;
+let advancedToNextWeek = false;
+
+// Отменённая или уже завершённая пара не определяет день, который нужен студенту первым.
+function nextStudyDay(w, now) {
+  return w.days.find((d) => !d.holiday && d.items.some((it) =>
+    !['cancelled', 'moved'].includes(it.status) && lessonState(it, now) !== 'past'));
+}
 
 function isoWeekOf(d) {
   const wd = new Date(d + 'T12:00:00Z').getUTCDay() || 7;
@@ -28,6 +35,7 @@ function lessonCard(it, now) {
     <span class="lesson-name" style="display:block">${esc(it.discipline)}</span>
     <span class="lesson-sub" style="display:block">${esc(it.kindLabel)}${it.teacher ? ' · ' + esc(it.teacher.short) : ''}${it.subgroup ? ' · подгруппа ' + esc(it.subgroup) : ''}</span>
     <span class="lesson-room">${icon('pin', 14)} ${/^\d+$/.test(it.room) ? 'ауд. ' : ''}${esc(it.room)}${it.change && it.change.type === 'room' ? ` <span class="old">${esc(it.change.from)}</span>` : ''}</span>
+    ${st === 'past' && !['cancelled', 'moved'].includes(it.status) ? '<span class="lesson-past-note">Завершена</span>' : ''}
     ${it.change ? `<span class="lesson-tag">${changeTag(it)}</span>` : ''}
   </button>`;
 }
@@ -46,15 +54,16 @@ function body() {
   const w = week;
   const cur = isoWeekOf(now.date) === w.week;
   const range = `${dateNum(w.monday)}–${dayShort(addDays(w.monday, 5)).split(', ')[1]}`;
-  if (!picked || !w.days.some((d) => d.date === picked)) picked = (w.days.find((d) => d.date === now.date) || w.days.find((d) => d.date >= now.date && !d.holiday && d.items.length) || w.days[0]).date;
+  if (!picked || !w.days.some((d) => d.date === picked)) picked = (nextStudyDay(w, now) || w.days.find((d) => d.date === now.date) || w.days[0]).date;
   return `
     <div class="week-bar">
       <div class="week-nav"><a class="btn btn-secondary btn-icon btn-sm" href="#/schedule/${isoWeekOf(w.prev)}" aria-label="Предыдущая неделя">${icon('left', 18)}</a>
         <div class="week-label">${esc(range)}<small>${w.number}-я неделя · ${w.parity === 'odd' ? 'нечётная' : 'чётная'}</small></div>
         <a class="btn btn-secondary btn-icon btn-sm" href="#/schedule/${isoWeekOf(w.next)}" aria-label="Следующая неделя">${icon('right', 18)}</a></div>
-      ${cur ? '' : `<a class="btn btn-ghost btn-sm" href="#/schedule">${icon('calendar', 16)} К текущей неделе</a>`}
+      ${cur ? '' : `<a class="btn btn-ghost btn-sm" href="#/schedule/${isoWeekOf(now.date)}">${icon('calendar', 16)} К текущей неделе</a>`}
       <div class="week-tools"><button class="btn btn-secondary btn-sm" data-bells>${icon('clock', 16)} Звонки</button><a class="btn btn-secondary btn-sm" href="/api/schedule.ics" download>${icon('download', 16)} В свой календарь</a></div>
     </div>
+    ${advancedToNextWeek ? '<p class="schedule-context">На этой неделе больше нет предстоящих занятий — показана следующая.</p>' : ''}
     ${w.changes.length ? `<div class="changes-strip" aria-label="Изменения на неделе">${w.changes.map((it) => { const c = changeLine(it); return `<button class="change-pill ${c.cls}" data-lesson="${esc(it.key)}">${icon(c.icon, 18)}<span><b>${c.title}</b>${c.sub ? `<span class="small">${esc(c.sub)}</span>` : ''}</span></button>`; }).join('')}</div>` : ''}
     <div class="days-pick" role="group" aria-label="День недели">${w.days.map((d) => `<button class="day-btn ${picked === d.date ? 'on' : ''} ${d.date === now.date ? 'today' : ''}" data-pick="${d.date}" aria-controls="day-${d.date}" aria-pressed="${picked === d.date}" aria-label="${esc(dayShort(d.date))}${d.date === now.date ? ', сегодня' : ''}"><span>${esc(weekdayShort(d.date))}</span><b>${dateNum(d.date)}</b>${d.items.some((x) => x.change) ? '<i></i>' : ''}</button>`).join('')}</div>
     <div class="week">${w.days.map((d) => dayCol(d, now)).join('')}</div>`;
@@ -103,8 +112,13 @@ export default {
   async mount(el, params) {
     const box = el.querySelector('[data-body]');
     const q = params[0] && /^\d{4}-W\d{2}$/.test(params[0]) ? `?week=${params[0]}` : '';
+    advancedToNextWeek = false;
     try {
       week = await get('/api/schedule' + q);
+      if (!q && !nextStudyDay(week, mskNow())) {
+        week = await get('/api/schedule?week=' + isoWeekOf(week.next));
+        advancedToNextWeek = true;
+      }
       picked = null;
       box.innerHTML = body();
     } catch (e) {

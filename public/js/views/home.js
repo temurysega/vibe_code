@@ -13,6 +13,18 @@ import { openOnboarding, openQuiz } from './onboarding.js';
 
 let data = null;
 let phraseI = 0;
+let mobileExpanded = new Set();
+
+const isMobile = () => matchMedia('(max-width: 720px)').matches;
+const detailOpen = (key) => !isMobile() || mobileExpanded.has(key) ? 'open' : '';
+
+// На телефоне показываем ближайшее, остальные записи доступны без ухода со страницы.
+function compactList(key, rows, label, keep = 2) {
+  if (rows.length <= keep) return rows.join('');
+  return `${rows.slice(0, keep).join('')}<details class="home-more" data-home-more="${key}" ${detailOpen(key)}>
+    <summary><span class="home-more-collapsed">Ещё ${rows.length - keep} ${label}</span><span class="home-more-expanded">Свернуть список</span>${icon('down', 16)}</summary>
+    <div>${rows.slice(keep).join('')}</div></details>`;
+}
 
 function greeting(min) {
   return min < 300 ? 'Доброй ночи' : min < 720 ? 'Доброе утро' : min < 1080 ? 'Добрый день' : 'Добрый вечер';
@@ -51,7 +63,7 @@ const sec = {
       <div class="quick">
         <a class="btn btn-primary" href="#/requests/new">${icon('doc', 18)} Заказать справку</a>
         <a class="btn btn-secondary" href="#/schedule">${icon('calendar', 18)} Неделя</a>
-        <button class="btn btn-secondary" data-ask>${icon('chat', 18)} Спросить деканат</button>
+        <button class="btn btn-secondary home-ask" data-ask>${icon('chat', 18)} Спросить деканат</button>
       </div></div>`;
   },
 
@@ -69,7 +81,7 @@ const sec = {
     return `<div class="next-card" data-sec="next">
       <span class="eyebrow">${live ? 'Сейчас идёт' : 'Ближайшая пара'} · ${n.pair} пара</span>
       <div class="next-title">${esc(n.discipline)}</div>
-      <div class="next-meta"><span>${icon('clock', 15)} ${n.start}–${n.end}</span><span class="hl">${icon('pin', 15)} ауд. ${esc(n.room)}${n.place ? ' · ' + esc(n.place) : ''}</span>${n.teacher ? `<span>${icon('user', 15)} ${esc(n.teacher.short)}</span>` : ''}<span>${esc(n.kindLabel)}</span></div>
+      <div class="next-meta"><span>${icon('clock', 15)} ${n.start}–${n.end}</span><span class="hl">${icon('pin', 15)} ауд. ${esc(n.room)}${n.place ? `<span class="next-floor"> · ${esc(n.place)}</span>` : ''}</span>${n.teacher ? `<span>${icon('user', 15)} ${esc(n.teacher.short)}</span>` : ''}<span>${esc(n.kindLabel)}</span></div>
       <div class="next-count">${count}</div>
       ${chText ? `<div class="next-change">${icon('alert', 16)}<span>${chText}</span></div>` : ''}
       <a class="btn btn-light btn-sm" href="#/schedule">Расписание на неделю ${icon('arrow', 16)}</a>
@@ -124,22 +136,22 @@ const sec = {
   },
 
   deadlines() {
-    const list = data.deadlines.slice(0, 5);
+    const list = data.deadlines;
     return `<div class="card" data-sec="deadlines"><div class="card-head"><div class="card-title">Дедлайны</div><span class="badge badge-gray">${data.deadlines.length}</span></div>
-      ${list.length ? list.map((d) => {
+      ${list.length ? compactList('deadlines', list.map((d) => {
         const soon = d.dueAt - Date.now() < 2 * 864e5;
         const day = dateOfTs(d.dueAt);
         return `<a class="dl ${soon ? 'soon' : ''}" href="${esc(d.link || '#/grades')}"><span class="dl-date"><b>${dateNum(day)}</b><span>${monthShort(day)}</span></span>
           <span class="grow"><b>${esc(d.title)}</b><span class="small muted" style="display:block">${esc(dueLabel(d.dueAt))}${d.discipline ? ' · ' + esc(d.discipline) : ''}</span></span></a>`;
-      }).join('') : '<div class="empty"><span class="emoji">🗓️</span>Ближайшие две недели — без дедлайнов</div>'}
+      }), plural(Math.max(0, list.length - 2), ['дедлайн', 'дедлайна', 'дедлайнов'])) : '<div class="empty"><span class="emoji">🗓️</span>Ближайшие две недели — без дедлайнов</div>'}
     </div>`;
   },
 
   requests() {
     const list = data.requests;
     return `<div class="card" data-sec="requests"><div class="card-head"><div class="card-title">Мои заявки</div><a class="link-arrow" href="#/requests">Все ${icon('arrow', 16)}</a></div>
-      ${list.length ? list.map((r) => `<a class="req-mini" href="#/requests/${r.id}">
-        <span class="grow"><span class="req-mini-top"><b>${esc(r.title)}</b>${statusPill(r.status, r.statusLabel)}</span><span class="small muted">№ ${esc(r.number)} · ${esc(when(r.updatedAt))}</span><span style="display:block;margin-top:8px">${pipe(r.steps, r.status)}</span></span></a>`).join('')
+      ${list.length ? compactList('requests', list.map((r) => `<a class="req-mini" href="#/requests/${r.id}">
+        <span class="grow"><span class="req-mini-top"><b>${esc(r.title)}</b>${statusPill(r.status, r.statusLabel)}</span><span class="small muted">№ ${esc(r.number)} · ${esc(when(r.updatedAt))}</span><span style="display:block;margin-top:8px">${pipe(r.steps, r.status)}</span></span></a>`), plural(Math.max(0, list.length - 2), ['заявка', 'заявки', 'заявок']))
         : '<div class="empty"><span class="emoji">📄</span>Активных заявок нет</div>'}
       <a class="btn btn-primary btn-block mt-16" href="#/requests/new">${icon('plus', 18)} Новая справка или заявление</a>
     </div>`;
@@ -148,7 +160,7 @@ const sec = {
   changes() {
     const list = data.changes;
     return `<div class="card" data-sec="changes"><div class="card-head"><div><div class="card-title">Изменения расписания</div><div class="card-sub">Переносы, отмены и новые аудитории на две недели</div></div></div>
-      ${list.length ? list.map((it) => { const c = changeLine(it); return `<a class="chg" href="#/schedule"><span class="chg-ic ${c.cls}">${icon(c.icon, 18)}</span><span class="grow"><b>${c.title}</b>${c.sub ? `<span class="small muted" style="display:block">${esc(c.sub)}</span>` : ''}</span></a>`; }).join('')
+      ${list.length ? compactList('changes', list.map((it) => { const c = changeLine(it); return `<a class="chg" href="#/schedule"><span class="chg-ic ${c.cls}">${icon(c.icon, 18)}</span><span class="grow"><b>${c.title}</b>${c.sub ? `<span class="small muted" style="display:block">${esc(c.sub)}</span>` : ''}</span></a>`; }), plural(Math.max(0, list.length - 2), ['изменение', 'изменения', 'изменений']))
         : '<div class="empty"><span class="emoji">✅</span>Изменений нет — всё по плану</div>'}
     </div>`;
   },
@@ -157,7 +169,7 @@ const sec = {
     const list = data.notifications.latest;
     const KIC = { news: 'megaphone', schedule: 'calendar', deadline: 'clock', request: 'doc', grade: 'chart', system: 'spark' };
     return `<div class="card" data-sec="news"><div class="card-head"><div class="card-title">Уведомления</div><a class="link-arrow" href="#/notifications">Все${data.notifications.unread ? ` · ${data.notifications.unread} новых` : ''} ${icon('arrow', 16)}</a></div>
-      ${list.map((n) => `<a class="notif ${n.read ? '' : 'unread'}" href="${esc(n.link || '#/notifications')}" style="padding:10px 0"><span class="notif-ic">${icon(KIC[n.kind] || 'bell', 18)}</span><span class="grow small"><b>${esc(n.title)}</b><span class="muted" style="display:block">${esc(n.kindLabel)} · ${esc(when(n.at))}</span></span></a>`).join('') || '<div class="empty">Пока тихо</div>'}
+      ${compactList('news', list.map((n) => `<a class="notif ${n.read ? '' : 'unread'}" href="${esc(n.link || '#/notifications')}" style="padding:10px 0"><span class="notif-ic">${icon(KIC[n.kind] || 'bell', 18)}</span><span class="grow small"><b>${esc(n.title)}</b><span class="muted" style="display:block">${esc(n.kindLabel)} · ${esc(when(n.at))}</span></span></a>`), plural(Math.max(0, list.length - 2), ['уведомление', 'уведомления', 'уведомлений'])) || '<div class="empty">Пока тихо</div>'}
     </div>`;
   },
 
@@ -235,18 +247,32 @@ function body() {
     ${sec.steps()}
     <div class="grid home-trio mt-20">${sec.mood()}${sec.deadlines()}${sec.requests()}</div>
     <div class="grid g-2 mt-20">${sec.changes()}${sec.news()}</div>
-    <div class="section-head mt-32"><h2 class="h3">МГИМО Мания</h2><span class="small muted">Образ, питомец, кампус и перерыв — за учёбу, а не вместо неё</span></div>
-    ${sec.look()}
-    <div class="grid g-3 mt-20">${sec.pet()}${sec.campus()}${sec.game()}</div>`;
+    <details class="home-play mt-32" data-home-more="play" ${detailOpen('play')}>
+      <summary><span><span class="h3">МГИМО Мания</span><span class="small muted">Аватар, питомец, кампус и перерыв</span></span>${icon('down', 20)}</summary>
+      <div class="home-play-body">${sec.look()}<div class="grid g-3 mt-20">${sec.pet()}${sec.campus()}${sec.game()}</div></div>
+    </details>`;
 }
 
 export default {
   title: 'Главная',
   render() {
-    return `<div class="container"><div data-body>${skeleton(1, 60)}<div class="home-top mt-20"><div class="skel" style="height:260px"></div><div class="skel" style="height:260px"></div></div><div class="grid g-3 mt-20">${'<div class="skel" style="height:300px"></div>'.repeat(3)}</div></div></div>`;
+    return `<div class="container home-dashboard"><div data-body>${skeleton(1, 60)}<div class="home-top mt-20"><div class="skel" style="height:260px"></div><div class="skel" style="height:260px"></div></div><div class="grid g-3 mt-20">${'<div class="skel" style="height:300px"></div>'.repeat(3)}</div></div></div>`;
   },
   async mount(el, params, app) {
     const box = el.querySelector('[data-body]');
+    mobileExpanded = new Set();
+    if (session.play?.pet.focusEnd > Date.now()) mobileExpanded.add('play');
+    el.addEventListener('toggle', (e) => {
+      if (!isMobile() || !e.target.matches('[data-home-more]')) return;
+      const key = e.target.dataset.homeMore;
+      if (e.target.open) mobileExpanded.add(key);
+      else mobileExpanded.delete(key);
+    }, true);
+    const viewport = matchMedia('(max-width: 720px)');
+    const syncDisclosure = () => box.querySelectorAll('[data-home-more]').forEach((item) => {
+      item.open = !viewport.matches || mobileExpanded.has(item.dataset.homeMore);
+    });
+    viewport.addEventListener('change', syncDisclosure);
     async function load() {
       try {
         data = await get('/api/home');
@@ -324,6 +350,6 @@ export default {
       }
     });
     el.addEventListener('keydown', (e) => { if (['Enter', ' '].includes(e.key) && e.target.matches('[data-petclick]')) { e.preventDefault(); e.target.click(); } });
-    return () => { clearInterval(tick); clearInterval(minute); offPlay(); offRefresh(); };
+    return () => { clearInterval(tick); clearInterval(minute); offPlay(); offRefresh(); viewport.removeEventListener('change', syncDisclosure); };
   },
 };

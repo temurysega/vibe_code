@@ -3,7 +3,8 @@
 import { randomBytes } from 'node:crypto';
 import { str, int, isDate } from '../http/body.js';
 import { fail } from '../http/router.js';
-import { msk, addDays, DAY } from './time.js';
+import { msk, addDays, semesterNumber, DAY } from './time.js';
+import { verdictOf } from './grades.js';
 import { notify } from './notifications.js';
 
 export const STATUS = {
@@ -33,7 +34,7 @@ export const TYPES = [
     fields: [{ id: 'office', label: 'Военный комиссариат', type: 'text', required: true, max: 120, placeholder: 'Например, Гагаринского района' }] },
   { id: 'transcript', group: 'cert', icon: 'table', title: 'Выписка оценок', short: 'Баллы и оценки за все семестры, можно на английском', days: 4, delivery: ['electronic', 'paper'], langs: ['ru', 'en'],
     fields: [{ id: 'purpose', label: 'Для чего', type: 'select', required: true, options: ['Программа обмена', 'Стажировка', 'Летняя школа', 'Поступление в магистратуру', 'Другое'] }] },
-  { id: 'stipend', group: 'cert', icon: 'coins', title: 'Справка о стипендии', short: 'Размер выплат за последние шесть месяцев', days: 2, delivery: ['electronic', 'paper'], langs: ['ru'], fields: [] },
+  { id: 'stipend', group: 'cert', icon: 'coins', title: 'Справка о стипендии', short: 'Начисления за шесть завершённых месяцев, включая месяцы без стипендии', days: 2, delivery: ['electronic', 'paper'], langs: ['ru'], fields: [] },
   { id: 'absence', group: 'app', icon: 'calendar', title: 'Пропуск по уважительной причине', short: 'Деканат предупредит преподавателей, пропуски не сгорят', days: 2, delivery: ['none'], decision: true,
     fields: [
       { id: 'from', label: 'С', type: 'date', required: true },
@@ -65,6 +66,57 @@ export const TYPES = [
 ];
 const SHOP_TYPE = { id: 'merch', group: 'shop', icon: 'bag', title: 'Мерч из Лавки', days: 1, delivery: ['paper'], fields: [] };
 export const typeOf = (id) => TYPES.find((t) => t.id === id) || (id === 'merch' ? SHOP_TYPE : null);
+
+// Вымышленная модель для конкурсного образца, не размеры или правила стипендии вуза.
+// Снимок фиксируется при подаче заявки: последующие оценки не переписывают выданную справку.
+export function buildStipendStatement(store, student, createdAt) {
+  const date = msk(createdAt).date;
+  const [year, month] = date.split('-').map(Number);
+  const results = store.all(
+    `SELECT e.semester, e.status, e.final_points, d.control FROM enrollments e
+     JOIN disciplines d ON d.id = e.discipline_id WHERE e.student_id = ?`, student.id,
+  );
+  const months = Array.from({ length: 6 }, (_, i) => {
+    const key = new Date(Date.UTC(year, month - 7 + i, 1)).toISOString().slice(0, 7);
+    let amount = 0;
+    let reason;
+    if (key < `${student.admission_year}-09`) reason = 'До зачисления';
+    else if (student.funding !== 'бюджет') reason = 'Обучение по договору';
+    else {
+      // В модели февраль–июнь опираются на зимнюю сессию, июль–январь — на летнюю.
+      const calendarMonth = Number(key.slice(5));
+      const previous = semesterNumber(student.admission_year, `${key}-28`) - (calendarMonth === 7 || calendarMonth === 8 ? 0 : 1);
+      const last = results.filter((e) => e.semester === previous);
+      if (previous === 0) { amount = 3500; reason = 'До первой сессии'; }
+      else if (!last.length || last.some((e) => e.status === 'current' || e.final_points == null)) reason = 'Нет итогов сессии в демо-данных';
+      else if (results.some((e) => e.semester <= previous && e.status === 'debt')) reason = 'Есть академическая задолженность';
+      else {
+        const marks = last.map((e) => verdictOf(e.final_points, e.control));
+        if (marks.some((v) => !v.passed || (v.grade != null && v.grade < 4))) reason = 'Сессия с тройками или незачётом';
+        else if (marks.some((v) => v.grade != null) && marks.filter((v) => v.grade != null).every((v) => v.grade === 5)) {
+          amount = 5200; reason = 'Сессия на отлично';
+        } else { amount = 3500; reason = 'Сессия без троек'; }
+      }
+    }
+    return { month: key, amount, reason };
+  });
+  return {
+    version: 1, demo: true, currency: 'RUB', asOf: date,
+    from: months[0].month, to: months[5].month, months,
+    total: months.reduce((sum, row) => sum + row.amount, 0),
+    note: 'Учебный пример. Все начисления вымышлены; суммы и правила не являются условиями стипендии МГИМО.',
+  };
+}
+
+// Совместимость с ранее созданными заявками: период привязан к подаче, а не дню скачивания.
+export function stipendForRequest(store, student, request) {
+  const payload = JSON.parse(request.payload || '{}');
+  if (!payload._stipend) {
+    payload._stipend = buildStipendStatement(store, student, request.created_at);
+    store.run('UPDATE requests SET payload = ? WHERE id = ? AND student_id = ?', JSON.stringify(payload), request.id, student.id);
+  }
+  return payload._stipend;
+}
 
 const PICKUP = (f) => `Деканат ${f.short}, ауд. ${f.dean_office}, ${f.hours}`;
 
@@ -147,7 +199,7 @@ export function createRequest(store, student, faculty, body) {
   if (Object.keys(errors).length) fail(422, 'Проверьте поля формы', { fields: errors });
 
   // Защита от дублей: та же справка в работе — не создаём вторую
-  const open = store.get(`SELECT id, number FROM requests WHERE student_id = ? AND type = ? AND status IN ('submitted', 'in_work') AND payload = ?`, student.id, type.id, JSON.stringify(Object.assign({ lang }, data)));
+  const open = store.get(`SELECT id, number FROM requests WHERE student_id = ? AND type = ? AND status IN ('submitted', 'in_work') AND json_remove(payload, '$._stipend') = ?`, student.id, type.id, JSON.stringify(Object.assign({ lang }, data)));
   if (open) fail(409, `Такая заявка уже в работе: № ${open.number}`, { id: open.id });
 
   return insertRequest(store, student, faculty, type, Object.assign({ lang }, data), delivery);
@@ -158,10 +210,11 @@ export function insertRequest(store, student, faculty, type, payload, delivery, 
     const now = Date.now();
     const number = nextNumber(store);
     const plan = planFor(type, delivery);
+    const storedPayload = type.id === 'stipend' ? { ...payload, _stipend: buildStipendStatement(store, student, now) } : payload;
     const id = store.insert(
       `INSERT INTO requests (number, student_id, type, title, payload, delivery, status, created_at, updated_at, due_at, plan, verify_code)
        VALUES (?, ?, ?, ?, ?, ?, 'submitted', ?, ?, ?, ?, ?)`,
-      number, student.id, type.id, title || type.title, JSON.stringify(payload), delivery, now, now, now + type.days * DAY,
+      number, student.id, type.id, title || type.title, JSON.stringify(storedPayload), delivery, now, now, now + type.days * DAY,
       JSON.stringify(plan), type.group === 'cert' ? randomBytes(4).toString('hex').toUpperCase() : null,
     );
     store.run('INSERT INTO request_events (request_id, status, comment, actor, created_at) VALUES (?, ?, ?, ?, ?)', id, 'submitted',
@@ -212,13 +265,14 @@ export function applyPlans(store, studentId) {
 
 export function publicRequest(store, r, faculty) {
   const type = typeOf(r.type);
+  const { _stipend, ...payload } = JSON.parse(r.payload || '{}');
   const events = store.all('SELECT status, comment, actor, created_at FROM request_events WHERE request_id = ? ORDER BY created_at, id', r.id);
   const steps = type && type.group === 'cert'
     ? (r.delivery === 'paper' ? ['submitted', 'in_work', 'ready', 'issued'] : ['submitted', 'in_work', 'ready'])
     : type && type.group === 'shop' ? ['submitted', 'ready', 'issued'] : ['submitted', 'in_work', 'approved'];
   return {
     id: r.id, number: r.number, type: r.type, group: type ? type.group : 'app', icon: type ? type.icon : 'doc', title: r.title,
-    payload: JSON.parse(r.payload || '{}'), delivery: r.delivery, status: r.status, statusLabel: STATUS[r.status],
+    payload, delivery: r.delivery, status: r.status, statusLabel: STATUS[r.status],
     createdAt: r.created_at, updatedAt: r.updated_at, dueAt: r.due_at, deanComment: r.dean_comment,
     steps, events,
     pickup: r.delivery === 'paper' && faculty ? (r.type === 'merch' ? 'Лавка МГИМО, 1 этаж, пн–сб 10:00–19:00' : PICKUP(faculty)) : null,
