@@ -6,6 +6,7 @@ import { createApp } from './app.js';
 import { seed } from './seed/seed.js';
 import { applyPlans } from './domain/requests.js';
 import { perAccount, perIp } from './routes/auth.js';
+import { broadcasts } from './routes/dean.js';
 
 const store = new Store(config.dbFile);
 
@@ -42,7 +43,7 @@ server.listen(config.port, config.host, () => {
 // Фоновые задачи: автоматические шаги заявок демо, чистка лимитов и пересоздание стенда
 const timers = [
   setInterval(() => { try { applyPlans(store); } catch (e) { console.error(e); } }, 5000),
-  setInterval(() => { perAccount.sweep(); perIp.sweep(); store.run('DELETE FROM sessions WHERE expires_at < ?', Date.now()); }, 10 * 60e3),
+  setInterval(() => { perAccount.sweep(); perIp.sweep(); broadcasts.sweep(); store.run('DELETE FROM sessions WHERE expires_at < ?', Date.now()); }, 10 * 60e3),
   setInterval(() => { maybeReseed(false).catch((e) => console.error(e)); }, 10 * 60e3),
 ];
 

@@ -7,10 +7,13 @@ export const skeleton = (rows = 3, h = 120) => `<div class="col" role="status" a
 
 export function errorBox(e, retry = true) {
   const status = e && e.status;
-  const text = status === 404 ? 'Не нашли такую страницу. Возможно, ссылка устарела или ведёт к чужим данным — они вам недоступны.'
+  const text = status === 404 ? 'Возможно, ссылка устарела или ведёт к чужим данным — они вам недоступны.'
     : status === 403 ? 'Этот раздел вам недоступен.'
       : (e && e.message) || 'Не удалось загрузить данные';
-  return `<div class="card error-box" role="alert"><span class="emoji" style="font-size:36px">${status === 404 ? '🔎' : '🛰️'}</span><div class="h4 mt-12">${status === 404 ? 'Не найдено' : 'Что-то пошло не так'}</div><p class="muted mt-8">${esc(text)}</p>
+  // Сервер называет, что именно не найдено («Заявка не найдена»): так понятнее, чем общее «Не найдено».
+  const specific = e && e.message && /не найден/i.test(e.message) ? e.message : '';
+  const title = status === 404 ? specific || 'Не найдено' : 'Что-то пошло не так';
+  return `<div class="card error-box" role="alert"><span class="emoji" style="font-size:36px">${status === 404 ? '🔎' : '🛰️'}</span><div class="h4 mt-12">${esc(title)}</div><p class="muted mt-8">${esc(text)}</p>
     <div class="row-wrap mt-20" style="justify-content:center">${retry && status !== 404 && status !== 403 ? `<button class="btn btn-primary" data-retry>${icon('refresh', 18)} Повторить</button>` : ''}<a class="btn btn-secondary" href="#/home">На главную</a></div></div>`;
 }
 

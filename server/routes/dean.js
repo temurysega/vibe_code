@@ -3,12 +3,23 @@
 import { fail } from '../http/router.js';
 import { str, int, oneOf, isDate } from '../http/body.js';
 import { requireDean, audit } from '../security/auth.js';
+import { RateLimiter } from '../security/rateLimit.js';
 import { applyPlans, publicRequest, setStatus, typeOf, RANK, STATUS } from '../domain/requests.js';
 import { notify } from '../domain/notifications.js';
 import { dayOf } from '../domain/schedule.js';
 import { msk, DAY } from '../domain/time.js';
 
 const facultyRow = (store, id) => store.get('SELECT * FROM faculties WHERE id = ?', id);
+
+// Объявления и изменения расписания видят все студенты факультета. Демо-аккаунт деканата
+// открыт жюри, поэтому массовые публикации ограничены: 10 за 10 минут на сотрудника.
+export const broadcasts = new RateLimiter({ windowMs: 10 * 60e3, max: 10 });
+function limitBroadcast(ctx) {
+  const key = 'dean|' + ctx.user.id;
+  const c = broadcasts.check(key);
+  if (!c.ok) fail(429, `Слишком много публикаций подряд. Попробуйте через ${Math.max(1, Math.ceil(c.retryAfter / 60))} мин.`, { retryAfter: c.retryAfter });
+  return () => broadcasts.hit(key);
+}
 
 function scoped(ctx, id) {
   const r = ctx.store.get(
@@ -93,6 +104,7 @@ export default function (router) {
 
   // Объявление факультету или группе — сразу появляется в уведомлениях студентов
   router.post('/api/dean/announcements', requireDean, (ctx) => {
+    const counted = limitBroadcast(ctx);
     const title = str(ctx.body.title, 120);
     const body = str(ctx.body.body, 1000);
     const audience = oneOf(ctx.body.audience, ['faculty', 'group']);
@@ -108,6 +120,7 @@ export default function (router) {
     }
     if (Object.keys(errors).length) fail(422, 'Проверьте поля', { fields: errors });
     const id = notify(ctx.store, { audience, audienceId: target, kind: 'news', title, body, link: '#/notifications', important: ctx.body.important === true, author: `Деканат ${ctx.staff.faculty.short}` });
+    counted();
     audit(ctx.store, ctx.user.id, 'announcement', `${audience}:${target}`, ctx.ip);
     return { id };
   });
@@ -122,6 +135,7 @@ export default function (router) {
   });
 
   router.post('/api/dean/changes', requireDean, (ctx) => {
+    const counted = limitBroadcast(ctx);
     const g = ctx.store.get('SELECT code FROM groups WHERE code = ? AND faculty_id = ?', str(ctx.body.group, 20), ctx.staff.faculty_id);
     if (!g) fail(404, 'Группа не найдена');
     const date = ctx.body.date;
@@ -144,6 +158,7 @@ export default function (router) {
       audience: 'group', audienceId: g.code, kind: 'schedule', important: type === 'cancel' ? 1 : 0, link: '#/schedule', author: `Деканат ${ctx.staff.faculty.short}`,
       title: type === 'cancel' ? `${it.short}, ${d}: пара отменена` : `${it.short}, ${d}: аудитория ${room} вместо ${it.room}`, body: reason,
     });
+    counted();
     audit(ctx.store, ctx.user.id, 'schedule_' + type, `${g.code}:${date}:${it.pair}`, ctx.ip);
     return { ok: true };
   });

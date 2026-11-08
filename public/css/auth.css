@@ -60,14 +60,15 @@
   .auth-hero { padding: 16px 16px 0; }
   .auth-title { font-size: 29px; margin-top: 18px; }
   .auth-lead { font-size: 15px; margin-top: 10px; }
-  .auth-crowd { min-height: 0; padding-top: 40px; }
+  .auth-crowd { min-height: 0; padding-top: 52px; }
   .auth-crowd .p { width: 74px; height: 118px; margin: 0 -6px; }
   .auth-crowd .p.big { width: 94px; height: 150px; }
   .auth-pet { left: calc(50% + 48px); width: 48px; height: 40px; bottom: 4px; }
   .auth-float { height: 30px; font-size: 12px; padding: 0 12px 0 6px; }
   .auth-float .ic { width: 20px; height: 20px; }
-  .auth-float.f1 { top: 0; left: 0; }
-  .auth-float.f2 { top: 36px; right: 0; }
+  /* Плашки ниже подзаголовка с запасом на анимацию «парения» (−6 px): текст не перекрывается */
+  .auth-float.f1 { top: 12px; left: 0; }
+  .auth-float.f2 { top: 48px; right: 0; }
   .auth-panel { padding: 24px 16px 32px; }
   .auth-card .auth-mark { display: none; }
 }

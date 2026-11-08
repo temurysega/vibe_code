@@ -1,10 +1,11 @@
 // Заголовки безопасности для каждого ответа.
-// CSP разрешает скрипты только со своего домена: внедрённый чужой скрипт не выполнится.
+// CSP разрешает скрипты, стили и шрифты только со своего домена: внедрённый чужой скрипт не выполнится,
+// а шрифт Onest раздаётся локально — сторонним сервисам не уходят запросы при открытии кабинета.
 const CSP = [
   "default-src 'self'",
   "script-src 'self'",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "font-src 'self' https://fonts.gstatic.com",
+  "style-src 'self' 'unsafe-inline'",
+  "font-src 'self'",
   "img-src 'self' data: blob:",
   "connect-src 'self'",
   "frame-ancestors 'none'",

@@ -107,7 +107,11 @@ test('выход завершает сессию на сервере', async () 
 
 test('заголовки безопасности и защита статики', async () => {
   const r = await fetch(app.base + '/');
-  assert.match(r.headers.get('content-security-policy'), /script-src 'self'/);
+  const csp = r.headers.get('content-security-policy');
+  assert.match(csp, /script-src 'self'/);
+  // Шрифт раздаётся локально: политика не разрешает сторонние источники шрифтов и стилей
+  assert.match(csp, /font-src 'self'(;|$)/);
+  assert.doesNotMatch(csp, /https?:\/\//);
   assert.equal(r.headers.get('x-content-type-options'), 'nosniff');
   assert.equal(r.headers.get('x-frame-options'), 'DENY');
   for (const p of ['/../server/config.js', '/%2e%2e/server/config.js', '/..%2fpackage.json']) {

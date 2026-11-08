@@ -11,11 +11,17 @@ const FILTERS = [['all', 'Все'], ['unread', 'Непрочитанные'], ['
 let list = [];
 let unread = 0;
 let filter = 'all';
+// Лента показывается порциями: на телефоне не нужно листать сотню карточек до настроек
+const PAGE = 12;
+let limit = PAGE;
 
 function items() {
-  const shown = list.filter((n) => filter === 'all' || (filter === 'unread' ? !n.read : n.kind === filter));
-  if (!shown.length) return '<div class="card empty"><span class="emoji">🔕</span>Здесь пока ничего нет</div>';
+  const all = list.filter((n) => filter === 'all' || (filter === 'unread' ? !n.read : n.kind === filter));
+  if (!all.length) return `<div class="card empty"><span class="emoji">🔕</span>${filter === 'unread' ? 'Все уведомления прочитаны' : 'Здесь пока ничего нет'}</div>`;
+  const shown = all.slice(0, limit);
+  const rest = all.length - shown.length;
   let day = '';
+  const more = rest > 0 ? `<button class="btn btn-secondary btn-block mt-12" data-more-n>${icon('down', 18)} Показать ещё ${Math.min(rest, PAGE)}${rest > PAGE ? ` из ${rest}` : ''}</button>` : '';
   return `<div class="n-list">${shown.map((n) => {
     const d = dateOfTs(n.at);
     const sep = d !== day ? `<div class="n-day">${esc(relDay(d) === 'сегодня' || relDay(d) === 'вчера' ? relDay(d) : dayShort(d))}</div>` : '';
@@ -25,7 +31,7 @@ function items() {
       <span style="min-width:0"><b>${esc(n.title)}</b>${n.body ? `<span class="small" style="display:block;margin-top:4px;color:var(--text)">${esc(n.body)}</span>` : ''}
         <span class="n-meta"><span class="badge badge-gray">${esc(n.kindLabel)}</span><span>${esc(n.scope)}</span>${n.author ? `<span>${esc(n.author)}</span>` : ''}<span>${esc(when(n.at))}</span>${n.important ? `<span class="badge badge-gold">${icon('star', 11)} важное</span>` : ''}</span></span>
     </button>`;
-  }).join('')}</div>`;
+  }).join('')}</div>${more}`;
 }
 
 function prefs() {
@@ -55,6 +61,7 @@ export default {
   },
   async mount(el) {
     filter = 'all';
+    limit = PAGE;
     const box = el.querySelector('[data-body]');
     const load = async () => {
       try {
@@ -68,7 +75,17 @@ export default {
     const off = on('notif', load);
     el.addEventListener('click', async (e) => {
       const f = e.target.closest('[data-f]');
-      if (f) { filter = f.dataset.f; box.innerHTML = body(); return; }
+      if (f) { filter = f.dataset.f; limit = PAGE; box.innerHTML = body(); return; }
+      const more = e.target.closest('[data-more-n]');
+      if (more) {
+        const first = list.filter((n) => filter === 'all' || (filter === 'unread' ? !n.read : n.kind === filter))[limit];
+        limit += PAGE;
+        box.innerHTML = body();
+        // Фокус — на первую из новых карточек, чтобы клавиатура и экранный диктор продолжили с неё
+        const next = first && box.querySelector(`[data-n="${first.id}"]`);
+        if (next) next.focus();
+        return;
+      }
       if (e.target.closest('[data-readall]')) {
         const r = await post('/api/notifications/read', { all: true }).catch((er) => { toast(esc(er.message), { icon: 'alert' }); return null; });
         if (r) { toast('Все уведомления прочитаны'); load(); }
