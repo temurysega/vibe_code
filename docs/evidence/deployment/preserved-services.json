@@ -1,0 +1,49 @@
+{
+  "checked_at_utc": "2026-11-08T15:35:55Z",
+  "method": "Read-only SSH; HTTPS to existing Caddy through VPS loopback with hostname SNI and normal certificate verification",
+  "baseline_recorded_at_utc": "2026-11-08T15:32:09Z",
+  "baseline": {
+    "main_url": "https://predel-ai.ru/",
+    "main_status": 200,
+    "main_title": "predel · Ваша следующая команда",
+    "main_bytes": 790,
+    "main_body_sha256": "7743a238ec41c67f55248137c2304949b0521abfb144c977a90bca63515963ad",
+    "www_url": "https://www.predel-ai.ru/",
+    "www_status": 301,
+    "www_location": "https://predel-ai.ru/"
+  },
+  "after_deployment": {
+    "main_status": 200,
+    "main_title": "predel · Ваша следующая команда",
+    "main_body_sha256": "7743a238ec41c67f55248137c2304949b0521abfb144c977a90bca63515963ad",
+    "www_status": 301,
+    "www_location": "https://predel-ai.ru/"
+  },
+  "checks": {
+    "main_status_unchanged": true,
+    "main_title_unchanged": true,
+    "main_html_identical": true,
+    "www_redirect_unchanged": true,
+    "containers_preserved_and_running": true,
+    "last_container_starts_predate_deployment": true
+  },
+  "containers": [
+    {
+      "name": "predel-app-1",
+      "id": "4dd2efaeb3043ad3e8c5348e6e26a88eac9385a2c9a13becd296c57ba8ffbf19",
+      "same_as_baseline_id": true,
+      "started_at": "2026-10-29T15:43:21.141425143Z",
+      "running": true,
+      "restart_count": 0
+    },
+    {
+      "name": "predel-caddy-1",
+      "id": "ba030210ac3c3059caef556c7476d4bd7f3bf672da797accb1cd2648f105b9b7",
+      "same_as_baseline_id": true,
+      "started_at": "2026-10-29T15:43:21.145498328Z",
+      "running": true,
+      "restart_count": 0
+    }
+  ],
+  "limitations": "Baseline StartedAt was not recorded separately. Current StartedAt shows both containers last started on October 29, before this November 8 deployment. Reloading Caddy configuration does not restart its container. Local external TLS connections timed out at baseline; this verifies VPS proxy behavior, not accessibility from every Russian network."
+}

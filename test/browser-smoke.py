@@ -1,11 +1,12 @@
 """Browser QA: python test/browser-smoke.py [http://127.0.0.1:3100]. Requires Playwright."""
 import json
+import os
 import sys
 from pathlib import Path
 from playwright.sync_api import sync_playwright, expect
 
 BASE = sys.argv[1] if len(sys.argv) > 1 else 'http://127.0.0.1:3100'
-OUT = Path(__file__).resolve().parents[1] / 'docs' / 'evidence'
+OUT = Path(os.environ.get('QA_OUTPUT_DIR') or Path(__file__).resolve().parents[1] / 'docs' / 'evidence')
 OUT.mkdir(parents=True, exist_ok=True)
 errors = []
 checks = []

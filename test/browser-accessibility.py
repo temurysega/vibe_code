@@ -4,6 +4,7 @@ python test/browser-accessibility.py [http://127.0.0.1:3100]
 Requires Python Playwright and its Chromium browser.
 """
 import json
+import os
 import sys
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -11,7 +12,7 @@ from urllib.parse import urlsplit
 from playwright.sync_api import sync_playwright, expect
 
 BASE = sys.argv[1] if len(sys.argv) > 1 else 'http://127.0.0.1:3100'
-OUT = Path(__file__).resolve().parents[1] / 'docs' / 'evidence'
+OUT = Path(os.environ.get('QA_OUTPUT_DIR') or Path(__file__).resolve().parents[1] / 'docs' / 'evidence')
 OUT.mkdir(parents=True, exist_ok=True)
 checks, errors, external_requests = [], [], []
 
@@ -80,7 +81,7 @@ with sync_playwright() as p:
     with page.expect_download() as download_info:
         page.locator('a[href="/api/schedule.ics"]').click()
     download = download_info.value
-    text = Path(download.path()).read_text(encoding='utf-8', newline='\n')
+    text = Path(download.path()).read_text(encoding='utf-8')
     check('Calendar downloads a valid non-empty ICS', download.suggested_filename.endswith('.ics') and 'BEGIN:VCALENDAR' in text and 'BEGIN:VEVENT' in text and 'END:VCALENDAR' in text)
 
     # Nested lesson and teacher dialogs retain focus and restore the lower dialog.

@@ -1,0 +1,11 @@
+{
+  "base": "https://ai.neblanki.tech",
+  "request_id": 14,
+  "created_http": 201,
+  "after_container_restart_http": 200,
+  "same_session_survived": true,
+  "payload_survived": true,
+  "history_survived": true,
+  "volume": "mgimo-mania-data",
+  "test_request_cancelled": true
+}

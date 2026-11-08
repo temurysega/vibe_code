@@ -1,0 +1,37 @@
+{
+  "base": "https://ai.neblanki.tech",
+  "viewport": "360x800",
+  "live_provider": true,
+  "mocked": false,
+  "assistant_post_requests": 2,
+  "checks": [
+    {
+      "login": "a.morozova",
+      "question": "Какая у меня группа?",
+      "expected_group_from_profile": "МО-25-03",
+      "http_status": 200,
+      "source": "ai",
+      "provider": "openrouter",
+      "answer": "Ваша группа — МО-25-03.",
+      "ai_label_visible": true,
+      "group_matches_profile": true,
+      "former_account_history_absent": true,
+      "passed": true
+    },
+    {
+      "login": "t.aliev",
+      "question": "Какая у меня группа?",
+      "expected_group_from_profile": "МЭО-26-07",
+      "http_status": 200,
+      "source": "ai",
+      "provider": "openrouter",
+      "answer": "Ваша группа — МЭО-26-07, Факультет международных экономических отношений.  \nБлижайшая пара: пн, 9 ноября, 2 пара — Микроэкономика, лекция, ауд. 1001.",
+      "ai_label_visible": true,
+      "group_matches_profile": true,
+      "former_account_history_absent": true,
+      "passed": true
+    }
+  ],
+  "browser_errors": [],
+  "passed": true
+}

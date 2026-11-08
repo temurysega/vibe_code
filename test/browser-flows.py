@@ -1,5 +1,6 @@
 """Functional browser QA. Requires Python Playwright and a running isolated demo server."""
 import json
+import os
 import re
 import sys
 import time
@@ -8,9 +9,10 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright, expect
 
 BASE = sys.argv[1] if len(sys.argv) > 1 else 'http://127.0.0.1:3100'
-OUT = Path(__file__).resolve().parents[1] / 'docs' / 'evidence'
+OUT = Path(os.environ.get('QA_OUTPUT_DIR') or Path(__file__).resolve().parents[1] / 'docs' / 'evidence')
 OUT.mkdir(parents=True, exist_ok=True)
 checks, errors = [], []
+cookie_checks = []
 run = str(int(time.time()))
 
 def check(name, condition):
@@ -33,6 +35,14 @@ def login(page, user):
     page.locator(f'[data-login="{user}"]').click()
     page.wait_for_url('**/#/' + ('dean' if user.startswith('dekanat') else 'home'))
     settle(page)
+    if BASE.startswith('https://'):
+        # Inspect flags only. Cookie values and CSRF tokens never enter QA artifacts.
+        cookies = page.context.cookies(BASE)
+        cookie = next((c for c in cookies if c['name'] == '__Host-mm_sid'), None)
+        flags = None if cookie is None else {k: cookie[k] for k in ['name', 'path', 'secure', 'httpOnly', 'sameSite']}
+        cookie_checks.append({'login': user, 'viewport': page.viewport_size, 'flags': flags})
+        check(f"{page.viewport_size['width']}: {user} session cookie is Secure/HttpOnly/SameSite=Lax with __Host prefix",
+              flags is not None and flags['secure'] and flags['httpOnly'] and flags['sameSite'] == 'Lax' and flags['path'] == '/')
 
 def logout(page):
     page.locator('[data-me]:visible').click()
@@ -169,7 +179,7 @@ except Exception as exc:
     errors.append(str(exc))
     traceback.print_exc()
 finally:
-    result = {'base': BASE, 'checks': checks, 'browser_errors': errors}
+    result = {'base': BASE, 'checks': checks, 'browser_errors': errors, 'session_cookie_checks': cookie_checks}
     (OUT / 'browser-flows.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8', newline='\n')
     print(json.dumps({'checks': len(checks), 'failed': [c for c in checks if not c['passed']], 'browser_errors': errors}, ensure_ascii=False))
 sys.exit(1 if errors or any(not c['passed'] for c in checks) else 0)

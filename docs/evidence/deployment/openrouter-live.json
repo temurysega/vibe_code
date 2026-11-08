@@ -1,0 +1,19 @@
+{
+  "base": "https://ai.neblanki.tech",
+  "login_http": 200,
+  "cookies": [
+    {
+      "name": "__Host-mm_sid",
+      "secure": true,
+      "httponly": true,
+      "path": "/"
+    }
+  ],
+  "assistant_http": 200,
+  "source": "ai",
+  "provider": "openrouter",
+  "question": "Какая у меня группа? Ответьте только её обозначением.",
+  "expected_group": "МО-25-03",
+  "answer": "МО-25-03",
+  "personal_context_correct": true
+}
