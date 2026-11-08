@@ -89,6 +89,8 @@ AI_TIMEOUT_MS=15000
 
 ### Публикация по ссылке
 
+Для существующего VPS `ai.neblanki.tech`: [конфигурация и порядок обновления](docs/DEPLOYMENT.md).
+
 - **Render**: New → Blueprint → этот репозиторий. `render.yaml` предусматривает **платный** сервис и постоянный диск для SQLite; секрет `OPENROUTER_API_KEY` задаётся в панели. Развёртывание не выполняется автоматически при скачивании проекта. Без постоянного диска Render теряет изменения файлов при перезапуске — [документация](https://render.com/docs/disks).
 - **Docker локально**: `docker compose up --build -d`. Откройте http://localhost:3000. Именованный том сохраняет SQLite между перезапусками; `docker compose down` оставляет данные, опция `-v` удаляет их.
 - **VPS**: Node.js 24, `npm ci --omit=dev`, постоянный `DB_FILE`, процесс под supervisor и HTTPS-прокси. Для публичного стенда установите `NODE_ENV=production`, `COOKIE_SECURE=1`, `TRUST_PROXY=1` только за доверенным прокси. В Compose порт привязан к localhost для подключения локального HTTPS-прокси.

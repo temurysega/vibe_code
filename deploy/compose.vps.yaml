@@ -1,0 +1,42 @@
+# Existing Caddy serves ai.neblanki.tech on the external predel_default network.
+# Run with: docker compose --env-file /opt/mgimo-mania/.env -p mgimo-mania -f deploy/compose.vps.yaml up -d --build
+services:
+  mgimo-mania:
+    container_name: mgimo-mania
+    image: mgimo-mania:${APP_VERSION:-latest}
+    build:
+      context: ..
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8790:3000"
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      HOST: 0.0.0.0
+      COOKIE_SECURE: "1"
+      TRUST_PROXY: "1"
+      DB_FILE: /data/mgimo.db
+      DEMO_RESEED_HOURS: "0"
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENROUTER_MODEL: ${OPENROUTER_MODEL:-openrouter/free}
+      AI_TIMEOUT_MS: "15000"
+    volumes:
+      - student-data:/data
+    networks:
+      edge:
+        aliases:
+          - mgimo-mania
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+volumes:
+  student-data:
+    name: mgimo-mania-data
+
+networks:
+  edge:
+    external: true
+    name: predel_default
