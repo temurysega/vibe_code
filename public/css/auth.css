@@ -67,7 +67,7 @@
   .auth-float { height: 30px; font-size: 12px; padding: 0 12px 0 6px; }
   .auth-float .ic { width: 20px; height: 20px; }
   .auth-float.f1 { top: 0; left: 0; }
-  .auth-float.f2 { top: 0; right: 0; }
+  .auth-float.f2 { top: 36px; right: 0; }
   .auth-panel { padding: 24px 16px 32px; }
   .auth-card .auth-mark { display: none; }
 }

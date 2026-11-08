@@ -9,7 +9,7 @@ import { logoMark } from '../art/logo.js';
 import { skeleton, errorBox, statusPill, pipe, STATUS_ICON } from './common.js';
 
 const STEP_LABEL = { submitted: 'Подана', in_work: 'В работе', ready: 'Готова', issued: 'Выдана', approved: 'Одобрена' };
-const DELIVERY = { electronic: ['Электронная', 'PDF с QR-кодом, сразу в кабинете'], paper: ['Бумажная', 'Оригинал с печатью в деканате'] };
+const DELIVERY = { electronic: ['Электронная', 'Справка с кодом проверки, сразу в кабинете'], paper: ['Бумажная', 'Получение образца в демо-деканате'] };
 const LANG = { ru: 'Русский', en: 'Английский' };
 let types = null;
 let me = null;
@@ -17,7 +17,8 @@ let me = null;
 const head = (title, lead, back) => `<div class="page-head"><div>${back ? `<div class="crumbs"><a href="${back[0]}">${icon('back', 14)} ${back[1]}</a></div>` : ''}<h1 class="h1">${title}</h1>${lead ? `<p class="lead">${lead}</p>` : ''}</div></div>`;
 
 async function loadTypes() {
-  if (!types) types = (await get('/api/requests/types')).types;
+  // Доступность заявлений зависит от текущего студента: не кешируем между входами.
+  types = (await get('/api/requests/types')).types;
   return types;
 }
 
@@ -66,7 +67,7 @@ function formView(t) {
       ${t.delivery.length > 1 ? `<div class="field"><span class="field-label">Формат</span><div class="opt-cards">${t.delivery.map((d, i) => `<label class="opt-card"><input type="radio" name="delivery" value="${d}" ${i === 0 ? 'checked' : ''}><b>${icon(d === 'electronic' ? 'download' : 'doc', 18)} ${DELIVERY[d][0]}</b><span>${DELIVERY[d][1]}</span></label>`).join('')}</div></div>` : ''}
       ${t.langs && t.langs.length > 1 ? `<div class="field"><span class="field-label">Язык справки</span><div class="seg">${t.langs.map((l, i) => `<label style="display:contents"><input type="radio" name="lang" value="${l}" ${i === 0 ? 'checked' : ''} class="sr"><span class="lang-opt ${i === 0 ? 'on' : ''}" data-lang="${l}" style="height:36px;padding:0 16px;border-radius:100px;display:inline-flex;align-items:center;cursor:pointer">${LANG[l]}</span></label>`).join('')}</div></div>` : ''}
       ${t.fields.map(fieldHtml).join('')}
-      <div data-form-error></div>
+      <div data-form-error role="alert"></div>
       <div class="row-wrap"><button class="btn btn-primary btn-lg" type="submit" data-submit>${icon('send', 18)} Отправить в деканат</button><a class="btn btn-ghost btn-lg" href="#/requests/new">Отмена</a></div>
     </form>
     <aside class="sticky-side">
@@ -98,7 +99,7 @@ function detailView(r) {
       <div class="card"><div class="card-title">История</div><div class="timeline mt-16">${r.events.slice().reverse().map((e) => `<div class="tl-item"><span class="when">${esc(stamp(e.created_at))}</span><span><b>${esc(STEP_LABEL[e.status] || ({ rejected: 'Отклонена', cancelled: 'Отменена' })[e.status] || e.status)}</b> · <span class="muted">${esc(e.actor)}</span>${e.comment ? `<br>${esc(e.comment)}` : ''}</span></div>`).join('')}</div></div>
     </div>
     <aside class="sticky-side">
-      ${r.downloadable ? `<div class="card card-navy"><div class="card-title">Справка готова</div><p class="muted mt-8">Подписана электронной подписью. Подлинность проверяется по QR-коду</p><a class="btn btn-gold btn-block mt-16" href="#/requests/${r.id}/doc">${icon('download', 18)} Открыть и скачать</a></div>` : ''}
+      ${r.downloadable ? `<div class="card card-navy"><div class="card-title">Справка готова</div><p class="muted mt-8">Демонстрационный образец с кодом проверки. Можно сохранить в PDF через печать</p><a class="btn btn-gold btn-block mt-16" href="#/requests/${r.id}/doc">${icon('download', 18)} Открыть и скачать</a></div>` : ''}
       ${r.pickup && r.status === 'ready' ? `<div class="pickup">${icon('pin', 20)}<span><b style="font-weight:500">Готово — можно забирать</b><br>${esc(r.pickup)}<br><span class="small">Возьмите студенческий билет</span></span></div>` : ''}
       ${payloadRows ? `<div class="card"><div class="card-title">Что указано в заявке</div><dl class="kv mt-16" style="grid-template-columns:110px minmax(0,1fr);font-size:14px">${payloadRows}</dl></div>` : ''}
       ${r.cancellable ? `<button class="btn btn-danger btn-block" data-cancel>${icon('undo', 18)} Отменить заявку</button>` : ''}
@@ -114,21 +115,6 @@ const programEn = (p) => p.replace(/^(\S+)\s+(.+)$/, (m, code, name) => `${code}
 const countryEn = (c) => COUNTRY_EN[String(c || '').trim().toLowerCase()] || translit(c || '');
 const TR = { а: 'a', б: 'b', в: 'v', г: 'g', д: 'd', е: 'e', ё: 'e', ж: 'zh', з: 'z', и: 'i', й: 'i', к: 'k', л: 'l', м: 'm', н: 'n', о: 'o', п: 'p', р: 'r', с: 's', т: 't', у: 'u', ф: 'f', х: 'kh', ц: 'ts', ч: 'ch', ш: 'sh', щ: 'shch', ъ: 'ie', ы: 'y', ь: '', э: 'e', ю: 'iu', я: 'ia' };
 const translit = (s) => String(s).split('').map((c) => { const l = c.toLowerCase(); const t = TR[l]; if (t == null) return c; return c === l ? t : t.charAt(0).toUpperCase() + t.slice(1); }).join('');
-
-// Узор в духе QR-кода из кода проверки (демо, не сканируется)
-function qr(code) {
-  let h = 2166136261;
-  for (const c of code) h = Math.imul(h ^ c.charCodeAt(0), 16777619);
-  const rnd = () => { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return ((h >>> 0) % 1000) / 1000; };
-  const N = 25;
-  let s = '';
-  const finder = (x, y) => `<rect x="${x}" y="${y}" width="7" height="7" fill="#111"/><rect x="${x + 1}" y="${y + 1}" width="5" height="5" fill="#fff"/><rect x="${x + 2}" y="${y + 2}" width="3" height="3" fill="#111"/>`;
-  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
-    const inF = (x < 8 && y < 8) || (x > N - 9 && y < 8) || (x < 8 && y > N - 9);
-    if (!inF && rnd() > 0.52) s += `<rect x="${x}" y="${y}" width="1" height="1" fill="#111"/>`;
-  }
-  return `<svg viewBox="-1 -1 ${N + 2} ${N + 2}" shape-rendering="crispEdges" aria-hidden="true"><rect x="-1" y="-1" width="${N + 2}" height="${N + 2}" fill="#fff"/>${s}${finder(0, 0)}${finder(N - 7, 0)}${finder(0, N - 7)}</svg>`;
-}
 
 function docView(d, grades) {
   const fio = `${d.student.lastName} ${d.student.firstName} ${d.student.middleName || ''}`.trim();
@@ -155,8 +141,8 @@ function docView(d, grades) {
       <div class="doc-title">${en ? 'Certificate' : 'Справка'}</div>
       <div class="doc-no">№ ${esc(d.number)} ${en ? 'of' : 'от'} ${esc(en ? new Date(d.issuedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : dateLong(new Date(d.issuedAt).toISOString().slice(0, 10)))}</div>
       ${text}
-      <div class="doc-foot"><div class="doc-sign">${en ? 'Dean’s office' : 'Специалист деканата'}<span class="line"></span><span class="small">${en ? 'e-signature' : 'электронная подпись'}</span></div>
-        <div class="doc-qr">${qr(d.verifyCode)}<span>${en ? 'Verify' : 'Проверка подлинности'}:<br><b style="font-size:14px;letter-spacing:.08em">${esc(d.verifyCode)}</b><br>#/verify/${esc(d.verifyCode)}</span></div></div>
+      <div class="doc-foot"><div class="doc-sign">${en ? 'Demo dean’s office' : 'Демонстрационный деканат'}<span class="line"></span><span class="small">${en ? 'Sample, without an electronic signature' : 'Образец без электронной подписи'}</span></div>
+        <div class="doc-qr"><span>${en ? 'Verify this sample' : 'Проверка образца'}:<br><b style="font-size:14px;letter-spacing:.08em">${esc(d.verifyCode)}</b><br><a class="link" href="#/verify/${esc(d.verifyCode)}">${esc(location.origin)}/#/verify/${esc(d.verifyCode)}</a></span></div></div>
       <div class="doc-stamp">МГИМО Мания<br>демо<br>образец</div>
     </article></div>`;
 }
@@ -187,7 +173,7 @@ export default {
       let t;
       try {
         await loadTypes();
-        if (!me) me = (await get('/api/me')).profile;
+        me = (await get('/api/me')).profile;
         t = types.find((x) => x.id === b);
       } catch (e) { fail(e); return null; }
       if (!t || !t.available) { box().innerHTML = errorBox({ status: 404 }, false); return null; }
@@ -199,6 +185,8 @@ export default {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = form.querySelector('[data-submit]');
+        if (btn.disabled) return;
+        form.querySelector('[data-form-error]').innerHTML = '';
         form.querySelectorAll('.field.invalid').forEach((x) => { x.classList.remove('invalid'); const er = x.querySelector('.field-error'); if (er) er.remove(); });
         const fields = {};
         t.fields.forEach((f) => { fields[f.id] = form.elements[f.id].value; });
@@ -247,11 +235,11 @@ export default {
         try {
           const { request: r } = await get(`/api/requests/${encodeURIComponent(a)}`);
           root.innerHTML = head(esc(r.title), '', ['#/requests', 'Мои заявки']) + `<div data-body>${detailView(r)}</div>`;
-          if (['issued', 'approved', 'rejected', 'cancelled'].includes(r.status) || (r.status === 'ready' && r.delivery !== 'paper')) { clearInterval(timer); timer = null; }
-        } catch (e) { clearInterval(timer); timer = null; fail(e); }
+          if (['issued', 'approved', 'rejected', 'cancelled'].includes(r.status) || (r.status === 'ready' && r.delivery !== 'paper')) { clearInterval(timer); timer = null; return false; }
+          return true;
+        } catch (e) { clearInterval(timer); timer = null; fail(e); return false; }
       };
-      await load();
-      timer = setInterval(load, 8000);
+      if (await load()) timer = setInterval(load, 8000);
       offNotif = on('notif', (n) => { if (n.kind === 'request') load(); });
       el.addEventListener('click', async (e) => {
         if (!e.target.closest('[data-cancel]')) return;

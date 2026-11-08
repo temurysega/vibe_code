@@ -68,6 +68,8 @@ export default {
     return `<div class="container"><div class="page-head"><div><h1 class="h1">Профиль</h1><p class="lead">Учебные данные, контакты и безопасность аккаунта</p></div></div><div data-body>${skeleton(3, 160)}</div></div>`;
   },
   async mount(el) {
+    // После перехода или смены аккаунта чувствительные поля снова закрыты.
+    Object.keys(shown).forEach((key) => delete shown[key]);
     const box = el.querySelector('[data-body]');
     const load = async () => {
       try {
@@ -95,6 +97,9 @@ export default {
       const f = e.target.closest('[data-pw]');
       if (!f) return;
       e.preventDefault();
+      const submit = f.querySelector('[type="submit"]');
+      if (submit.disabled) return;
+      submit.disabled = true;
       f.querySelectorAll('.field-error').forEach((x) => x.remove());
       f.querySelectorAll('.invalid').forEach((x) => x.classList.remove('invalid'));
       try {
@@ -107,7 +112,7 @@ export default {
         const fe = er.data && er.data.fields;
         if (fe) Object.entries(fe).forEach(([k, msg]) => { const x = f.querySelector(`[data-field="${k}"]`); if (x) { x.classList.add('invalid'); x.insertAdjacentHTML('beforeend', `<span class="field-error">${esc(msg)}</span>`); } });
         else toast(esc(er.message), { icon: 'alert' });
-      }
+      } finally { submit.disabled = false; }
     });
     return null;
   },

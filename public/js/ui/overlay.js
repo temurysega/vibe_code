@@ -3,9 +3,20 @@ import { esc } from '../lib/format.js';
 import { icon } from './icons.js';
 
 let stack = [];
+const focusables = (root) => [...root.querySelectorAll('button, a[href], input, select, textarea, [tabindex]')]
+  .filter((el) => !el.disabled && el.tabIndex >= 0 && el.getClientRects().length && !el.closest('[inert]'));
+function syncModalAccess() {
+  const top = stack[stack.length - 1];
+  for (const id of ['concept', 'header', 'main', 'foot', 'tabbar', 'ask']) {
+    const el = document.getElementById(id);
+    if (el) el.inert = !!top;
+  }
+  stack.forEach((entry) => { entry.ov.inert = entry !== top; });
+}
 
 export const modal = {
   open(o) {
+    closeMenu();
     const root = document.getElementById('modal-root');
     const ov = document.createElement('div');
     ov.className = 'modal-overlay';
@@ -17,6 +28,7 @@ export const modal = {
     const content = ov.querySelector('.modal-content');
     const entry = { ov, box, content, onClose: o.onClose, back: document.activeElement };
     stack.push(entry);
+    syncModalAccess();
     const render = (html) => { content.innerHTML = html; };
     render(typeof o.html === 'function' ? o.html() : o.html || '');
     ov.addEventListener('mousedown', (e) => { if (e.target === ov && !o.sticky) modal.close(entry); });
@@ -24,6 +36,7 @@ export const modal = {
     document.body.style.overflow = 'hidden';
     if (o.onMount) o.onMount(content, entry, render);
     setTimeout(() => {
+      if (stack[stack.length - 1] !== entry) return;
       const f = box.querySelector('[autofocus]') || box.querySelector('.modal-x');
       if (f) f.focus();
     }, 60);
@@ -34,10 +47,12 @@ export const modal = {
     if (!entry || !stack.includes(entry)) return;
     stack = stack.filter((m) => m !== entry);
     entry.ov.classList.add('closing');
+    entry.ov.inert = true;
+    syncModalAccess();
     setTimeout(() => entry.ov.remove(), 160);
     if (!stack.length) document.body.style.overflow = '';
     if (entry.onClose) entry.onClose();
-    if (entry.back && entry.back.focus) try { entry.back.focus({ preventScroll: true }); } catch (e) { /* ничего */ }
+    if (entry.back && entry.back.isConnected && !entry.back.closest('[inert]')) try { entry.back.focus({ preventScroll: true }); } catch (e) { /* ничего */ }
   },
   closeAll() { while (stack.length) modal.close(); },
   get isOpen() { return stack.length > 0; },
@@ -58,6 +73,14 @@ export function confirm({ title, text, yes = 'Да', no = 'Отмена', danger
 }
 
 document.addEventListener('keydown', (e) => {
+  if (e.key === 'Tab' && stack.length) {
+    const box = stack[stack.length - 1].box;
+    const all = focusables(box);
+    const first = all[0], last = all[all.length - 1];
+    if (e.shiftKey && (document.activeElement === first || !box.contains(document.activeElement))) { e.preventDefault(); last?.focus(); }
+    else if (!e.shiftKey && (document.activeElement === last || !box.contains(document.activeElement))) { e.preventDefault(); first?.focus(); }
+    return;
+  }
   if (e.key !== 'Escape') return;
   if (document.querySelector('.menu')) { closeMenu(); return; }
   if (stack.length) modal.close();
@@ -65,11 +88,15 @@ document.addEventListener('keydown', (e) => {
 
 // ---------- выпадающее меню ----------
 let away = null;
+let menuAnchor = null;
 export function openMenu(anchor, html, onMount, opt = {}) {
   closeMenu();
+  menuAnchor = anchor;
+  anchor.setAttribute('aria-expanded', 'true');
   const m = document.createElement('div');
   m.className = 'menu';
-  m.setAttribute('role', 'menu');
+  m.setAttribute('role', 'dialog');
+  m.setAttribute('aria-label', anchor.getAttribute('aria-label') || 'Быстрые действия');
   m.innerHTML = html;
   document.body.appendChild(m);
   if (opt.width) m.style.width = opt.width;
@@ -77,18 +104,25 @@ export function openMenu(anchor, html, onMount, opt = {}) {
   const w = m.offsetWidth;
   if (opt.up) m.style.bottom = window.innerHeight - r.top + 8 + 'px';
   else m.style.top = r.bottom + 8 + 'px';
+  m.style.maxHeight = Math.max(100, (opt.up ? r.top : window.innerHeight - r.bottom) - 20) + 'px';
   m.style.left = Math.max(12, Math.min(window.innerWidth - w - 12, r.right - w)) + 'px';
   setTimeout(() => {
+    if (!m.isConnected) return;
     away = (e) => { if (!m.contains(e.target)) closeMenu(); };
     document.addEventListener('click', away);
+    focusables(m)[0]?.focus();
   }, 0);
   if (onMount) onMount(m);
   return m;
 }
 export function closeMenu() {
+  const focused = document.activeElement?.closest('.menu');
   document.querySelectorAll('.menu').forEach((m) => m.remove());
   if (away) document.removeEventListener('click', away);
   away = null;
+  menuAnchor?.setAttribute('aria-expanded', 'false');
+  if (focused && menuAnchor?.isConnected) menuAnchor.focus({ preventScroll: true });
+  menuAnchor = null;
 }
 
 // ---------- тосты ----------

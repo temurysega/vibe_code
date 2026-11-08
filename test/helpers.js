@@ -2,17 +2,26 @@
 import { createServer } from 'node:http';
 
 process.env.DB_FILE = ':memory:';
+process.env.OPENROUTER_API_KEY = '';
+process.env.ANTHROPIC_API_KEY = '';
 
-export async function startApp() {
+export async function startApp({ file = ':memory:', seedData = true } = {}) {
+  const { config } = await import('../server/config.js');
+  // Даже если config импортировали раньше helper, тесты не расходуют реальные ключи.
+  config.openrouterKey = '';
+  config.anthropicKey = '';
   const { Store } = await import('../server/db.js');
   const { seed } = await import('../server/seed/seed.js');
   const { createApp } = await import('../server/app.js');
-  const store = new Store(':memory:');
-  await seed(store);
+  const store = new Store(file);
+  if (seedData) await seed(store);
   const server = createServer(createApp(store));
   await new Promise((r) => server.listen(0, '127.0.0.1', r));
   const base = `http://127.0.0.1:${server.address().port}`;
-  return { store, base, close: () => new Promise((r) => server.close(r)) };
+  return { store, base, close: () => new Promise((resolve, reject) => server.close((error) => {
+    store.close();
+    if (error) reject(error); else resolve();
+  })) };
 }
 
 // Клиент с собственной cookie-сессией и CSRF-токеном

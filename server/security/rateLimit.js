@@ -5,6 +5,7 @@ export class RateLimiter {
     this.windowMs = windowMs;
     this.max = max;
     this.hits = new Map();
+    this.pending = new Map();
   }
 
   recent(key, now) {
@@ -16,8 +17,22 @@ export class RateLimiter {
   check(key) {
     const now = Date.now();
     const list = this.recent(key, now);
-    if (list.length < this.max) return { ok: true, left: this.max - list.length };
-    return { ok: false, retryAfter: Math.ceil((this.windowMs - (now - list[0])) / 1000) };
+    const used = list.length + (this.pending.get(key) || 0);
+    if (used < this.max) return { ok: true, left: this.max - used };
+    return { ok: false, retryAfter: list.length ? Math.max(1, Math.ceil((this.windowMs - (now - list[0])) / 1000)) : 1 };
+  }
+
+  // Резервируем место до асинхронной проверки пароля: параллельные запросы
+  // не должны обходить лимит, пока предыдущие ещё считают scrypt.
+  reserve(key) {
+    this.pending.set(key, (this.pending.get(key) || 0) + 1);
+    let released = false;
+    return () => {
+      if (released) return;
+      released = true;
+      const left = (this.pending.get(key) || 1) - 1;
+      if (left) this.pending.set(key, left); else this.pending.delete(key);
+    };
   }
 
   hit(key) {

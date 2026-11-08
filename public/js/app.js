@@ -101,7 +101,9 @@ let cleanup = null;
 let token = 0;
 
 function parse() {
-  const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean).map((x) => decodeURIComponent(x));
+  const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean).map((x) => {
+    try { return decodeURIComponent(x); } catch { return x; }
+  });
   return { name: parts[0] || '', params: parts.slice(1) };
 }
 
@@ -123,10 +125,13 @@ async function go() {
   document.body.classList.toggle('is-dean', !!(session.user && session.user.role === 'dean'));
   let view;
   try {
+    if (isStudent() && !session.play) await loadPlay();
     view = (await VIEWS[name]()).default;
   } catch (e) {
     console.error(e);
-    $main.innerHTML = '<div class="container view"><div class="card error-box"><div class="h4">Раздел не загрузился</div><p class="muted mt-8">Проверьте интернет и обновите страницу</p></div></div>';
+    if (my !== token) return;
+    paintChrome(name);
+    $main.innerHTML = '<div class="container view"><div class="card error-box" role="alert"><div class="h4">Раздел не загрузился</div><p class="muted mt-8">Проверьте интернет и попробуйте ещё раз</p><button class="btn btn-primary mt-16" data-retry>Повторить</button></div></div>';
     return;
   }
   if (my !== token) return;
@@ -137,10 +142,17 @@ async function go() {
   $main.replaceChildren(el);
   paintChrome(name);
   window.scrollTo(0, 0);
+  $main.focus({ preventScroll: true });
   document.title = `${view.title} · ${APP_NAME}`;
-  const c = view.mount ? await view.mount(el, params, app) : null;
-  if (my !== token) { if (typeof c === 'function') c(); return; }
-  cleanup = typeof c === 'function' ? c : null;
+  try {
+    const c = view.mount ? await view.mount(el, params, app) : null;
+    if (my !== token) { if (typeof c === 'function') c(); return; }
+    cleanup = typeof c === 'function' ? c : null;
+  } catch (e) {
+    if (my !== token) return;
+    console.error(e);
+    el.innerHTML = '<div class="container"><div class="card error-box" role="alert"><div class="h4">Не удалось открыть раздел</div><p class="muted mt-8">Попробуйте загрузить его снова</p><button class="btn btn-primary mt-16" data-retry>Повторить</button></div></div>';
+  }
 }
 
 // ---------- живые уведомления ----------
@@ -191,7 +203,9 @@ const app = {
 
 async function signOut() {
   closeMenu();
-  try { await post('/api/auth/logout'); } catch (e) { /* сессия уже закрыта */ }
+  try { await post('/api/auth/logout'); } catch (e) {
+    if (e.status !== 401) { toast('Не удалось завершить сеанс. Проверьте связь и нажмите «Выйти» ещё раз', { icon: 'alert' }); return; }
+  }
   setCsrf(null);
   reset();
   stopPolling();
@@ -222,10 +236,19 @@ on('unread', () => { if (current && session.user) paintChrome(current.name); });
 
 // ---------- общие клики ----------
 document.addEventListener('click', (e) => {
+  if (e.target.closest('.skip')) { e.preventDefault(); $main.focus(); return; }
   if (e.target.closest('[data-ask]')) { e.preventDefault(); app.ask(); return; }
   if (e.target.closest('[data-about]')) { import('./views/about.js').then((m) => m.openAbout()); return; }
   if (e.target.closest('[data-tour]')) { import('./views/about.js').then((m) => m.startTour()); }
 });
+
+// Один обработчик повторной загрузки работает и при сбое до mount раздела.
+$main.addEventListener('click', (e) => {
+  if (!e.target.closest('[data-retry]')) return;
+  e.preventDefault();
+  e.stopPropagation();
+  go();
+}, true);
 
 $head.addEventListener('click', async (e) => {
   const bell = e.target.closest('[data-bell]');
@@ -237,7 +260,7 @@ $head.addEventListener('click', async (e) => {
       setUnread(r.unread);
       const KIC = { news: 'megaphone', schedule: 'calendar', deadline: 'clock', request: 'doc', grade: 'chart', system: 'spark' };
       m.innerHTML = `<div style="padding:8px 12px 4px" class="row space"><b style="font-weight:500">Уведомления</b>${r.unread ? '<button class="link small" data-readall>Прочитать все</button>' : '<span class="small muted">всё прочитано</span>'}</div>
-        ${r.list.slice(0, 6).map((n) => `<div class="notif ${n.read ? '' : 'unread'}" data-go="${esc(n.link || '#/notifications')}" data-id="${n.id}"><span class="notif-ic">${icon(KIC[n.kind] || 'bell', 18)}</span><div class="grow small"><div><b>${esc(n.title)}</b></div><div class="muted">${esc(n.kindLabel)} · ${esc(when(n.at))}</div></div></div>`).join('')}
+        ${r.list.slice(0, 6).map((n) => `<button class="notif ${n.read ? '' : 'unread'}" style="width:100%;border:0;background:transparent;text-align:left;cursor:pointer" data-go="${esc(n.link || '#/notifications')}" data-id="${n.id}"><span class="notif-ic">${icon(KIC[n.kind] || 'bell', 18)}</span><span class="grow small"><b style="display:block">${esc(n.title)}</b><span class="muted">${esc(n.kindLabel)} · ${esc(when(n.at))}</span></span></button>`).join('')}
         <div class="menu-sep"></div><button class="menu-item" data-go="#/notifications">${icon('bell', 18)} Все уведомления</button>`;
       m.addEventListener('click', async (ev) => {
         if (ev.target.closest('[data-readall]')) {

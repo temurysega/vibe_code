@@ -26,8 +26,11 @@ export const config = {
   sessionTtlHours: num(env.SESSION_TTL_HOURS, 12),
   sessionIdleHours: num(env.SESSION_IDLE_HOURS, 2),
   trustProxy: env.TRUST_PROXY === '1',
+  openrouterKey: env.OPENROUTER_API_KEY || '',
+  openrouterModel: env.OPENROUTER_MODEL || 'openrouter/free',
+  aiTimeoutMs: Math.min(30_000, Math.max(1000, num(env.AI_TIMEOUT_MS, 15_000))),
   anthropicKey: env.ANTHROPIC_API_KEY || '',
   anthropicModel: env.ANTHROPIC_MODEL || 'claude-opus-5-5',
-  demoReseedHours: num(env.DEMO_RESEED_HOURS, 20),
+  demoReseedHours: num(env.DEMO_RESEED_HOURS, 0),
   timeZone: 'Europe/Moscow',
 };

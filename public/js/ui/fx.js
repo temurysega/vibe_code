@@ -1,7 +1,7 @@
 // Маленькие радости: конфетти, монеты к балансу, счётчик и отклик на каждое нажатие.
 import { session } from '../lib/bus.js';
 
-const quiet = () => !!(session.play && session.play.prefs && (session.play.prefs.quiet || session.play.prefs.noConfetti));
+const quiet = () => matchMedia('(prefers-reduced-motion: reduce)').matches || !!(session.play && session.play.prefs && (session.play.prefs.quiet || session.play.prefs.noConfetti));
 
 export function confetti(opt = {}) {
   if (quiet() || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -35,6 +35,7 @@ export function confetti(opt = {}) {
 }
 
 export function countUp(el, from, to, ms = 600) {
+  if (quiet()) { el.textContent = to.toLocaleString('ru-RU'); return; }
   const t0 = performance.now();
   (function step(t) {
     const k = Math.min(1, (t - t0) / ms);

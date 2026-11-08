@@ -54,6 +54,7 @@ export default {
     return `<div class="container"><div class="page-head"><div><h1 class="h1">Уведомления</h1><p class="lead">Новости деканата, изменения расписания, дедлайны и статусы заявок</p></div></div><div data-body>${skeleton(4, 90)}</div></div>`;
   },
   async mount(el) {
+    filter = 'all';
     const box = el.querySelector('[data-body]');
     const load = async () => {
       try {
@@ -69,7 +70,7 @@ export default {
       const f = e.target.closest('[data-f]');
       if (f) { filter = f.dataset.f; box.innerHTML = body(); return; }
       if (e.target.closest('[data-readall]')) {
-        const r = await post('/api/notifications/read', { all: true }).catch(() => null);
+        const r = await post('/api/notifications/read', { all: true }).catch((er) => { toast(esc(er.message), { icon: 'alert' }); return null; });
         if (r) { toast('Все уведомления прочитаны'); load(); }
         return;
       }
@@ -78,7 +79,8 @@ export default {
         const id = Number(n.dataset.n);
         const item = list.find((x) => x.id === id);
         if (item && !item.read) {
-          post('/api/notifications/read', { ids: [id] }).then((r) => setUnread(r.unread)).catch(() => {});
+          try { const r = await post('/api/notifications/read', { ids: [id] }); setUnread(r.unread); }
+          catch (er) { toast(esc(er.message), { icon: 'alert' }); return; }
           item.read = true; unread = Math.max(0, unread - 1);
         }
         if (n.dataset.link && n.dataset.link !== '#/notifications') location.hash = n.dataset.link;

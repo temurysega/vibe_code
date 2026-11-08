@@ -355,7 +355,7 @@ export class Campus {
 
   blocked(e) {
     const t = e.target;
-    return (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) || document.querySelector('.modal-overlay, .drawer');
+    return (t && t.closest('button, a, input, textarea, select, [contenteditable="true"]')) || document.querySelector('.modal-overlay, .drawer, .menu');
   }
 
   toSvg(e) {

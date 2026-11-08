@@ -47,4 +47,9 @@ export function int(v, min, max) {
 
 export const oneOf = (v, list) => (list.includes(v) ? v : null);
 
-export const isDate = (v) => typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v + 'T00:00:00Z'));
+export function isDate(v) {
+  if (typeof v !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(v)) return false;
+  const time = Date.parse(v + 'T00:00:00Z');
+  // Date.parse нормализует 31 февраля в март: форма должна отклонить такую дату.
+  return Number.isFinite(time) && new Date(time).toISOString().slice(0, 10) === v;
+}

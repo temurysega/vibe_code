@@ -1,5 +1,5 @@
 // Запросы к API: cookie сессии отправляет браузер сам, CSRF-токен добавляется к изменяющим запросам.
-import { emit } from './bus.js';
+import { emit, session } from './bus.js';
 
 let csrf = null;
 export const setCsrf = (t) => { csrf = t || null; };
@@ -13,6 +13,7 @@ export class ApiError extends Error {
 }
 
 export async function api(method, path, body) {
+  const requestedFor = session.user;
   const opts = { method, credentials: 'same-origin', headers: { Accept: 'application/json' } };
   if (body !== undefined) {
     opts.headers['Content-Type'] = 'application/json';
@@ -26,6 +27,8 @@ export async function api(method, path, body) {
     throw new ApiError(0, { error: 'Нет связи с сервером. Проверьте интернет и попробуйте ещё раз' });
   }
   const data = await res.json().catch(() => ({}));
+  // Ответ старого аккаунта не должен попасть в новый после быстрого выхода/входа.
+  if (requestedFor && session.user !== requestedFor) throw new ApiError(409, { error: 'Сеанс изменился. Откройте раздел заново' });
   if (res.status === 401 && !path.startsWith('/api/auth/')) emit('unauthorized');
   if (!res.ok) throw new ApiError(res.status, data);
   return data;

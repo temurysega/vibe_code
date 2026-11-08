@@ -110,7 +110,7 @@ export class Runner {
   move(d) { if (this.state === 'run') this.laneI = Math.max(-1, Math.min(1, this.laneI + d)); }
   jump() { if (this.state === 'run' && this.y <= 0.001) { this.vy = 6.4; this.slideT = 0; } }
   slide() { if (this.state === 'run') { this.slideT = 0.62; if (this.y > 0) this.vy = Math.min(this.vy, -8); } }
-  typing(e) { const t = e.target; return (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) || document.querySelector('.modal-overlay, .drawer'); }
+  typing(e) { const t = e.target; return (t && t.closest('button, a, input, textarea, select, [contenteditable="true"]')) || document.querySelector('.modal-overlay, .drawer, .menu'); }
   onKey(e) {
     if (this.typing(e)) return;
     const k = e.code;

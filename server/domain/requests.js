@@ -127,7 +127,7 @@ function planFor(type, delivery) {
   if (type.group === 'shop') return [{ at: s(25), status: 'ready', comment: 'Комплект собран — заберите в Лавке МГИМО, 1 этаж' }];
   if (type.group === 'cert') {
     return delivery === 'electronic'
-      ? [{ at: s(20), status: 'in_work', comment: 'Специалист деканата взял заявку в работу' }, { at: s(70), status: 'ready', comment: 'Справка подписана электронной подписью — можно скачать' }]
+      ? [{ at: s(20), status: 'in_work', comment: 'Специалист деканата взял заявку в работу' }, { at: s(70), status: 'ready', comment: 'Демонстрационная справка готова — можно скачать и проверить по коду' }]
       : [{ at: s(30), status: 'in_work', comment: 'Специалист деканата взял заявку в работу' }, { at: s(150), status: 'ready', comment: 'Справка готова — заберите оригинал в деканате' }];
   }
   if (type.manual) return [{ at: s(40), status: 'in_work', comment: 'Заявка передана в отдел академической мобильности. Решение комиссии — до 1 декабря' }];
@@ -165,7 +165,7 @@ export function insertRequest(store, student, faculty, type, payload, delivery, 
       JSON.stringify(plan), type.group === 'cert' ? randomBytes(4).toString('hex').toUpperCase() : null,
     );
     store.run('INSERT INTO request_events (request_id, status, comment, actor, created_at) VALUES (?, ?, ?, ?, ?)', id, 'submitted',
-      delivery === 'electronic' ? 'Электронная справка придёт сюда — с QR-кодом для проверки' : delivery === 'paper' ? `Оригинал можно будет забрать: ${PICKUP(faculty)}` : 'Заявление отправлено в деканат', 'Вы', now);
+      delivery === 'electronic' ? 'Электронная справка придёт сюда — с кодом для проверки' : delivery === 'paper' ? `Оригинал можно будет забрать: ${PICKUP(faculty)}` : 'Заявление отправлено в деканат', 'Вы', now);
     return id;
   });
 }

@@ -8,6 +8,9 @@ import { icon } from '../ui/icons.js';
 const SUGGEST = ['Где у меня завтра пары?', 'Что с моими справками?', 'Сколько баллов до «отлично»?', 'Какие дедлайны на неделе?', 'Как получить справку для визы?'];
 let history = [];
 let drawer = null;
+let generation = 0;
+let busy = false;
+let closeDrawer = null;
 
 function msg(m) {
   return `<div class="msg ${m.role === 'user' ? 'me' : 'bot'}">${esc(m.text)}${m.link ? `<br><a class="btn btn-sm btn-primary" href="${esc(m.link.href)}" data-chat-link>${esc(m.link.label)} ${icon('arrow', 14)}</a>` : ''}${m.source ? `<div class="msg-meta">${icon(m.source === 'ai' ? 'sparkles' : 'info', 12)} ${m.source === 'ai' ? 'ответ ИИ по вашим данным' : 'ответ по правилам кабинета'}</div>` : ''}</div>`;
@@ -29,13 +32,25 @@ export function openAssistant() {
   document.body.appendChild(drawer);
   const chat = drawer.querySelector('[data-chat]');
   const input = drawer.querySelector('input');
+  const owner = drawer;
+  const setBusy = () => {
+    if (!drawer) return;
+    drawer.querySelector('input').disabled = busy;
+    drawer.querySelector('[data-f] button').disabled = busy;
+    drawer.querySelectorAll('[data-s]').forEach((b) => { b.disabled = busy; });
+    drawer.querySelector('[data-chat]').setAttribute('aria-busy', String(busy));
+  };
+  setBusy();
   const scroll = () => { chat.scrollTop = chat.scrollHeight; };
   scroll();
   setTimeout(() => input.focus(), 50);
 
   async function ask(q) {
     q = q.trim();
-    if (!q) return;
+    if (!q || busy) return;
+    busy = true;
+    const requestGeneration = generation;
+    setBusy();
     history.push({ role: 'user', text: q });
     // После первого вопроса подсказки уступают место переписке
     const sug = drawer.querySelector('.chat-suggest');
@@ -45,16 +60,37 @@ export function openAssistant() {
     input.value = '';
     try {
       const r = await post('/api/assistant', { message: q, history: history.slice(-7, -1).map((h) => ({ role: h.role, text: h.text })) });
+      if (requestGeneration !== generation) return;
       const m = { role: 'assistant', text: r.text, link: r.link, source: r.source };
       history.push(m);
-      chat.querySelector('[data-typing]').outerHTML = msg(m);
     } catch (e) {
-      chat.querySelector('[data-typing]').outerHTML = msg({ role: 'assistant', text: e.message });
+      if (requestGeneration !== generation) return;
+      history.push({ role: 'assistant', text: e.message });
+    } finally {
+      if (requestGeneration === generation) {
+        busy = false;
+        if (drawer) {
+          const currentChat = drawer.querySelector('[data-chat]');
+          currentChat.innerHTML = history.map(msg).join('');
+          currentChat.scrollTop = currentChat.scrollHeight;
+          setBusy();
+          drawer.querySelector('input').focus();
+        }
+      }
     }
     scroll();
   }
 
-  const close = () => { if (drawer) { drawer.remove(); drawer = null; document.removeEventListener('keydown', onKey); } };
+  const previousFocus = document.activeElement;
+  const close = () => {
+    if (drawer !== owner) return;
+    owner.remove(); drawer = null; closeDrawer = null;
+    document.removeEventListener('keydown', onKey);
+    window.removeEventListener('hashchange', onRoute);
+    if (previousFocus?.isConnected) previousFocus.focus();
+  };
+  closeDrawer = close;
+  const onRoute = () => { if (window.innerWidth < 720) close(); };
   const onKey = (e) => { if (e.key === 'Escape' && !document.querySelector('.modal-overlay')) close(); };
   document.addEventListener('keydown', onKey);
   drawer.addEventListener('submit', (e) => { e.preventDefault(); ask(input.value); });
@@ -64,7 +100,7 @@ export function openAssistant() {
     if (s) { ask(s.textContent); return; }
     if (e.target.closest('[data-chat-link]') && window.innerWidth < 720) close();
   });
-  window.addEventListener('hashchange', function once() { if (window.innerWidth < 720) close(); window.removeEventListener('hashchange', once); });
+  window.addEventListener('hashchange', onRoute);
 }
 
-export function resetAssistant() { history = []; if (drawer) { drawer.remove(); drawer = null; } }
+export function resetAssistant() { generation++; history = []; busy = false; if (closeDrawer) closeDrawer(); }

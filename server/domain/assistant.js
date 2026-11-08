@@ -1,5 +1,5 @@
 // «Спросить деканат»: помощник отвечает только по данным самого студента.
-// С ключом ANTHROPIC_API_KEY ответ пишет Claude, без ключа — встроенные правила на тех же данных.
+// OpenRouter (приоритет) или Anthropic; без ключа — правила на тех же данных.
 // Ключ живёт только в окружении сервера: в браузер и в репозиторий он не попадает.
 import { config } from '../config.js';
 import { buildWeek, upcoming } from './schedule.js';
@@ -34,7 +34,7 @@ const SYSTEM = `Ты — помощник деканата в концепте �
 Если уместно, в самом конце ответа добавь одну ссылку на раздел кабинета в виде [[#/путь]] — только из списка: ${Object.keys(LINKS).join(', ')}.
 
 Как устроен кабинет:
-- Справки и заявления заказываются в разделе «Заявки». Электронная справка об обучении готова в течение дня и приходит с QR-кодом проверки подлинности; бумажную забирают в деканате.
+- Справки и заявления заказываются в разделе «Заявки». Электронная справка об обучении готова в течение дня и приходит с кодом проверки демо-документа; бумажную забирают в деканате.
 - Справка для посольства оформляется на английском; для программы обмена нужна выписка оценок.
 - Пропуск по уважительной причине оформляется заявлением, деканат предупреждает преподавателей.
 - Шкала: 90–100 «отлично» (A), 82–89 «хорошо» (B), 75–81 «хорошо» (C), 67–74 и 60–66 «удовлетворительно» (D, E), меньше 60 — «неудовлетворительно». Зачёт — от 60 баллов.
@@ -54,8 +54,8 @@ export function snapshot(store, user, s) {
   const grades = gradesFor(store, s);
   const requests = store.all('SELECT * FROM requests WHERE student_id = ? ORDER BY created_at DESC LIMIT 8', s.id).map((r) => publicRequest(store, r, s.faculty));
   const deadlines = store.all(
-    'SELECT title, due_at FROM deadlines WHERE (group_code = ? OR student_id = ?) AND due_at > ? AND due_at < ? ORDER BY due_at',
-    s.group_code, s.id, Date.now(), Date.now() + 14 * DAY,
+    'SELECT title, due_at FROM deadlines WHERE (student_id = ? OR (student_id IS NULL AND group_code = ?)) AND due_at > ? AND due_at < ? ORDER BY due_at',
+    s.id, s.group_code, Date.now(), Date.now() + 14 * DAY,
   );
   return {
     now, student: s, upcoming: upcoming(store, s.group_code, now), days, changes: week.changes, grades, requests, deadlines,
@@ -106,7 +106,7 @@ export function ruleAnswer(snap, question) {
   const s = snap.student;
   const g = snap.grades;
   const has = (re) => re.test(q);
-  if (has(/пар[аыу]?\b|расписан|аудитор|завтра|сегодня|занят|кабинет\s*\d|где\s+(у\s+меня|будет)/)) {
+  if (has(/(?:^|[^а-яё])пар(?:а|ы|у|е|ой)?(?:$|[^а-яё])|расписан|аудитор|завтра|сегодня|занят|кабинет\s*\d|где\s+(у\s+меня|будет)/)) {
     const wantTomorrow = has(/завтра/);
     const day = wantTomorrow ? snap.days.find((d) => d.date === addDays(snap.now.date, 1)) : snap.days[0];
     if (day && (day.holiday || !day.items.length)) {
@@ -155,7 +155,7 @@ export function ruleAnswer(snap, question) {
   };
 }
 
-// ---------- ответ Claude ----------
+// ---------- ответ внешней модели ----------
 let client = null;
 let sdk = null;
 async function claude() {
@@ -163,25 +163,57 @@ async function claude() {
   if (!client) {
     // SDK подгружается только когда задан ключ: без него сервер работает без внешних пакетов
     sdk = (await import('@anthropic-ai/sdk')).default;
-    client = new sdk({ apiKey: config.anthropicKey, timeout: 30_000, maxRetries: 1 });
+    client = new sdk({ apiKey: config.anthropicKey, timeout: config.aiTimeoutMs, maxRetries: 0 });
   }
   return client;
 }
 
-export async function aiAnswer(snap, question, history) {
-  const c = await claude().catch((e) => { console.warn('SDK недоступен:', e.message); return null; });
+async function openrouterAnswer(snap, question, history) {
+  try {
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      redirect: 'error',
+      signal: AbortSignal.timeout(config.aiTimeoutMs),
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${config.openrouterKey}` },
+      body: JSON.stringify({
+        model: config.openrouterModel,
+        max_tokens: 1200,
+        messages: [
+          { role: 'system', content: SYSTEM },
+          { role: 'system', content: `<student_data>\n${contextText(snap)}\n</student_data>` },
+          ...history.map((h) => ({ role: h.role, content: h.text })),
+          { role: 'user', content: question },
+        ],
+      }),
+    });
+    if (!response.ok) {
+      // Не логируем тело ответа провайдера: оно может повторить ключ или вопрос.
+      console.warn(`OpenRouter: HTTP ${response.status}, отвечаем по правилам`);
+      await response.body?.cancel();
+      return null;
+    }
+    const data = await response.json();
+    const choice = data.choices?.[0];
+    const text = choice?.message?.content;
+    if (data.error || choice?.message?.refusal || choice?.finish_reason === 'content_filter' || typeof text !== 'string' || !text.trim()) return null;
+    return { ...extractLink(text.slice(0, 8000)), source: 'ai', provider: 'openrouter' };
+  } catch {
+    console.warn('OpenRouter: ответ недоступен, отвечаем по правилам');
+    return null;
+  }
+}
+
+export async function aiAnswer(snap, question, history = []) {
+  if (config.openrouterKey) return openrouterAnswer(snap, question, history);
+  const c = await claude().catch(() => { console.warn('SDK Anthropic недоступен'); return null; });
   if (!c) return null;
   const messages = history.map((h) => ({ role: h.role, content: h.text }));
   messages.push({ role: 'user', content: question });
   const model = config.anthropicModel;
-  const fallback = !/haiku/.test(model);
   try {
-    const response = await c.beta.messages.create({
+    const response = await c.messages.create({
       model,
-      max_tokens: 16000,
-      output_config: { effort: 'low' },
-      // Если модель откажет по политике безопасности, сервер Anthropic сам повторит запрос на рекомендованной модели
-      ...(fallback ? { betas: ['server-side-fallback-2026-07-01'], fallbacks: 'default' } : {}),
+      max_tokens: 1200,
       system: [
         { type: 'text', text: SYSTEM },
         { type: 'text', text: `<student_data>\n${contextText(snap)}\n</student_data>` },
@@ -191,13 +223,11 @@ export async function aiAnswer(snap, question, history) {
     if (response.stop_reason === 'refusal') return null;
     const text = response.content.filter((b) => b.type === 'text').map((b) => b.text).join('\n').trim();
     if (!text) return null;
-    return Object.assign(extractLink(text), { source: 'ai' });
+    return Object.assign(extractLink(text.slice(0, 8000)), { source: 'ai', provider: 'anthropic' });
   } catch (error) {
     if (error instanceof sdk.RateLimitError) console.warn('Claude: лимит запросов, отвечаем по правилам');
     else if (error instanceof sdk.AuthenticationError) console.warn('Claude: ключ не принят, проверьте ANTHROPIC_API_KEY');
-    else if (error instanceof sdk.APIConnectionError) console.warn('Claude: нет соединения:', error.message);
-    else if (error instanceof sdk.APIError) console.warn(`Claude: ошибка API ${error.status}:`, error.message);
-    else throw error;
+    else console.warn('Claude: ответ недоступен, отвечаем по правилам');
     return null;
   }
 }

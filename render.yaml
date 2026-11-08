@@ -1,13 +1,18 @@
 # Blueprint для Render: New → Blueprint → выбрать этот репозиторий.
-# Бесплатный тариф засыпает без посетителей; при пробуждении демо-данные создаются заново.
+# Требуется платный сервис с постоянным диском: бесплатная файловая система теряет SQLite.
+# Это только конфигурация. Развёртывание и оплата выполняются владельцем отдельно.
 services:
   - type: web
     name: mgimo-mania
     runtime: node
-    plan: free
+    plan: starter
     buildCommand: npm ci --omit=dev
     startCommand: node server/index.js
     healthCheckPath: /api/demo/accounts
+    disk:
+      name: mgimo-data
+      mountPath: /var/data
+      sizeGB: 1
     envVars:
       - key: NODE_VERSION
         value: "24"
@@ -16,9 +21,11 @@ services:
       - key: TRUST_PROXY
         value: "1"
       - key: DB_FILE
-        value: data/mgimo.db
+        value: /var/data/mgimo.db
+      - key: DEMO_RESEED_HOURS
+        value: "0"
       # Ключ ИИ-помощника задаётся в панели Render и в репозиторий не попадает
-      - key: ANTHROPIC_API_KEY
+      - key: OPENROUTER_API_KEY
         sync: false
-      - key: ANTHROPIC_MODEL
-        value: claude-opus-5-5
+      - key: OPENROUTER_MODEL
+        value: openrouter/free

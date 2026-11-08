@@ -116,6 +116,7 @@ select.input { appearance: none; background-image: url("data:image/svg+xml,%3Csv
 .seg::-webkit-scrollbar { display: none; }
 .seg button, .seg a { border: 0; background: transparent; height: 36px; padding: 0 16px; border-radius: var(--pill); cursor: pointer; font-size: 15px; white-space: nowrap; transition: background .15s; display: inline-flex; align-items: center; gap: 6px; }
 .seg .on { background: #fff; box-shadow: 0 1px 4px rgba(15, 45, 105, .12); font-weight: 500; }
+.seg input:focus-visible + span { outline: 2px solid var(--navy); outline-offset: -2px; }
 .card .seg { background: #fff; }
 .card .seg .on { background: var(--navy); color: #fff; box-shadow: none; }
 

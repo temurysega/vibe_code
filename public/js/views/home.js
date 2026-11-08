@@ -323,7 +323,7 @@ export default {
         } catch (er) { toast(esc(er.message), { icon: 'alert' }); }
       }
     });
-    el.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.matches('[data-petclick]')) e.target.click(); });
+    el.addEventListener('keydown', (e) => { if (['Enter', ' '].includes(e.key) && e.target.matches('[data-petclick]')) { e.preventDefault(); e.target.click(); } });
     return () => { clearInterval(tick); clearInterval(minute); offPlay(); offRefresh(); };
   },
 };

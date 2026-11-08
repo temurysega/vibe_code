@@ -8,3 +8,5 @@ data
 .git
 test
 docs
+artifacts
+__pycache__

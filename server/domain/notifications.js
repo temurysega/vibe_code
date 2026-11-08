@@ -30,8 +30,8 @@ export function remindDeadlines(store, student, faculty) {
   const now = Date.now();
   const list = store.all(
     `SELECT dl.*, d.name AS d_name FROM deadlines dl LEFT JOIN disciplines d ON d.id = dl.discipline_id
-     WHERE (dl.group_code = ? OR dl.student_id = ?) AND dl.due_at > ? AND dl.due_at < ?`,
-    student.group_code, student.id, now, now + 3 * DAY,
+     WHERE (dl.student_id = ? OR (dl.student_id IS NULL AND dl.group_code = ?)) AND dl.due_at > ? AND dl.due_at < ?`,
+    student.id, student.group_code, now, now + 3 * DAY,
   );
   list.forEach((dl) => {
     // Считаем календарные дни по Москве: «послезавтра» понятнее, чем «через 2,1 дня»
@@ -68,9 +68,22 @@ export function unreadCount(store, userId, student) {
 
 // Отметить прочитанными можно только уведомления, адресованные этому студенту
 export function markRead(store, userId, student, ids) {
-  const visible = new Set(listFor(store, userId, student, 500).map((n) => n.id));
-  const list = ids === 'all' ? [...visible] : (Array.isArray(ids) ? ids : []).map(Number).filter((id) => visible.has(id));
+  const list = ids === 'all' ? null : [...new Set((Array.isArray(ids) ? ids : []).map(Number).filter((id) => Number.isSafeInteger(id) && id > 0))];
+  if (list && !list.length) return 0;
   const now = Date.now();
-  store.tx(() => list.forEach((id) => store.run('INSERT OR IGNORE INTO notification_reads (user_id, notification_id, read_at) VALUES (?, ?, ?)', userId, id, now)));
-  return list.length;
+  const insert = (selection, values) => Number(store.run(
+    `INSERT OR IGNORE INTO notification_reads (user_id, notification_id, read_at)
+     SELECT ?, n.id, ? FROM notifications n WHERE ${AUDIENCE}${selection}`,
+    userId, now, student.faculty_id, student.group_code, String(student.id), ...values,
+  ).changes);
+  // «Прочитать все» охватывает всю историю, а не только последние 500 записей.
+  if (!list) return insert('', []);
+  return store.tx(() => {
+    let marked = 0;
+    for (let i = 0; i < list.length; i += 500) {
+      const batch = list.slice(i, i + 500);
+      marked += insert(` AND n.id IN (${batch.map(() => '?').join(',')})`, batch);
+    }
+    return marked;
+  });
 }

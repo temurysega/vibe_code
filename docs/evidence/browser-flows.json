@@ -1,0 +1,150 @@
+{
+  "base": "http://127.0.0.1:3100",
+  "checks": [
+    {
+      "check": "360: first student login",
+      "passed": true
+    },
+    {
+      "check": "360: required fields show errors and focus first field",
+      "passed": true
+    },
+    {
+      "check": "360: certificate request submitted from browser",
+      "passed": true
+    },
+    {
+      "check": "360: request persists after browser reload",
+      "passed": true
+    },
+    {
+      "check": "360: staff processes request through queue",
+      "passed": true
+    },
+    {
+      "check": "360: student sees ready status and download action",
+      "passed": true
+    },
+    {
+      "check": "360: ready notification opens its request",
+      "passed": true
+    },
+    {
+      "check": "360: download button opens print/PDF workflow",
+      "passed": true
+    },
+    {
+      "check": "360: printable demo document produces a PDF",
+      "passed": true
+    },
+    {
+      "check": "360: document verification code works",
+      "passed": true
+    },
+    {
+      "check": "360: reopened assistant preserves pending state",
+      "passed": true
+    },
+    {
+      "check": "360: pending assistant answer reaches reopened drawer",
+      "passed": true
+    },
+    {
+      "check": "360: second student login in same tab",
+      "passed": true
+    },
+    {
+      "check": "360: old assistant response remains pending across account switch",
+      "passed": true
+    },
+    {
+      "check": "360: assistant does not expose former student history or delayed response",
+      "passed": true
+    },
+    {
+      "check": "360: request form refreshes profile after account switch",
+      "passed": true
+    },
+    {
+      "check": "360: other student cannot fetch request or document",
+      "passed": true
+    },
+    {
+      "check": "360: direct foreign request link has a clear unavailable state",
+      "passed": true
+    },
+    {
+      "check": "1366: first student login",
+      "passed": true
+    },
+    {
+      "check": "1366: required fields show errors and focus first field",
+      "passed": true
+    },
+    {
+      "check": "1366: certificate request submitted from browser",
+      "passed": true
+    },
+    {
+      "check": "1366: request persists after browser reload",
+      "passed": true
+    },
+    {
+      "check": "1366: staff processes request through queue",
+      "passed": true
+    },
+    {
+      "check": "1366: student sees ready status and download action",
+      "passed": true
+    },
+    {
+      "check": "1366: ready notification opens its request",
+      "passed": true
+    },
+    {
+      "check": "1366: download button opens print/PDF workflow",
+      "passed": true
+    },
+    {
+      "check": "1366: printable demo document produces a PDF",
+      "passed": true
+    },
+    {
+      "check": "1366: document verification code works",
+      "passed": true
+    },
+    {
+      "check": "1366: reopened assistant preserves pending state",
+      "passed": true
+    },
+    {
+      "check": "1366: pending assistant answer reaches reopened drawer",
+      "passed": true
+    },
+    {
+      "check": "1366: second student login in same tab",
+      "passed": true
+    },
+    {
+      "check": "1366: old assistant response remains pending across account switch",
+      "passed": true
+    },
+    {
+      "check": "1366: assistant does not expose former student history or delayed response",
+      "passed": true
+    },
+    {
+      "check": "1366: request form refreshes profile after account switch",
+      "passed": true
+    },
+    {
+      "check": "1366: other student cannot fetch request or document",
+      "passed": true
+    },
+    {
+      "check": "1366: direct foreign request link has a clear unavailable state",
+      "passed": true
+    }
+  ],
+  "browser_errors": []
+}

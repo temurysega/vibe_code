@@ -1,0 +1,21 @@
+# Локальный Docker: http://localhost:3000. Для публичного стенда нужен HTTPS-прокси.
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      NODE_ENV: production
+      # Только для локального HTTP. За публичным HTTPS-прокси установить 1.
+      COOKIE_SECURE: ${COOKIE_SECURE:-0}
+      TRUST_PROXY: ${TRUST_PROXY:-0}
+      DB_FILE: /data/mgimo.db
+      DEMO_RESEED_HOURS: "0"
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENROUTER_MODEL: ${OPENROUTER_MODEL:-openrouter/free}
+    volumes:
+      - student-data:/data
+
+volumes:
+  student-data:

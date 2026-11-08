@@ -88,6 +88,9 @@
   .hide-s { display: none !important; }
 }
 @media (max-width: 520px) {
+  .prefill > .row { flex-wrap: wrap; }
+  .prefill .kv { grid-template-columns: 1fr; }
+  .prefill .kv dd { margin-bottom: 6px; }
   .header .container { height: 64px; gap: 8px; }
   .logo-word { font-size: 18px; }
   .logo-tag { display: none; }

@@ -25,7 +25,15 @@ export default function (router) {
     const keyA = `${ctx.ip}|${login}`;
     limited(ctx, [[perAccount, keyA], [perIp, ctx.ip]]);
     const user = ctx.store.get('SELECT * FROM users WHERE login = ?', login);
-    const ok = user ? await verifyPassword(password, user.password_hash) : await dummyVerify(password);
+    const releaseAccount = perAccount.reserve(keyA);
+    const releaseIp = perIp.reserve(ctx.ip);
+    let ok;
+    try {
+      ok = user ? await verifyPassword(password, user.password_hash) : await dummyVerify(password);
+    } finally {
+      releaseAccount();
+      releaseIp();
+    }
     if (!ok) {
       perAccount.hit(keyA);
       perIp.hit(ctx.ip);
@@ -94,7 +102,10 @@ export default function (router) {
     const key = `pw|${ctx.user.id}`;
     limited(ctx, [[perAccount, key]]);
     const row = ctx.store.get('SELECT password_hash FROM users WHERE id = ?', ctx.user.id);
-    if (!(await verifyPassword(current, row.password_hash))) { perAccount.hit(key); fail(400, 'Текущий пароль указан неверно', { fields: { current: 'Неверный пароль' } }); }
+    const release = perAccount.reserve(key);
+    let valid;
+    try { valid = await verifyPassword(current, row.password_hash); } finally { release(); }
+    if (!valid) { perAccount.hit(key); fail(400, 'Текущий пароль указан неверно', { fields: { current: 'Неверный пароль' } }); }
     const problems = passwordProblems(next, ctx.user.login);
     if (problems.length) fail(422, 'Пароль слишком простой', { fields: { next: 'Нужно: ' + problems.join(', ') } });
     if (await verifyPassword(next, row.password_hash)) fail(422, 'Новый пароль совпадает со старым', { fields: { next: 'Придумайте другой пароль' } });

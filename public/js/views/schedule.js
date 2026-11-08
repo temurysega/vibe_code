@@ -35,7 +35,7 @@ function lessonCard(it, now) {
 function dayCol(d, now) {
   const today = d.date === now.date;
   const n = d.items.filter((x) => x.status !== 'cancelled' && x.status !== 'moved').length;
-  return `<section class="day-col ${today ? 'today' : ''} ${picked === d.date ? 'picked' : ''}" data-day="${d.date}" aria-label="${esc(dayShort(d.date))}">
+  return `<section class="day-col ${today ? 'today' : ''} ${picked === d.date ? 'picked' : ''}" data-day="${d.date}" id="day-${d.date}" aria-label="${esc(dayShort(d.date))}">
     <div class="day-col-head"><b>${esc(weekdayShort(d.date).replace(/^./, (c) => c.toUpperCase()))}, ${dateNum(d.date)}</b><span>${today ? 'сегодня' : n ? `${n} ${plural(n, ['пара', 'пары', 'пар'])}` : ''}</span></div>
     ${d.holiday ? `<div class="holiday">${icon('star', 14)} ${esc(d.holiday)}<div class="small">выходной</div></div>` : d.items.length ? d.items.map((it) => lessonCard(it, now)).join('') : '<div class="empty">Пар нет</div>'}
   </section>`;
@@ -46,7 +46,7 @@ function body() {
   const w = week;
   const cur = isoWeekOf(now.date) === w.week;
   const range = `${dateNum(w.monday)}–${dayShort(addDays(w.monday, 5)).split(', ')[1]}`;
-  if (!picked || !w.days.some((d) => d.date === picked)) picked = (w.days.find((d) => d.date >= now.date && !d.holiday && d.items.length) || w.days.find((d) => d.date === now.date) || w.days[0]).date;
+  if (!picked || !w.days.some((d) => d.date === picked)) picked = (w.days.find((d) => d.date === now.date) || w.days.find((d) => d.date >= now.date && !d.holiday && d.items.length) || w.days[0]).date;
   return `
     <div class="week-bar">
       <div class="week-nav"><a class="btn btn-secondary btn-icon btn-sm" href="#/schedule/${isoWeekOf(w.prev)}" aria-label="Предыдущая неделя">${icon('left', 18)}</a>
@@ -56,7 +56,7 @@ function body() {
       <div class="week-tools"><button class="btn btn-secondary btn-sm" data-bells>${icon('clock', 16)} Звонки</button><a class="btn btn-secondary btn-sm" href="/api/schedule.ics" download>${icon('download', 16)} В свой календарь</a></div>
     </div>
     ${w.changes.length ? `<div class="changes-strip" aria-label="Изменения на неделе">${w.changes.map((it) => { const c = changeLine(it); return `<button class="change-pill ${c.cls}" data-lesson="${esc(it.key)}">${icon(c.icon, 18)}<span><b>${c.title}</b>${c.sub ? `<span class="small">${esc(c.sub)}</span>` : ''}</span></button>`; }).join('')}</div>` : ''}
-    <div class="days-pick" role="tablist">${w.days.map((d) => `<button class="day-btn ${picked === d.date ? 'on' : ''} ${d.date === now.date ? 'today' : ''}" data-pick="${d.date}" role="tab" aria-selected="${picked === d.date}"><span>${esc(weekdayShort(d.date))}</span><b>${dateNum(d.date)}</b>${d.items.some((x) => x.change) ? '<i></i>' : ''}</button>`).join('')}</div>
+    <div class="days-pick" role="group" aria-label="День недели">${w.days.map((d) => `<button class="day-btn ${picked === d.date ? 'on' : ''} ${d.date === now.date ? 'today' : ''}" data-pick="${d.date}" aria-controls="day-${d.date}" aria-pressed="${picked === d.date}" aria-label="${esc(dayShort(d.date))}${d.date === now.date ? ', сегодня' : ''}"><span>${esc(weekdayShort(d.date))}</span><b>${dateNum(d.date)}</b>${d.items.some((x) => x.change) ? '<i></i>' : ''}</button>`).join('')}</div>
     <div class="week">${w.days.map((d) => dayCol(d, now)).join('')}</div>`;
 }
 
@@ -119,7 +119,7 @@ export default {
       if (e.target.closest('[data-retry]')) { location.reload(); return; }
       if (e.target.closest('[data-bells]')) { bellsModal(); return; }
       const p = e.target.closest('[data-pick]');
-      if (p) { picked = p.dataset.pick; box.innerHTML = body(); return; }
+      if (p) { picked = p.dataset.pick; box.innerHTML = body(); box.querySelector(`[data-pick="${picked}"]`).focus({ preventScroll: true }); return; }
       const l = e.target.closest('[data-lesson]');
       if (l) { const it = find(l.dataset.lesson); if (it) lessonModal(it); }
     });

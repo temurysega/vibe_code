@@ -13,7 +13,7 @@ const store = new Store(config.dbFile);
 let lastActivity = Number(store.meta('last_activity') || 0);
 async function maybeReseed(force) {
   const seededAt = Number(store.meta('seeded_at') || 0);
-  const stale = Date.now() - seededAt > config.demoReseedHours * 36e5;
+  const stale = config.demoReseedHours > 0 && Date.now() - seededAt > config.demoReseedHours * 36e5;
   const idle = Date.now() - lastActivity > 30 * 60e3;
   if (force || !seededAt || (stale && idle)) {
     await seed(store);
@@ -36,7 +36,7 @@ server.headersTimeout = 20e3;
 server.requestTimeout = 30e3;
 server.listen(config.port, config.host, () => {
   console.log(`МГИМО Мания (демо) — http://localhost:${config.port}`);
-  if (!config.anthropicKey) console.log('ИИ-помощник работает по правилам: ANTHROPIC_API_KEY не задан');
+  if (!config.openrouterKey && !config.anthropicKey) console.log('ИИ-помощник работает по правилам: ключ провайдера не задан');
 });
 
 // Фоновые задачи: автоматические шаги заявок демо, чистка лимитов и пересоздание стенда

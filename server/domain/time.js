@@ -36,7 +36,9 @@ export function weekMonday(id) {
   if (!m) return null;
   const n = Number(m[2]);
   if (n < 1 || n > 53) return null;
-  return addDays(mondayOf(`${m[1]}-01-04`), (n - 1) * 7);
+  const monday = addDays(mondayOf(`${m[1]}-01-04`), (n - 1) * 7);
+  // Не в каждом году есть 53-я ISO-неделя.
+  return isoWeek(monday) === id ? monday : null;
 }
 
 // Звонки: пары МГИМО в концепте

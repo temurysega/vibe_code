@@ -48,7 +48,7 @@ export default {
         <div class="auth-mark">${logoMark()}${wordmark(false)}</div>
         <h2 class="h2 mt-24">Вход в кабинет</h2>
         <form class="auth-form" data-form novalidate>
-          <div data-error></div>
+          <div data-error role="alert"></div>
           <label class="field"><span class="field-label">Логин</span><input class="input" name="login" autocomplete="username" autocapitalize="none" spellcheck="false" required placeholder="Например, a.morozova"></label>
           <label class="field"><span class="field-label">Пароль</span><span class="pass-wrap"><input class="input" name="password" type="password" autocomplete="current-password" required><button class="pass-eye" type="button" data-eye aria-label="Показать пароль">${icon('eye', 20)}</button></span></label>
           <button class="btn btn-primary btn-lg btn-block" type="submit" data-submit>Войти</button>
@@ -64,6 +64,7 @@ export default {
     get('/api/demo/accounts').then((d) => { session.demo = d; el.querySelector('[data-demo]').innerHTML = accounts(d); }).catch(() => {});
 
     async function submit() {
+      if (btn.disabled) return;
       const login = form.login.value.trim();
       const password = form.password.value;
       errBox.innerHTML = '';
