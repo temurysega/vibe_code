@@ -1,0 +1,2969 @@
+{
+  "base": "http://127.0.0.1:49670",
+  "checks": [
+    {
+      "check": "360px notification filter: refreshed content keeps the same keyboard action",
+      "passed": true
+    },
+    {
+      "check": "360px notifications: exactly one filter is announced as selected",
+      "passed": true
+    },
+    {
+      "check": "360px notifications: Tab continues to the following filter",
+      "passed": true
+    },
+    {
+      "check": "360px notifications: text colors were measured on rendered backgrounds",
+      "passed": true
+    },
+    {
+      "check": "360px notifications: muted text and status labels have contrast at least 4.5:1",
+      "passed": true
+    },
+    {
+      "check": "360px notifications: removed read-all action returns focus to selected filter",
+      "passed": true
+    },
+    {
+      "check": "360px requests: automatic refresh callback ran",
+      "passed": true
+    },
+    {
+      "check": "360px request list refresh: refreshed content keeps the same keyboard action",
+      "passed": true
+    },
+    {
+      "check": "360px requests: text colors were measured on rendered backgrounds",
+      "passed": true
+    },
+    {
+      "check": "360px requests: muted text and status labels have contrast at least 4.5:1",
+      "passed": true
+    },
+    {
+      "check": "360px request detail: automatic refresh callback ran",
+      "passed": true
+    },
+    {
+      "check": "360px request detail refresh: refreshed content keeps the same keyboard action",
+      "passed": true
+    },
+    {
+      "check": "360px requests: preserved action remains operable with Enter",
+      "passed": true
+    },
+    {
+      "check": "360px schedule: minute refresh callback ran",
+      "passed": true
+    },
+    {
+      "check": "360px schedule minute refresh: refreshed content keeps the same keyboard action",
+      "passed": true
+    },
+    {
+      "check": "360px schedule: refresh does not jump the reading position",
+      "passed": true
+    },
+    {
+      "check": "360px schedule: lesson details return focus to refreshed lesson",
+      "passed": true
+    },
+    {
+      "check": "360px schedule: background refresh does not steal header focus",
+      "passed": true
+    },
+    {
+      "check": "360px header: unread update keeps the focused bell DOM node",
+      "passed": true
+    },
+    {
+      "check": "360px header: cleared unread count removes badge without replacing opener",
+      "passed": true
+    },
+    {
+      "check": "360px header: Escape restores menu opener after unread update",
+      "passed": true
+    },
+    {
+      "check": "360px schedule: text colors were measured on rendered backgrounds",
+      "passed": true
+    },
+    {
+      "check": "360px schedule: muted text and status labels have contrast at least 4.5:1",
+      "passed": true
+    },
+    {
+      "check": "360px grades: text colors were measured on rendered backgrounds",
+      "passed": true
+    },
+    {
+      "check": "360px grades: muted text and status labels have contrast at least 4.5:1",
+      "passed": true
+    },
+    {
+      "check": "360px profile: text colors were measured on rendered backgrounds",
+      "passed": true
+    },
+    {
+      "check": "360px profile: muted text and status labels have contrast at least 4.5:1",
+      "passed": true
+    },
+    {
+      "check": "360px: affected views produce no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "1366px notification filter: refreshed content keeps the same keyboard action",
+      "passed": true
+    },
+    {
+      "check": "1366px notifications: exactly one filter is announced as selected",
+      "passed": true
+    },
+    {
+      "check": "1366px notifications: Tab continues to the following filter",
+      "passed": true
+    },
+    {
+      "check": "1366px notifications: text colors were measured on rendered backgrounds",
+      "passed": true
+    },
+    {
+      "check": "1366px notifications: muted text and status labels have contrast at least 4.5:1",
+      "passed": true
+    },
+    {
+      "check": "1366px requests: automatic refresh callback ran",
+      "passed": true
+    },
+    {
+      "check": "1366px request list refresh: refreshed content keeps the same keyboard action",
+      "passed": true
+    },
+    {
+      "check": "1366px requests: text colors were measured on rendered backgrounds",
+      "passed": true
+    },
+    {
+      "check": "1366px requests: muted text and status labels have contrast at least 4.5:1",
+      "passed": true
+    },
+    {
+      "check": "1366px request detail: automatic refresh callback ran",
+      "passed": true
+    },
+    {
+      "check": "1366px request detail refresh: refreshed content keeps the same keyboard action",
+      "passed": true
+    },
+    {
+      "check": "1366px requests: preserved action remains operable with Enter",
+      "passed": true
+    },
+    {
+      "check": "1366px schedule: minute refresh callback ran",
+      "passed": true
+    },
+    {
+      "check": "1366px schedule minute refresh: refreshed content keeps the same keyboard action",
+      "passed": true
+    },
+    {
+      "check": "1366px schedule: refresh does not jump the reading position",
+      "passed": true
+    },
+    {
+      "check": "1366px schedule: lesson details return focus to refreshed lesson",
+      "passed": true
+    },
+    {
+      "check": "1366px schedule: background refresh does not steal header focus",
+      "passed": true
+    },
+    {
+      "check": "1366px header: unread update keeps the focused bell DOM node",
+      "passed": true
+    },
+    {
+      "check": "1366px header: cleared unread count removes badge without replacing opener",
+      "passed": true
+    },
+    {
+      "check": "1366px header: Escape restores menu opener after unread update",
+      "passed": true
+    },
+    {
+      "check": "1366px schedule: text colors were measured on rendered backgrounds",
+      "passed": true
+    },
+    {
+      "check": "1366px schedule: muted text and status labels have contrast at least 4.5:1",
+      "passed": true
+    },
+    {
+      "check": "1366px grades: text colors were measured on rendered backgrounds",
+      "passed": true
+    },
+    {
+      "check": "1366px grades: muted text and status labels have contrast at least 4.5:1",
+      "passed": true
+    },
+    {
+      "check": "1366px profile: text colors were measured on rendered backgrounds",
+      "passed": true
+    },
+    {
+      "check": "1366px profile: muted text and status labels have contrast at least 4.5:1",
+      "passed": true
+    },
+    {
+      "check": "1366px: affected views produce no horizontal page overflow",
+      "passed": true
+    }
+  ],
+  "browser_errors": [],
+  "focus": [
+    {
+      "width": 360,
+      "scenario": "notification filter",
+      "activeTag": "BUTTON",
+      "activeKey": "notification-filter-deadline",
+      "activeHref": null,
+      "oldNodeRemoved": true,
+      "expectedFocused": true
+    },
+    {
+      "width": 360,
+      "scenario": "request list refresh",
+      "activeTag": "A",
+      "activeKey": null,
+      "activeHref": "#/requests/2",
+      "oldNodeRemoved": true,
+      "expectedFocused": true
+    },
+    {
+      "width": 360,
+      "scenario": "request detail refresh",
+      "activeTag": "A",
+      "activeKey": "request-back",
+      "activeHref": "#/requests",
+      "oldNodeRemoved": true,
+      "expectedFocused": true
+    },
+    {
+      "width": 360,
+      "scenario": "schedule minute refresh",
+      "activeTag": "BUTTON",
+      "activeKey": "lesson-2026-11-10:2:3",
+      "activeHref": null,
+      "oldNodeRemoved": true,
+      "expectedFocused": true
+    },
+    {
+      "width": 1366,
+      "scenario": "notification filter",
+      "activeTag": "BUTTON",
+      "activeKey": "notification-filter-deadline",
+      "activeHref": null,
+      "oldNodeRemoved": true,
+      "expectedFocused": true
+    },
+    {
+      "width": 1366,
+      "scenario": "request list refresh",
+      "activeTag": "A",
+      "activeKey": null,
+      "activeHref": "#/requests/2",
+      "oldNodeRemoved": true,
+      "expectedFocused": true
+    },
+    {
+      "width": 1366,
+      "scenario": "request detail refresh",
+      "activeTag": "A",
+      "activeKey": "request-back",
+      "activeHref": "#/requests",
+      "oldNodeRemoved": true,
+      "expectedFocused": true
+    },
+    {
+      "width": 1366,
+      "scenario": "schedule minute refresh",
+      "activeTag": "BUTTON",
+      "activeKey": "lesson-2026-11-09:1:1",
+      "activeHref": null,
+      "oldNodeRemoved": true,
+      "expectedFocused": true
+    }
+  ],
+  "contrast": [
+    {
+      "width": 360,
+      "route": "notifications",
+      "measurements": [
+        {
+          "text": "сегодня",
+          "classes": "n-day",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Дедлайн",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "важное",
+          "classes": "badge badge-gold",
+          "foreground": "rgb(122, 95, 18)",
+          "background": [
+            248,
+            241,
+            220
+          ],
+          "ratio": 5.35737366511323
+        },
+        {
+          "text": "Дедлайн",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "Расписание",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "Деканат",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "Расписание",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "важное",
+          "classes": "badge badge-gold",
+          "foreground": "rgb(122, 95, 18)",
+          "background": [
+            248,
+            241,
+            220
+          ],
+          "ratio": 5.35737366511323
+        },
+        {
+          "text": "Расписание",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "вчера",
+          "classes": "n-day",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Оценка",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "Деканат",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "Расписание",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "Расписание",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "важное",
+          "classes": "badge badge-gold",
+          "foreground": "rgb(122, 95, 18)",
+          "background": [
+            248,
+            241,
+            220
+          ],
+          "ratio": 5.35737366511323
+        },
+        {
+          "text": "сб, 7 ноября",
+          "classes": "n-day",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Деканат",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "важное",
+          "classes": "badge badge-gold",
+          "foreground": "rgb(122, 95, 18)",
+          "background": [
+            248,
+            241,
+            220
+          ],
+          "ratio": 5.35737366511323
+        },
+        {
+          "text": "Деканат",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "В кабинете уведомления видны всегда",
+          "classes": "card-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Когда кабинет установлен как приложение",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Короткое письмо о важном",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Концепт: бот деканата МГИМО Мании",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Ночью — только срочное",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "О переносе пары, новом дедлайне и готовой справке кабинет напомнит сам: за 3 дня до срока и в день с",
+          "classes": "muted mt-8",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Главная",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        },
+        {
+          "text": "Расписание",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        },
+        {
+          "text": "Оценки",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        },
+        {
+          "text": "Заявки",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        },
+        {
+          "text": "Ещё",
+          "classes": "on",
+          "foreground": "rgb(15, 45, 105)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 13.127869780309508
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "route": "requests",
+      "measurements": [
+        {
+          "text": "№ 2026/01202 · подана 20 часов назад · бумажная",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "В работе",
+          "classes": "st st-in_work",
+          "foreground": "rgb(146, 86, 0)",
+          "background": [
+            255,
+            241,
+            220
+          ],
+          "ratio": 5.309854686212746
+        },
+        {
+          "text": "№ 2026/01201 · подана 3 дня назад · электронная",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Готова",
+          "classes": "st st-ready",
+          "foreground": "rgb(37, 113, 50)",
+          "background": [
+            230,
+            244,
+            232
+          ],
+          "ratio": 5.297195467677343
+        },
+        {
+          "text": "Главная",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        },
+        {
+          "text": "Расписание",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        },
+        {
+          "text": "Оценки",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        },
+        {
+          "text": "Заявки",
+          "classes": "on",
+          "foreground": "rgb(15, 45, 105)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 13.127869780309508
+        },
+        {
+          "text": "Ещё",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "route": "schedule",
+      "measurements": [
+        {
+          "text": "Лекция",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Ершова Н. П.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Новая аудитория",
+          "classes": "lesson-tag",
+          "foreground": "rgb(36, 87, 184)",
+          "background": [
+            230,
+            238,
+            253
+          ],
+          "ratio": 5.754092333258892
+        },
+        {
+          "text": "Иностранный язык",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Назарова Л. Т.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Семинар",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Орлова В. Н.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Главная",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        },
+        {
+          "text": "Расписание",
+          "classes": "on",
+          "foreground": "rgb(15, 45, 105)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 13.127869780309508
+        },
+        {
+          "text": "Оценки",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        },
+        {
+          "text": "Заявки",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        },
+        {
+          "text": "Ещё",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "route": "grades",
+      "measurements": [
+        {
+          "text": "/9",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Осенний семестр · 3 семестр · 34 ЗЕ",
+          "classes": "card-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Набрано",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Место в рейтинге группы",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Сессия без троек",
+          "classes": "muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Зачёт · 3 ЗЕ · Гусев И. О.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "в зоне риска",
+          "classes": "badge badge-red",
+          "foreground": "rgb(179, 38, 30)",
+          "background": [
+            253,
+            236,
+            236
+          ],
+          "ratio": 5.722831871266894
+        },
+        {
+          "text": "прогноз 49 · не зачтено",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Зачёт с оценкой · 6 ЗЕ · Кларк А. В.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "хорошо",
+          "classes": "badge badge-soft",
+          "foreground": "rgb(11, 33, 80)",
+          "background": [
+            220,
+            230,
+            248
+          ],
+          "ratio": 12.405164056360428
+        },
+        {
+          "text": "прогноз 87 · хорошо",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Экзамен · 6 ЗЕ · Назарова Л. Т.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "идёт на «отлично»",
+          "classes": "badge badge-good",
+          "foreground": "rgb(37, 113, 50)",
+          "background": [
+            230,
+            244,
+            232
+          ],
+          "ratio": 5.297195467677343
+        },
+        {
+          "text": "прогноз 94 · отлично",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Зачёт · 2 ЗЕ · Орлова В. Н.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "идёт на «отлично»",
+          "classes": "badge badge-good",
+          "foreground": "rgb(37, 113, 50)",
+          "background": [
+            230,
+            244,
+            232
+          ],
+          "ratio": 5.297195467677343
+        },
+        {
+          "text": "прогноз 98 · зачтено",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Экзамен · 5 ЗЕ · Соколов П. А.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "идёт на «отлично»",
+          "classes": "badge badge-good",
+          "foreground": "rgb(37, 113, 50)",
+          "background": [
+            230,
+            244,
+            232
+          ],
+          "ratio": 5.297195467677343
+        },
+        {
+          "text": "прогноз 100 · отлично",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Экзамен · 4 ЗЕ · Тарасова О. И.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "идёт на «отлично»",
+          "classes": "badge badge-good",
+          "foreground": "rgb(37, 113, 50)",
+          "background": [
+            230,
+            244,
+            232
+          ],
+          "ratio": 5.297195467677343
+        },
+        {
+          "text": "прогноз 94 · отлично",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Экзамен · 4 ЗЕ · Ершова Н. П.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "идёт на «отлично»",
+          "classes": "badge badge-good",
+          "foreground": "rgb(37, 113, 50)",
+          "background": [
+            230,
+            244,
+            232
+          ],
+          "ratio": 5.297195467677343
+        },
+        {
+          "text": "прогноз 97 · отлично",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Зачёт · 2 ЗЕ · Кравец Д. Ю.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "хорошо",
+          "classes": "badge badge-soft",
+          "foreground": "rgb(11, 33, 80)",
+          "background": [
+            220,
+            230,
+            248
+          ],
+          "ratio": 12.405164056360428
+        },
+        {
+          "text": "прогноз 89 · зачтено",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Зачёт · 2 ЗЕ · Белкин А. С.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "идёт на «отлично»",
+          "classes": "badge badge-good",
+          "foreground": "rgb(37, 113, 50)",
+          "background": [
+            230,
+            244,
+            232
+          ],
+          "ratio": 5.297195467677343
+        },
+        {
+          "text": "прогноз 96 · зачтено",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Главная",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        },
+        {
+          "text": "Расписание",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        },
+        {
+          "text": "Оценки",
+          "classes": "on",
+          "foreground": "rgb(15, 45, 105)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 13.127869780309508
+        },
+        {
+          "text": "Заявки",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        },
+        {
+          "text": "Ещё",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "route": "profile",
+      "measurements": [
+        {
+          "text": "1-й · Английский",
+          "classes": "badge badge-soft",
+          "foreground": "rgb(11, 33, 80)",
+          "background": [
+            220,
+            230,
+            248
+          ],
+          "ratio": 12.405164056360428
+        },
+        {
+          "text": "2-й · Арабский",
+          "classes": "badge badge-soft",
+          "foreground": "rgb(11, 33, 80)",
+          "background": [
+            220,
+            230,
+            248
+          ],
+          "ratio": 12.405164056360428
+        },
+        {
+          "text": "Последний вход: 9 нояб., 14:01 · пароль не менялся",
+          "classes": "card-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "этот сеанс",
+          "classes": "badge badge-good",
+          "foreground": "rgb(37, 113, 50)",
+          "background": [
+            230,
+            244,
+            232
+          ],
+          "ratio": 5.297195467677343
+        },
+        {
+          "text": "IP 127.0.*.* · вход 9 нояб., 14:01 · активность только что",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Текущий пароль",
+          "classes": "field-label",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Новый пароль",
+          "classes": "field-label",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Не короче 10 символов, буквы и цифры. После смены другие сеансы завершатся",
+          "classes": "field-hint",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Главная",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        },
+        {
+          "text": "Расписание",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        },
+        {
+          "text": "Оценки",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        },
+        {
+          "text": "Заявки",
+          "classes": "",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.510108282739682
+        },
+        {
+          "text": "Ещё",
+          "classes": "on",
+          "foreground": "rgb(15, 45, 105)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 13.127869780309508
+        }
+      ]
+    },
+    {
+      "width": 1366,
+      "route": "notifications",
+      "measurements": [
+        {
+          "text": "сегодня",
+          "classes": "n-day",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Дедлайн",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "важное",
+          "classes": "badge badge-gold",
+          "foreground": "rgb(122, 95, 18)",
+          "background": [
+            248,
+            241,
+            220
+          ],
+          "ratio": 5.35737366511323
+        },
+        {
+          "text": "Дедлайн",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "Расписание",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "Деканат",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "Расписание",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "важное",
+          "classes": "badge badge-gold",
+          "foreground": "rgb(122, 95, 18)",
+          "background": [
+            248,
+            241,
+            220
+          ],
+          "ratio": 5.35737366511323
+        },
+        {
+          "text": "Расписание",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "вчера",
+          "classes": "n-day",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Оценка",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "Деканат",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "Расписание",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "Расписание",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "важное",
+          "classes": "badge badge-gold",
+          "foreground": "rgb(122, 95, 18)",
+          "background": [
+            248,
+            241,
+            220
+          ],
+          "ratio": 5.35737366511323
+        },
+        {
+          "text": "сб, 7 ноября",
+          "classes": "n-day",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Деканат",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "важное",
+          "classes": "badge badge-gold",
+          "foreground": "rgb(122, 95, 18)",
+          "background": [
+            248,
+            241,
+            220
+          ],
+          "ratio": 5.35737366511323
+        },
+        {
+          "text": "Деканат",
+          "classes": "badge badge-gray",
+          "foreground": "rgb(98, 105, 120)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.006845148099253
+        },
+        {
+          "text": "В кабинете уведомления видны всегда",
+          "classes": "card-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Когда кабинет установлен как приложение",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Короткое письмо о важном",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Концепт: бот деканата МГИМО Мании",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Ночью — только срочное",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "О переносе пары, новом дедлайне и готовой справке кабинет напомнит сам: за 3 дня до срока и в день с",
+          "classes": "muted mt-8",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        }
+      ]
+    },
+    {
+      "width": 1366,
+      "route": "requests",
+      "measurements": [
+        {
+          "text": "№ 2026/01202 · подана 20 часов назад · бумажная",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "В работе",
+          "classes": "st st-in_work",
+          "foreground": "rgb(146, 86, 0)",
+          "background": [
+            255,
+            241,
+            220
+          ],
+          "ratio": 5.309854686212746
+        },
+        {
+          "text": "№ 2026/01201 · подана 3 дня назад · электронная",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Готова",
+          "classes": "st st-ready",
+          "foreground": "rgb(37, 113, 50)",
+          "background": [
+            230,
+            244,
+            232
+          ],
+          "ratio": 5.297195467677343
+        }
+      ]
+    },
+    {
+      "width": 1366,
+      "route": "schedule",
+      "measurements": [
+        {
+          "text": "Лекция",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            248,
+            249,
+            251
+          ],
+          "ratio": 5.48453344631668
+        },
+        {
+          "text": "Соколов П. А.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            248,
+            249,
+            251
+          ],
+          "ratio": 5.48453344631668
+        },
+        {
+          "text": "Иностранный язык",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            248,
+            249,
+            251
+          ],
+          "ratio": 5.48453344631668
+        },
+        {
+          "text": "Кларк А. В.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            248,
+            249,
+            251
+          ],
+          "ratio": 5.48453344631668
+        },
+        {
+          "text": "Лекция",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Ершова Н. П.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Новая аудитория",
+          "classes": "lesson-tag",
+          "foreground": "rgb(36, 87, 184)",
+          "background": [
+            230,
+            238,
+            253
+          ],
+          "ratio": 5.754092333258892
+        },
+        {
+          "text": "Иностранный язык",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Назарова Л. Т.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Семинар",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Орлова В. Н.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Лекция",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Тарасова О. И.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Семинар",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Соколов П. А.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Иностранный язык",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Кларк А. В.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Иностранный язык",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Назарова Л. Т.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Лекция",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Гусев И. О.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Отменена",
+          "classes": "lesson-tag",
+          "foreground": "rgb(179, 38, 30)",
+          "background": [
+            253,
+            236,
+            236
+          ],
+          "ratio": 5.722831871266894
+        },
+        {
+          "text": "Семинар",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Ершова Н. П.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Физкультура",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Кравец Д. Ю.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Консультация",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Соколов П. А.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Дополнительно",
+          "classes": "lesson-tag",
+          "foreground": "rgb(37, 113, 50)",
+          "background": [
+            230,
+            244,
+            232
+          ],
+          "ratio": 5.297195467677343
+        },
+        {
+          "text": "Семинар",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Тарасова О. И.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Перенесена на вт, 17 ноября, 5 пара",
+          "classes": "lesson-tag",
+          "foreground": "rgb(146, 86, 0)",
+          "background": [
+            255,
+            241,
+            220
+          ],
+          "ratio": 5.309854686212746
+        },
+        {
+          "text": "Иностранный язык",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Мельникова С. И.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Замена преподавателя",
+          "classes": "lesson-tag",
+          "foreground": "rgb(36, 87, 184)",
+          "background": [
+            230,
+            238,
+            253
+          ],
+          "ratio": 5.754092333258892
+        },
+        {
+          "text": "Иностранный язык",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Назарова Л. Т.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Семинар",
+          "classes": "lesson-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Белкин А. С.",
+          "classes": "lesson-teacher",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        }
+      ]
+    },
+    {
+      "width": 1366,
+      "route": "grades",
+      "measurements": [
+        {
+          "text": "/9",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Осенний семестр · 3 семестр · 34 ЗЕ",
+          "classes": "card-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Набрано",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Место в рейтинге группы",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Сессия без троек",
+          "classes": "muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.777661344610996
+        },
+        {
+          "text": "Зачёт · 3 ЗЕ · Гусев И. О.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "в зоне риска",
+          "classes": "badge badge-red",
+          "foreground": "rgb(179, 38, 30)",
+          "background": [
+            253,
+            236,
+            236
+          ],
+          "ratio": 5.722831871266894
+        },
+        {
+          "text": "прогноз 49 · не зачтено",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "посещаемость 60%",
+          "classes": "small muted disc-extra",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Зачёт с оценкой · 6 ЗЕ · Кларк А. В.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "хорошо",
+          "classes": "badge badge-soft",
+          "foreground": "rgb(11, 33, 80)",
+          "background": [
+            220,
+            230,
+            248
+          ],
+          "ratio": 12.405164056360428
+        },
+        {
+          "text": "прогноз 87 · хорошо",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "посещаемость 100%",
+          "classes": "small muted disc-extra",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Экзамен · 6 ЗЕ · Назарова Л. Т.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "идёт на «отлично»",
+          "classes": "badge badge-good",
+          "foreground": "rgb(37, 113, 50)",
+          "background": [
+            230,
+            244,
+            232
+          ],
+          "ratio": 5.297195467677343
+        },
+        {
+          "text": "прогноз 94 · отлично",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "посещаемость 100%",
+          "classes": "small muted disc-extra",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Зачёт · 2 ЗЕ · Орлова В. Н.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "идёт на «отлично»",
+          "classes": "badge badge-good",
+          "foreground": "rgb(37, 113, 50)",
+          "background": [
+            230,
+            244,
+            232
+          ],
+          "ratio": 5.297195467677343
+        },
+        {
+          "text": "прогноз 98 · зачтено",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "посещаемость 100%",
+          "classes": "small muted disc-extra",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Экзамен · 5 ЗЕ · Соколов П. А.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "идёт на «отлично»",
+          "classes": "badge badge-good",
+          "foreground": "rgb(37, 113, 50)",
+          "background": [
+            230,
+            244,
+            232
+          ],
+          "ratio": 5.297195467677343
+        },
+        {
+          "text": "прогноз 100 · отлично",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "посещаемость 100%",
+          "classes": "small muted disc-extra",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Экзамен · 4 ЗЕ · Тарасова О. И.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "идёт на «отлично»",
+          "classes": "badge badge-good",
+          "foreground": "rgb(37, 113, 50)",
+          "background": [
+            230,
+            244,
+            232
+          ],
+          "ratio": 5.297195467677343
+        },
+        {
+          "text": "прогноз 94 · отлично",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "посещаемость 100%",
+          "classes": "small muted disc-extra",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Экзамен · 4 ЗЕ · Ершова Н. П.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "идёт на «отлично»",
+          "classes": "badge badge-good",
+          "foreground": "rgb(37, 113, 50)",
+          "background": [
+            230,
+            244,
+            232
+          ],
+          "ratio": 5.297195467677343
+        },
+        {
+          "text": "прогноз 97 · отлично",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "посещаемость 100%",
+          "classes": "small muted disc-extra",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Зачёт · 2 ЗЕ · Кравец Д. Ю.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "хорошо",
+          "classes": "badge badge-soft",
+          "foreground": "rgb(11, 33, 80)",
+          "background": [
+            220,
+            230,
+            248
+          ],
+          "ratio": 12.405164056360428
+        },
+        {
+          "text": "прогноз 89 · зачтено",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "посещаемость 100%",
+          "classes": "small muted disc-extra",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Зачёт · 2 ЗЕ · Белкин А. С.",
+          "classes": "small muted disc-meta",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "/ 100",
+          "classes": "",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "идёт на «отлично»",
+          "classes": "badge badge-good",
+          "foreground": "rgb(37, 113, 50)",
+          "background": [
+            230,
+            244,
+            232
+          ],
+          "ratio": 5.297195467677343
+        },
+        {
+          "text": "прогноз 96 · зачтено",
+          "classes": "small muted disc-forecast",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "посещаемость 100%",
+          "classes": "small muted disc-extra",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        }
+      ]
+    },
+    {
+      "width": 1366,
+      "route": "profile",
+      "measurements": [
+        {
+          "text": "1-й · Английский",
+          "classes": "badge badge-soft",
+          "foreground": "rgb(11, 33, 80)",
+          "background": [
+            220,
+            230,
+            248
+          ],
+          "ratio": 12.405164056360428
+        },
+        {
+          "text": "2-й · Арабский",
+          "classes": "badge badge-soft",
+          "foreground": "rgb(11, 33, 80)",
+          "background": [
+            220,
+            230,
+            248
+          ],
+          "ratio": 12.405164056360428
+        },
+        {
+          "text": "Последний вход: 9 нояб., 14:02 · пароль не менялся",
+          "classes": "card-sub",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "этот сеанс",
+          "classes": "badge badge-good",
+          "foreground": "rgb(37, 113, 50)",
+          "background": [
+            230,
+            244,
+            232
+          ],
+          "ratio": 5.297195467677343
+        },
+        {
+          "text": "IP 127.0.*.* · вход 9 нояб., 14:02 · активность только что",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "IP 127.0.*.* · вход 9 нояб., 14:01 · активность только что",
+          "classes": "small muted",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Текущий пароль",
+          "classes": "field-label",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Новый пароль",
+          "classes": "field-label",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        },
+        {
+          "text": "Не короче 10 символов, буквы и цифры. После смены другие сеансы завершатся",
+          "classes": "field-hint",
+          "foreground": "rgb(95, 102, 115)",
+          "background": [
+            243,
+            244,
+            246
+          ],
+          "ratio": 5.249961377572593
+        }
+      ]
+    }
+  ]
+}

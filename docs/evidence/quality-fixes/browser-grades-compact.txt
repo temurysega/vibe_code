@@ -1,0 +1,37 @@
+Command: C:\Users\alsutem\AppData\Local\Programs\Python\Python312\python.exe C:\Users\alsutem\Desktop\вайбкод\vibe_code\test\browser-grades-compact.py http://127.0.0.1:63718
+Started (MSK): 2026-11-09T14:07:02+03:00
+Finished (MSK): 2026-11-09T14:07:19+03:00
+Exit code: 0
+
+PASS 360: every discipline remains available
+PASS 360: no horizontal page overflow
+PASS 360: extended statistics start collapsed
+PASS 360: filters fit in the first screen above the bottom navigation
+PASS 360: first discipline fits completely in the first screen
+PASS 360: bottom labels are at least 12px and fit their controls
+PASS 360: Enter reveals full statistics and keeps focus
+PASS 360: collapsed overview saves meaningful scrolling
+PASS 360: scores, ranking, attendance and scholarship stay accessible
+PASS 360: Space closes statistics and keeps focus
+PASS Resize: desktop automatically restores the complete overview
+PASS Resize: mobile overview returns to its compact state
+PASS 360: keyboard filter shows precisely the courses needing attention
+PASS 360: full course details retain every assessment
+PASS 360: Escape restores focus and preserves the selected filter
+PASS 360: same-tab account switch resets the filter and all course data
+PASS 360: new account receives the default overview state
+PASS 360: session remains one tab away
+PASS 360: first-year record book has its correct empty state
+PASS 1366: every discipline remains available
+PASS 1366: no horizontal page overflow
+PASS 1366: full overview is expanded without an extra action
+PASS 1366: scores, ranking, attendance and scholarship stay accessible
+PASS 1366: keyboard filter shows precisely the courses needing attention
+PASS 1366: full course details retain every assessment
+PASS 1366: Escape restores focus and preserves the selected filter
+PASS 1366: same-tab account switch resets the filter and all course data
+PASS 1366: new account receives the default overview state
+PASS 1366: session remains one tab away
+PASS 1366: first-year record book has its correct empty state
+PASS Compact grades: no uncaught JavaScript errors
+{"checks": 31, "failed": []}

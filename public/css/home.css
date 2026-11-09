@@ -18,6 +18,7 @@
 .next-card { background: var(--navy); color: #fff; border-radius: var(--r); padding: 26px 28px; position: relative; overflow: hidden; isolation: isolate; display: flex; flex-direction: column; gap: 16px; min-height: 260px; }
 .next-card::after { content: ''; position: absolute; right: -60px; top: -60px; width: 240px; height: 240px; border-radius: 50%; border: 36px solid rgba(255, 255, 255, .05); z-index: -1; }
 .next-card .eyebrow { color: var(--gold-2); }
+.next-label-mobile { display: none; }
 .next-title { font-size: 30px; line-height: 1.12; font-weight: 500; letter-spacing: -0.02em; }
 .next-meta { display: flex; gap: 10px; flex-wrap: wrap; }
 .next-meta > span { display: inline-flex; align-items: center; gap: 7px; height: 34px; padding: 0 13px; border-radius: var(--pill); background: rgba(255, 255, 255, .12); font-size: 14px; }
@@ -25,6 +26,8 @@
 .next-floor { margin-left: -3px; }
 .next-count { font-size: 15px; color: rgba(255, 255, 255, .8); display: flex; align-items: center; gap: 8px; }
 .next-count b { color: #fff; font-weight: 600; }
+.next-count-full { display: contents; }
+.next-count-mobile { display: none; }
 .live-dot { width: 9px; height: 9px; border-radius: 50%; background: #5BE49B; box-shadow: 0 0 0 0 rgba(91, 228, 155, .7); animation: livePulse 1.6s ease-out infinite; }
 .next-card .btn-light { align-self: flex-start; }
 .next-change { display: flex; align-items: flex-start; gap: 10px; background: rgba(255, 255, 255, .1); border-radius: 12px; padding: 10px 12px; font-size: 14px; }
@@ -97,6 +100,27 @@
   .home-trio > :last-child { grid-column: 1 / -1; }
 }
 @media (max-width: 720px) {
+  /* Первый экран оставляет место для двух важных задач даже у пары с переносом.
+     Дата стоит рядом с номером пары; ссылка «Неделя» уже есть в быстрых действиях. */
+  .view:has(.home-dashboard) { padding-top: 16px; }
+  .home-dashboard .hello { row-gap: 12px; margin-bottom: 12px; }
+  .home-dashboard .home-top:has(> .next-card.has-next) { gap: 10px; }
+  .home-dashboard .next-card.has-next {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-content: start;
+    column-gap: 8px;
+  }
+  .home-dashboard .next-card.has-next > .eyebrow { grid-column: 1; grid-row: 1; align-self: center; letter-spacing: .03em; }
+  .next-card.has-next .next-label-full { display: none; }
+  .next-card.has-next .next-label-mobile { display: inline; }
+  .home-dashboard .next-card.has-next > .next-count { grid-column: 2; grid-row: 1; align-self: center; gap: 5px; font-size: 13px; }
+  .next-card.has-next .next-count-full { display: none; }
+  .next-card.has-next .next-count-mobile { display: inline-flex; align-items: center; gap: 5px; }
+  .home-dashboard .next-card.has-next > .next-title,
+  .home-dashboard .next-card.has-next > .next-meta,
+  .home-dashboard .next-card.has-next > .next-change { grid-column: 1 / -1; }
+  .home-dashboard .next-card.has-next > .btn-light { display: none; }
   .home-trio { grid-template-columns: 1fr; }
   .home-priority { display: grid; background: var(--surface); border-radius: var(--r); padding: 4px 14px; }
   .home-priority-link { display: flex; align-items: center; gap: 10px; min-height: 62px; padding: 10px 0; }

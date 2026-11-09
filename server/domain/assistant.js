@@ -2,7 +2,7 @@
 // OpenRouter (приоритет) или Anthropic; без ключа — правила на тех же данных.
 // Ключ живёт только в окружении сервера: в браузер и в репозиторий он не попадает.
 import { config } from '../config.js';
-import { buildWeek, upcoming } from './schedule.js';
+import { buildWeek, upcoming, dayOf } from './schedule.js';
 import { gradesFor, plural } from './grades.js';
 import { listFor } from './notifications.js';
 import { applyPlans, publicRequest, STATUS } from './requests.js';
@@ -50,7 +50,13 @@ export function snapshot(store, user, s) {
   const now = msk();
   const week = buildWeek(store, s.group_code, now.date);
   const next = buildWeek(store, s.group_code, addDays(now.date, 7));
-  const days = [...week.days, ...next.days].filter((d) => d.date >= now.date).slice(0, 3);
+  // Контекст содержит календарные дни, включая воскресенье: «завтра» не должно
+  // перескакивать на ближайший учебный день.
+  const availableDays = [...week.days, ...next.days];
+  const days = Array.from({ length: 3 }, (_, i) => {
+    const date = addDays(now.date, i);
+    return availableDays.find((d) => d.date === date) || dayOf(store, s.group_code, date);
+  });
   const grades = gradesFor(store, s);
   const requests = store.all('SELECT * FROM requests WHERE student_id = ? ORDER BY created_at DESC LIMIT 8', s.id).map((r) => publicRequest(store, r, s.faculty));
   const deadlines = store.all(
@@ -108,13 +114,17 @@ export function ruleAnswer(snap, question) {
   const has = (re) => re.test(q);
   if (has(/(?:^|[^а-яё])пар(?:а|ы|у|е|ой)?(?:$|[^а-яё])|расписан|аудитор|завтра|сегодня|занят|кабинет\s*\d|где\s+(у\s+меня|будет)/)) {
     const wantTomorrow = has(/завтра/);
-    const day = wantTomorrow ? snap.days.find((d) => d.date === addDays(snap.now.date, 1)) : snap.days[0];
-    if (day && (day.holiday || !day.items.length)) {
-      return { text: `${wantTomorrow ? 'Завтра' : fmtDate(day.date)} пар нет${day.holiday ? ` — ${day.holiday.toLowerCase()}` : ''}.${snap.upcoming ? ` Ближайшая — ${snap.upcoming.discipline}, ${fmtDate(snap.upcoming.date)} в ${snap.upcoming.start}, ауд. ${snap.upcoming.room}.` : ''}`, link: { href: '#/schedule', label: LINKS['#/schedule'] } };
+    const date = addDays(snap.now.date, wantTomorrow ? 1 : 0);
+    const day = snap.days.find((d) => d.date === date);
+    const label = wantTomorrow ? 'Завтра' : fmtDate(date);
+    const link = { href: '#/schedule', label: LINKS['#/schedule'] };
+    if (!day) return { text: `На ${fmtDate(date)} расписание недоступно. Откройте раздел «Расписание» и проверьте нужный день.`, link };
+    if (day.holiday || !day.items.length) {
+      return { text: `${label} пар нет${day.holiday ? ` — ${day.holiday.toLowerCase()}` : ''}.${snap.upcoming ? ` Ближайшая — ${snap.upcoming.discipline}, ${fmtDate(snap.upcoming.date)} в ${snap.upcoming.start}, ауд. ${snap.upcoming.room}.` : ''}`, link };
     }
-    const list = (day ? day.items : []).map((it) => lessonLine(it)).join('\n');
-    const changes = (day ? day.items : []).filter((it) => it.change).length;
-    return { text: `${wantTomorrow ? 'Завтра' : fmtDate(day.date)}:\n${list}${changes ? `\nОбратите внимание: ${changes} ${plural(changes, ['изменение', 'изменения', 'изменений'])} — они отмечены в расписании.` : ''}`, link: { href: '#/schedule', label: LINKS['#/schedule'] } };
+    const list = day.items.map((it) => lessonLine(it)).join('\n');
+    const changes = day.items.filter((it) => it.change).length;
+    return { text: `${label}:\n${list}${changes ? `\nОбратите внимание: ${changes} ${plural(changes, ['изменение', 'изменения', 'изменений'])} — они отмечены в расписании.` : ''}`, link };
   }
   if (has(/пересда|долг|хвост|задолженн/)) {
     if (!g.debts.length) return { text: 'Академических задолженностей нет — пересдавать ничего не нужно.', link: { href: '#/grades', label: LINKS['#/grades'] } };

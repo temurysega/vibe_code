@@ -49,10 +49,15 @@ export function createApp(store, hooks = {}) {
 
       const ctx = { req, res, url, query: url.searchParams, params: m.params, body: {}, store, ip: clientIp(req), status: 200 };
       loadUser(ctx);
+      // Cookie общая для вкладок. Старый CSRF также связывает чтение с аккаунтом,
+      // для которого открыт интерфейс: не возвращаем профиль нового владельца cookie.
+      if (ctx.session && req.headers['x-csrf-token'] && !safeEqual(req.headers['x-csrf-token'], ctx.session.csrf)) {
+        fail(403, 'Сеанс изменился — обновите страницу', { code: 'SESSION_CHANGED' });
+      }
       if (MUTATING.has(req.method)) {
         if (!sameOrigin(req)) fail(403, 'Запрос с чужого сайта отклонён');
         // CSRF: изменяющий запрос должен нести токен своей сессии
-        if (ctx.session && !safeEqual(req.headers['x-csrf-token'], ctx.session.csrf)) fail(403, 'Сессия устарела — обновите страницу');
+        if (ctx.session && !safeEqual(req.headers['x-csrf-token'], ctx.session.csrf)) fail(403, 'Сессия устарела — обновите страницу', { code: 'SESSION_CHANGED' });
         ctx.body = await readJson(req);
       }
       if (ctx.user && hooks.onActivity) hooks.onActivity();

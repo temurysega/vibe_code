@@ -19,7 +19,8 @@ export async function api(method, path, body) {
     opts.headers['Content-Type'] = 'application/json';
     opts.body = JSON.stringify(body);
   }
-  if (method !== 'GET' && csrf) opts.headers['X-CSRF-Token'] = csrf;
+  // И GET привязан к сеансу вкладки: другая вкладка могла уже сменить общую cookie.
+  if (csrf) opts.headers['X-CSRF-Token'] = csrf;
   let res;
   try {
     res = await fetch(path, opts);
@@ -27,6 +28,10 @@ export async function api(method, path, body) {
     throw new ApiError(0, { error: 'Нет связи с сервером. Проверьте интернет и попробуйте ещё раз' });
   }
   const data = await res.json().catch(() => ({}));
+  if (data.code === 'SESSION_CHANGED') {
+    emit('sessionchanged');
+    throw new ApiError(409, { error: 'Сеанс изменился. Обновляем кабинет' });
+  }
   // Ответ старого аккаунта не должен попасть в новый после быстрого выхода/входа.
   if (requestedFor && session.user !== requestedFor) throw new ApiError(409, { error: 'Сеанс изменился. Откройте раздел заново' });
   if (res.status === 401 && !path.startsWith('/api/auth/')) emit('unauthorized');

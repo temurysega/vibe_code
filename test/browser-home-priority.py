@@ -2,7 +2,7 @@
 
 python test/browser-home-priority.py http://127.0.0.1:3100
 QA_OUTPUT_DIR selects where screenshots and the JSON report are saved.
-The no-risk/empty-day case intercepts one API response and never alters the DB.
+Explicit long-title, room-change and empty-state responses never alter the DB.
 """
 import json
 import os
@@ -35,6 +35,23 @@ def login(page, user):
 def home(page):
     page.evaluate('location.hash = "#/home"')
     page.locator('[data-sec="next"]').wait_for()
+
+
+def mobile_first_screen(page, label):
+    page.evaluate('scrollTo(0, 0)')
+    boundary = page.locator('#tabbar').bounding_box()['y']
+    positions = page.locator('[data-home-priority]').evaluate_all('(els) => els.map(el => ({top: el.getBoundingClientRect().top, bottom: el.getBoundingClientRect().bottom}))')
+    measurements.append({'viewport': 360, 'variant': label, 'priority_positions': positions, 'navigation_top': boundary})
+    check(f'360 {label}: both full shortcuts fit above bottom navigation', len(positions) == 2 and all(p['top'] >= 0 and p['bottom'] <= boundary for p in positions))
+    readable = page.locator('.next-title, .next-meta, .next-change').evaluate_all('''(els, boundary) => els.every(el => {
+      const card = el.closest('.next-card').getBoundingClientRect();
+      const range = document.createRange(); range.selectNodeContents(el);
+      return [...range.getClientRects()].filter(r => r.width > 0 && r.height > 0).every(r =>
+        r.top >= card.top && r.bottom <= Math.min(card.bottom, boundary) && r.left >= card.left && r.right <= card.right + 1);
+    })''', boundary)
+    check(f'360 {label}: complete lesson, room and change text remain readable in first screen', readable)
+    check(f'360 {label}: weekly schedule remains directly reachable', page.locator('.quick a[href="#/schedule"]').is_visible())
+    page.screenshot(path=str(OUT / f'360-home-{label}.png'), animations='disabled', style='#toast-root {visibility:hidden}')
 
 
 try:
@@ -113,6 +130,30 @@ try:
                     check('1366: keyboard reveals every remaining deadline', True)
                     page.keyboard.press('Space')
                     check('1366: full deadline list can be collapsed again', not more.evaluate('(el) => el.open'))
+            if width == 360:
+                # A long discipline and a room-change note previously displaced the
+                # ready-document shortcut below the fixed mobile navigation.
+                for name, changed in [('long-title', False), ('long-title-room-change', True), ('live-long-title-room-change', True)]:
+                    fixture = json.loads(json.dumps(payload))
+                    fixture['next']['discipline'] = 'Теория международных отношений и дипломатический протокол'
+                    fixture['next']['room'] = '3047'
+                    fixture['next']['change'] = {'type': 'room', 'from': '1023', 'reason': 'В ауд. 1023 меняют проектор'} if changed else None
+                    if name.startswith('live-'):
+                        # Freeze Date, not timers, so the current-lesson wording is
+                        # covered independently of the real time when QA runs.
+                        page.clock.set_fixed_time('2026-11-09T08:10:00Z')
+                        fixture['next'].update({'date': '2026-11-09', 'start': '10:30', 'end': '11:50'})
+                    page.evaluate('location.hash = "#/profile"')
+                    page.locator('[data-pw]').wait_for()
+                    page.route('**/api/home', lambda interception: interception.fulfill(status=200, content_type='application/json', body=json.dumps(fixture)), times=1)
+                    home(page)
+                    expect(page.locator('.next-title')).to_have_text(fixture['next']['discipline'])
+                    if changed:
+                        expect(page.locator('.next-change')).to_contain_text('1023')
+                        expect(page.locator('.next-change')).to_contain_text(fixture['next']['change']['reason'])
+                    if name.startswith('live-'):
+                        expect(page.locator('.next-count-mobile')).to_contain_text('Ещё 40 мин')
+                    mobile_first_screen(page, name)
             check(f'{width}: home has no horizontal overflow', page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'))
 
             # Change accounts in the same SPA, so a fresh page cannot mask stale data.
@@ -157,7 +198,7 @@ try:
     check('Home priority scenarios: no uncaught JavaScript errors', not errors)
 finally:
     report = {'base': BASE, 'checks': checks, 'browser_errors': errors, 'measurements': measurements,
-              'fixtures': 'One no-risk, empty-day /api/home response per viewport; no academic DB changes.'}
+              'fixtures': 'Long-title and room-change mobile /api/home responses; one no-risk, empty-day response per viewport. No academic DB changes.'}
     (OUT / 'browser-home-priority.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
 
 print(json.dumps({'checks': len(checks), 'failed': [item for item in checks if not item['passed']]}, ensure_ascii=False))

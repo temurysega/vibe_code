@@ -1,0 +1,116 @@
+{
+  "base": "http://127.0.0.1:63718",
+  "checks": [
+    {
+      "check": "320: login chips stay below the lead text (min gap 6 px)",
+      "passed": true
+    },
+    {
+      "check": "360: login chips stay below the lead text (min gap 6 px)",
+      "passed": true
+    },
+    {
+      "check": "414: login chips stay below the lead text (min gap 6 px)",
+      "passed": true
+    },
+    {
+      "check": "768: login chips stay below the lead text (min gap 2 px)",
+      "passed": true
+    },
+    {
+      "check": "360: card links and concept bar have tap areas of at least 32 px",
+      "passed": true
+    },
+    {
+      "check": "360: a tap 8 px above the \"Все\" link still opens requests",
+      "passed": true
+    },
+    {
+      "check": "360: notifications open with at most 12 cards",
+      "passed": true
+    },
+    {
+      "check": "360: \"Показать ещё\" appears only when more notifications exist",
+      "passed": true
+    },
+    {
+      "check": "360: \"Показать ещё\" adds the next cards and focuses the first new one",
+      "passed": true
+    },
+    {
+      "check": "360: changing the filter starts the list from the first page",
+      "passed": true
+    },
+    {
+      "check": "360: Alina creates a request for the isolation check",
+      "passed": true
+    },
+    {
+      "check": "360: another student sees \"Заявка не найдена\"",
+      "passed": true
+    },
+    {
+      "check": "360: the unavailable state reveals nothing about the owner or the request",
+      "passed": true
+    },
+    {
+      "check": "Audit fixes: no uncaught JavaScript errors",
+      "passed": true
+    }
+  ],
+  "browser_errors": [],
+  "measurements": [
+    {
+      "viewport": 320,
+      "min_gap_chip_to_lead_px": 6.009918212890625
+    },
+    {
+      "viewport": 360,
+      "min_gap_chip_to_lead_px": 6.004425048828125
+    },
+    {
+      "viewport": 414,
+      "min_gap_chip_to_lead_px": 6.0011138916015625
+    },
+    {
+      "viewport": 768,
+      "min_gap_chip_to_lead_px": 2
+    },
+    {
+      "viewport": 360,
+      "tap_areas": [
+        {
+          "text": "Как защищены данныеБезоп",
+          "visible": 20,
+          "hit": 34
+        },
+        {
+          "text": "Расписание на неделю",
+          "visible": 44,
+          "hit": 66
+        },
+        {
+          "text": "Баллы",
+          "visible": 23,
+          "hit": 45
+        },
+        {
+          "text": "Все",
+          "visible": 23,
+          "hit": 45
+        },
+        {
+          "text": "Все · 14 новых",
+          "visible": 23,
+          "hit": 45
+        }
+      ]
+    },
+    {
+      "viewport": 360,
+      "notifications_total": 14,
+      "notifications_first_page": 12,
+      "notifications_page_height_px": 4335
+    }
+  ]
+}

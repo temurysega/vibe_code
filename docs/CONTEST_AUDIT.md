@@ -49,28 +49,35 @@
 
 ## Проверки текущей версии
 
-`npm test` — **37/37** автотестов: изоляция аккаунтов и факультетов, CSRF и Origin,
-пароли, сеансы, сохранение после перезапуска, лимиты, ошибки ИИ-провайдера, предметная логика.
+`npm test` — **42/42** автотестов: изоляция аккаунтов и факультетов, CSRF и Origin,
+пароли, сеансы, сохранение после перезапуска, лимиты, ошибки ИИ-провайдера и календарные дни.
 
-`python scripts/collect-evidence.py --output docs/evidence/polish` — **381/381** браузерных
+`python scripts/collect-evidence.py --output docs/evidence/quality-fixes` — **492/492** браузерных
 проверок на ширинах 360 и 1366 px. Каждый набор работает со своей временной базой, внешний ИИ
-отключён, необработанных ошибок JavaScript нет. [Сводка запуска](evidence/polish/run-summary.json).
+отключён, необработанных ошибок JavaScript нет. SHA-256 проверенных исходников совпадает с текущим кодом.
+[Сводка запуска](evidence/quality-fixes/run-summary.json).
+
+Новые регрессии проверяют смену аккаунта между вкладками и пропущенные события,
+защиту старых GET/POST, клавиатурный фокус при обновлениях, фактический контраст текста
+и длинное название пары с изменением аудитории на первом мобильном экране.
 
 | Набор | Пройдено | Журнал |
 |---|---:|---|
-| API, безопасность и предметная логика | 37/37 | [unit-tests.txt](evidence/polish/unit-tests.txt) |
-| Экраны на 360 и 1366 px | 52/52 | [browser-smoke.txt](evidence/polish/browser-smoke.txt) |
-| Путь заявки двух ролей, смена аккаунта, изоляция | 36/36 | [browser-flows.txt](evidence/polish/browser-flows.txt) |
-| Клавиатура, фокус, восстановление после ошибок | 23/23 | [browser-accessibility.txt](evidence/polish/browser-accessibility.txt) |
-| Мобильные доработки и состояния расписания | 21/21 | [browser-polish.txt](evidence/polish/browser-polish.txt) |
-| Справка о стипендии: заявка, таблица, PDF | 45/45 | [browser-stipend.txt](evidence/polish/browser-stipend.txt) |
-| Компактные оценки, фильтр риска, меню | 40/40 | [browser-review.txt](evidence/polish/browser-review.txt) |
-| Главная: приоритеты и переходы | 31/31 | [browser-home-priority.txt](evidence/polish/browser-home-priority.txt) |
-| Успеваемость: первый экран и статистика | 31/31 | [browser-grades-compact.txt](evidence/polish/browser-grades-compact.txt) |
-| Форма справки: профиль, формат, смена аккаунта | 19/19 | [browser-request-compact.txt](evidence/polish/browser-request-compact.txt) |
-| Читаемость расписания | 35/35 | [browser-schedule-readability.txt](evidence/polish/browser-schedule-readability.txt) |
-| «С чего начать»: первые действия | 34/34 | [browser-first-actions.txt](evidence/polish/browser-first-actions.txt) |
-| Правки 9 ноября: вход, нажатия, уведомления, чужая ссылка | 14/14 | [browser-audit-fixes.txt](evidence/polish/browser-audit-fixes.txt) |
+| API, безопасность и предметная логика | 42/42 | [unit-tests.txt](evidence/quality-fixes/unit-tests.txt) |
+| Экраны на 360 и 1366 px | 52/52 | [browser-smoke.txt](evidence/quality-fixes/browser-smoke.txt) |
+| Путь заявки двух ролей, смена аккаунта, изоляция | 36/36 | [browser-flows.txt](evidence/quality-fixes/browser-flows.txt) |
+| Клавиатура, фокус, восстановление после ошибок | 23/23 | [browser-accessibility.txt](evidence/quality-fixes/browser-accessibility.txt) |
+| Мобильные доработки и состояния расписания | 21/21 | [browser-polish.txt](evidence/quality-fixes/browser-polish.txt) |
+| Справка о стипендии: заявка, таблица, PDF | 45/45 | [browser-stipend.txt](evidence/quality-fixes/browser-stipend.txt) |
+| Компактные оценки, фильтр риска, меню | 40/40 | [browser-review.txt](evidence/quality-fixes/browser-review.txt) |
+| Главная: приоритеты, длинные названия и текущая пара | 40/40 | [browser-home-priority.txt](evidence/quality-fixes/browser-home-priority.txt) |
+| Успеваемость: первый экран и статистика | 31/31 | [browser-grades-compact.txt](evidence/quality-fixes/browser-grades-compact.txt) |
+| Форма справки: профиль, формат, смена аккаунта | 19/19 | [browser-request-compact.txt](evidence/quality-fixes/browser-request-compact.txt) |
+| Читаемость расписания | 35/35 | [browser-schedule-readability.txt](evidence/quality-fixes/browser-schedule-readability.txt) |
+| «С чего начать»: первые действия | 34/34 | [browser-first-actions.txt](evidence/quality-fixes/browser-first-actions.txt) |
+| Правки 9 ноября: вход, нажатия, уведомления, чужая ссылка | 14/14 | [browser-audit-fixes.txt](evidence/quality-fixes/browser-audit-fixes.txt) |
+| Вкладки, пропущенные события и восстановление сеанса | 37/37 | [browser-session-sync.txt](evidence/quality-fixes/browser-session-sync.txt) |
+| Фокус при обновлениях, меню и контраст текста | 65/65 | [browser-focus-contrast.txt](evidence/quality-fixes/browser-focus-contrast.txt) |
 
 ## Опубликованная версия
 
@@ -95,6 +102,7 @@ JavaScript, два живых запроса к ИИ-помощнику верн
 | 8 ноября, 20:57–21:00 | Главная, успеваемость, форма справки | 35/35 и 293/293 | [final/](evidence/final/run-summary.json) |
 | 8 ноября, 21:44–21:55 | «С чего начать», расписание; публикация | 35/35 и 367/367 локально*, 194/194 на HTTPS, живой ИИ 2/2 | [finalization/](evidence/finalization/run-summary.json), [HTTPS](evidence/deployment/finalization-browser/run-summary.json) |
 | 9 ноября | Доводка после независимого аудита | 37/37 и 381/381 | [polish/](evidence/polish/run-summary.json) |
+| 9 ноября, окончательная проверка | Исправления реализации, вкладок, фокуса, контраста и мобильной главной | 42/42 и 492/492 | [quality-fixes/](evidence/quality-fixes/run-summary.json) |
 
 \* 333 проверки общего запуска и 34 проверки повтора одного сценария после исправления
 ожидания в тесте. Неуспешные попытки не удалялись: `evidence/finalization-first-attempt/`,

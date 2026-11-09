@@ -1,0 +1,46 @@
+Command: C:\Users\alsutem\AppData\Local\Programs\Python\Python312\python.exe C:\Users\alsutem\Desktop\вайбкод\vibe_code\test\browser-review.py http://127.0.0.1:49670
+Started (MSK): 2026-11-09T13:59:36+03:00
+Finished (MSK): 2026-11-09T13:59:46+03:00
+Exit code: 0
+
+PASS 360: all bottom navigation labels are at least 11px
+PASS 360: all disciplines appear before filtering
+PASS 360: compact overview preserves every score and assessment type
+PASS 360: grades fit the viewport
+PASS 360: each overview card is under 180px high
+PASS 360: detailed advice stays out of the compact overview
+PASS 360: keyboard filter shows exactly the current risks
+PASS 360: filter keeps keyboard focus and exposes its selected state
+PASS 360: live result count matches filtered list
+PASS 360: keyboard opens full discipline details and all control points
+PASS 360: closing details preserves the filter and restores card focus
+PASS 360: Space returns all disciplines
+PASS 360: account switch resets the filter and shows only the new student courses
+PASS 360: session remains reachable
+PASS 360: first-year empty record book remains reachable
+PASS 360: no-risk API fixture gives a clear empty state
+PASS 360: all courses remain available after the empty state
+PASS 1366: expanding deadlines does not stretch adjacent overview cards
+PASS 1366: four study destinations remain directly accessible
+PASS 1366: all four student-life destinations remain available
+PASS 1366: keyboard enters the student-life menu
+PASS 1366: Escape restores focus to student-life opener
+PASS 1366: student-life link opens the existing route
+PASS 1366: header navigation fits without scrolling
+PASS 1366: all disciplines appear before filtering
+PASS 1366: compact overview preserves every score and assessment type
+PASS 1366: grades fit the viewport
+PASS 1366: desktop retains the detailed cards and scales
+PASS 1366: keyboard filter shows exactly the current risks
+PASS 1366: filter keeps keyboard focus and exposes its selected state
+PASS 1366: live result count matches filtered list
+PASS 1366: keyboard opens full discipline details and all control points
+PASS 1366: closing details preserves the filter and restores card focus
+PASS 1366: Space returns all disciplines
+PASS 1366: account switch resets the filter and shows only the new student courses
+PASS 1366: session remains reachable
+PASS 1366: first-year empty record book remains reachable
+PASS 1366: no-risk API fixture gives a clear empty state
+PASS 1366: all courses remain available after the empty state
+PASS Review scenarios: no uncaught JavaScript errors
+{"checks": 40, "failed": []}

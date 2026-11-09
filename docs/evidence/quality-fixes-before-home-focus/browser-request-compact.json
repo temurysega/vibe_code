@@ -1,0 +1,96 @@
+{
+  "base": "http://127.0.0.1:49670",
+  "checks": [
+    {
+      "check": "360: student and group stay visible before opening profile details",
+      "passed": true
+    },
+    {
+      "check": "360: profile starts compact on mobile and expanded on desktop",
+      "passed": true
+    },
+    {
+      "check": "360: Enter toggles profile details",
+      "passed": true
+    },
+    {
+      "check": "360: full faculty information remains available",
+      "passed": true
+    },
+    {
+      "check": "360: collapsing profile preserves entered request data",
+      "passed": true
+    },
+    {
+      "check": "360: keyboard changes delivery and form retains the selected value",
+      "passed": true
+    },
+    {
+      "check": "360: both delivery choices and full form fit the viewport",
+      "passed": true
+    },
+    {
+      "check": "360: account switch replaces visible and hidden profile data",
+      "passed": true
+    },
+    {
+      "check": "360: new account starts with an empty request form",
+      "passed": true
+    },
+    {
+      "check": "1366: student and group stay visible before opening profile details",
+      "passed": true
+    },
+    {
+      "check": "1366: profile starts compact on mobile and expanded on desktop",
+      "passed": true
+    },
+    {
+      "check": "1366: Enter toggles profile details",
+      "passed": true
+    },
+    {
+      "check": "1366: full faculty information remains available",
+      "passed": true
+    },
+    {
+      "check": "1366: collapsing profile preserves entered request data",
+      "passed": true
+    },
+    {
+      "check": "1366: keyboard changes delivery and form retains the selected value",
+      "passed": true
+    },
+    {
+      "check": "1366: both delivery choices and full form fit the viewport",
+      "passed": true
+    },
+    {
+      "check": "1366: account switch replaces visible and hidden profile data",
+      "passed": true
+    },
+    {
+      "check": "1366: new account starts with an empty request form",
+      "passed": true
+    },
+    {
+      "check": "Compact request: no uncaught JavaScript errors",
+      "passed": true
+    }
+  ],
+  "browser_errors": [],
+  "measurements": [
+    {
+      "viewport": 360,
+      "request_height": 1925,
+      "first_field_top": 722,
+      "submit_top": 909
+    },
+    {
+      "viewport": 1366,
+      "request_height": 1291,
+      "first_field_top": 802,
+      "submit_top": 989
+    }
+  ]
+}

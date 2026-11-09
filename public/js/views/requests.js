@@ -4,6 +4,7 @@ import { session, setPlay, on } from '../lib/bus.js';
 import { esc, plural, stamp, when, dayShort, dateLong } from '../lib/format.js';
 import { icon } from '../ui/icons.js';
 import { modal, toast, confirm } from '../ui/overlay.js';
+import { replaceKeepingFocus } from '../ui/focus.js';
 import * as fx from '../ui/fx.js';
 import { logoMark } from '../art/logo.js';
 import { skeleton, errorBox, statusPill, pipe, STATUS_ICON } from './common.js';
@@ -104,8 +105,8 @@ function detailView(r) {
       ${r.downloadable ? `<div class="card card-navy"><div class="card-title">Справка готова</div><p class="muted mt-8">Демонстрационный образец с кодом проверки. Можно сохранить в PDF через печать</p><a class="btn btn-gold btn-block mt-16" href="#/requests/${r.id}/doc">${icon('download', 18)} Открыть и скачать</a></div>` : ''}
       ${r.pickup && r.status === 'ready' ? `<div class="pickup">${icon('pin', 20)}<span><b style="font-weight:500">Готово — можно забирать</b><br>${esc(r.pickup)}<br><span class="small">Возьмите студенческий билет</span></span></div>` : ''}
       ${payloadRows ? `<div class="card"><div class="card-title">Что указано в заявке</div><dl class="kv mt-16" style="grid-template-columns:110px minmax(0,1fr);font-size:14px">${payloadRows}</dl></div>` : ''}
-      ${r.cancellable ? `<button class="btn btn-danger btn-block" data-cancel>${icon('undo', 18)} Отменить заявку</button>` : ''}
-      <a class="btn btn-secondary btn-block" href="#/requests">${icon('back', 18)} Все заявки</a>
+      ${r.cancellable ? `<button class="btn btn-danger btn-block" data-cancel data-focus-key="request-cancel">${icon('undo', 18)} Отменить заявку</button>` : ''}
+      <a class="btn btn-secondary btn-block" href="#/requests" data-focus-key="request-back">${icon('back', 18)} Все заявки</a>
     </aside></div>`;
 }
 
@@ -172,7 +173,7 @@ export default {
   async mount(el, params) {
     const root = el.querySelector('[data-root]');
     const box = () => el.querySelector('[data-body]');
-    const fail = (e) => { if (e.status !== 401) box().innerHTML = errorBox(e); };
+    const fail = (e) => { if (e.status !== 401) replaceKeepingFocus(box(), errorBox(e), { fallback: '[data-retry]' }); };
     const [a, b] = params;
     let timer = null;
     let offNotif = null;
@@ -251,7 +252,7 @@ export default {
       const load = async () => {
         try {
           const { request: r } = await get(`/api/requests/${encodeURIComponent(a)}`);
-          root.innerHTML = head(esc(r.title), '', ['#/requests', 'Мои заявки']) + `<div data-body>${detailView(r)}</div>`;
+          if (!replaceKeepingFocus(root, head(esc(r.title), '', ['#/requests', 'Мои заявки']) + `<div data-body>${detailView(r)}</div>`, { fallback: '[data-focus-key="request-back"]' })) return true;
           if (['issued', 'approved', 'rejected', 'cancelled'].includes(r.status) || (r.status === 'ready' && r.delivery !== 'paper')) { clearInterval(timer); timer = null; return false; }
           return true;
         } catch (e) { clearInterval(timer); timer = null; fail(e); return false; }
@@ -269,7 +270,7 @@ export default {
 
     // Список: #/requests и #/requests/all
     const load = async () => {
-      try { const { requests } = await get('/api/requests'); box().innerHTML = listView(requests, a); } catch (e) { fail(e); }
+      try { const { requests } = await get('/api/requests'); replaceKeepingFocus(box(), listView(requests, a), { fallback: '.seg .on' }); } catch (e) { fail(e); }
     };
     await load();
     timer = setInterval(load, 15000);

@@ -1,0 +1,16 @@
+Command: C:\Users\alsutem\AppData\Local\Programs\Python\Python312\python.exe C:\Users\alsutem\Desktop\вайбкод\vibe_code\test\browser-home-priority.py http://127.0.0.1:52384
+Started (MSK): 2026-11-09T13:49:52+03:00
+Finished (MSK): 2026-11-09T13:49:55+03:00
+Exit code: 1
+
+PASS 360: day retains every lesson, including schedule changes
+PASS 360: daily list starts collapsed instead of repeating the nearest lesson
+PASS 360: study and request shortcuts appear before the daily list
+FAIL 360: both shortcuts fit above the bottom navigation
+Traceback (most recent call last):
+  File "<project>\test\browser-home-priority.py", line 62, in <module>
+    check('360: both shortcuts fit above the bottom navigation', positions[-1]['bottom'] <= page.locator('#tabbar').bounding_box()['y'])
+  File "<project>\test\browser-home-priority.py", line 22, in check
+    assert condition, name
+           ^^^^^^^^^
+AssertionError: 360: both shortcuts fit above the bottom navigation

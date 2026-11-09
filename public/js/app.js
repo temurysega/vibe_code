@@ -7,6 +7,7 @@ import { modal, openMenu, closeMenu, toast, confirm } from './ui/overlay.js';
 import { countUp } from './ui/fx.js';
 import { logoMark, wordmark, APP_NAME } from './art/logo.js';
 import { ava } from './art/avatar.js';
+import { announceSessionChange, onSessionChange } from './lib/session-sync.js';
 
 // Разделы подгружаются по требованию: телефону не нужно качать весь кабинет сразу
 const VIEWS = {
@@ -75,7 +76,7 @@ function paintChrome(route) {
         <button class="me-btn icon-btn" data-me aria-label="Меню профиля" style="background:var(--navy);color:#fff;font-weight:600;font-size:14px">${esc((u.firstName || '?')[0])}</button></div>
     </div>`;
     $tab.className = 'tabbar';
-    $tab.innerHTML = `<a href="#/dean" class="on"><span class="tb-ic">${icon('doc', 20)}</span>Заявки</a><a href="#more" data-more><span class="tb-ic">${icon('logout', 20)}</span>Выйти</a>`;
+    $tab.innerHTML = `<a href="#/dean" class="on" aria-current="page"><span class="tb-ic">${icon('doc', 20)}</span>Заявки</a><a href="#more" data-more><span class="tb-ic">${icon('logout', 20)}</span>Выйти</a>`;
     $ask.innerHTML = '';
     return;
   }
@@ -93,7 +94,7 @@ function paintChrome(route) {
     </div>
   </div>`;
   $tab.className = 'tabbar';
-  $tab.innerHTML = TABS.map(([id, name, ic]) => `<a href="#/${id}" class="${route === id ? 'on' : ''}"><span class="tb-ic">${icon(ic, 20)}</span>${name}</a>`).join('') +
+  $tab.innerHTML = TABS.map(([id, name, ic]) => `<a href="#/${id}" class="${route === id ? 'on' : ''}"${route === id ? ' aria-current="page"' : ''}><span class="tb-ic">${icon(ic, 20)}</span>${name}</a>`).join('') +
     `<a href="#more" data-more class="${['notifications', 'campus', 'wardrobe', 'shop', 'game', 'profile'].includes(route) ? 'on' : ''}"><span class="tb-ic">${icon('plus', 20)}</span>Ещё${unread ? '<span class="tb-dot"></span>' : ''}</a>`;
   // Помощник остаётся в закреплённой шапке и не перекрывает формы и карточки.
   $ask.innerHTML = '';
@@ -103,6 +104,30 @@ function paintChrome(route) {
 let current = null;
 let cleanup = null;
 let token = 0;
+let sessionReloading = false;
+
+function reloadChangedSession() {
+  if (sessionReloading) return;
+  sessionReloading = true;
+  ++token;
+  if (cleanup) { try { cleanup(); } catch (e) { console.error(e); } cleanup = null; }
+  stopPolling();
+  reset();
+  setCsrf(null);
+  modal.closeAll();
+  closeMenu();
+  // Убираем прежние данные до сетевой загрузки и очищаем кеши модулей перезагрузкой.
+  document.querySelectorAll('.drawer, .drawer-overlay').forEach((el) => el.remove());
+  $head.replaceChildren();
+  $tab.replaceChildren();
+  $ask.replaceChildren();
+  document.getElementById('toast-root')?.replaceChildren();
+  $main.innerHTML = '<div class="container view"><p role="status">Сеанс изменился в другой вкладке. Обновляем кабинет…</p></div>';
+  location.reload();
+}
+
+onSessionChange(reloadChangedSession);
+on('sessionchanged', reloadChangedSession);
 
 function parse() {
   const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean).map((x) => {
@@ -194,9 +219,11 @@ async function loadPlay() {
 const app = {
   async signedIn(user) {
     session.user = user;
+    announceSessionChange();
     if (user.role === 'student') { await loadPlay(); startPolling(); }
     location.hash = homeOf();
     setTimeout(() => {
+      if (session.user !== user || sessionReloading) return;
       toast(`Вы вошли как ${esc(user.name)}${user.lastLogin ? ` · прошлый вход ${esc(when(user.lastLogin))}` : ''}`, { icon: 'user' });
       if (isStudent() && !session.play.steps.onboarded) import('./views/onboarding.js').then((m) => m.openOnboarding());
     }, 350);
@@ -213,6 +240,7 @@ async function signOut() {
   setCsrf(null);
   reset();
   stopPolling();
+  announceSessionChange();
   // История чата помощника стирается вместе с сеансом
   import('./views/assistant.js').then((m) => m.resetAssistant()).catch(() => {});
   location.hash = '#/login';
@@ -223,6 +251,7 @@ on('unauthorized', () => {
   reset();
   stopPolling();
   setCsrf(null);
+  announceSessionChange();
   import('./views/assistant.js').then((m) => m.resetAssistant()).catch(() => {});
   toast('Сессия завершилась — войдите снова', { icon: 'lock' });
   location.hash = '#/login';
@@ -236,7 +265,26 @@ on('play', ({ play, before }) => {
   if (me && isStudent()) me.innerHTML = ava(play, 40);
 });
 
-on('unread', () => { if (current && session.user) paintChrome(current.name); });
+on('unread', () => {
+  // Счётчик меняется без пересоздания шапки: открытое меню и фокус остаются на месте.
+  if (!current || !isStudent()) return;
+  const n = session.unread;
+  const bell = $head.querySelector('[data-bell]');
+  if (bell) {
+    bell.setAttribute('aria-label', `Уведомления${n ? `: ${n} новых` : ''}`);
+    let badge = bell.querySelector('.badge-dot');
+    if (n) {
+      if (!badge) { badge = document.createElement('span'); badge.className = 'badge-dot'; bell.appendChild(badge); }
+      badge.textContent = n > 9 ? '9+' : n;
+    } else badge?.remove();
+  }
+  const more = $tab.querySelector('[data-more]');
+  if (more) {
+    const dot = more.querySelector('.tb-dot');
+    if (n && !dot) { const el = document.createElement('span'); el.className = 'tb-dot'; more.appendChild(el); }
+    else if (!n) dot?.remove();
+  }
+});
 
 // ---------- общие клики ----------
 document.addEventListener('click', (e) => {
@@ -337,6 +385,20 @@ $tab.addEventListener('click', (e) => {
 
 window.addEventListener('scroll', () => { $head.classList.toggle('scrolled', window.scrollY > 4); }, { passive: true });
 window.addEventListener('hashchange', go);
+
+// Восстановленная/спавшая вкладка могла пропустить сообщение о смене аккаунта.
+let lastSessionCheck = 0;
+function checkVisibleSession() {
+  if (sessionReloading || document.hidden || Date.now() - lastSessionCheck < 1000) return;
+  if (document.querySelector('.auth-form [data-submit]:disabled')) return;
+  lastSessionCheck = Date.now();
+  get('/api/auth/session').then(() => {
+    if (!session.user) reloadChangedSession();
+  }).catch((e) => { if (e.status === 401 && session.user) emit('unauthorized'); });
+}
+window.addEventListener('focus', checkVisibleSession);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) checkVisibleSession(); });
+window.addEventListener('pageshow', (event) => { if (event.persisted) reloadChangedSession(); });
 
 async function boot() {
   paintConcept();

@@ -51,8 +51,8 @@ img[src*="prompt-"] {max-height:220mm;margin:8pt auto}
 раздел 9 — найденные ошибки и доработки, раздел 10 — результаты конкретных запусков.
 Подробные реконструкции заданий вынесены в приложение и отделены от исходных диалогов.</p>
 <figure class="cover-shot">
-  <img src="evidence/finalization/1366-home.png" alt="Главная текущей итерации МГИМО Мании на экране 1366 px">
-  <figcaption>Главная текущей итерации. Снимок отдельного локального прогона из evidence/finalization.</figcaption>
+  <img src="evidence/quality-fixes/1366-home.png" alt="Главная текущей итерации МГИМО Мании на экране 1366 px">
+  <figcaption>Главная текущей итерации. Снимок отдельного локального прогона из evidence/quality-fixes.</figcaption>
 </figure>
 
 <h2>1. С какой задачи мы начали</h2>
@@ -775,12 +775,97 @@ OpenRouter для двух студентов. Ответы о группе со
 </ul>
 <p>Итог итерации: 37/37 автотестов и 381/381 браузерных проверок на свежих базах
 в одном запуске, без повторов (<a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/polish/run-summary.json">сводка</a>).</p>
+<h3>Повторная проверка 9 ноября: реализация и доступность интерфейса</h3>
+<p>После проверки по критериям автор поручил исправить замечания к реализации и качеству
+и отправить изменения в GitHub. Codex распределил работу между тремя субагентами:
+календарные ответы помощника и серверные тесты; сохранение фокуса и контраст;
+отдельный браузерный сценарий смены аккаунтов. Основной агент исправлял синхронизацию
+сеанса, проверял изменения и собирал материалы. Владение файлами согласовали до правок.</p>
+<table>
+<thead>
+<tr>
+<th>Воспроизведённый дефект</th>
+<th>Исправление</th>
+<th>Регрессионная проверка</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>В воскресенье помощник показывал пары понедельника; субботний вопрос о завтра давал пустой ответ</td>
+<td>Три календарных дня в контексте, точный выбор даты, отдельные ответы для выходного и недоступных данных</td>
+<td>Суббота, воскресенье, понедельник, праздник, пустой день в <code>assistant.test.js</code></td>
+</tr>
+<tr>
+<td>После смены аккаунта в другой вкладке оставались прежний интерфейс и CSRF</td>
+<td>Сигнал входа/выхода между вкладками; очистка и перезагрузка; проверка при возвращении к вкладке</td>
+<td><code>browser-session-sync.py</code>: старые формы и чат исчезают, новые GET и POST работают</td>
+</tr>
+<tr>
+<td>Пропущенный сигнал позволял загрузить новый профиль в старый интерфейс</td>
+<td>CSRF связывает с сеансом и чтение API; сервер отклоняет старый контекст до выполнения маршрута, запрос автоматически не повторяется</td>
+<td>Серверный тест и браузерные GET/POST без сообщения между вкладками</td>
+</tr>
+<tr>
+<td>Обновление заявок и расписания удаляло сфокусированный элемент</td>
+<td>Восстановление по устойчивому ключу без прокрутки; обновление не заменяет фон открытого диалога</td>
+<td>Реальные callbacks обновления списка, карточки и расписания на 360/1366 px</td>
+</tr>
+<tr>
+<td>Фильтр уведомлений терял фокус и не сообщал о выборе диктору</td>
+<td>Сохранение кнопки под фокусом и <code>aria-pressed</code>; понятный фокус после исчезновения действия</td>
+<td>Enter, Tab, «Прочитать все», выбранный фильтр и состояние фокуса</td>
+</tr>
+<tr>
+<td>Мелкие серые, зелёные и оранжевые подписи были недостаточно контрастны</td>
+<td>Затемнены текстовые токены с сохранением общей палитры</td>
+<td>Контраст фактически отрисованных подписей на их фонах в <code>browser-focus-contrast.py</code></td>
+</tr>
+<tr>
+<td>Изменение счётчика уведомлений пересоздавало шапку и кнопку открытия меню</td>
+<td>Счётчик обновляется точечно, кнопка остаётся тем же DOM-узлом</td>
+<td>Фокус колокольчика и возврат после Escape при изменившемся счётчике</td>
+</tr>
+</tbody>
+</table>
+<p>Дополнительный review выявил крайний случай: анонимная вкладка могла пропустить вход
+в соседней вкладке. Проверка сеанса при фокусе теперь работает и на форме входа;
+браузерная регрессия проверяет восстановление без ручного обновления.
+Обмен между вкладками не содержит профиля или токенов: временная запись storage
+немедленно удаляется. При недоступности BroadcastChannel используется storage,
+а пропущенные события дополнительно обнаруживаются сервером.</p>
+<p>Первый общий прогон обнаружил ещё один дефект, который не проявлялся во время коротких
+проверок: после окончания сегодняшних занятий главная показывала завтрашнюю пару с длинным
+названием и пояснением об изменении аудитории. Карточка становилась выше, и второе важное
+действие уходило под нижнее меню на 360 × 800 px. Проверка остановила сборку;
+<a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes-first-attempt/run-summary.json">неуспешный прогон</a> и
+<a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes-first-attempt/360-home-viewport.png">снимок</a> сохранены.
+Этот случай потребовал исправления мобильной компоновки и отдельного сценария с длинным
+названием и переносом; требование видимости обоих действий не ослаблялось.
+Дата или остаток времени теперь стоят рядом с номером пары, повторная ссылка на неделю
+внутри карточки скрыта только на телефоне, а верхняя кнопка ведёт в то же расписание.
+Уменьшены пустые отступы; название, время, аудитория, преподаватель и причина изменения
+остаются полностью видимыми. Отдельный прогон дал 40/40 проверок, включая текущую пару
+с длинным названием и сменой аудитории; общий повтор приведён ниже.</p>
+<p>После <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes-before-home-focus/run-summary.json">успешного промежуточного прогона</a>
+42/42 и 482/482 дополнительная проверка нашла аналогичный сброс фокуса у кнопки
+расписания на главной компьютера (<a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes-before-home-focus/home-focus-repro.json">воспроизведение</a>). Таймер <code>next/day</code> теперь откладывает обновление карточки,
+пока в ней находится клавиатурный фокус или фон заблокирован диалогом. После ухода фокуса
+обновление возобновляется; игровые действия не менялись. Сценарий закреплён в
+<code>browser-focus-contrast.py</code>: отдельный прогон — 65/65, окончательный общий запуск — ниже.</p>
+<p>Существующие проверки проходили и до этих исправлений. Новые сценарии добавлены
+именно для воспроизведённых ошибок. Успешный прогон не считается полным аудитом WCAG,
+нагрузочной проверкой или подтверждением доступности из России. Результат этой итерации
+приведён в разделе 10; публикация исходников и обновление публичного стенда учитываются отдельно.</p>
 <h2>10. Журналы и реальные снимки проверок</h2>
 <p>Каждая проверка запускается на новой временной базе, без пользовательских данных и без
 внешнего ИИ: <code>python scripts/collect-evidence.py --output &lt;папка&gt;</code>. Сборщик сохраняет
 журналы команд, JSON-отчёты и снимки экранов. Неуспешные попытки не удаляются: они лежат
 рядом с успешными и показывают, что именно исправлялось.</p>
 <h3>Текущая версия, 9 ноября</h3>
+<p>Окончательный общий запуск: <strong>42/42</strong> автотестов и <strong>492/492</strong> браузерных проверок,
+без необработанных ошибок JavaScript. Каждый браузерный набор использовал отдельную временную
+SQLite; внешние ключи ИИ отключены. <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/run-summary.json">Сводка</a>
+содержит команды, время и SHA-256 проверенных исходников.</p>
 <table>
 <thead>
 <tr>
@@ -792,68 +877,78 @@ OpenRouter для двух студентов. Ответы о группе со
 <tbody>
 <tr>
 <td>API, безопасность и предметная логика</td>
-<td style="text-align: right;">37/37</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/polish/unit-tests.txt">unit-tests.txt</a></td>
+<td style="text-align: right;">42/42</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/unit-tests.txt">unit-tests.txt</a></td>
 </tr>
 <tr>
 <td>Экраны на 360 и 1366 px</td>
 <td style="text-align: right;">52/52</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/polish/browser-smoke.txt">browser-smoke.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-smoke.txt">browser-smoke.txt</a></td>
 </tr>
 <tr>
 <td>Путь заявки двух ролей, смена аккаунта, изоляция</td>
 <td style="text-align: right;">36/36</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/polish/browser-flows.txt">browser-flows.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-flows.txt">browser-flows.txt</a></td>
 </tr>
 <tr>
 <td>Клавиатура, фокус, восстановление после ошибок</td>
 <td style="text-align: right;">23/23</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/polish/browser-accessibility.txt">browser-accessibility.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-accessibility.txt">browser-accessibility.txt</a></td>
 </tr>
 <tr>
 <td>Мобильные доработки и состояния расписания</td>
 <td style="text-align: right;">21/21</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/polish/browser-polish.txt">browser-polish.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-polish.txt">browser-polish.txt</a></td>
 </tr>
 <tr>
 <td>Справка о стипендии: заявка, таблица, PDF</td>
 <td style="text-align: right;">45/45</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/polish/browser-stipend.txt">browser-stipend.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-stipend.txt">browser-stipend.txt</a></td>
 </tr>
 <tr>
 <td>Компактные оценки, фильтр риска, меню</td>
 <td style="text-align: right;">40/40</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/polish/browser-review.txt">browser-review.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-review.txt">browser-review.txt</a></td>
 </tr>
 <tr>
-<td>Главная: приоритеты и переходы</td>
-<td style="text-align: right;">31/31</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/polish/browser-home-priority.txt">browser-home-priority.txt</a></td>
+<td>Главная: приоритеты, длинные названия и текущая пара</td>
+<td style="text-align: right;">40/40</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-home-priority.txt">browser-home-priority.txt</a></td>
 </tr>
 <tr>
 <td>Успеваемость: первый экран и статистика</td>
 <td style="text-align: right;">31/31</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/polish/browser-grades-compact.txt">browser-grades-compact.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-grades-compact.txt">browser-grades-compact.txt</a></td>
 </tr>
 <tr>
 <td>Форма справки: профиль, формат, смена аккаунта</td>
 <td style="text-align: right;">19/19</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/polish/browser-request-compact.txt">browser-request-compact.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-request-compact.txt">browser-request-compact.txt</a></td>
 </tr>
 <tr>
 <td>Читаемость расписания</td>
 <td style="text-align: right;">35/35</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/polish/browser-schedule-readability.txt">browser-schedule-readability.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-schedule-readability.txt">browser-schedule-readability.txt</a></td>
 </tr>
 <tr>
 <td>«С чего начать»: первые действия</td>
 <td style="text-align: right;">34/34</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/polish/browser-first-actions.txt">browser-first-actions.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-first-actions.txt">browser-first-actions.txt</a></td>
 </tr>
 <tr>
 <td>Правки 9 ноября: вход, нажатия, уведомления, чужая ссылка</td>
 <td style="text-align: right;">14/14</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/polish/browser-audit-fixes.txt">browser-audit-fixes.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-audit-fixes.txt">browser-audit-fixes.txt</a></td>
+</tr>
+<tr>
+<td>Вкладки, пропущенные события и восстановление сеанса</td>
+<td style="text-align: right;">37/37</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-session-sync.txt">browser-session-sync.txt</a></td>
+</tr>
+<tr>
+<td>Фокус при обновлениях, меню и контраст текста</td>
+<td style="text-align: right;">65/65</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-focus-contrast.txt">browser-focus-contrast.txt</a></td>
 </tr>
 </tbody>
 </table>
@@ -913,6 +1008,12 @@ OpenRouter для двух студентов. Ответы о группе со
 <td>Доводка после независимого аудита</td>
 <td>37/37 и 381/381</td>
 <td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/polish/run-summary.json">сводка</a></td>
+</tr>
+<tr>
+<td>9 ноября, окончательная проверка</td>
+<td>Исправления реализации, вкладок, фокуса, контраста и мобильной главной</td>
+<td>42/42 и 492/492</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/run-summary.json">сводка</a></td>
 </tr>
 </tbody>
 </table>

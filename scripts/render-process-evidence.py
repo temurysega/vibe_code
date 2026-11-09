@@ -12,7 +12,7 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / 'docs'
 # Папка последнего прогона collect-evidence.py; можно передать другую первым аргументом
-RUN = sys.argv[1] if len(sys.argv) > 1 else 'polish'
+RUN = sys.argv[1] if len(sys.argv) > 1 else 'quality-fixes'
 OUT = DOCS / 'evidence' / 'process'
 OUT.mkdir(parents=True, exist_ok=True)
 esc = lambda value: html.escape(str(value))

@@ -1,0 +1,18 @@
+[
+  {
+    "width": 360,
+    "timerCallbacks": 1,
+    "oldConnected": true,
+    "activeTag": "A",
+    "sameAction": true,
+    "enterRoute": "#/schedule"
+  },
+  {
+    "width": 1366,
+    "timerCallbacks": 1,
+    "oldConnected": false,
+    "activeTag": "BODY",
+    "sameAction": false,
+    "enterRoute": "#/home"
+  }
+]

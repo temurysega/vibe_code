@@ -4,6 +4,7 @@ import { session, setPlay } from '../lib/bus.js';
 import { esc, mskNow, dayShort, dateNum, weekdayShort, relDay, plural, addDays } from '../lib/format.js';
 import { icon } from '../ui/icons.js';
 import { modal } from '../ui/overlay.js';
+import { replaceKeepingFocus } from '../ui/focus.js';
 import { skeleton, errorBox, lessonState, changeTag, changeLine, teacherModal, KIND_ICON } from './common.js';
 
 let week = null;
@@ -31,7 +32,7 @@ function isoWeekOf(d) {
 function lessonCard(it, now) {
   const st = lessonState(it, now);
   const cls = [it.status, st, it.change && it.change.type === 'room' ? 'room-changed' : '', it.change && it.change.type === 'teacher' ? 'teacher-changed' : ''].join(' ');
-  return `<button class="lesson ${cls}" style="--c:${it.color}" data-lesson="${esc(it.key)}">
+  return `<button class="lesson ${cls}" style="--c:${it.color}" data-lesson="${esc(it.key)}" data-focus-key="lesson-${esc(it.key)}">
     <span class="lesson-time"><span><b>${it.start}</b>–${it.end}</span><span>${it.pair} пара${st === 'now' && it.status !== 'cancelled' ? ' · <b>идёт</b>' : ''}</span></span>
     <span class="lesson-name" style="display:block">${esc(it.discipline)}</span>
     <span class="lesson-sub" style="display:block">${esc(it.kindLabel)}${it.subgroup ? ' · подгруппа ' + esc(it.subgroup) : ''}</span>
@@ -63,14 +64,14 @@ function body() {
         <div class="week-label">${esc(range)}<small>${w.number}-я неделя · ${w.parity === 'odd' ? 'нечётная' : 'чётная'}</small></div>
         <a class="btn btn-secondary btn-icon btn-sm" href="#/schedule/${isoWeekOf(w.next)}" aria-label="Следующая неделя">${icon('right', 18)}</a></div>
       ${cur ? '' : `<a class="btn btn-ghost btn-sm" href="#/schedule/${isoWeekOf(now.date)}">${icon('calendar', 16)} К текущей неделе</a>`}
-      <div class="week-tools"><button class="btn btn-secondary btn-sm" data-bells>${icon('clock', 16)} Звонки</button><a class="btn btn-secondary btn-sm" href="/api/schedule.ics" download>${icon('download', 16)} В свой календарь</a></div>
+      <div class="week-tools"><button class="btn btn-secondary btn-sm" data-bells data-focus-key="schedule-bells">${icon('clock', 16)} Звонки</button><a class="btn btn-secondary btn-sm" href="/api/schedule.ics" download>${icon('download', 16)} В свой календарь</a></div>
     </div>
     ${advancedToNextWeek ? '<p class="schedule-context">На этой неделе больше нет предстоящих занятий — показана следующая.</p>' : ''}
     ${w.changes.length ? `<details class="schedule-changes" data-schedule-changes ${changesOpen ? 'open' : ''}>
-      <summary><span class="schedule-changes-title">${icon('alert', 18)}<span>Изменения на неделе <b>${w.changes.length}</b></span></span><span class="schedule-changes-action"><span class="changes-show">Показать все</span><span class="changes-hide">Свернуть</span>${icon('down', 16)}</span></summary>
-      <div class="changes-grid" aria-label="Все изменения на неделе">${w.changes.map((it) => { const c = changeLine(it); return `<button class="change-pill ${c.cls}" data-lesson="${esc(it.key)}">${icon(c.icon, 18)}<span><b>${c.title}</b>${c.sub ? `<span class="small">${esc(c.sub)}</span>` : ''}</span>${icon('arrow', 16)}</button>`; }).join('')}</div>
+      <summary data-focus-key="schedule-changes"><span class="schedule-changes-title">${icon('alert', 18)}<span>Изменения на неделе <b>${w.changes.length}</b></span></span><span class="schedule-changes-action"><span class="changes-show">Показать все</span><span class="changes-hide">Свернуть</span>${icon('down', 16)}</span></summary>
+      <div class="changes-grid" aria-label="Все изменения на неделе">${w.changes.map((it) => { const c = changeLine(it); return `<button class="change-pill ${c.cls}" data-lesson="${esc(it.key)}" data-focus-key="change-${esc(it.key)}">${icon(c.icon, 18)}<span><b>${c.title}</b>${c.sub ? `<span class="small">${esc(c.sub)}</span>` : ''}</span>${icon('arrow', 16)}</button>`; }).join('')}</div>
     </details>` : ''}
-    <div class="days-pick" role="group" aria-label="День недели">${w.days.map((d) => `<button class="day-btn ${picked === d.date ? 'on' : ''} ${d.date === now.date ? 'today' : ''}" data-pick="${d.date}" aria-controls="day-${d.date}" aria-pressed="${picked === d.date}" aria-label="${esc(dayShort(d.date))}${d.date === now.date ? ', сегодня' : ''}"><span>${esc(weekdayShort(d.date))}</span><b>${dateNum(d.date)}</b>${d.items.some((x) => x.change) ? '<i></i>' : ''}</button>`).join('')}</div>
+    <div class="days-pick" role="group" aria-label="День недели">${w.days.map((d) => `<button class="day-btn ${picked === d.date ? 'on' : ''} ${d.date === now.date ? 'today' : ''}" data-pick="${d.date}" data-focus-key="schedule-day-${d.date}" aria-controls="day-${d.date}" aria-pressed="${picked === d.date}" aria-label="${esc(dayShort(d.date))}${d.date === now.date ? ', сегодня' : ''}"><span>${esc(weekdayShort(d.date))}</span><b>${dateNum(d.date)}</b>${d.items.some((x) => x.change) ? '<i></i>' : ''}</button>`).join('')}</div>
     <div class="week">${w.days.map((d) => dayCol(d, now)).join('')}</div>`;
 }
 
@@ -147,7 +148,7 @@ export default {
       if (l) { const it = find(l.dataset.lesson); if (it) lessonModal(it); }
     });
     // Каждую минуту обновляем отметку «идёт сейчас»
-    const t = setInterval(() => { if (!document.querySelector('.modal-overlay')) box.innerHTML = body(); }, 60e3);
+    const t = setInterval(() => { if (!document.querySelector('.modal-overlay')) replaceKeepingFocus(box, body()); }, 60e3);
     return () => clearInterval(t);
   },
 };

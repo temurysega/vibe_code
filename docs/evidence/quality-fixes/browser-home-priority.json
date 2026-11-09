@@ -1,0 +1,244 @@
+{
+  "base": "http://127.0.0.1:63718",
+  "checks": [
+    {
+      "check": "360: day retains every lesson, including schedule changes",
+      "passed": true
+    },
+    {
+      "check": "360: daily list starts collapsed instead of repeating the nearest lesson",
+      "passed": true
+    },
+    {
+      "check": "360: study and request shortcuts appear before the daily list",
+      "passed": true
+    },
+    {
+      "check": "360: both shortcuts fit above the bottom navigation",
+      "passed": true
+    },
+    {
+      "check": "360: expanded day does not repeat the nearest lesson card",
+      "passed": true
+    },
+    {
+      "check": "360: all other lessons are accessible with one keyboard action",
+      "passed": true
+    },
+    {
+      "check": "360: expanded day keeps the full weekly schedule reachable",
+      "passed": true
+    },
+    {
+      "check": "Resize: desktop restores the complete day without losing any lesson",
+      "passed": true
+    },
+    {
+      "check": "360: Space collapses the day again",
+      "passed": true
+    },
+    {
+      "check": "360: priority opens the actual at-risk discipline",
+      "passed": true
+    },
+    {
+      "check": "360: one click reaches the explanation and advice for that risk",
+      "passed": true
+    },
+    {
+      "check": "360: ready document takes priority over a pending request",
+      "passed": true
+    },
+    {
+      "check": "360: request shortcut opens the matching document status",
+      "passed": true
+    },
+    {
+      "check": "360 long-title: both full shortcuts fit above bottom navigation",
+      "passed": true
+    },
+    {
+      "check": "360 long-title: complete lesson, room and change text remain readable in first screen",
+      "passed": true
+    },
+    {
+      "check": "360 long-title: weekly schedule remains directly reachable",
+      "passed": true
+    },
+    {
+      "check": "360 long-title-room-change: both full shortcuts fit above bottom navigation",
+      "passed": true
+    },
+    {
+      "check": "360 long-title-room-change: complete lesson, room and change text remain readable in first screen",
+      "passed": true
+    },
+    {
+      "check": "360 long-title-room-change: weekly schedule remains directly reachable",
+      "passed": true
+    },
+    {
+      "check": "360 live-long-title-room-change: both full shortcuts fit above bottom navigation",
+      "passed": true
+    },
+    {
+      "check": "360 live-long-title-room-change: complete lesson, room and change text remain readable in first screen",
+      "passed": true
+    },
+    {
+      "check": "360 live-long-title-room-change: weekly schedule remains directly reachable",
+      "passed": true
+    },
+    {
+      "check": "360: home has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "360: first-year account has a direct first-request route",
+      "passed": true
+    },
+    {
+      "check": "360: account switch resets the daily disclosure",
+      "passed": true
+    },
+    {
+      "check": "360: newcomer shortcut reaches the prefilled study-certificate form",
+      "passed": true
+    },
+    {
+      "check": "360: no-risk fixture keeps a useful study destination",
+      "passed": true
+    },
+    {
+      "check": "360: empty day has an explicit state and schedule access",
+      "passed": true
+    },
+    {
+      "check": "1366: day retains every lesson, including schedule changes",
+      "passed": true
+    },
+    {
+      "check": "1366: full day remains visible without an extra action",
+      "passed": true
+    },
+    {
+      "check": "1366: mobile shortcuts do not duplicate the desktop overview",
+      "passed": true
+    },
+    {
+      "check": "1366: existing study, deadlines and request cards remain visible",
+      "passed": true
+    },
+    {
+      "check": "1366: nearest deadlines are visible without a long list",
+      "passed": true
+    },
+    {
+      "check": "1366: keyboard reveals every remaining deadline",
+      "passed": true
+    },
+    {
+      "check": "1366: full deadline list can be collapsed again",
+      "passed": true
+    },
+    {
+      "check": "1366: home has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "1366: first-year account has a direct first-request route",
+      "passed": true
+    },
+    {
+      "check": "1366: no-risk fixture keeps a useful study destination",
+      "passed": true
+    },
+    {
+      "check": "1366: empty day has an explicit state and schedule access",
+      "passed": true
+    },
+    {
+      "check": "Home priority scenarios: no uncaught JavaScript errors",
+      "passed": true
+    }
+  ],
+  "browser_errors": [],
+  "measurements": [
+    {
+      "viewport": 360,
+      "home_height": 3028,
+      "priority_positions": [
+        {
+          "top": 557,
+          "bottom": 619
+        },
+        {
+          "top": 619,
+          "bottom": 681
+        }
+      ],
+      "day_top": 695
+    },
+    {
+      "viewport": 360,
+      "variant": "long-title",
+      "priority_positions": [
+        {
+          "top": 510.90625,
+          "bottom": 572.90625
+        },
+        {
+          "top": 572.90625,
+          "bottom": 634.90625
+        }
+      ],
+      "navigation_top": 733.40625
+    },
+    {
+      "viewport": 360,
+      "variant": "long-title-room-change",
+      "priority_positions": [
+        {
+          "top": 582.90625,
+          "bottom": 644.90625
+        },
+        {
+          "top": 644.90625,
+          "bottom": 706.90625
+        }
+      ],
+      "navigation_top": 733.40625
+    },
+    {
+      "viewport": 360,
+      "variant": "live-long-title-room-change",
+      "priority_positions": [
+        {
+          "top": 582.90625,
+          "bottom": 644.90625
+        },
+        {
+          "top": 644.90625,
+          "bottom": 706.90625
+        }
+      ],
+      "navigation_top": 733.40625
+    },
+    {
+      "viewport": 1366,
+      "home_height": 1673,
+      "priority_positions": [
+        {
+          "top": 0,
+          "bottom": 0
+        },
+        {
+          "top": 0,
+          "bottom": 0
+        }
+      ],
+      "day_top": 281
+    }
+  ],
+  "fixtures": "Long-title and room-change mobile /api/home responses; one no-risk, empty-day response per viewport. No academic DB changes."
+}

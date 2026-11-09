@@ -2,7 +2,7 @@ import { test, before, after, afterEach, mock } from 'node:test';
 import assert from 'node:assert/strict';
 import { startApp, client } from './helpers.js';
 import { config } from '../server/config.js';
-import { snapshot, aiAnswer, extractLink, ruleAnswer } from '../server/domain/assistant.js';
+import { snapshot, contextText, aiAnswer, extractLink, ruleAnswer } from '../server/domain/assistant.js';
 import { studentOf } from '../server/security/auth.js';
 
 let app;
@@ -82,4 +82,48 @@ test('помощник не включает личный дедлайн дру�
   const fresh = studentSnapshot();
   assert.ok(!fresh.deadlines.some((d) => d.title === 'PRIVATE-DEADLINE-MARKER'));
   assert.doesNotMatch(ruleAnswer(fresh, 'Какие дедлайны?').text, /PRIVATE-DEADLINE-MARKER/);
+});
+
+test('в субботу вопрос о завтрашних парах учитывает воскресенье и в ответе, и в контексте ИИ', () => {
+  mock.method(Date, 'now', () => Date.parse('2026-11-14T09:00:00+03:00'));
+  const snap = studentSnapshot();
+  assert.deepEqual(snap.days.map((d) => d.date), ['2026-11-14', '2026-11-15', '2026-11-16']);
+  const answer = ruleAnswer(snap, 'Какие завтра пары?');
+  assert.match(answer.text, /^Завтра пар нет — воскресенье\./);
+  assert.equal(answer.link.href, '#/schedule');
+  assert.match(contextText(snap), /вс, 15 ноября — выходной \(Воскресенье\)/);
+});
+
+test('в воскресенье сегодня остаётся выходным, а завтра содержит пары понедельника', () => {
+  mock.method(Date, 'now', () => Date.parse('2026-11-15T09:00:00+03:00'));
+  const snap = studentSnapshot();
+  assert.deepEqual(snap.days.map((d) => d.date), ['2026-11-15', '2026-11-16', '2026-11-17']);
+  assert.match(ruleAnswer(snap, 'Какие сегодня пары?').text, /^вс, 15 ноября пар нет — воскресенье\./);
+  const monday = snap.days.find((d) => d.date === '2026-11-16');
+  assert.ok(monday.items.length > 0, 'в примере студента есть пары в понедельник');
+  const answer = ruleAnswer(snap, 'Какие завтра пары?');
+  assert.match(answer.text, /^Завтра:\n/);
+  for (const lesson of monday.items) assert.ok(answer.text.includes(lesson.discipline));
+});
+
+test('праздник не подменяется следующим учебным днём', () => {
+  mock.method(Date, 'now', () => Date.parse('2026-11-03T09:00:00+03:00'));
+  const snap = studentSnapshot();
+  assert.match(ruleAnswer(snap, 'Какие завтра пары?').text, /^Завтра пар нет — день народного единства\./);
+  assert.match(contextText(snap), /ср, 4 ноября — выходной \(День народного единства\)/);
+});
+
+test('известный пустой день и отсутствующие данные дают разные понятные ответы', () => {
+  mock.method(Date, 'now', () => Date.parse('2026-11-09T09:00:00+03:00'));
+  const snap = studentSnapshot();
+  // У группы может не быть занятий в обычный будний день.
+  const empty = { ...snap, days: [{ date: snap.now.date, holiday: null, items: [] }], upcoming: null };
+  assert.match(ruleAnswer(empty, 'Какие сегодня пары?').text, /^пн, 9 ноября пар нет\.$/);
+  // Неполный снимок не является доказательством отсутствия занятий и не должен
+  // заставлять ответ выбирать первый имеющийся день вместо запрошенного.
+  const missing = { ...snap, days: snap.days.slice(1) };
+  const answer = ruleAnswer(missing, 'Какие сегодня пары?');
+  assert.match(answer.text, /^На пн, 9 ноября расписание недоступно\./);
+  assert.doesNotMatch(answer.text, /пар нет/);
+  assert.equal(answer.link.href, '#/schedule');
 });

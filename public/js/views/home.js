@@ -77,13 +77,19 @@ const sec = {
       ? `<span class="live-dot"></span> Идёт сейчас · до конца <b>${toMin(n.end) - now.minutes} мин</b>`
       : n.date === now.date ? `${icon('clock', 16)} Начнётся <b>${inMinutes(toMin(n.start) - now.minutes)}</b>`
         : `${icon('calendar', 16)} <b>${esc(relDay(n.date).replace(/^./, (c) => c.toUpperCase()))}</b> в ${n.start}`;
+    // На телефоне время уже видно рядом с аудиторией; в верхней строке достаточно
+    // дня, ожидания начала или оставшегося времени текущей пары.
+    const mobileCount = live
+      ? `<span class="live-dot"></span> Ещё <b>${toMin(n.end) - now.minutes} мин</b>`
+      : n.date === now.date ? `${icon('clock', 15)} <b>${inMinutes(toMin(n.start) - now.minutes).replace(/^./, (c) => c.toUpperCase())}</b>`
+        : `${icon('calendar', 15)} <b>${esc(relDay(n.date).replace(/^./, (c) => c.toUpperCase()))}</b>`;
     const ch = n.change;
     const chText = ch ? (ch.type === 'room' ? `Аудитория изменена: была ${esc(ch.from)}. ${esc(ch.reason || '')}` : ch.type === 'teacher' ? `Замена преподавателя. ${esc(ch.reason || '')}` : ch.type === 'move' ? `Пара перенесена сюда с другого дня. ${esc(ch.reason || '')}` : ch.type === 'extra' ? `Дополнительное занятие. ${esc(ch.reason || '')}` : '') : '';
-    return `<div class="next-card" data-sec="next">
-      <span class="eyebrow">${live ? 'Сейчас идёт' : 'Ближайшая пара'} · ${n.pair} пара</span>
+    return `<div class="next-card has-next" data-sec="next">
+      <span class="eyebrow"><span class="next-label-full">${live ? 'Сейчас идёт' : 'Ближайшая пара'}</span><span class="next-label-mobile">${live ? 'Идёт' : 'Далее'}</span> · ${n.pair} пара</span>
       <div class="next-title">${esc(n.discipline)}</div>
       <div class="next-meta"><span>${icon('clock', 15)} ${n.start}–${n.end}</span><span class="hl">${icon('pin', 15)} ауд. ${esc(n.room)}${n.place ? `<span class="next-floor"> · ${esc(n.place)}</span>` : ''}</span>${n.teacher ? `<span>${icon('user', 15)} ${esc(n.teacher.short)}</span>` : ''}<span>${esc(n.kindLabel)}</span></div>
-      <div class="next-count">${count}</div>
+      <div class="next-count"><span class="next-count-full">${count}</span><span class="next-count-mobile">${mobileCount}</span></div>
       ${chText ? `<div class="next-change">${icon('alert', 16)}<span>${chText}</span></div>` : ''}
       <a class="btn btn-light btn-sm" href="#/schedule">Расписание на неделю ${icon('arrow', 16)}</a>
     </div>`;
@@ -336,9 +342,11 @@ export default {
       }
     }, 1000);
     const minute = setInterval(() => {
-      repaint('next');
-      // Не сбрасываем клавиатурный фокус в раскрытом расписании при обновлении таймера.
-      if (!box.querySelector('[data-sec="day"]')?.contains(document.activeElement)) repaint('day');
+      // Автоматическое обновление ждёт, пока студент закончит действие в карточке.
+      for (const key of ['next', 'day']) {
+        const node = box.querySelector(`[data-sec="${key}"]`);
+        if (node && !node.contains(document.activeElement) && !node.closest('[inert]')) repaint(key);
+      }
     }, 30e3);
     const offPlay = on('play', () => { ['look', 'pet', 'campus', 'game', 'steps'].forEach(repaint); });
     const offRefresh = on('refresh', load);

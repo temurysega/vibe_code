@@ -65,6 +65,30 @@ test('профиль и оценки — только свои', async () => {
   assert.equal((await c.req('GET', '/api/students/1')).status, 404);
 });
 
+test('старая вкладка не читает и не меняет данные после смены общей cookie', async () => {
+  const oldTab = client(app.base);
+  const newTab = client(app.base);
+  await oldTab.login('a.morozova');
+  await newTab.login('t.aliev');
+  // Cookie общая, но в старой вкладке ещё остался CSRF Алины.
+  oldTab.cookie = newTab.cookie;
+  for (const path of ['/api/me', '/api/grades', '/api/auth/session']) {
+    const response = await oldTab.req('GET', path, undefined, { 'X-CSRF-Token': oldTab.csrf });
+    assert.equal(response.status, 403, path);
+    assert.equal(response.data.code, 'SESSION_CHANGED');
+    assert.doesNotMatch(JSON.stringify(response.data), /Алиев|Морозова|profile|current|csrf/);
+  }
+  const before = app.store.get('SELECT COUNT(*) AS n FROM requests').n;
+  const write = await oldTab.req('POST', '/api/requests', { type: 'study', fields: { place: 'Старая вкладка' } });
+  assert.equal(write.status, 403);
+  assert.equal(write.data.code, 'SESSION_CHANGED');
+  assert.equal(app.store.get('SELECT COUNT(*) AS n FROM requests').n, before);
+  const current = await newTab.req('GET', '/api/me', undefined, { 'X-CSRF-Token': newTab.csrf });
+  assert.equal(current.status, 200);
+  assert.equal(current.data.profile.lastName, 'Алиев');
+  assert.equal((await newTab.req('POST', '/api/notifications/read', { all: true })).status, 200);
+});
+
 test('деканат видит только свой факультет, студент не видит деканат', async () => {
   const dean = client(app.base);
   await dean.login('dekanat.mo');
