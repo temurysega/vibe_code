@@ -1,0 +1,108 @@
+{
+  "base": "https://ai.neblanki.tech",
+  "scope": "Post-deploy read scenarios at 360/1366; login/logout only; no business-data POST/PATCH/DELETE",
+  "checks": [
+    {
+      "check": "360: secure session-cookie flags",
+      "passed": true
+    },
+    {
+      "check": "360: first student profile is correct",
+      "passed": true
+    },
+    {
+      "check": "360: profile screen loads",
+      "passed": true
+    },
+    {
+      "check": "360: schedule loads",
+      "passed": true
+    },
+    {
+      "check": "360: grades load",
+      "passed": true
+    },
+    {
+      "check": "360: own request list is readable",
+      "passed": true
+    },
+    {
+      "check": "360: cross-tab logout clears unsent private UI",
+      "passed": true
+    },
+    {
+      "check": "360: cross-tab login uses the replacement profile",
+      "passed": true
+    },
+    {
+      "check": "360: assistant opens with no previous draft",
+      "passed": true
+    },
+    {
+      "check": "360: another student cannot read the first account request",
+      "passed": true
+    },
+    {
+      "check": "360: core page fits its viewport",
+      "passed": true
+    },
+    {
+      "check": "1366: secure session-cookie flags",
+      "passed": true
+    },
+    {
+      "check": "1366: first student profile is correct",
+      "passed": true
+    },
+    {
+      "check": "1366: profile screen loads",
+      "passed": true
+    },
+    {
+      "check": "1366: schedule loads",
+      "passed": true
+    },
+    {
+      "check": "1366: grades load",
+      "passed": true
+    },
+    {
+      "check": "1366: own request list is readable",
+      "passed": true
+    },
+    {
+      "check": "1366: cross-tab logout clears unsent private UI",
+      "passed": true
+    },
+    {
+      "check": "1366: cross-tab login uses the replacement profile",
+      "passed": true
+    },
+    {
+      "check": "1366: assistant opens with no previous draft",
+      "passed": true
+    },
+    {
+      "check": "1366: another student cannot read the first account request",
+      "passed": true
+    },
+    {
+      "check": "1366: core page fits its viewport",
+      "passed": true
+    },
+    {
+      "check": "Staff queue loads without changing any decision",
+      "passed": true
+    },
+    {
+      "check": "No application-data write requests were issued",
+      "passed": true
+    },
+    {
+      "check": "No uncaught JavaScript errors",
+      "passed": true
+    }
+  ],
+  "browser_errors": [],
+  "unexpected_writes": []
+}

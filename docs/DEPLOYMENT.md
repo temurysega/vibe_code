@@ -37,6 +37,13 @@ docker inspect mgimo-mania --format '{{.State.Health.Status}}'
 4. Браузерные сценарии на опубликованном адресе (ширины 360 и 1366 px):
    `python test/browser-smoke.py https://ai.neblanki.tech` и остальные наборы из `test/`.
 
+**Последнее обновление, 9 ноября:** код `3b722e9`, версия `review-ad34040a18b8`.
+Резервная копия SQLite проверена; прежние заявки, история и сеансы сохранились,
+соседние контейнеры не менялись. Все 52 публичных файла совпали с подготовленным кодом;
+на HTTPS-адресе прошли 25/25 браузерных проверок без ошибок JavaScript.
+[Протокол публикации](evidence/deployment/quality-fixes-deployment.json) ·
+[Браузерная приёмка](evidence/deployment/quality-fixes-browser/public-acceptance.json).
+
 Результаты публикаций 8 ноября: [протокол публикации](evidence/deployment/finalization-deployment.json),
 [браузерная приёмка HTTPS-версии](evidence/deployment/finalization-browser/run-summary.json),
 [сохранение данных после перезапуска контейнера](evidence/deployment/production-persistence.json),

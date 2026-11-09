@@ -109,6 +109,8 @@ attachments += sorted((DOCS / 'evidence/quality-fixes-before-home-focus').glob('
 attachments += sorted((DOCS / 'evidence/quality-fixes-before-home-focus').glob('*.json'))
 attachments += [DOCS / 'evidence/deployment/finalization-deployment.json']
 attachments += [DOCS / 'evidence/deployment/finalization-ai.json']
+attachments += [DOCS / 'evidence/deployment/quality-fixes-deployment.json']
+attachments += [DOCS / 'evidence/deployment/quality-fixes-browser/public-acceptance.json']
 attachments += sorted((DOCS / 'evidence/deployment/finalization-browser').glob('*.json'))
 for run in ['finalization-first-attempt', 'finalization-schedule-attempt', 'finalization-first-actions-attempt', 'finalization-first-actions-retry']:
     attachments += sorted((DOCS / 'evidence' / run).glob('*.json'))

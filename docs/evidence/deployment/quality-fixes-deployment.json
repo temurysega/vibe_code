@@ -1,0 +1,708 @@
+{
+  "started_msk": "2026-11-09T14:19:54+03:00",
+  "version": "review-ad34040a18b8",
+  "source_sha256": "ad34040a18b85a55d0e43ec06bdf2eb61b0e3915a1ab308c4532f7e9fd7c5d87",
+  "before": {
+    "containers": [
+      {
+        "id": "de26657b27760fc4106e82a664dfe3578700deb43699e2612a12a65c8ee7d436",
+        "name": "/mgimo-mania",
+        "image": "mgimo-mania:review-21595807feaf",
+        "status": "running",
+        "started_at": "2026-11-08T18:52:28.922323947Z",
+        "health": "healthy",
+        "mounts": [
+          {
+            "name": "mgimo-mania-data",
+            "destination": "/data",
+            "type": "volume"
+          }
+        ]
+      },
+      {
+        "id": "82031ac0b31cda8ab57471cd3b790df2519887409c2e0d702835ba522ff0e4e0",
+        "name": "/alfa-quiz-web-1",
+        "image": "alfa-quiz-web",
+        "status": "running",
+        "started_at": "2026-11-09T07:37:03.040287761Z",
+        "health": null,
+        "mounts": [
+          {
+            "name": "alfa-quiz_data",
+            "destination": "/data",
+            "type": "volume"
+          },
+          {
+            "name": null,
+            "destination": "/etc/nginx/real-ip.vps.conf",
+            "type": "bind"
+          }
+        ]
+      },
+      {
+        "id": "b029351256a0dc6b7ab8371e699f0a50e48bfb3fc0e7c1c10a089b3db67eaa58",
+        "name": "/alfa-quiz-server-1",
+        "image": "alfa-quiz-server",
+        "status": "running",
+        "started_at": "2026-11-09T07:37:02.589318561Z",
+        "health": null,
+        "mounts": [
+          {
+            "name": "alfa-quiz_data",
+            "destination": "/data",
+            "type": "volume"
+          }
+        ]
+      },
+      {
+        "id": "879edad166b7723965c7f9a6c15c3d06671db676c2a7397442e748fbe3a4f883",
+        "name": "/alfa-quiz-db-1",
+        "image": "postgres:17.6-alpine",
+        "status": "running",
+        "started_at": "2026-11-09T07:36:55.713801056Z",
+        "health": "healthy",
+        "mounts": [
+          {
+            "name": "alfa-quiz_db",
+            "destination": "/var/lib/postgresql/data",
+            "type": "volume"
+          }
+        ]
+      },
+      {
+        "id": "ba030210ac3c3059caef556c7476d4bd7f3bf672da797accb1cd2648f105b9b7",
+        "name": "/predel-caddy-1",
+        "image": "caddy:2.8",
+        "status": "running",
+        "started_at": "2026-10-29T15:43:21.145498328Z",
+        "health": null,
+        "mounts": [
+          {
+            "name": "predel_caddy_config",
+            "destination": "/config",
+            "type": "volume"
+          },
+          {
+            "name": "predel_caddy_data",
+            "destination": "/data",
+            "type": "volume"
+          },
+          {
+            "name": null,
+            "destination": "/etc/caddy/Caddyfile",
+            "type": "bind"
+          }
+        ]
+      }
+    ],
+    "current_release": "/opt/mgimo-mania/releases/review-21595807feaf",
+    "database": {
+      "seeded_at": "1794152033753",
+      "tables": {
+        "requests": {
+          "count": 16,
+          "max_id": 16,
+          "compared_through_id": 16,
+          "compared_count": 16,
+          "identity_sha256": "918e43d43829e00c052b97fe54e68fcc18c118f82cd51e91a56d68e704bcaaef"
+        },
+        "request_events": {
+          "count": 35,
+          "max_id": 35,
+          "compared_through_id": 35,
+          "compared_count": 35,
+          "identity_sha256": "140bcb2a4bdb713c2e9f02bd5ef4e8c263487cf1609972aeba8fb691092584ae"
+        },
+        "users": {
+          "count": 4,
+          "max_id": 4,
+          "compared_through_id": 4,
+          "compared_count": 4,
+          "identity_sha256": "53f05db42ae7a2448b803524370439977a258df1f2d7a31b4067debb28b2518a"
+        }
+      }
+    },
+    "observed_msk": "2026-11-09T14:19:51+03:00",
+    "preservation": {
+      "cutoff": 1794223192253,
+      "tables": {
+        "requests": {
+          "bound": 16,
+          "count": 16,
+          "sha256": "8377e39fdf6699a2793a789194c3780e068500cf60fc249bb7da75f4a6a83b48"
+        },
+        "request_events": {
+          "bound": 35,
+          "count": 35,
+          "sha256": "d83f56064660f2ce6d7cc7e57ad4950565f271dd2d7e12af2ab7a4097c0de568"
+        },
+        "sessions": {
+          "bound": 1794223192253,
+          "count": 6,
+          "sha256": "6a4a064e23e49047acc5b70255042377a6a866f8049c42b9a4589325fdb8f45d"
+        }
+      }
+    }
+  },
+  "deployment": {
+    "version": "review-ad34040a18b8",
+    "release": "/opt/mgimo-mania/releases/review-ad34040a18b8",
+    "health": "healthy",
+    "current_pointer_changed": false
+  },
+  "public_files": [
+    {
+      "path": "/css/auth.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "de7ebec46d3c6507315fb3a3213d6c0b9b3f4fd948642a91bf353d5b1c6bbf8f",
+      "actual_sha256": "de7ebec46d3c6507315fb3a3213d6c0b9b3f4fd948642a91bf353d5b1c6bbf8f"
+    },
+    {
+      "path": "/css/base.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "812b6de68b6f2c88964993ef473893aec5df0c035c2b109358c6f3b84fe4ff93",
+      "actual_sha256": "812b6de68b6f2c88964993ef473893aec5df0c035c2b109358c6f3b84fe4ff93"
+    },
+    {
+      "path": "/css/components.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "83b958cd6db2787f4a1e7d87776111495eca657adee840e0c07ffe1e425abda3",
+      "actual_sha256": "83b958cd6db2787f4a1e7d87776111495eca657adee840e0c07ffe1e425abda3"
+    },
+    {
+      "path": "/css/effects.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "cb6b3d56ae607564518bf581dad43fd3f67587b3f5776b8ed49280564be1da03",
+      "actual_sha256": "cb6b3d56ae607564518bf581dad43fd3f67587b3f5776b8ed49280564be1da03"
+    },
+    {
+      "path": "/css/grades.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "43ec9d3cb87289b53b1e23757c64ff411344a2a66dcd401bbcba8f53df512b6d",
+      "actual_sha256": "43ec9d3cb87289b53b1e23757c64ff411344a2a66dcd401bbcba8f53df512b6d"
+    },
+    {
+      "path": "/css/home.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "9ac9be51d1624f09c25bb37eebe2a556be950ee6ce560e86845b4ed6dc926e54",
+      "actual_sha256": "9ac9be51d1624f09c25bb37eebe2a556be950ee6ce560e86845b4ed6dc926e54"
+    },
+    {
+      "path": "/css/layout.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "d2b41ba9822bedd9f891e0a05818b4f40c1ad8f8fadb75357619698b1d9c672e",
+      "actual_sha256": "d2b41ba9822bedd9f891e0a05818b4f40c1ad8f8fadb75357619698b1d9c672e"
+    },
+    {
+      "path": "/css/pages.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "76c591e66d44da8e05ad39563bfb71b4207953e2c34773559655c28c2572502e",
+      "actual_sha256": "76c591e66d44da8e05ad39563bfb71b4207953e2c34773559655c28c2572502e"
+    },
+    {
+      "path": "/css/play.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "55b482234135ff6085442a2952a3a847d7aabb9d25c9e5c75bd31e9fb740db2b",
+      "actual_sha256": "55b482234135ff6085442a2952a3a847d7aabb9d25c9e5c75bd31e9fb740db2b"
+    },
+    {
+      "path": "/css/requests.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "8c87bb7d28f64c3aeba9e60509f73f8ce8be6d3f82369ab35b672b7df0b4f564",
+      "actual_sha256": "8c87bb7d28f64c3aeba9e60509f73f8ce8be6d3f82369ab35b672b7df0b4f564"
+    },
+    {
+      "path": "/css/responsive.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "451ab5ed2488567abc31a9c596d77a4980b25f459468f2081d6d76ca0966424f",
+      "actual_sha256": "451ab5ed2488567abc31a9c596d77a4980b25f459468f2081d6d76ca0966424f"
+    },
+    {
+      "path": "/css/schedule.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "3c337a9c9cc297928278ec67e63fd76bf459599dce2c6e87980c51604737e899",
+      "actual_sha256": "3c337a9c9cc297928278ec67e63fd76bf459599dce2c6e87980c51604737e899"
+    },
+    {
+      "path": "/css/tokens.css",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "da82a4f9cb9fb2d0f8e85d50d5e0935596c091a76a6f3cd958fa3e0823f93a08",
+      "actual_sha256": "da82a4f9cb9fb2d0f8e85d50d5e0935596c091a76a6f3cd958fa3e0823f93a08"
+    },
+    {
+      "path": "/fonts/OFL-Onest.txt",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "7805ccc507e6dc0c0796f1afa4f03ad413a9d302a30a24f8dbeb1aeef07a6c17",
+      "actual_sha256": "7805ccc507e6dc0c0796f1afa4f03ad413a9d302a30a24f8dbeb1aeef07a6c17"
+    },
+    {
+      "path": "/fonts/onest-cyrillic.woff2",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "68e5e01d6265bd68967746d4f5a9d18d0e6cbb5d15583c7082d6384ab1229b27",
+      "actual_sha256": "68e5e01d6265bd68967746d4f5a9d18d0e6cbb5d15583c7082d6384ab1229b27"
+    },
+    {
+      "path": "/fonts/onest-latin.woff2",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "052df74533250c2e0ca0c4bdd32de594e107d99c1648e63820ef9c6142067828",
+      "actual_sha256": "052df74533250c2e0ca0c4bdd32de594e107d99c1648e63820ef9c6142067828"
+    },
+    {
+      "path": "/img/logo.svg",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "b066a3f63694d3b0d0cabcd84a4a7a76aaafacbc0402e18de03e3ec62f702db1",
+      "actual_sha256": "b066a3f63694d3b0d0cabcd84a4a7a76aaafacbc0402e18de03e3ec62f702db1"
+    },
+    {
+      "path": "/index.html",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "0a2a6460333ec21cf8d6b993236d44c9a0ed8b8615d349443e2f59c8c1739222",
+      "actual_sha256": "0a2a6460333ec21cf8d6b993236d44c9a0ed8b8615d349443e2f59c8c1739222"
+    },
+    {
+      "path": "/js/app.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "286ebaf0c743a1894a0856980251134b510def8de014469ab65b45c15a31182d",
+      "actual_sha256": "286ebaf0c743a1894a0856980251134b510def8de014469ab65b45c15a31182d"
+    },
+    {
+      "path": "/js/art/avatar.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "42677cdbfda68d0f9d0fe42aded246f8715cec4eb1bcd53038f81c988854684c",
+      "actual_sha256": "42677cdbfda68d0f9d0fe42aded246f8715cec4eb1bcd53038f81c988854684c"
+    },
+    {
+      "path": "/js/art/logo.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "55d04fffca126e34d7041a80023ccdfc83b17f2cdb04c2756316a2dcf711b4d2",
+      "actual_sha256": "55d04fffca126e34d7041a80023ccdfc83b17f2cdb04c2756316a2dcf711b4d2"
+    },
+    {
+      "path": "/js/campus/scene.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "31fe7a161ce5f67ee14ebb0bc9311424654404043ab6424b77fe89d4c17d56c3",
+      "actual_sha256": "31fe7a161ce5f67ee14ebb0bc9311424654404043ab6424b77fe89d4c17d56c3"
+    },
+    {
+      "path": "/js/game/runner.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "4c9714d18b431fb952ef81bca654661ce9fc52e98f7747aa28e0c6b360c69439",
+      "actual_sha256": "4c9714d18b431fb952ef81bca654661ce9fc52e98f7747aa28e0c6b360c69439"
+    },
+    {
+      "path": "/js/legacy-worker.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "b523844cfe2ce458b6eab0885c606a626d2ecf46525d1136ef944d23e069fa09",
+      "actual_sha256": "b523844cfe2ce458b6eab0885c606a626d2ecf46525d1136ef944d23e069fa09"
+    },
+    {
+      "path": "/js/lib/api.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "cd2c09c825017bf5a88f43fefbfedefbc1d7229026e3d3236ea75fc9f5f20c5b",
+      "actual_sha256": "cd2c09c825017bf5a88f43fefbfedefbc1d7229026e3d3236ea75fc9f5f20c5b"
+    },
+    {
+      "path": "/js/lib/bus.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "877f537910607e894be48a4a33e843f2153daf8a9a97399360af812b7ba1cb79",
+      "actual_sha256": "877f537910607e894be48a4a33e843f2153daf8a9a97399360af812b7ba1cb79"
+    },
+    {
+      "path": "/js/lib/format.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "9cd942dcb3adf4397a63b8bdb61397763d13347a6caa4d96a03afa74c3739d52",
+      "actual_sha256": "9cd942dcb3adf4397a63b8bdb61397763d13347a6caa4d96a03afa74c3739d52"
+    },
+    {
+      "path": "/js/lib/session-sync.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "09ca7bb72b6c8ac8d95d3e4a493137eea603641024196e2f9d0d038971b3b8a7",
+      "actual_sha256": "09ca7bb72b6c8ac8d95d3e4a493137eea603641024196e2f9d0d038971b3b8a7"
+    },
+    {
+      "path": "/js/shared/catalog.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "28c40f38dadf74255982525c3fd2c927cc983d226f15e770cb40cd8f85ee4b76",
+      "actual_sha256": "28c40f38dadf74255982525c3fd2c927cc983d226f15e770cb40cd8f85ee4b76"
+    },
+    {
+      "path": "/js/ui/focus.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "37b3c251201fd420975583769255a500d817f4319d7e327f7b4cd4560a3ff00f",
+      "actual_sha256": "37b3c251201fd420975583769255a500d817f4319d7e327f7b4cd4560a3ff00f"
+    },
+    {
+      "path": "/js/ui/fx.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "01efed1cd7988b94ae9eec1107faff585c474eaaf4bb183ff3379f79b8c0eab0",
+      "actual_sha256": "01efed1cd7988b94ae9eec1107faff585c474eaaf4bb183ff3379f79b8c0eab0"
+    },
+    {
+      "path": "/js/ui/icons.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "68ad1e2fed72b7364e0fff5f3e8d588035dddffe2c5dfe22d07a77766d000d4c",
+      "actual_sha256": "68ad1e2fed72b7364e0fff5f3e8d588035dddffe2c5dfe22d07a77766d000d4c"
+    },
+    {
+      "path": "/js/ui/overlay.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "da7d9166a0fe02c8d18b75f057df55664aa559e30867e2e3e6c003efaf428fb2",
+      "actual_sha256": "da7d9166a0fe02c8d18b75f057df55664aa559e30867e2e3e6c003efaf428fb2"
+    },
+    {
+      "path": "/js/views/about.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "ec1d3cefc90ac12e2a904492bc98fbc66b9a7c0ba364b2ebbf35186ae56a615d",
+      "actual_sha256": "ec1d3cefc90ac12e2a904492bc98fbc66b9a7c0ba364b2ebbf35186ae56a615d"
+    },
+    {
+      "path": "/js/views/assistant.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "17b2fca4c29aa96ac9317297dd0adfd360cc891629c055c14861665f1c194710",
+      "actual_sha256": "17b2fca4c29aa96ac9317297dd0adfd360cc891629c055c14861665f1c194710"
+    },
+    {
+      "path": "/js/views/campus.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "40378357e10279fddf2a4cbc29e5ceac68843a9a5d355d343f1b665bd3237637",
+      "actual_sha256": "40378357e10279fddf2a4cbc29e5ceac68843a9a5d355d343f1b665bd3237637"
+    },
+    {
+      "path": "/js/views/common.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "c5f6aab7153517f32c184b64964357ac1cb683ca6713d3a1c637700c414065e1",
+      "actual_sha256": "c5f6aab7153517f32c184b64964357ac1cb683ca6713d3a1c637700c414065e1"
+    },
+    {
+      "path": "/js/views/dean.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "eff9a2308e86de457bb84cc6fc3a684762b511cd4e594f0e82b0e777cebb9011",
+      "actual_sha256": "eff9a2308e86de457bb84cc6fc3a684762b511cd4e594f0e82b0e777cebb9011"
+    },
+    {
+      "path": "/js/views/game.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "44e0526b49ba6dc2d286c4406454254354f0d211c53df0d87b7c7a5b6a1bb39e",
+      "actual_sha256": "44e0526b49ba6dc2d286c4406454254354f0d211c53df0d87b7c7a5b6a1bb39e"
+    },
+    {
+      "path": "/js/views/grades.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "456d0e74e98d09c978c32c3cc3cf2e2ad2c7c8e540d61b25ddabb3898a48baea",
+      "actual_sha256": "456d0e74e98d09c978c32c3cc3cf2e2ad2c7c8e540d61b25ddabb3898a48baea"
+    },
+    {
+      "path": "/js/views/home.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "2abd77bd3a4b644ab948e6311e0b541e877ac526ebf3a95fcf333ed211f1ca12",
+      "actual_sha256": "2abd77bd3a4b644ab948e6311e0b541e877ac526ebf3a95fcf333ed211f1ca12"
+    },
+    {
+      "path": "/js/views/login.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "cb1477da2e985987cc024911c5c36e1e13dfe62f8e9cb798549e1ed4ad711b59",
+      "actual_sha256": "cb1477da2e985987cc024911c5c36e1e13dfe62f8e9cb798549e1ed4ad711b59"
+    },
+    {
+      "path": "/js/views/notifications.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "24aa54cc8bb8b7c7b1e4b2b2d5f4e12daea24ea6e991fb8046113a9251d62edf",
+      "actual_sha256": "24aa54cc8bb8b7c7b1e4b2b2d5f4e12daea24ea6e991fb8046113a9251d62edf"
+    },
+    {
+      "path": "/js/views/onboarding.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "625247072d6b7ad9f023dda037ef2adfd9145ec4aec1dfd799c355da2ed36c60",
+      "actual_sha256": "625247072d6b7ad9f023dda037ef2adfd9145ec4aec1dfd799c355da2ed36c60"
+    },
+    {
+      "path": "/js/views/profile.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "d229f957c1de59414e0e4bc3ff35edeab1b089266112a6db9fd37b658b2559f5",
+      "actual_sha256": "d229f957c1de59414e0e4bc3ff35edeab1b089266112a6db9fd37b658b2559f5"
+    },
+    {
+      "path": "/js/views/requests.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "5ad700fbf19e5c088b16d28eda54e093c5eafb7f1bccaf0198f37c300f177ebf",
+      "actual_sha256": "5ad700fbf19e5c088b16d28eda54e093c5eafb7f1bccaf0198f37c300f177ebf"
+    },
+    {
+      "path": "/js/views/schedule.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "517bcde3023d3515803953ff9c466467b32502e6d3fef6d8cab7193fefcec134",
+      "actual_sha256": "517bcde3023d3515803953ff9c466467b32502e6d3fef6d8cab7193fefcec134"
+    },
+    {
+      "path": "/js/views/shop.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "c54812e16071ec59abd44f36f0f3925ee64a51fbd91a381476e8b0074a6902cc",
+      "actual_sha256": "c54812e16071ec59abd44f36f0f3925ee64a51fbd91a381476e8b0074a6902cc"
+    },
+    {
+      "path": "/js/views/verify.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "4f96f25f6c0dcb1a907ef9cac486fcb656358be13305c629a0293792cbbb16f8",
+      "actual_sha256": "4f96f25f6c0dcb1a907ef9cac486fcb656358be13305c629a0293792cbbb16f8"
+    },
+    {
+      "path": "/js/views/wardrobe.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "5bcf384de3fba60a8585a339952c5e79c68efb7004497dc6837135cbcda3fcfb",
+      "actual_sha256": "5bcf384de3fba60a8585a339952c5e79c68efb7004497dc6837135cbcda3fcfb"
+    },
+    {
+      "path": "/manifest.webmanifest",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "13e2991febf6104b7777245968dc201daacea899094f292b1165de3e0c9f3460",
+      "actual_sha256": "13e2991febf6104b7777245968dc201daacea899094f292b1165de3e0c9f3460"
+    },
+    {
+      "path": "/sw.js",
+      "status": 200,
+      "matches": true,
+      "expected_sha256": "0814f1251fbba3ec41f903fb1f629b54dcc5f7e21948112fd036523b3ba9a872",
+      "actual_sha256": "0814f1251fbba3ec41f903fb1f629b54dcc5f7e21948112fd036523b3ba9a872"
+    }
+  ],
+  "after": {
+    "containers": [
+      {
+        "id": "4ec1d9b03909ec0eed1079c7639f59a9662e4cc47f9bd5ece347c4f69756deeb",
+        "name": "/mgimo-mania",
+        "image": "mgimo-mania:review-ad34040a18b8",
+        "status": "running",
+        "started_at": "2026-11-09T11:19:58.944615933Z",
+        "health": "healthy",
+        "mounts": [
+          {
+            "name": "mgimo-mania-data",
+            "destination": "/data",
+            "type": "volume"
+          }
+        ]
+      },
+      {
+        "id": "82031ac0b31cda8ab57471cd3b790df2519887409c2e0d702835ba522ff0e4e0",
+        "name": "/alfa-quiz-web-1",
+        "image": "alfa-quiz-web",
+        "status": "running",
+        "started_at": "2026-11-09T07:37:03.040287761Z",
+        "health": null,
+        "mounts": [
+          {
+            "name": "alfa-quiz_data",
+            "destination": "/data",
+            "type": "volume"
+          },
+          {
+            "name": null,
+            "destination": "/etc/nginx/real-ip.vps.conf",
+            "type": "bind"
+          }
+        ]
+      },
+      {
+        "id": "b029351256a0dc6b7ab8371e699f0a50e48bfb3fc0e7c1c10a089b3db67eaa58",
+        "name": "/alfa-quiz-server-1",
+        "image": "alfa-quiz-server",
+        "status": "running",
+        "started_at": "2026-11-09T07:37:02.589318561Z",
+        "health": null,
+        "mounts": [
+          {
+            "name": "alfa-quiz_data",
+            "destination": "/data",
+            "type": "volume"
+          }
+        ]
+      },
+      {
+        "id": "879edad166b7723965c7f9a6c15c3d06671db676c2a7397442e748fbe3a4f883",
+        "name": "/alfa-quiz-db-1",
+        "image": "postgres:17.6-alpine",
+        "status": "running",
+        "started_at": "2026-11-09T07:36:55.713801056Z",
+        "health": "healthy",
+        "mounts": [
+          {
+            "name": "alfa-quiz_db",
+            "destination": "/var/lib/postgresql/data",
+            "type": "volume"
+          }
+        ]
+      },
+      {
+        "id": "ba030210ac3c3059caef556c7476d4bd7f3bf672da797accb1cd2648f105b9b7",
+        "name": "/predel-caddy-1",
+        "image": "caddy:2.8",
+        "status": "running",
+        "started_at": "2026-10-29T15:43:21.145498328Z",
+        "health": null,
+        "mounts": [
+          {
+            "name": "predel_caddy_config",
+            "destination": "/config",
+            "type": "volume"
+          },
+          {
+            "name": "predel_caddy_data",
+            "destination": "/data",
+            "type": "volume"
+          },
+          {
+            "name": null,
+            "destination": "/etc/caddy/Caddyfile",
+            "type": "bind"
+          }
+        ]
+      }
+    ],
+    "current_release": "/opt/mgimo-mania/releases/review-21595807feaf",
+    "database": {
+      "seeded_at": "1794152033753",
+      "tables": {
+        "requests": {
+          "count": 16,
+          "max_id": 16,
+          "compared_through_id": 16,
+          "compared_count": 16,
+          "identity_sha256": "918e43d43829e00c052b97fe54e68fcc18c118f82cd51e91a56d68e704bcaaef"
+        },
+        "request_events": {
+          "count": 35,
+          "max_id": 35,
+          "compared_through_id": 35,
+          "compared_count": 35,
+          "identity_sha256": "140bcb2a4bdb713c2e9f02bd5ef4e8c263487cf1609972aeba8fb691092584ae"
+        },
+        "users": {
+          "count": 4,
+          "max_id": 4,
+          "compared_through_id": 4,
+          "compared_count": 4,
+          "identity_sha256": "53f05db42ae7a2448b803524370439977a258df1f2d7a31b4067debb28b2518a"
+        }
+      }
+    },
+    "observed_msk": "2026-11-09T14:20:38+03:00",
+    "preservation": {
+      "cutoff": 1794223192253,
+      "tables": {
+        "requests": {
+          "bound": 16,
+          "count": 16,
+          "sha256": "8377e39fdf6699a2793a789194c3780e068500cf60fc249bb7da75f4a6a83b48"
+        },
+        "request_events": {
+          "bound": 35,
+          "count": 35,
+          "sha256": "d83f56064660f2ce6d7cc7e57ad4950565f271dd2d7e12af2ab7a4097c0de568"
+        },
+        "sessions": {
+          "bound": 1794223192253,
+          "count": 6,
+          "sha256": "6a4a064e23e49047acc5b70255042377a6a866f8049c42b9a4589325fdb8f45d"
+        }
+      }
+    }
+  },
+  "checks": {
+    "seeded_at_unchanged": true,
+    "requests_count_not_reduced": true,
+    "requests_existing_identity_rows_preserved": true,
+    "request_events_count_not_reduced": true,
+    "request_events_existing_identity_rows_preserved": true,
+    "users_count_not_reduced": true,
+    "users_existing_identity_rows_preserved": true,
+    "/alfa-quiz-web-1_id_and_start_unchanged": true,
+    "/alfa-quiz-server-1_id_and_start_unchanged": true,
+    "/alfa-quiz-db-1_id_and_start_unchanged": true,
+    "/predel-caddy-1_id_and_start_unchanged": true,
+    "persistent_volume_preserved": true,
+    "application_healthy": true,
+    "requests_existing_content_preserved": true,
+    "request_events_existing_content_preserved": true,
+    "sessions_existing_content_preserved": true,
+    "new_request_and_session_survived_container_replacement": true,
+    "all_public_hashes_match": true,
+    "test_request_cancelled": true
+  },
+  "pointer": {
+    "current_release": "/opt/mgimo-mania/releases/review-ad34040a18b8"
+  },
+  "passed": true,
+  "finished_msk": "2026-11-09T14:20:40+03:00",
+  "runtime_source_revision": "3b722e952710658c7fe52ca80e128dbd184ca5eb",
+  "database_backup": {
+    "path": "/opt/mgimo-mania/backups/quality-fixes-review-ad34040a18b8.db",
+    "mode": "0o600",
+    "bytes": 225280,
+    "sha256": "155dfde392cde8de3ddd90eb0d1412bdf7ab3ab317c417262a5579c72aeada42",
+    "integrity": "ok"
+  },
+  "persistence_scenario": {
+    "request_id": 16,
+    "created_http": 201,
+    "test_condition": "Automatic demo status plan disabled only for this newly created marked test request, to keep it cancellable until verification.",
+    "after_container_replacement_http": 200,
+    "same_session_survived": true,
+    "payload_survived": true,
+    "history_survived": true,
+    "test_request_cancelled": true,
+    "cancel_http": 200,
+    "final_status": "cancelled"
+  },
+  "scope": "Deployment of locally QA-approved runtime; existing named volume, server environment and neighboring services preserved."
+}
