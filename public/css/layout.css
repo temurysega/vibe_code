@@ -32,7 +32,7 @@
 .bal-pill.bump { animation: bump .5s ease; }
 .icon-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--surface); border: 0; display: inline-grid; place-items: center; cursor: pointer; position: relative; flex: none; transition: background .15s; }
 .icon-btn:hover { background: var(--surface-2); }
-.icon-btn .badge-dot { position: absolute; top: 4px; right: 3px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: var(--pill); background: var(--red); color: #fff; font-size: 11px; font-weight: 600; display: grid; place-items: center; box-shadow: 0 0 0 2px #fff; }
+.icon-btn .badge-dot { position: absolute; top: 4px; right: 3px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: var(--pill); background: var(--red-ink); color: #fff; font-size: 11px; font-weight: 600; display: grid; place-items: center; box-shadow: 0 0 0 2px #fff; }
 .me-btn { border: 0; background: none; padding: 0; cursor: pointer; border-radius: 50%; }
 .role-pill { height: 32px; padding: 0 12px; border-radius: var(--pill); background: var(--gold-3); color: var(--gold-ink); font-size: 13px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
 

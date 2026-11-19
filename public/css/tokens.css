@@ -16,7 +16,8 @@
   --text: #2E3440;
   --muted: #5F6673;
   --muted-2: #626978;
-  --faint: #A3A8B0;
+  --faint: #A3A8B0; /* только декор: точки, рамки. Для текста — --faint-text (4,5:1) */
+  --faint-text: #697080;
   --bg: #FFFFFF;
   --surface: #F3F4F6;
   --surface-2: #E8EAED;

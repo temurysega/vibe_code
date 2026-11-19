@@ -94,7 +94,7 @@
 textarea.input { height: auto; min-height: 96px; padding: 14px 16px; resize: vertical; line-height: 1.45; }
 select.input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 44px; }
 .card .input { background-color: #fff; }
-.input::placeholder { color: var(--faint); }
+.input::placeholder { color: var(--faint-text); }
 .field.invalid .input { border-color: var(--red); background-color: #fff; }
 .field-error { color: var(--red-ink); font-size: 13px; display: flex; align-items: center; gap: 6px; }
 .pass-wrap { position: relative; }

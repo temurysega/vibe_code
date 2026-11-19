@@ -32,7 +32,7 @@
 .disc.risk .disc-advice svg { color: var(--red); }
 .items-tbl td:first-child { width: 100%; }
 .pts { font-variant-numeric: tabular-nums; font-weight: 500; white-space: nowrap; }
-.pts.none { color: var(--faint); font-weight: 400; }
+.pts.none { color: var(--faint-text); font-weight: 400; }
 .sem-tabs { margin-bottom: 18px; }
 .letter { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; font-weight: 600; font-size: 14px; background: var(--navy-3); color: var(--navy-ink); }
 .letter.A { background: var(--good-2); color: var(--good); }
