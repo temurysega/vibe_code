@@ -137,7 +137,8 @@ export function toast(html, opt = {}) {
   while (root.children.length > 3) root.firstElementChild.remove();
   const hide = () => { t.classList.add('out'); setTimeout(() => t.remove(), 260); };
   const timer = setTimeout(hide, opt.ms || 3600);
-  t.addEventListener('click', (e) => { if (e.target.closest('a')) { clearTimeout(timer); hide(); } });
+  // Нажатие в любом месте тоста закрывает его: на телефоне он стоит над учебным содержимым
+  t.addEventListener('click', () => { clearTimeout(timer); hide(); });
 }
 
 // ---------- подсказки ----------

@@ -224,7 +224,7 @@ const app = {
     location.hash = homeOf();
     setTimeout(() => {
       if (session.user !== user || sessionReloading) return;
-      toast(`Вы вошли как ${esc(user.name)}${user.lastLogin ? ` · прошлый вход ${esc(when(user.lastLogin))}` : ''}`, { icon: 'user' });
+      toast(`Вы вошли как ${esc(user.name)}${user.lastLogin ? ` · прошлый вход ${esc(when(user.lastLogin))}` : ''}`, { icon: 'user', ms: matchMedia('(max-width: 1100px)').matches ? 2800 : 3600 });
       if (isStudent() && !session.play.steps.onboarded) import('./views/onboarding.js').then((m) => m.openOnboarding());
     }, 350);
   },
