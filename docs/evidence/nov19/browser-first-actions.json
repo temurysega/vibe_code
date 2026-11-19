@@ -1,0 +1,143 @@
+{
+  "base": "http://127.0.0.1:53851",
+  "checks": [
+    {
+      "check": "360: start guide is visible in the first screen",
+      "passed": true
+    },
+    {
+      "check": "360: home has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "360: Enter opens three useful study actions",
+      "passed": true
+    },
+    {
+      "check": "360: guide offers schedule, grades and a study certificate",
+      "passed": true
+    },
+    {
+      "check": "360: avatar setup remains optional",
+      "passed": true
+    },
+    {
+      "check": "360: guide has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "360: Escape restores focus to the guide button",
+      "passed": true
+    },
+    {
+      "check": "360: guide opens the real #/schedule screen",
+      "passed": true
+    },
+    {
+      "check": "360: #/schedule has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "360: guide opens the real #/grades screen",
+      "passed": true
+    },
+    {
+      "check": "360: #/grades has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "360: guide opens the real #/requests/new/study screen",
+      "passed": true
+    },
+    {
+      "check": "360: certificate opens with Alina’s profile",
+      "passed": true
+    },
+    {
+      "check": "360: #/requests/new/study has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "360: guide uses Timur’s profile after account switch",
+      "passed": true
+    },
+    {
+      "check": "360: newcomer form has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "1366: start guide is visible in the first screen",
+      "passed": true
+    },
+    {
+      "check": "1366: home has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "1366: Enter opens three useful study actions",
+      "passed": true
+    },
+    {
+      "check": "1366: guide offers schedule, grades and a study certificate",
+      "passed": true
+    },
+    {
+      "check": "1366: avatar setup remains optional",
+      "passed": true
+    },
+    {
+      "check": "1366: guide has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "1366: Escape restores focus to the guide button",
+      "passed": true
+    },
+    {
+      "check": "1366: guide opens the real #/schedule screen",
+      "passed": true
+    },
+    {
+      "check": "1366: #/schedule has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "1366: guide opens the real #/grades screen",
+      "passed": true
+    },
+    {
+      "check": "1366: #/grades has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "1366: guide opens the real #/requests/new/study screen",
+      "passed": true
+    },
+    {
+      "check": "1366: certificate opens with Alina’s profile",
+      "passed": true
+    },
+    {
+      "check": "1366: #/requests/new/study has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "1366: guide uses Timur’s profile after account switch",
+      "passed": true
+    },
+    {
+      "check": "1366: newcomer form has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "No request submissions or profile edits",
+      "passed": true
+    },
+    {
+      "check": "No uncaught browser errors",
+      "passed": true
+    }
+  ],
+  "browser_errors": [],
+  "unwanted_writes": []
+}

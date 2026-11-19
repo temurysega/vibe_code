@@ -78,7 +78,7 @@ with sync_playwright() as p:
     page.evaluate('document.fonts.ready')
     assert page.locator('img').evaluate_all('(images) => images.every(i => i.complete && i.naturalWidth > 0)'), 'Missing screenshot'
     page.pdf(path=str(DOCS / 'PROCESS.pdf'), format='A4', print_background=True, display_header_footer=True, tagged=True, outline=True,
-             header_template='<span></span>', footer_template='<div style="font:8px Arial;color:#667085;width:100%;padding:0 15mm;display:flex;justify-content:space-between"><span>МГИМО Мания · конкурсный концепт · 09.11.2026</span><span><span class="pageNumber"></span> / <span class="totalPages"></span></span></div>',
+             header_template='<span></span>', footer_template='<div style="font:8px Arial;color:#667085;width:100%;padding:0 15mm;display:flex;justify-content:space-between"><span>МГИМО Мания · конкурсный концепт · 19.11.2026</span><span><span class="pageNumber"></span> / <span class="totalPages"></span></span></div>',
              margin={'top':'18mm','bottom':'20mm','left':'15mm','right':'15mm'})
     browser.close()
 
@@ -86,7 +86,8 @@ with sync_playwright() as p:
 pdf = DOCS / 'PROCESS.pdf'
 writer = PdfWriter(str(pdf), incremental=True)
 attachments = [DOCS / 'PROMPTS.json', DOCS / 'evidence/history/git-history.json']
-attachments += [DOCS / 'evidence/dialogue-illustrations/manifest.json']
+attachments += sorted((DOCS / 'evidence/subagents-2026-11-19').glob('*.json'))
+attachments += sorted((DOCS / 'ai').glob('*.md'))
 attachments += [DOCS / 'evidence/review-session.json']
 attachments += [DOCS / 'evidence/quality-session.json']
 attachments += [DOCS / 'evidence/finalization-session.json']

@@ -1,0 +1,98 @@
+{
+  "base": "http://127.0.0.1:53851",
+  "checks": [
+    {
+      "check": "360: secondary game content starts collapsed",
+      "passed": true
+    },
+    {
+      "check": "360: keyboard reveals the pet and study timer",
+      "passed": true
+    },
+    {
+      "check": "360: collapsed secondary content reduces scrolling",
+      "passed": true
+    },
+    {
+      "check": "Resize: desktop retains access to all game content",
+      "passed": true
+    },
+    {
+      "check": "Resize: mobile disclosure remains operable",
+      "passed": true
+    },
+    {
+      "check": "360: keyboard reveals further deadlines",
+      "passed": true
+    },
+    {
+      "check": "360: home fits viewport",
+      "passed": true
+    },
+    {
+      "check": "360: assistant opens from header on the request form",
+      "passed": true
+    },
+    {
+      "check": "360: request submit is unobscured and usable",
+      "passed": true
+    },
+    {
+      "check": "360: Sunday opens the next study week",
+      "passed": true
+    },
+    {
+      "check": "360: explicit current-week link does not advance again",
+      "passed": true
+    },
+    {
+      "check": "1366: optional game content starts collapsed",
+      "passed": true
+    },
+    {
+      "check": "1366: one keyboard action reaches the study timer",
+      "passed": true
+    },
+    {
+      "check": "1366: optional content can be collapsed again",
+      "passed": true
+    },
+    {
+      "check": "1366: every navigation label fits without clipping",
+      "passed": true
+    },
+    {
+      "check": "1366: home fits viewport",
+      "passed": true
+    },
+    {
+      "check": "1366: assistant opens from header on the request form",
+      "passed": true
+    },
+    {
+      "check": "1366: request submit is unobscured and usable",
+      "passed": true
+    },
+    {
+      "check": "1366: Sunday opens the next study week",
+      "passed": true
+    },
+    {
+      "check": "1366: explicit current-week link does not advance again",
+      "passed": true
+    },
+    {
+      "check": "Polish scenarios: no uncaught JavaScript errors",
+      "passed": true
+    }
+  ],
+  "browser_errors": [],
+  "measurements": [
+    {
+      "viewport": 360,
+      "home_collapsed_height": 3027,
+      "home_expanded_height": 4895
+    }
+  ],
+  "clock": "Browser clock frozen to Sunday for the schedule regression only; API schedule is real."
+}

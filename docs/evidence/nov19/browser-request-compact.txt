@@ -1,0 +1,24 @@
+Command: C:\Users\alsutem\AppData\Local\Programs\Python\Python312\python.exe C:\Users\alsutem\Desktop\вайбкод\vibe_code\test\browser-request-compact.py http://127.0.0.1:53851
+Started (MSK): 2026-11-19T22:02:51+03:00
+Finished (MSK): 2026-11-19T22:02:58+03:00
+Exit code: 0
+
+PASS 360: student and group stay visible before opening profile details
+PASS 360: profile starts compact on mobile and expanded on desktop
+PASS 360: Enter toggles profile details
+PASS 360: full faculty information remains available
+PASS 360: collapsing profile preserves entered request data
+PASS 360: keyboard changes delivery and form retains the selected value
+PASS 360: both delivery choices and full form fit the viewport
+PASS 360: account switch replaces visible and hidden profile data
+PASS 360: new account starts with an empty request form
+PASS 1366: student and group stay visible before opening profile details
+PASS 1366: profile starts compact on mobile and expanded on desktop
+PASS 1366: Enter toggles profile details
+PASS 1366: full faculty information remains available
+PASS 1366: collapsing profile preserves entered request data
+PASS 1366: keyboard changes delivery and form retains the selected value
+PASS 1366: both delivery choices and full form fit the viewport
+PASS 1366: account switch replaces visible and hidden profile data
+PASS 1366: new account starts with an empty request form
+PASS Compact request: no uncaught JavaScript errors

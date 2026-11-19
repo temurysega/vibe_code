@@ -1,0 +1,152 @@
+{
+  "base": "http://127.0.0.1:53851",
+  "checks": [
+    {
+      "check": "360: every discipline remains available",
+      "passed": true
+    },
+    {
+      "check": "360: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "360: extended statistics start collapsed",
+      "passed": true
+    },
+    {
+      "check": "360: filters fit in the first screen above the bottom navigation",
+      "passed": true
+    },
+    {
+      "check": "360: first discipline fits completely in the first screen",
+      "passed": true
+    },
+    {
+      "check": "360: bottom labels are at least 12px and fit their controls",
+      "passed": true
+    },
+    {
+      "check": "360: Enter reveals full statistics and keeps focus",
+      "passed": true
+    },
+    {
+      "check": "360: collapsed overview saves meaningful scrolling",
+      "passed": true
+    },
+    {
+      "check": "360: scores, ranking, attendance and scholarship stay accessible",
+      "passed": true
+    },
+    {
+      "check": "360: Space closes statistics and keeps focus",
+      "passed": true
+    },
+    {
+      "check": "Resize: desktop automatically restores the complete overview",
+      "passed": true
+    },
+    {
+      "check": "Resize: mobile overview returns to its compact state",
+      "passed": true
+    },
+    {
+      "check": "360: keyboard filter shows precisely the courses needing attention",
+      "passed": true
+    },
+    {
+      "check": "360: full course details retain every assessment",
+      "passed": true
+    },
+    {
+      "check": "360: Escape restores focus and preserves the selected filter",
+      "passed": true
+    },
+    {
+      "check": "360: same-tab account switch resets the filter and all course data",
+      "passed": true
+    },
+    {
+      "check": "360: new account receives the default overview state",
+      "passed": true
+    },
+    {
+      "check": "360: session remains one tab away",
+      "passed": true
+    },
+    {
+      "check": "360: first-year record book has its correct empty state",
+      "passed": true
+    },
+    {
+      "check": "1366: every discipline remains available",
+      "passed": true
+    },
+    {
+      "check": "1366: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "1366: full overview is expanded without an extra action",
+      "passed": true
+    },
+    {
+      "check": "1366: scores, ranking, attendance and scholarship stay accessible",
+      "passed": true
+    },
+    {
+      "check": "1366: keyboard filter shows precisely the courses needing attention",
+      "passed": true
+    },
+    {
+      "check": "1366: full course details retain every assessment",
+      "passed": true
+    },
+    {
+      "check": "1366: Escape restores focus and preserves the selected filter",
+      "passed": true
+    },
+    {
+      "check": "1366: same-tab account switch resets the filter and all course data",
+      "passed": true
+    },
+    {
+      "check": "1366: new account receives the default overview state",
+      "passed": true
+    },
+    {
+      "check": "1366: session remains one tab away",
+      "passed": true
+    },
+    {
+      "check": "1366: first-year record book has its correct empty state",
+      "passed": true
+    },
+    {
+      "check": "Compact grades: no uncaught JavaScript errors",
+      "passed": true
+    }
+  ],
+  "browser_errors": [],
+  "measurements": [
+    {
+      "viewport": 360,
+      "height": 2096,
+      "filter_top": 479.734375,
+      "filter_bottom": 531.734375,
+      "first_discipline_top": 606.734375,
+      "first_discipline_bottom": 711.53125,
+      "bottom_navigation_top": 733.40625,
+      "expanded_height": 3029
+    },
+    {
+      "viewport": 1366,
+      "height": 1935,
+      "filter_top": 735.015625,
+      "filter_bottom": 787.015625,
+      "first_discipline_top": 834.515625,
+      "first_discipline_bottom": 1102.609375,
+      "bottom_navigation_top": 0
+    }
+  ],
+  "scope": "Demo login/logout and read-only academic data; no grades or requests modified."
+}
