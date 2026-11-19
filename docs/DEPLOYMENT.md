@@ -44,7 +44,10 @@ docker inspect mgimo-mania --format '{{.State.Health.Status}}'
 [Протокол публикации](evidence/deployment/quality-fixes-deployment.json) ·
 [Браузерная приёмка](evidence/deployment/quality-fixes-browser/public-acceptance.json).
 
-Результаты публикаций 8 ноября: [протокол публикации](evidence/deployment/finalization-deployment.json),
+Последняя публикация — 19 ноября, `review-d7a91e220757` (код `babcd1d`): 16/16 проверок,
+52/52 публичных файла, данные сохранены — [протокол](evidence/deployment/nov19-deployment.json),
+[страница входа снаружи](evidence/deployment/nov19-public/public-login.json); скрипт — `artifacts/deploy-nov19.py`
+(в репозиторий не входит). Результаты публикаций 8 ноября: [протокол публикации](evidence/deployment/finalization-deployment.json),
 [браузерная приёмка HTTPS-версии](evidence/deployment/finalization-browser/run-summary.json),
 [сохранение данных после перезапуска контейнера](evidence/deployment/production-persistence.json),
 [живые ответы ИИ-помощника](evidence/deployment/finalization-ai.json).

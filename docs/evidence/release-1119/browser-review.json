@@ -1,0 +1,203 @@
+{
+  "base": "http://127.0.0.1:64309",
+  "checks": [
+    {
+      "check": "360: all bottom navigation labels are at least 11px",
+      "passed": true
+    },
+    {
+      "check": "360: all disciplines appear before filtering",
+      "passed": true
+    },
+    {
+      "check": "360: compact overview preserves every score and assessment type",
+      "passed": true
+    },
+    {
+      "check": "360: grades fit the viewport",
+      "passed": true
+    },
+    {
+      "check": "360: each overview card is under 180px high",
+      "passed": true
+    },
+    {
+      "check": "360: detailed advice stays out of the compact overview",
+      "passed": true
+    },
+    {
+      "check": "360: keyboard filter shows exactly the current risks",
+      "passed": true
+    },
+    {
+      "check": "360: filter keeps keyboard focus and exposes its selected state",
+      "passed": true
+    },
+    {
+      "check": "360: live result count matches filtered list",
+      "passed": true
+    },
+    {
+      "check": "360: keyboard opens full discipline details and all control points",
+      "passed": true
+    },
+    {
+      "check": "360: closing details preserves the filter and restores card focus",
+      "passed": true
+    },
+    {
+      "check": "360: Space returns all disciplines",
+      "passed": true
+    },
+    {
+      "check": "360: account switch resets the filter and shows only the new student courses",
+      "passed": true
+    },
+    {
+      "check": "360: session remains reachable",
+      "passed": true
+    },
+    {
+      "check": "360: first-year empty record book remains reachable",
+      "passed": true
+    },
+    {
+      "check": "360: no-risk API fixture gives a clear empty state",
+      "passed": true
+    },
+    {
+      "check": "360: all courses remain available after the empty state",
+      "passed": true
+    },
+    {
+      "check": "1366: expanding deadlines does not stretch adjacent overview cards",
+      "passed": true
+    },
+    {
+      "check": "1366: four study destinations remain directly accessible",
+      "passed": true
+    },
+    {
+      "check": "1366: all four student-life destinations remain available",
+      "passed": true
+    },
+    {
+      "check": "1366: keyboard enters the student-life menu",
+      "passed": true
+    },
+    {
+      "check": "1366: Escape restores focus to student-life opener",
+      "passed": true
+    },
+    {
+      "check": "1366: student-life link opens the existing route",
+      "passed": true
+    },
+    {
+      "check": "1366: header navigation fits without scrolling",
+      "passed": true
+    },
+    {
+      "check": "1366: all disciplines appear before filtering",
+      "passed": true
+    },
+    {
+      "check": "1366: compact overview preserves every score and assessment type",
+      "passed": true
+    },
+    {
+      "check": "1366: grades fit the viewport",
+      "passed": true
+    },
+    {
+      "check": "1366: desktop retains the detailed cards and scales",
+      "passed": true
+    },
+    {
+      "check": "1366: keyboard filter shows exactly the current risks",
+      "passed": true
+    },
+    {
+      "check": "1366: filter keeps keyboard focus and exposes its selected state",
+      "passed": true
+    },
+    {
+      "check": "1366: live result count matches filtered list",
+      "passed": true
+    },
+    {
+      "check": "1366: keyboard opens full discipline details and all control points",
+      "passed": true
+    },
+    {
+      "check": "1366: closing details preserves the filter and restores card focus",
+      "passed": true
+    },
+    {
+      "check": "1366: Space returns all disciplines",
+      "passed": true
+    },
+    {
+      "check": "1366: account switch resets the filter and shows only the new student courses",
+      "passed": true
+    },
+    {
+      "check": "1366: session remains reachable",
+      "passed": true
+    },
+    {
+      "check": "1366: first-year empty record book remains reachable",
+      "passed": true
+    },
+    {
+      "check": "1366: no-risk API fixture gives a clear empty state",
+      "passed": true
+    },
+    {
+      "check": "1366: all courses remain available after the empty state",
+      "passed": true
+    },
+    {
+      "check": "Review scenarios: no uncaught JavaScript errors",
+      "passed": true
+    }
+  ],
+  "browser_errors": [],
+  "measurements": [
+    {
+      "viewport": 360,
+      "grades_all_height": 2096,
+      "discipline_count": 9,
+      "discipline_card_heights": [
+        105,
+        105,
+        105,
+        126,
+        126,
+        126,
+        126,
+        105,
+        105
+      ],
+      "grades_attention_height": 1094
+    },
+    {
+      "viewport": 1366,
+      "grades_all_height": 1935,
+      "discipline_count": 9,
+      "discipline_card_heights": [
+        268,
+        268,
+        268,
+        290,
+        290,
+        290,
+        290,
+        290,
+        290
+      ],
+      "grades_attention_height": 1323
+    }
+  ],
+  "fixtures": "No-risk response is intercepted in the browser; database grades are unchanged."
+}

@@ -1,0 +1,22 @@
+{
+  "base": "https://ai.neblanki.tech",
+  "scope": "Без входа: только страница входа после публикации review-d7a91e220757",
+  "checks": [
+    {
+      "viewport": "360x800",
+      "first_account_bottom": 730,
+      "fits_first_screen": true,
+      "horizontal_overflow": 0,
+      "concept_marking": true,
+      "js_errors": []
+    },
+    {
+      "viewport": "1366x768",
+      "first_account_bottom": 587,
+      "fits_first_screen": true,
+      "horizontal_overflow": 0,
+      "concept_marking": true,
+      "js_errors": []
+    }
+  ]
+}

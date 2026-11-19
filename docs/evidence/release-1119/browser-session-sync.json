@@ -1,0 +1,155 @@
+{
+  "base": "http://127.0.0.1:64309",
+  "scope": "Disposable loopback data; widths 360 and 1366; external AI disabled",
+  "checks": [
+    {
+      "check": "360: first tab holds the original form and assistant history",
+      "passed": true
+    },
+    {
+      "check": "360: logout in the other tab removes the old form and drawer",
+      "passed": true
+    },
+    {
+      "check": "360: refreshed GET uses the new profile without the old draft",
+      "passed": true
+    },
+    {
+      "check": "360: the new account has no former assistant history",
+      "passed": true
+    },
+    {
+      "check": "360: assistant POST succeeds with the new session token",
+      "passed": true
+    },
+    {
+      "check": "360: submitting a new request after cross-tab login succeeds",
+      "passed": true
+    },
+    {
+      "check": "360: an old form cannot submit after an unnoticed account change",
+      "passed": true
+    },
+    {
+      "check": "360: unnoticed account change clears the old draft",
+      "passed": true
+    },
+    {
+      "check": "360: no old draft was written under the replacement account",
+      "passed": true
+    },
+    {
+      "check": "360: a corrected request succeeds after stale-session recovery",
+      "passed": true
+    },
+    {
+      "check": "360: a GET detects a missed account-change event and recovers the profile",
+      "passed": true
+    },
+    {
+      "check": "360: a lost session returns to login and clears private UI",
+      "passed": true
+    },
+    {
+      "check": "360: login after 401 restores GET and POST with a fresh CSRF token",
+      "passed": true
+    },
+    {
+      "check": "360: a stale anonymous login page recovers after a missed login event",
+      "passed": true
+    },
+    {
+      "check": "360: the recovered anonymous tab can submit with a fresh CSRF token",
+      "passed": true
+    },
+    {
+      "check": "360: logout clears the inactive tab without BroadcastChannel",
+      "passed": true
+    },
+    {
+      "check": "360: login synchronizes the inactive tab without BroadcastChannel",
+      "passed": true
+    },
+    {
+      "check": "360: the fallback-synchronized tab submits under the new account",
+      "passed": true
+    },
+    {
+      "check": "1366: first tab holds the original form and assistant history",
+      "passed": true
+    },
+    {
+      "check": "1366: logout in the other tab removes the old form and drawer",
+      "passed": true
+    },
+    {
+      "check": "1366: refreshed GET uses the new profile without the old draft",
+      "passed": true
+    },
+    {
+      "check": "1366: the new account has no former assistant history",
+      "passed": true
+    },
+    {
+      "check": "1366: assistant POST succeeds with the new session token",
+      "passed": true
+    },
+    {
+      "check": "1366: submitting a new request after cross-tab login succeeds",
+      "passed": true
+    },
+    {
+      "check": "1366: an old form cannot submit after an unnoticed account change",
+      "passed": true
+    },
+    {
+      "check": "1366: unnoticed account change clears the old draft",
+      "passed": true
+    },
+    {
+      "check": "1366: no old draft was written under the replacement account",
+      "passed": true
+    },
+    {
+      "check": "1366: a corrected request succeeds after stale-session recovery",
+      "passed": true
+    },
+    {
+      "check": "1366: a GET detects a missed account-change event and recovers the profile",
+      "passed": true
+    },
+    {
+      "check": "1366: a lost session returns to login and clears private UI",
+      "passed": true
+    },
+    {
+      "check": "1366: login after 401 restores GET and POST with a fresh CSRF token",
+      "passed": true
+    },
+    {
+      "check": "1366: a stale anonymous login page recovers after a missed login event",
+      "passed": true
+    },
+    {
+      "check": "1366: the recovered anonymous tab can submit with a fresh CSRF token",
+      "passed": true
+    },
+    {
+      "check": "1366: logout clears the inactive tab without BroadcastChannel",
+      "passed": true
+    },
+    {
+      "check": "1366: login synchronizes the inactive tab without BroadcastChannel",
+      "passed": true
+    },
+    {
+      "check": "1366: the fallback-synchronized tab submits under the new account",
+      "passed": true
+    },
+    {
+      "check": "Cross-tab recovery has no uncaught JavaScript errors",
+      "passed": true
+    }
+  ],
+  "browser_errors": []
+}

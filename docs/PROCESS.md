@@ -234,7 +234,8 @@ Codex использовался для согласованной работы 
 | G · дизайн | продолжение П-10 | Текст подсказок, зачёркнутой аудитории и «нет баллов» был 2,17–2,39:1 — стал 4,51–4,96:1; белый на красном 3,91 → 6,54:1 | `scripts/check-contrast.py`, `test/contrast.test.js` (24 проверки), снимки до и после | `3aff3bb` |
 | E · документы | по README библиотеки | Перенёс библиотеку в `docs/prompts/` с пометкой происхождения, исправил 16 неверных утверждений, сверил 40 хешей коммитов | Скрипт проверки ссылок | этот выпуск |
 | C · файлы для агентов | П-09 «Собери комплект для агентов» | `AGENTS.md`, `CLAUDE.md`, `QWEN.md`, шесть субагентов и три команды в `.claude/`, `docs/ai/` | Пробный прогон комплекта на задаче и сверка каждой ссылки | этот выпуск |
-| B · независимый аудит | П-28 «Независимый аудит „свежим“ агентом» | Проверил итоговое состояние как эксперт: девять находок — от доступа к репозиторию и устаревшего PDF до первого экрана входа на телефоне | Тесты, API-пробы изоляции, свой браузерный маршрут на 360 и 1366 px, сверка архива с Git | правки документов и поручение H |
+| B · независимый аудит | П-28 «Независимый аудит „свежим“ агентом» | Проверил итоговое состояние как эксперт: девять находок — от доступа к репозиторию и устаревшего PDF до первого экрана входа на телефоне | Тесты, API-пробы изоляции, свой браузерный маршрут на 360 и 1366 px, сверка архива с Git | `babcd1d` и поручение H |
+| H · интерфейс | находка аудита П-28 | На телефоне кнопки тестовых аккаунтов попали в первый экран (кнопка поднялась с 976 до 730 px), уведомление о входе закрывается нажатием и держится 2,8 с | `test/browser-mobile-entry.py`: 16/16, на старом коде 12/16; снимки до и после | `c8955dc` |
 
 **Цепочка, ради которой это делалось.** Промпт → ответ → сверка с кодом → находка → новое
 поручение → исправление → тест. Ответ на П-08 показал, что экранирование объявлений описано,
@@ -298,6 +299,14 @@ Codex использовался для согласованной работы 
   <img src="evidence/subagents-2026-11-19/B-independent-audit.png" alt="Независимый аудит по промпту П-28">
   <figcaption>Субагент B, промпт П-28: независимый аудит итогового состояния. Его находки закрыты правками документов и поручением H.</figcaption>
 </figure>
+<figure class="prompt-card">
+  <img src="evidence/subagents-2026-11-19/H-mobile-entry.png" alt="Поручение H по находке аудита: первый экран входа на телефоне">
+  <figcaption>Субагент H: первый экран входа на телефоне по находке аудита. Итог — `c8955dc`.</figcaption>
+</figure>
+<div class="comparison-pair">
+  <figure><img src="evidence/mobile-entry/before-login-360.png" alt="Вход на 360 px — до"><figcaption>До: на 360 px видны обложка и поле логина, тестовые аккаунты ниже экрана.</figcaption></figure>
+  <figure><img src="evidence/mobile-entry/after-login-360.png" alt="Вход на 360 px — после"><figcaption>После: Алина и Тимур в первом экране, маркировка концепта на месте.</figcaption></figure>
+</div>
 
 
 ## 4. От идеи к устройству приложения
@@ -738,6 +747,12 @@ OpenRouter для двух студентов. Ответы о группе со
 | Экранирование объявлений и комментариев описано, но не проверено; нет проверки ключей в истории Git и боевой cookie | П-08 «Модель угроз» | Новые проверки, без изменения кода приложения | `test/browser-xss.py` (21), `test/security-gaps.test.js`; каждый падал на сломанной копии |
 | Серый текст подсказок, прежней аудитории и «нет баллов» — 2,17–2,39:1 | П-10 «Токены и контраст» | Токен `--faint-text` и тёмно-красный фон для белого текста | `scripts/check-contrast.py`, `test/contrast.test.js` (24) |
 
+После всех исправлений — общий прогон на свежих базах (73/73 автотеста, 523/523 браузерных
+проверки в 17 наборах) и публикация этого же кода на стенд по просьбе автора «публичным сделал
+сделай теперь стенд»: версия `review-d7a91e220757`, 16/16 проверок публикации, все прежние заявки
+и сеансы сохранены ([протокол](evidence/deployment/nov19-deployment.json)). Репозиторий автор
+открыл в тот же день.
+
 ## 10. Журналы и реальные снимки проверок
 
 Каждая проверка запускается на новой временной базе, без пользовательских данных и без
@@ -747,29 +762,30 @@ OpenRouter для двух студентов. Ответы о группе со
 
 ### Текущая версия, 19 ноября
 
-Окончательный общий запуск: **73/73** автотестов и **507/507** браузерных проверок в 16 наборах,
+Окончательный общий запуск: **73/73** автотестов и **523/523** браузерных проверок в 17 наборах,
 без необработанных ошибок JavaScript. Каждый браузерный набор использовал отдельную временную
-SQLite; внешние ключи ИИ отключены. [Сводка](evidence/nov19/run-summary.json)
+SQLite; внешние ключи ИИ отключены. [Сводка](evidence/release-1119/run-summary.json)
 содержит команды, время и SHA-256 проверенных исходников.
 
 | Набор | Пройдено | Журнал |
 |---|---:|---|
-| API, безопасность и предметная логика | 73/73 | [unit-tests.txt](evidence/nov19/unit-tests.txt) |
-| Экраны на 360 и 1366 px | 52/52 | [browser-smoke.txt](evidence/nov19/browser-smoke.txt) |
-| Путь заявки двух ролей, смена аккаунта, изоляция | 36/36 | [browser-flows.txt](evidence/nov19/browser-flows.txt) |
-| Клавиатура, фокус, восстановление после ошибок | 23/23 | [browser-accessibility.txt](evidence/nov19/browser-accessibility.txt) |
-| Мобильные доработки и состояния расписания | 21/21 | [browser-polish.txt](evidence/nov19/browser-polish.txt) |
-| Справка о стипендии: заявка, таблица, PDF | 45/45 | [browser-stipend.txt](evidence/nov19/browser-stipend.txt) |
-| Компактные оценки, фильтр риска, меню | 40/40 | [browser-review.txt](evidence/nov19/browser-review.txt) |
-| Главная: приоритеты, длинные названия и текущая пара | 40/40 | [browser-home-priority.txt](evidence/nov19/browser-home-priority.txt) |
-| Успеваемость: первый экран и статистика | 31/31 | [browser-grades-compact.txt](evidence/nov19/browser-grades-compact.txt) |
-| Форма справки: профиль, формат, смена аккаунта | 19/19 | [browser-request-compact.txt](evidence/nov19/browser-request-compact.txt) |
-| Читаемость расписания | 29/29 | [browser-schedule-readability.txt](evidence/nov19/browser-schedule-readability.txt) |
-| «С чего начать»: первые действия | 34/34 | [browser-first-actions.txt](evidence/nov19/browser-first-actions.txt) |
-| Правки 9 ноября: вход, нажатия, уведомления, чужая ссылка | 14/14 | [browser-audit-fixes.txt](evidence/nov19/browser-audit-fixes.txt) |
-| Вкладки, пропущенные события и восстановление сеанса | 37/37 | [browser-session-sync.txt](evidence/nov19/browser-session-sync.txt) |
-| Фокус при обновлениях, меню и контраст текста | 65/65 | [browser-focus-contrast.txt](evidence/nov19/browser-focus-contrast.txt) |
-| Разметка в объявлениях и комментариях остаётся текстом (19 ноября) | 21/21 | [browser-xss.txt](evidence/nov19/browser-xss.txt) |
+| API, безопасность и предметная логика | 73/73 | [unit-tests.txt](evidence/release-1119/unit-tests.txt) |
+| Экраны на 360 и 1366 px | 52/52 | [browser-smoke.txt](evidence/release-1119/browser-smoke.txt) |
+| Путь заявки двух ролей, смена аккаунта, изоляция | 36/36 | [browser-flows.txt](evidence/release-1119/browser-flows.txt) |
+| Клавиатура, фокус, восстановление после ошибок | 23/23 | [browser-accessibility.txt](evidence/release-1119/browser-accessibility.txt) |
+| Мобильные доработки и состояния расписания | 21/21 | [browser-polish.txt](evidence/release-1119/browser-polish.txt) |
+| Справка о стипендии: заявка, таблица, PDF | 45/45 | [browser-stipend.txt](evidence/release-1119/browser-stipend.txt) |
+| Компактные оценки, фильтр риска, меню | 40/40 | [browser-review.txt](evidence/release-1119/browser-review.txt) |
+| Главная: приоритеты, длинные названия и текущая пара | 40/40 | [browser-home-priority.txt](evidence/release-1119/browser-home-priority.txt) |
+| Успеваемость: первый экран и статистика | 31/31 | [browser-grades-compact.txt](evidence/release-1119/browser-grades-compact.txt) |
+| Форма справки: профиль, формат, смена аккаунта | 19/19 | [browser-request-compact.txt](evidence/release-1119/browser-request-compact.txt) |
+| Читаемость расписания | 29/29 | [browser-schedule-readability.txt](evidence/release-1119/browser-schedule-readability.txt) |
+| «С чего начать»: первые действия | 34/34 | [browser-first-actions.txt](evidence/release-1119/browser-first-actions.txt) |
+| Правки 9 ноября: вход, нажатия, уведомления, чужая ссылка | 14/14 | [browser-audit-fixes.txt](evidence/release-1119/browser-audit-fixes.txt) |
+| Вкладки, пропущенные события и восстановление сеанса | 37/37 | [browser-session-sync.txt](evidence/release-1119/browser-session-sync.txt) |
+| Фокус при обновлениях, меню и контраст текста | 65/65 | [browser-focus-contrast.txt](evidence/release-1119/browser-focus-contrast.txt) |
+| Разметка в объявлениях и комментариях остаётся текстом (19 ноября) | 21/21 | [browser-xss.txt](evidence/release-1119/browser-xss.txt) |
+| Первый экран входа на телефоне и уведомление о входе (19 ноября) | 16/16 | [browser-mobile-entry.txt](evidence/release-1119/browser-mobile-entry.txt) |
 
 <figure class="evidence-card">
   <img src="evidence/process/test-results.png" alt="Карточка фактического журнала автоматических тестов текущей версии">
@@ -792,7 +808,7 @@ SQLite; внешние ключи ИИ отключены. [Сводка](eviden
 | 8 ноября, 21:44–21:55 | «С чего начать», расписание; публикация | 35/35 и 367/367 локально*, 194/194 на HTTPS, живой ИИ 2/2 | [локально](evidence/finalization/run-summary.json), [HTTPS](evidence/deployment/finalization-browser/run-summary.json), [ИИ](evidence/deployment/finalization-ai.json) |
 | 9 ноября | Доводка после независимого аудита | 37/37 и 381/381 | [сводка](evidence/polish/run-summary.json) |
 | 9 ноября, окончательная проверка | Исправления реализации, вкладок, фокуса, контраста и мобильной главной | 42/42 и 492/492 | [сводка](evidence/quality-fixes/run-summary.json) |
-| 19 ноября | Промпты библиотеки, выполненные субагентами Sonnet 5.5 | 73/73 и 507/507 | [сводка](evidence/nov19/run-summary.json) |
+| 19 ноября | Промпты библиотеки, выполненные субагентами Sonnet 5.5 | 73/73 и 523/523 | [сводка](evidence/release-1119/run-summary.json) |
 
 \* 333 проверки общего запуска и 34 проверки повтора одного сценария после исправления
 ожидания в тесте. Неуспешные попытки сохранены в `evidence/finalization-first-attempt/`,

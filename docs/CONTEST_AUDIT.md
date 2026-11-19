@@ -53,10 +53,9 @@
 пароли, сеансы, сохранение после перезапуска, лимиты, ошибки ИИ-провайдера, календарные дни,
 ключи в истории Git, боевая cookie, контраст токенов и отсутствие обещаний QR.
 
-`python scripts/collect-evidence.py --output docs/evidence/nov19` — **507/507** браузерных
+`python scripts/collect-evidence.py --output docs/evidence/release-1119` — **523/523** браузерных
 проверок на ширинах 360 и 1366 px. Каждый набор работает со своей временной базой, внешний ИИ
-отключён, необработанных ошибок JavaScript нет. Проверен код коммита `3aff3bb`; позже менялись только документы
-и файлы для агентов. [Сводка запуска](evidence/nov19/run-summary.json).
+отключён, необработанных ошибок JavaScript нет. Проверен код коммита `babcd1d` — он же опубликован на стенде. [Сводка запуска](evidence/release-1119/run-summary.json).
 
 Новые регрессии проверяют смену аккаунта между вкладками и пропущенные события,
 защиту старых GET/POST, клавиатурный фокус при обновлениях, фактический контраст текста
@@ -64,29 +63,41 @@
 
 | Набор | Пройдено | Журнал |
 |---|---:|---|
-| API, безопасность и предметная логика | 73/73 | [unit-tests.txt](evidence/nov19/unit-tests.txt) |
-| Экраны на 360 и 1366 px | 52/52 | [browser-smoke.txt](evidence/nov19/browser-smoke.txt) |
-| Путь заявки двух ролей, смена аккаунта, изоляция | 36/36 | [browser-flows.txt](evidence/nov19/browser-flows.txt) |
-| Клавиатура, фокус, восстановление после ошибок | 23/23 | [browser-accessibility.txt](evidence/nov19/browser-accessibility.txt) |
-| Мобильные доработки и состояния расписания | 21/21 | [browser-polish.txt](evidence/nov19/browser-polish.txt) |
-| Справка о стипендии: заявка, таблица, PDF | 45/45 | [browser-stipend.txt](evidence/nov19/browser-stipend.txt) |
-| Компактные оценки, фильтр риска, меню | 40/40 | [browser-review.txt](evidence/nov19/browser-review.txt) |
-| Главная: приоритеты, длинные названия и текущая пара | 40/40 | [browser-home-priority.txt](evidence/nov19/browser-home-priority.txt) |
-| Успеваемость: первый экран и статистика | 31/31 | [browser-grades-compact.txt](evidence/nov19/browser-grades-compact.txt) |
-| Форма справки: профиль, формат, смена аккаунта | 19/19 | [browser-request-compact.txt](evidence/nov19/browser-request-compact.txt) |
-| Читаемость расписания | 29/29 | [browser-schedule-readability.txt](evidence/nov19/browser-schedule-readability.txt) |
-| «С чего начать»: первые действия | 34/34 | [browser-first-actions.txt](evidence/nov19/browser-first-actions.txt) |
-| Правки 9 ноября: вход, нажатия, уведомления, чужая ссылка | 14/14 | [browser-audit-fixes.txt](evidence/nov19/browser-audit-fixes.txt) |
-| Вкладки, пропущенные события и восстановление сеанса | 37/37 | [browser-session-sync.txt](evidence/nov19/browser-session-sync.txt) |
-| Фокус при обновлениях, меню и контраст текста | 65/65 | [browser-focus-contrast.txt](evidence/nov19/browser-focus-contrast.txt) |
-| Разметка в объявлениях и комментариях остаётся текстом (19 ноября) | 21/21 | [browser-xss.txt](evidence/nov19/browser-xss.txt) |
+| API, безопасность и предметная логика | 73/73 | [unit-tests.txt](evidence/release-1119/unit-tests.txt) |
+| Экраны на 360 и 1366 px | 52/52 | [browser-smoke.txt](evidence/release-1119/browser-smoke.txt) |
+| Путь заявки двух ролей, смена аккаунта, изоляция | 36/36 | [browser-flows.txt](evidence/release-1119/browser-flows.txt) |
+| Клавиатура, фокус, восстановление после ошибок | 23/23 | [browser-accessibility.txt](evidence/release-1119/browser-accessibility.txt) |
+| Мобильные доработки и состояния расписания | 21/21 | [browser-polish.txt](evidence/release-1119/browser-polish.txt) |
+| Справка о стипендии: заявка, таблица, PDF | 45/45 | [browser-stipend.txt](evidence/release-1119/browser-stipend.txt) |
+| Компактные оценки, фильтр риска, меню | 40/40 | [browser-review.txt](evidence/release-1119/browser-review.txt) |
+| Главная: приоритеты, длинные названия и текущая пара | 40/40 | [browser-home-priority.txt](evidence/release-1119/browser-home-priority.txt) |
+| Успеваемость: первый экран и статистика | 31/31 | [browser-grades-compact.txt](evidence/release-1119/browser-grades-compact.txt) |
+| Форма справки: профиль, формат, смена аккаунта | 19/19 | [browser-request-compact.txt](evidence/release-1119/browser-request-compact.txt) |
+| Читаемость расписания | 29/29 | [browser-schedule-readability.txt](evidence/release-1119/browser-schedule-readability.txt) |
+| «С чего начать»: первые действия | 34/34 | [browser-first-actions.txt](evidence/release-1119/browser-first-actions.txt) |
+| Правки 9 ноября: вход, нажатия, уведомления, чужая ссылка | 14/14 | [browser-audit-fixes.txt](evidence/release-1119/browser-audit-fixes.txt) |
+| Вкладки, пропущенные события и восстановление сеанса | 37/37 | [browser-session-sync.txt](evidence/release-1119/browser-session-sync.txt) |
+| Фокус при обновлениях, меню и контраст текста | 65/65 | [browser-focus-contrast.txt](evidence/release-1119/browser-focus-contrast.txt) |
+| Разметка в объявлениях и комментариях остаётся текстом (19 ноября) | 21/21 | [browser-xss.txt](evidence/release-1119/browser-xss.txt) |
+| Первый экран входа на телефоне и уведомление о входе (19 ноября) | 16/16 | [browser-mobile-entry.txt](evidence/release-1119/browser-mobile-entry.txt) |
 
 ## Опубликованная версия
 
-Исправления 19 ноября (квиз без обещания QR, контраст текста, первый экран входа на телефоне) есть в коде
-и прошли локальные проверки; на стенде они появятся после следующей публикации по [DEPLOYMENT.md](DEPLOYMENT.md).
+**19 ноября опубликован код `babcd1d`, версия `review-d7a91e220757`** — тот же, что прошёл
+73/73 автотеста и 523/523 браузерные проверки. Перед заменой создана резервная копия SQLite
+(`integrity_check=ok`, права `0600`). Контейнер в состоянии `healthy`, **52/52** публичных файла
+совпали с проверенным кодом; **16/16** проверок публикации, в том числе: все прежние заявки,
+события и сеансы сохранены по количеству и хешам содержимого, том данных и соседние контейнеры
+не тронуты. [Протокол публикации](evidence/deployment/nov19-deployment.json).
 
-9 ноября опубликован проверенный код `3b722e9`, версия `review-ad34040a18b8`.
+После публикации без входа проверено: квиз отдаёт «с кодом и ссылкой для проверки», токен
+`--faint-text` на месте, CSP без внешних адресов, `/api/me` без входа — 401; страница входа на
+360×800 показывает первый тестовый аккаунт в первом экране, без прокрутки и ошибок JavaScript
+([снимки и замеры](evidence/deployment/nov19-public/public-login.json)). Вход паролем на боевой
+стенд в этой публикации не автоматизировался: прохождение с телефона и проверку доступа из России
+без VPN делает автор.
+
+Предыдущая публикация, 9 ноября: проверенный код `3b722e9`, версия `review-ad34040a18b8`.
 Контейнер в состоянии `healthy`; **52/52** публичных файлов совпали с подготовленным
 runtime. Перед заменой создана резервная копия SQLite с `integrity_check=ok`.
 Существующие заявки, история и сеансы сохранены; четыре соседних контейнера не менялись.
@@ -115,7 +126,7 @@ runtime. Перед заменой создана резервная копия 
 | 8 ноября, 21:44–21:55 | «С чего начать», расписание; публикация | 35/35 и 367/367 локально*, 194/194 на HTTPS, живой ИИ 2/2 | [finalization/](evidence/finalization/run-summary.json), [HTTPS](evidence/deployment/finalization-browser/run-summary.json) |
 | 9 ноября | Доводка после независимого аудита | 37/37 и 381/381 | [polish/](evidence/polish/run-summary.json) |
 | 9 ноября, окончательная проверка | Исправления реализации, вкладок, фокуса, контраста и мобильной главной | 42/42 и 492/492 | [quality-fixes/](evidence/quality-fixes/run-summary.json) |
-| 19 ноября | Промпты библиотеки, выполненные субагентами Sonnet 5.5: QR, XSS, ключи в Git, cookie, контраст | 73/73 и 507/507 | [nov19/](evidence/nov19/run-summary.json), [диалоги](evidence/subagents-2026-11-19/) |
+| 19 ноября | Промпты библиотеки, выполненные субагентами Sonnet 5.5: QR, XSS, ключи в Git, cookie, контраст | 73/73 и 523/523 | [release-1119/](evidence/release-1119/run-summary.json), [диалоги](evidence/subagents-2026-11-19/) |
 
 \* 333 проверки общего запуска и 34 проверки повтора одного сценария после исправления
 ожидания в тесте. Неуспешные попытки не удалялись: `evidence/finalization-first-attempt/`,
