@@ -19,7 +19,7 @@ from urllib.request import urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.stdout.reconfigure(encoding='utf-8')
-SUITES = ['browser-smoke', 'browser-flows', 'browser-accessibility', 'browser-polish', 'browser-stipend', 'browser-review', 'browser-home-priority', 'browser-grades-compact', 'browser-request-compact', 'browser-schedule-readability', 'browser-first-actions', 'browser-audit-fixes', 'browser-session-sync', 'browser-focus-contrast']
+SUITES = ['browser-smoke', 'browser-flows', 'browser-accessibility', 'browser-polish', 'browser-stipend', 'browser-review', 'browser-home-priority', 'browser-grades-compact', 'browser-request-compact', 'browser-schedule-readability', 'browser-first-actions', 'browser-audit-fixes', 'browser-session-sync', 'browser-focus-contrast', 'browser-xss']
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--output', type=Path, default=ROOT / 'docs' / 'evidence' / 'quality-fixes', help='Directory for this run; use a new path to preserve earlier evidence.')
 parser.add_argument('--suites', nargs='+', choices=SUITES, default=SUITES, help='Browser suites to execute after the unit tests.')
