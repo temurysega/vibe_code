@@ -1,15 +1,16 @@
 {
   "source": "git log --reverse --date=iso-strict",
-  "snapshot_head": "089a8d2f8fa39641a4a85e6f304024f2f1082863",
+  "snapshot_head": "4045f08d11abf0ceebc6dcc4b4feb904a386254f",
   "interpretation": "Метаданные репозитория, а не стенограмма работы с ИИ. Коммиты 4 ноября созданы скриптом за 2–3 минуты в конце первой сессии и показывают устройство кода; с 8 ноября каждый коммит — отдельная итерация. Трейлер Co-Authored-By не удостоверяет текст промптов или версию модели.",
   "summary": {
-    "commits": 644,
+    "commits": 656,
     "by_day": {
       "2026-11-04": 629,
       "2026-11-08": 11,
-      "2026-11-09": 4
+      "2026-11-09": 7,
+      "2026-11-19": 9
     },
-    "commits_with_claude_coauthor": 633,
+    "commits_with_claude_coauthor": 643,
     "replayed_on_2026_11_04": {
       "commits": 629,
       "first": "2026-11-04T22:09:47+03:00",
@@ -5788,6 +5789,110 @@
       "date": "2026-11-09T00:17:53+03:00",
       "author": "temurysega",
       "subject": "Add a browser regression suite for the 9 November fixes",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "645b5c5be2a30b210671305cb846b93533c7e18b",
+      "date": "2026-11-09T00:23:40+03:00",
+      "author": "temurysega",
+      "subject": "Rewrite jury materials and record the 9 November verification",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3b722e952710658c7fe52ca80e128dbd184ca5eb",
+      "date": "2026-11-09T14:14:52+03:00",
+      "author": "temurysega",
+      "subject": "Fix account changes, calendar answers, and keyboard navigation",
+      "coauthors": []
+    },
+    {
+      "commit": "c13d30598c8f63e4f3dc92ce320229891ec13da5",
+      "date": "2026-11-09T14:24:29+03:00",
+      "author": "temurysega",
+      "subject": "Record deployment and public acceptance of the quality fixes",
+      "coauthors": []
+    },
+    {
+      "commit": "fe1191c3d1a868dbac0d4ead998c7428f190f354",
+      "date": "2026-11-19T21:48:23+03:00",
+      "author": "temurysega",
+      "subject": "Remove the leftover QR promise from the first-steps quiz",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0706409401e991cdd2c06385aa3de9af74ef5535",
+      "date": "2026-11-19T21:53:11+03:00",
+      "author": "temurysega",
+      "subject": "Record Sonnet 5.5 runs of nine library prompts against the project",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6616890a990bedc06e6857b1bccaae16abf5e869",
+      "date": "2026-11-19T21:57:40+03:00",
+      "author": "temurysega",
+      "subject": "Close the security test gaps found by the П-08 reconciliation",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3aff3bbb59635f7f13e0420979ad20e2d77984c0",
+      "date": "2026-11-19T21:58:54+03:00",
+      "author": "temurysega",
+      "subject": "Raise text contrast to WCAG AA after the П-10 reconciliation",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "89748f4c93277db3a285bbafaa415f11198bbc97",
+      "date": "2026-11-19T22:01:33+03:00",
+      "author": "temurysega",
+      "subject": "Add the agent kit and the team's prompt library",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "22540f7de7d06255f3e0d06c98867f153a20055d",
+      "date": "2026-11-19T22:05:49+03:00",
+      "author": "temurysega",
+      "subject": "Put the real November 19 dialogues into the process description",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c8955dc7181cc3e017d29d26aa9ad7744403ad7a",
+      "date": "2026-11-19T22:14:26+03:00",
+      "author": "temurysega",
+      "subject": "Show the test accounts on the first phone screen",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "babcd1db5cbdbd0c2fc7a545037ddb3def866bed",
+      "date": "2026-11-19T22:14:27+03:00",
+      "author": "temurysega",
+      "subject": "Apply the independent audit findings to the jury documents",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "4045f08d11abf0ceebc6dcc4b4feb904a386254f",
+      "date": "2026-11-19T22:23:20+03:00",
+      "author": "temurysega",
+      "subject": "Publish the 19 November release and record its verification",
       "coauthors": [
         "Claude Opus 5.5 <noreply@anthropic.com>"
       ]

@@ -140,19 +140,9 @@ img[src*="prompt-"] {max-height:220mm;margin:8pt auto}
 виртуальный кампус и короткая игра дают кабинету характер. При этом расписание и справки
 доступны через обычную навигацию: для учебных действий не требуется играть или копить монеты.
 Связь игрового слоя с вовлечённостью — гипотеза концепта, а не доказанный образовательный эффект.</p>
-<p>Ниже — предоставленный автором скриншот реального диалога с ассистентом об исходной
-задаче: сначала описать человека, обязательные действия и путь заявки, затем выбирать
-экраны.</p>
-<figure class="wide-shot dialogue-illustration">
-  <img src="evidence/dialogue-illustrations/01-concept.png" alt="Диалог с ассистентом о структуре студенческого кабинета и варианте автоматической демонстрации заявки">
-  <figcaption>Скриншот диалога, предоставленный автором: идея кабинета, обязательные разделы и путь заявки.</figcaption>
-</figure>
-
-<p>В обсуждаемом варианте статус справки меняется автоматически. В текущем прототипе
-сохранён демонстрационный план автоматического прохождения статусов и есть кабинет
-сотрудника с реальными действиями над заявкой. Проверенный сквозной сценарий использует
-именно действие сотрудника: оно записывается в историю и вызывает уведомление студенту.
-Так идея короткой демонстрации дополняется полноценным взаимодействием двух ролей.</p>
+<p>Статус справки в демо может меняться автоматически, но проверенный сквозной сценарий
+использует действие сотрудника: оно записывается в историю и вызывает уведомление студенту.
+Так короткая демонстрация дополняется полноценным взаимодействием двух ролей.</p>
 <h2>2. Из чего складывается эта история</h2>
 <p>В разработке, <strong>по словам автора</strong>, использовались <strong>Claude, Qwen и Codex</strong>. Документ
 объединяет это описание автора с тем, что можно проверить в проекте: историей Git,
@@ -182,56 +172,81 @@ img[src*="prompt-"] {max-height:220mm;margin:8pt auto}
 <td>Что было выполнено в конкретном запуске и как выглядел проверенный экран</td>
 </tr>
 <tr>
-<td>Карточки задач в этом документе</td>
-<td>Развёрнутые реконструкции постановок по существующему коду и результатам; это не оригинальные чаты</td>
+<td>Дословные просьбы автора</td>
+<td>Короткие постановки 8–9 ноября, сохранённые в записях сессий <code>docs/evidence/*-session.json</code></td>
 </tr>
 <tr>
-<td>Четыре скриншота диалогов</td>
-<td>Предоставленные автором примеры реальной переписки об идее, заявке, мобильном интерфейсе и кампусе</td>
+<td>Журнал промптов</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/ai/PROMPTS_LOG.md">docs/ai/PROMPTS_LOG.md</a>: постановки с указанием происхождения — оригинал, выдержка или реконструкция</td>
+</tr>
+<tr>
+<td>Диалоги с субагентами 19 ноября</td>
+<td>Промпты методички, выполненные по-настоящему: поручение → ответ → изменение в проекте (<a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/subagents-2026-11-19/">папка</a>)</td>
+</tr>
+<tr>
+<td>Методичка промптов</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/prompts/README.md">docs/prompts/</a>: промпты по этапам, поручения субагентам и промпты-коррекции. Написана после создания прототипа по его коду и журналам — это методичка, а не журнал</td>
+</tr>
+<tr>
+<td>Карточки задач в приложении</td>
+<td>Реконструкции постановок по коду; это не оригинальные чаты</td>
 </tr>
 </tbody>
 </table>
-<p>Переписка представлена четырьмя скриншотами. Отдельные развёрнутые карточки в приложении
-систематизируют требования и критерии приёмки по исходникам и результатам проверок;
-их происхождение указано в каждой карточке.</p>
-<p>Автор предоставил четыре PNG с диалогами в Claude Code и Qwen Code и подтвердил,
-что это настоящие примеры переписки при работе над проектом. Исходные имена, размеры
-и SHA-256 неизменённых копий перечислены в
-<a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/dialogue-illustrations/manifest.json">манифесте скриншотов</a>.</p>
-<h3>Как решения из диалогов связаны с продуктом</h3>
+<p><strong>Чего в документе нет.</strong> Ответы ассистентов на ранние постановки 4 ноября не сохранились,
+поэтому «восстановленных» диалогов того времени здесь нет. Ранняя версия документа содержала
+четыре изображения диалогов, созданные ChatGPT (в PNG есть метаданные C2PA: ChatGPT, gpt-image),
+и подписывала их как скриншоты переписки; в записях сессий 8 ноября эта подпись сохранилась
+как историческая цитата. Это заметил аудит Claude Code 8–9 ноября по метаданным (отчёт был в чате
+и в репозиторий не сохранялся; в доработку 9 ноября по решению автора не вошло), и в итоговой
+версии изображения заменены настоящими материалами — см. запись E-11 в
+<a href="https://github.com/temurysega/vibe_code/blob/main/docs/ai/ERRORS.md">журнале ошибок</a>.</p>
+<h3>Что просил автор и что сделали агенты</h3>
 <table>
 <thead>
 <tr>
-<th>Задача в реальном диалоге</th>
-<th>Принятое решение</th>
-<th>Где увидеть результат</th>
+<th>Дословная просьба автора</th>
+<th>Кто выполнял</th>
+<th>Что получилось</th>
+<th>Источник</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Claude Code: предложить структуру и сценарий до написания кода</td>
-<td>Пять учебных задач, главная с ближайшей парой, путь к справке</td>
-<td><code>public/js/app.js</code>, <code>views/home.js</code>, <code>views/requests.js</code>; шаги 2–3 маршрута жюри</td>
+<td>«вот фотки подставь их ну вот и подними все до 10»</td>
+<td>Codex и три субагента: документы, интерфейс, публикация</td>
+<td>Компактная успеваемость с фильтром риска, меню «Студенческая жизнь», публикация сборки <code>review-b27684eaebf8</code></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/review-session.json">review-session.json</a></td>
 </tr>
 <tr>
-<td>Qwen Code: показать полный процесс и ограничить сотрудника факультетом</td>
-<td>Две роли, очередь, история и уведомление о решении</td>
-<td><code>server/routes/dean.js</code>, <code>server/domain/requests.js</code>; сквозной <code>browser-flows.py</code></td>
+<td>«подними все до 10 и запуш все»</td>
+<td>Codex и субагенты: главная, успеваемость, документы</td>
+<td>Главная без дублей с быстрыми действиями, компактная форма справки, маршрут жюри</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-session.json">quality-session.json</a></td>
 </tr>
 <tr>
-<td>Claude Code: на телефоне сначала пара, а оценку объяснять через порог</td>
-<td>Учебные приоритеты на главной, недостающие баллы и следующий шаг по дисциплине</td>
-<td><code>public/js/views/home.js</code>, <code>server/domain/grades.js</code>; мобильные сценарии и карточка дисциплины</td>
+<td>«давай вот все поправим и зальем сайт и на github тоже все зальем»</td>
+<td>Codex: основной агент и субагенты расписания, публикации и документов</td>
+<td>«С чего начать», читаемое расписание, публикация <code>review-21595807feaf</code>, 194/194 проверки на HTTPS</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/finalization-session.json">finalization-session.json</a></td>
 </tr>
 <tr>
-<td>Claude Code: добавить питомца и кампус, сохранив прямой доступ к учёбе</td>
-<td>Игровые разделы дополняют обычную навигацию</td>
-<td><code>public/js/views/campus.js</code>, <code>home.js</code>, <code>game.js</code>; расписание и заявки открываются без игры</td>
+<td>«проверь по критериям все что написано… все что сделал», затем «давай все правки сделаем чтобы дотянуть до 10»</td>
+<td>Claude Code (Claude Opus 5.5)</td>
+<td>Независимый аудит и восемь исправлений с регрессиями (раздел 9)</td>
+<td>Коммиты <code>0e3d1c3</code>…<code>645b5c5</code></td>
+</tr>
+<tr>
+<td>«вот промпты которые использовались… обращайся к подагенту… sonnet… делаешь скрины… пушить не забываешь»</td>
+<td>Claude Code и субагенты Claude Sonnet 5.5, 18–19 ноября</td>
+<td>Промпты методички выполнены по-настоящему, комплект файлов для агентов, диалоги — ниже в разделе 3</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/subagents-2026-11-19/">subagents-2026-11-19/</a></td>
 </tr>
 </tbody>
 </table>
-<p>Скриншоты показывают постановки и обсуждение решений. Связанные файлы и проверки
-позволяют проследить их до текущего поведения приложения.</p>
+<p>Короткие просьбы сработали потому, что агенты сами восстанавливали контекст из кода,
+<code>AGENTS.md</code> и критериев. Как такие просьбы стоило формулировать полностью — в
+<a href="https://github.com/temurysega/vibe_code/blob/main/docs/prompts/00-principles.md">методичке</a>, раздел «Было → стало».</p>
 <h3>Как шла работа: журналы сессий</h3>
 <p>Первая версия кабинета создана за одну сессию <strong>Claude Code в приложении Claude</strong>
 (модель Claude Opus 5.5) <strong>4 ноября, 20:49–22:13 МСК</strong>. Стартовым промптом был полный
@@ -335,7 +350,8 @@ Claude; это атрибуция в репозитории, а не незав�
 </tr>
 </tbody>
 </table>
-<p>В <code>AGENTS.md</code> закреплены структура каталогов, шесть инвариантов и правила проверки.
+<p>В <code>AGENTS.md</code> сначала было шесть инвариантов; 19 ноября комплект для агентов расширил их до 12,
+и у каждого теперь указан тест, который его охраняет. Там же структура каталогов и правила проверки.
 Например, пользователя определяет серверная сессия; смена аккаунта очищает кеши;
 основной кабинет работает без внешнего ИИ; новые заявки сохраняются после перезапуска.
 Перед параллельными правками распределяется владение файлами.</p>
@@ -349,6 +365,169 @@ Claude; это атрибуция в репозитории, а не незав�
 <p>Полные новые карточки ниже шире этих выдержек. Каждая прямо обозначена как реконструкция.
 Их текст также доступен в <a href="https://github.com/temurysega/vibe_code/blob/main/docs/PROMPTS.json">PROMPTS.json</a>, чтобы его можно было прочитать
 без увеличения изображения.</p>
+<h3>19 ноября: промпты библиотеки, выполненные субагентами</h3>
+<p>Автор передал основному агенту — Claude Code (Claude Opus 5.5) — библиотеку промптов команды
+(<a href="https://github.com/temurysega/vibe_code/blob/main/docs/prompts/README.md">docs/prompts/</a>) и попросил: «обращайся к подагенту то есть к sonnet…
+делаешь скрины… пушить не забываешь». Основной агент не стал пересказывать промпты, а отдал их
+субагентам <strong>Claude Sonnet 5.5</strong> как настоящие задачи на этом проекте. Поэтому ниже —
+не реконструкции, а реальные диалоги: поручение, ответ субагента и изменение в репозитории.</p>
+<p>Как устроена работа:</p>
+<ul>
+<li><strong>Общие правила</strong> для всех субагентов — один файл
+  (<a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/subagents-2026-11-19/briefs/00-common.md">00-common.md</a>): свои файлы, без коммитов,
+  пушей и публикации, только временная база, без входа паролями на публичный стенд, факты
+  отдельно от непроверенного, отчёт «Сделано / Как проверено / Не проверено / Предложения».</li>
+<li><strong>Поручение — файл.</strong> Каждому субагенту основной агент передавал путь к поручению; эти файлы
+  сохранены без изменений в <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/subagents-2026-11-19/briefs/">briefs/</a>. Ответ — последнее
+  сообщение субагента из журнала сессии, тоже без правок: <code>&lt;имя&gt;.json</code> рядом.</li>
+<li><strong>Владение файлами</strong> назначено до запуска, поэтому субагенты работали параллельно
+  и ни разу не правили один файл.</li>
+<li><strong>Коммит после каждого шага</strong>: исправление, проверка, пуш.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Субагент</th>
+<th>Промпт библиотеки</th>
+<th>Что сделал</th>
+<th>Как проверено</th>
+<th>Коммит</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A · ошибки ИИ</td>
+<td>О-9 «Найди все следы»</td>
+<td>Нашёл все упоминания QR и исправил единственное обещание пользователю: квиз «Первые шаги» обещал справку «с QR-кодом»</td>
+<td>Новый <code>test/qr-mentions.test.js</code> падал 2 из 5 до правки; снимки квиза до и после</td>
+<td><code>fe1191c</code></td>
+</tr>
+<tr>
+<td>D1 · повторный прогон</td>
+<td>П-01, П-04, П-05, П-08</td>
+<td>Ответил на промпты исследования, концепции, спецификации и модели угроз и сверил каждый ответ с кодом</td>
+<td>Только чтение; находка по П-08 → поручение F</td>
+<td><code>0706409</code></td>
+</tr>
+<tr>
+<td>D2 · повторный прогон</td>
+<td>П-10, П-20, П-23, П-27, П-36</td>
+<td>Ответил на промпты дизайна, заявок, ИИ-помощника, проверки со студентами и сценария видео</td>
+<td>Только чтение; находка по П-10 → поручение G</td>
+<td><code>0706409</code></td>
+</tr>
+<tr>
+<td>F · безопасность</td>
+<td>продолжение П-08</td>
+<td>Тест внедрения разметки через объявление и комментарий, тест ключей во всей истории Git, тест cookie <code>__Host-</code> в боевом режиме</td>
+<td>21 браузерная проверка XSS; каждый тест падал на нарочно сломанной копии</td>
+<td><code>6616890</code></td>
+</tr>
+<tr>
+<td>G · дизайн</td>
+<td>продолжение П-10</td>
+<td>Текст подсказок, зачёркнутой аудитории и «нет баллов» был 2,17–2,39:1 — стал 4,51–4,96:1; белый на красном 3,91 → 6,54:1</td>
+<td><code>scripts/check-contrast.py</code>, <code>test/contrast.test.js</code> (24 проверки), снимки до и после</td>
+<td><code>3aff3bb</code></td>
+</tr>
+<tr>
+<td>E · документы</td>
+<td>по README библиотеки</td>
+<td>Перенёс библиотеку в <code>docs/prompts/</code> с пометкой происхождения, исправил 16 неверных утверждений, сверил 40 хешей коммитов</td>
+<td>Скрипт проверки ссылок</td>
+<td><code>89748f4</code></td>
+</tr>
+<tr>
+<td>C · файлы для агентов</td>
+<td>П-09 «Собери комплект для агентов»</td>
+<td><code>AGENTS.md</code>, <code>CLAUDE.md</code>, <code>QWEN.md</code>, шесть субагентов и три команды в <code>.claude/</code>, <code>docs/ai/</code></td>
+<td>Пробный прогон комплекта на задаче и сверка каждой ссылки</td>
+<td><code>89748f4</code></td>
+</tr>
+<tr>
+<td>B · независимый аудит</td>
+<td>П-28 «Независимый аудит „свежим“ агентом»</td>
+<td>Проверил итоговое состояние как эксперт: девять находок — от доступа к репозиторию и устаревшего PDF до первого экрана входа на телефоне</td>
+<td>Тесты, API-пробы изоляции, свой браузерный маршрут на 360 и 1366 px, сверка архива с Git</td>
+<td><code>babcd1d</code> и поручение H</td>
+</tr>
+<tr>
+<td>H · интерфейс</td>
+<td>находка аудита П-28</td>
+<td>На телефоне кнопки тестовых аккаунтов попали в первый экран (кнопка поднялась с 976 до 730 px), уведомление о входе закрывается нажатием и держится 2,8 с</td>
+<td><code>test/browser-mobile-entry.py</code>: 16/16, на старом коде 12/16; снимки до и после</td>
+<td><code>c8955dc</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Цепочка, ради которой это делалось.</strong> Промпт → ответ → сверка с кодом → находка → новое
+поручение → исправление → тест. Ответ на П-08 показал, что экранирование объявлений описано,
+но не проверено, — субагент F написал браузерный сценарий XSS. Ответ на П-10 посчитал контраст
+токенов и нашёл серый текст 2,39:1 — субагент G исправил цвет и закрепил его тестом. Так промпты
+библиотеки проверили не только себя, но и проект.</p>
+<p><strong>Что пошло не так.</strong> Первый запуск пяти субагентов 18 ноября упал сразу с ошибкой API
+(аккаунт требовал подтверждения). На следующий день четыре субагента с максимальным усилием
+упёрлись в пятичасовой лимит Sonnet; их перезапустили с усилием medium по просьбе автора.
+Ошибку в поручениях допустил и основной агент: в них стояла дата «18 ноября», хотя настоящие
+запуски прошли 19-го. Тексты поручений сохранены как есть, а даты в документах исправлены.</p>
+<p><strong>Диалоги.</strong> Карточки — не снимки экрана ассистента: их отрисовывает скрипт <code>scripts/render-dialogue-cards.py</code> из сохранённого текста поручения и ответа субагента. Длинные тексты в карточке сокращены с пометкой; полный текст обоих — в JSON рядом с изображением.</p>
+<figure class="prompt-card">
+  <img src="evidence/subagents-2026-11-19/A-qr-traces.png" alt="Поручение и ответ субагента A по промпту О-9">
+  <figcaption>Субагент A, промпт О-9: найти все следы исправленного поведения. Итог — `fe1191c`.</figcaption>
+</figure>
+
+<div class="comparison-pair">
+  <figure><img src="evidence/subagents-2026-11-19/A-quiz-before.png" alt="Квиз «Первые шаги» на 360 px — до"><figcaption>До: квиз обещает «QR-код», которого в кабинете нет.</figcaption></figure>
+  <figure><img src="evidence/subagents-2026-11-19/A-quiz-after.png" alt="Квиз «Первые шаги» на 360 px — после"><figcaption>После: «с кодом и ссылкой для проверки» — так, как работает справка.</figcaption></figure>
+</div>
+
+<figure class="prompt-card">
+  <img src="evidence/subagents-2026-11-19/D1-reruns.png" alt="Повторный прогон промптов П-01, П-04, П-05, П-08">
+  <figcaption>Субагент D1: четыре промпта ранних этапов и сверка ответа с кодом. Ответы — в `reruns/`.</figcaption>
+</figure>
+
+<figure class="prompt-card">
+  <img src="evidence/subagents-2026-11-19/D2-reruns.png" alt="Повторный прогон промптов П-10, П-20, П-23, П-27, П-36">
+  <figcaption>Субагент D2: дизайн, заявки, ИИ-помощник, проверка со студентами и сценарий видео.</figcaption>
+</figure>
+
+<figure class="prompt-card">
+  <img src="evidence/subagents-2026-11-19/F-security-gaps.png" alt="Поручение F по находкам сверки П-08">
+  <figcaption>Субагент F: пробелы безопасности из ответа на П-08 закрыты тестами. Итог — `6616890`.</figcaption>
+</figure>
+
+<figure class="prompt-card">
+  <img src="evidence/subagents-2026-11-19/G-contrast.png" alt="Поручение G по находке сверки П-10">
+  <figcaption>Субагент G: контраст текста поднят до 4,5:1 и выше. Итог — `3aff3bb`.</figcaption>
+</figure>
+
+<div class="comparison-pair">
+  <figure><img src="evidence/contrast/360-before-schedule-old-room.png" alt="Расписание на 360 px — до"><figcaption>До: прежняя аудитория — серый #A3A8B0, 2,39:1.</figcaption></figure>
+  <figure><img src="evidence/contrast/360-after-schedule-old-room.png" alt="Расписание на 360 px — после"><figcaption>После: #697080, 4,96:1; зачёркнутое читается.</figcaption></figure>
+</div>
+
+<figure class="prompt-card">
+  <img src="evidence/subagents-2026-11-19/E-methodology.png" alt="Перенос библиотеки промптов с честным происхождением">
+  <figcaption>Субагент E: библиотека в `docs/prompts/`, 16 утверждений исправлены по репозиторию.</figcaption>
+</figure>
+
+<figure class="prompt-card">
+  <img src="evidence/subagents-2026-11-19/C-agent-kit.png" alt="Комплект файлов для ИИ-агентов по промпту П-09">
+  <figcaption>Субагент C, промпт П-09: `AGENTS.md`, `CLAUDE.md`, `QWEN.md`, `.claude/`, `docs/ai/`.</figcaption>
+</figure>
+<figure class="prompt-card">
+  <img src="evidence/subagents-2026-11-19/B-independent-audit.png" alt="Независимый аудит по промпту П-28">
+  <figcaption>Субагент B, промпт П-28: независимый аудит итогового состояния. Его находки закрыты правками документов и поручением H.</figcaption>
+</figure>
+<figure class="prompt-card">
+  <img src="evidence/subagents-2026-11-19/H-mobile-entry.png" alt="Поручение H по находке аудита: первый экран входа на телефоне">
+  <figcaption>Субагент H: первый экран входа на телефоне по находке аудита. Итог — `c8955dc`.</figcaption>
+</figure>
+<div class="comparison-pair">
+  <figure><img src="evidence/mobile-entry/before-login-360.png" alt="Вход на 360 px — до"><figcaption>До: на 360 px видны обложка и поле логина, тестовые аккаунты ниже экрана.</figcaption></figure>
+  <figure><img src="evidence/mobile-entry/after-login-360.png" alt="Вход на 360 px — после"><figcaption>После: Алина и Тимур в первом экране, маркировка концепта на месте.</figcaption></figure>
+</div>
+
 <h2>4. От идеи к устройству приложения</h2>
 <p>Для конкурсного прототипа выбран небольшой стек: Node.js с серверными модулями HTTP,
 SQLite и криптографии; в браузере — ES-модули без сборки. Данные и правила остаются
@@ -389,15 +568,9 @@ SQLite хранит профили, сеансы, заявки, уведомле
 Сотрудник видит очередь своего факультета, принимает решение и оставляет комментарий.
 Студент получает уведомление и видит запись в истории.</p>
 <p>Для такого сценария важно разделить два решения: что видит студент после отправки
-и кто вправе изменить статус. Следующий диалог с Qwen Code показывает постановку
-задачи через две роли и ограничение факультетом. Реализованные роли и переходы
-проверяются по коду и сквозному тесту.</p>
-<figure class="wide-shot dialogue-illustration">
-  <img src="evidence/dialogue-illustrations/02-request-workflow.png" alt="Диалог о кабинете сотрудника, статусах заявки и разделении данных факультетов">
-  <figcaption>Скриншот диалога, предоставленный автором: обсуждение полного цикла заявки и разделения доступа.</figcaption>
-</figure>
-
-<p>В реализации список статусов шире обсуждённого в этом фрагменте: есть также выдача, одобрение
+и кто вправе изменить статус. Поэтому в кабинете две роли, а сотрудник ограничен своим
+факультетом; роли и переходы проверяются по коду и сквозному тесту.</p>
+<p>Список статусов включает подачу, работу, готовность, выдачу, одобрение
 и отмена; допустимый путь зависит от вида документа. Уведомление связано с конкретным
 номером заявки, а сотрудник ограничен своим факультетом. Эти детали превращают
 демонстрацию в проверяемый процесс с владельцем, действием и результатом.</p>
@@ -446,30 +619,19 @@ cookie передаётся только по защищённому соеди�
 <p>Проект использует светлые карточки, тёмно-синий и золотой акценты, единые поля и кнопки.
 Шрифт Onest хранится локально вместе с лицензией. Собственный знак, аватар, питомцы
 и кампус реализованы SVG; короткий раннер — Canvas. Отдельная генерация растровых
-картинок для интерфейса приложения не подтверждается и не заявляется. Предоставленные
-автором скриншоты диалогов используются только в этом документе.</p>
+картинок для интерфейса приложения не подтверждается и не заявляется.</p>
 <p>Визуальные решения подчинены порядку действий. Ближайшее занятие и срочные задачи
 нужны при коротком визите с телефона; подробности дисциплин и история документов —
 при более долгой работе. Поэтому ключевые сведения видны на главной, а дополнительное
 содержимое раскрывается по запросу. Названия действий и текстовые статусы дополняют
 иконки и цвет. Одинаковые карточки, поля и кнопки сокращают необходимость заново
 разбираться в каждом разделе.</p>
-<p>В следующем диалоге замечание об интерфейсе превращается в конкретную задачу:
-поменять приоритеты блоков и объяснить балл через учебный порог. Измерения изменений
-интерфейса приведены ниже, а снимки готового кабинета получены браузерными сценариями.</p>
-<figure class="wide-shot dialogue-illustration">
-  <img src="evidence/dialogue-illustrations/03-mobile-priorities.png" alt="Обратная связь в диалоге: поднять ближайшую пару, свернуть игровой блок и объяснить учебные баллы">
-  <figcaption>Скриншот диалога, предоставленный автором: приоритет учебных задач на 360 px и понятное объяснение успеваемости.</figcaption>
-</figure>
-
+<p>Замечание об интерфейсе превращалось в конкретную задачу: поменять приоритеты блоков
+и объяснить балл через учебный порог. Измерения изменений интерфейса приведены в разделе 9,
+а снимки готового кабинета получены браузерными сценариями.</p>
 <p>Главная помогает быстро найти ближайшую пару, срок и нужное действие. На телефоне
 сохраняются те же учебные сценарии. Игровой кампус добавляет альтернативный способ
 перейти в раздел, а фокус-сессии связывают питомца с учебным контекстом.</p>
-<figure class="wide-shot dialogue-illustration">
-  <img src="evidence/dialogue-illustrations/04-optional-campus.png" alt="Диалог о необязательном питомце, кампусе и игре при прямом доступе к учебным разделам">
-  <figcaption>Скриншот диалога, предоставленный автором: необязательная игра и прямой доступ к учебным разделам. Напоминания питомца обсуждаются как предложение.</figcaption>
-</figure>
-
 <p>В продукте кампус даёт дополнительный путь к разделам, а питомец и короткая игра
 создают узнаваемый образ кабинета. Доступ к расписанию и заявкам не зависит от
 игрового прогресса. Проверяемое ограничение здесь — возможность выполнить учебную
@@ -580,8 +742,7 @@ OpenRouter для двух студентов. Ответы о группе со
 <p>После оценки проекта по конкурсным критериям автор попросил добавить четыре изображения
 и улучшить работу. Ассистент разделил задачи между документацией, интерфейсом и
 проверкой публикации; владение файлами определили до правок. Выдержки фактических
-поручений этой итерации сохранены в <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/review-session.json">review-session.json</a>.
-Они относятся к этой доработке и дополняют четыре предоставленных автором скриншота диалогов.</p>
+поручений этой итерации сохранены в <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/review-session.json">review-session.json</a>.</p>
 <p>На сохранённом снимке страница успеваемости шириной 360 px имела высоту 4355 px.
 Все девять дисциплин показывались подробными карточками. После доработки баллы,
 форма контроля, статус и прогноз остались в компактном обзоре, а контрольные точки,
@@ -872,15 +1033,53 @@ OpenRouter для двух студентов. Ответы о группе со
 не создавая заявки, объявления или решения.
 <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/deployment/quality-fixes-browser/public-acceptance.json">Отчёт</a> и
 <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/deployment/quality-fixes-browser/360-profile.png">снимок профиля на телефоне</a>.</p>
+<h3>Итерация 19 ноября: находки из промптов библиотеки</h3>
+<p>Подробно — в разделе 3. Коротко: промпты библиотеки, выполненные субагентами Sonnet 5.5,
+нашли три недоработки, которые прежние проверки пропускали.</p>
+<table>
+<thead>
+<tr>
+<th>Что нашли</th>
+<th>Каким промптом</th>
+<th>Что изменили</th>
+<th>Как проверено</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Квиз «Первые шаги» обещал справку «с QR-кодом», а QR в кабинете убрали ещё 8 ноября</td>
+<td>О-9 «Найди все следы»</td>
+<td>Ответ квиза: «с кодом и ссылкой для проверки»; правило «найди все упоминания» в <code>AGENTS.md</code> и <code>/bugfix</code></td>
+<td><code>test/qr-mentions.test.js</code>: до правки 2 из 5 падали</td>
+</tr>
+<tr>
+<td>Экранирование объявлений и комментариев описано, но не проверено; нет проверки ключей в истории Git и боевой cookie</td>
+<td>П-08 «Модель угроз»</td>
+<td>Новые проверки, без изменения кода приложения</td>
+<td><code>test/browser-xss.py</code> (21), <code>test/security-gaps.test.js</code>; каждый падал на сломанной копии</td>
+</tr>
+<tr>
+<td>Серый текст подсказок, прежней аудитории и «нет баллов» — 2,17–2,39:1</td>
+<td>П-10 «Токены и контраст»</td>
+<td>Токен <code>--faint-text</code> и тёмно-красный фон для белого текста</td>
+<td><code>scripts/check-contrast.py</code>, <code>test/contrast.test.js</code> (24)</td>
+</tr>
+</tbody>
+</table>
+<p>После всех исправлений — общий прогон на свежих базах (73/73 автотеста, 523/523 браузерных
+проверки в 17 наборах) и публикация этого же кода на стенд по просьбе автора «публичным сделал
+сделай теперь стенд»: версия <code>review-d7a91e220757</code>, 16/16 проверок публикации, все прежние заявки
+и сеансы сохранены (<a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/deployment/nov19-deployment.json">протокол</a>). Репозиторий автор
+открыл в тот же день.</p>
 <h2>10. Журналы и реальные снимки проверок</h2>
 <p>Каждая проверка запускается на новой временной базе, без пользовательских данных и без
 внешнего ИИ: <code>python scripts/collect-evidence.py --output &lt;папка&gt;</code>. Сборщик сохраняет
 журналы команд, JSON-отчёты и снимки экранов. Неуспешные попытки не удаляются: они лежат
 рядом с успешными и показывают, что именно исправлялось.</p>
-<h3>Текущая версия, 9 ноября</h3>
-<p>Окончательный общий запуск: <strong>42/42</strong> автотестов и <strong>492/492</strong> браузерных проверок,
+<h3>Текущая версия, 19 ноября</h3>
+<p>Окончательный общий запуск: <strong>73/73</strong> автотестов и <strong>523/523</strong> браузерных проверок в 17 наборах,
 без необработанных ошибок JavaScript. Каждый браузерный набор использовал отдельную временную
-SQLite; внешние ключи ИИ отключены. <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/run-summary.json">Сводка</a>
+SQLite; внешние ключи ИИ отключены. <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/run-summary.json">Сводка</a>
 содержит команды, время и SHA-256 проверенных исходников.</p>
 <table>
 <thead>
@@ -893,78 +1092,88 @@ SQLite; внешние ключи ИИ отключены. <a href="https://gith
 <tbody>
 <tr>
 <td>API, безопасность и предметная логика</td>
-<td style="text-align: right;">42/42</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/unit-tests.txt">unit-tests.txt</a></td>
+<td style="text-align: right;">73/73</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/unit-tests.txt">unit-tests.txt</a></td>
 </tr>
 <tr>
 <td>Экраны на 360 и 1366 px</td>
 <td style="text-align: right;">52/52</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-smoke.txt">browser-smoke.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/browser-smoke.txt">browser-smoke.txt</a></td>
 </tr>
 <tr>
 <td>Путь заявки двух ролей, смена аккаунта, изоляция</td>
 <td style="text-align: right;">36/36</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-flows.txt">browser-flows.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/browser-flows.txt">browser-flows.txt</a></td>
 </tr>
 <tr>
 <td>Клавиатура, фокус, восстановление после ошибок</td>
 <td style="text-align: right;">23/23</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-accessibility.txt">browser-accessibility.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/browser-accessibility.txt">browser-accessibility.txt</a></td>
 </tr>
 <tr>
 <td>Мобильные доработки и состояния расписания</td>
 <td style="text-align: right;">21/21</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-polish.txt">browser-polish.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/browser-polish.txt">browser-polish.txt</a></td>
 </tr>
 <tr>
 <td>Справка о стипендии: заявка, таблица, PDF</td>
 <td style="text-align: right;">45/45</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-stipend.txt">browser-stipend.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/browser-stipend.txt">browser-stipend.txt</a></td>
 </tr>
 <tr>
 <td>Компактные оценки, фильтр риска, меню</td>
 <td style="text-align: right;">40/40</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-review.txt">browser-review.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/browser-review.txt">browser-review.txt</a></td>
 </tr>
 <tr>
 <td>Главная: приоритеты, длинные названия и текущая пара</td>
 <td style="text-align: right;">40/40</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-home-priority.txt">browser-home-priority.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/browser-home-priority.txt">browser-home-priority.txt</a></td>
 </tr>
 <tr>
 <td>Успеваемость: первый экран и статистика</td>
 <td style="text-align: right;">31/31</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-grades-compact.txt">browser-grades-compact.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/browser-grades-compact.txt">browser-grades-compact.txt</a></td>
 </tr>
 <tr>
 <td>Форма справки: профиль, формат, смена аккаунта</td>
 <td style="text-align: right;">19/19</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-request-compact.txt">browser-request-compact.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/browser-request-compact.txt">browser-request-compact.txt</a></td>
 </tr>
 <tr>
 <td>Читаемость расписания</td>
-<td style="text-align: right;">35/35</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-schedule-readability.txt">browser-schedule-readability.txt</a></td>
+<td style="text-align: right;">29/29</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/browser-schedule-readability.txt">browser-schedule-readability.txt</a></td>
 </tr>
 <tr>
 <td>«С чего начать»: первые действия</td>
 <td style="text-align: right;">34/34</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-first-actions.txt">browser-first-actions.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/browser-first-actions.txt">browser-first-actions.txt</a></td>
 </tr>
 <tr>
 <td>Правки 9 ноября: вход, нажатия, уведомления, чужая ссылка</td>
 <td style="text-align: right;">14/14</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-audit-fixes.txt">browser-audit-fixes.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/browser-audit-fixes.txt">browser-audit-fixes.txt</a></td>
 </tr>
 <tr>
 <td>Вкладки, пропущенные события и восстановление сеанса</td>
 <td style="text-align: right;">37/37</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-session-sync.txt">browser-session-sync.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/browser-session-sync.txt">browser-session-sync.txt</a></td>
 </tr>
 <tr>
 <td>Фокус при обновлениях, меню и контраст текста</td>
 <td style="text-align: right;">65/65</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/browser-focus-contrast.txt">browser-focus-contrast.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/browser-focus-contrast.txt">browser-focus-contrast.txt</a></td>
+</tr>
+<tr>
+<td>Разметка в объявлениях и комментариях остаётся текстом (19 ноября)</td>
+<td style="text-align: right;">21/21</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/browser-xss.txt">browser-xss.txt</a></td>
+</tr>
+<tr>
+<td>Первый экран входа на телефоне и уведомление о входе (19 ноября)</td>
+<td style="text-align: right;">16/16</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/browser-mobile-entry.txt">browser-mobile-entry.txt</a></td>
 </tr>
 </tbody>
 </table>
@@ -1031,6 +1240,12 @@ SQLite; внешние ключи ИИ отключены. <a href="https://gith
 <td>42/42 и 492/492</td>
 <td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/quality-fixes/run-summary.json">сводка</a></td>
 </tr>
+<tr>
+<td>19 ноября</td>
+<td>Промпты библиотеки, выполненные субагентами Sonnet 5.5</td>
+<td>73/73 и 523/523</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1119/run-summary.json">сводка</a></td>
+</tr>
 </tbody>
 </table>
 <p>* 333 проверки общего запуска и 34 проверки повтора одного сценария после исправления
@@ -1057,17 +1272,32 @@ SQLite; внешние ключи ИИ отключены. <a href="https://gith
 <tr>
 <td>Claude Code в приложении Claude (модель Claude Opus 5.5)</td>
 <td>4 ноября — первая версия кабинета по тексту задания: структура, сервер, интерфейс, самопроверка во встроенном браузере; 9 ноября — независимый аудит по критериям и доводка</td>
-<td>Журнал сессии 4 ноября (раздел 2), скриншоты диалогов 01, 03, 04; итерация 9 ноября в разделе 9</td>
+<td>Журнал сессии 4 ноября (раздел 2); итерации 9 и 19 ноября (разделы 3 и 9)</td>
 </tr>
 <tr>
-<td>Qwen / Qwen Code, через терминал</td>
-<td>Полный путь заявки, роль сотрудника и ограничение факультетом</td>
-<td>Скриншот диалога 02; очередь в <code>views/dean.js</code>, переходы статусов и серверная проверка факультета</td>
+<td>Qwen Code, в терминале (со слов автора)</td>
+<td>Кабинет сотрудника деканата: очередь, переходы статусов, ограничение факультетом</td>
+<td><code>public/js/views/dean.js</code>, <code>server/routes/dean.js</code>; журнал Qwen Code не сохранился</td>
 </tr>
 <tr>
 <td>Codex и субагенты</td>
 <td>Аудит, исправления, браузерные проверки, интеграция и документы</td>
 <td>Инструкции <code>AGENTS.md</code>, поручения в <code>review-session.json</code> и <code>quality-session.json</code>, регрессии и сравнение мобильной версии до/после</td>
+</tr>
+<tr>
+<td>Claude Code: субагенты Claude Sonnet 5.5</td>
+<td>19 ноября — промпты библиотеки как настоящие задачи: О-9, П-09, повторные прогоны девяти промптов, исправления по их находкам, независимый аудит П-28</td>
+<td>Поручения и ответы в <code>docs/evidence/subagents-2026-11-19/</code>; раздел 3</td>
+</tr>
+<tr>
+<td>Комплект файлов для агентов</td>
+<td>Единые правила для Claude Code, Codex и Qwen Code: инварианты с тестами, узкие роли субагентов, команды, журналы</td>
+<td><code>AGENTS.md</code>, <code>CLAUDE.md</code>, <code>QWEN.md</code>, <code>.claude/</code>, <code>docs/ai/</code></td>
+</tr>
+<tr>
+<td>ChatGPT (gpt-image)</td>
+<td>Изображения «диалогов» для ранней версии описания процесса</td>
+<td>Удалены как не соответствующие действительности; запись E-11 в <code>docs/ai/ERRORS.md</code></td>
 </tr>
 <tr>
 <td>OpenRouter</td>
@@ -1111,9 +1341,9 @@ SQLite; внешние ключи ИИ отключены. <a href="https://gith
 </tr>
 </tbody>
 </table>
-<p>Claude Code работал в приложении Claude со встроенным браузером для самопроверки,
-Codex — с субагентами, между которыми заранее делилось владение файлами; по словам
-автора, Qwen Code запускался в терминале.
+<p>Claude Code работал в приложении Claude со встроенным браузером для самопроверки и
+с субагентами Sonnet 5.5, Codex — с субагентами, между которыми заранее делилось владение
+файлами; по словам автора, Qwen Code запускался в терминале.
 Таблица связывает инструменты с задачами и конкретными результатами.</p>
 <p>Автор определял цель и ограничения, предоставлял требования, выбирал направление
 развития, давал обратную связь и настройки для публикации. На подтверждённом позднем
@@ -1169,9 +1399,10 @@ Codex — с субагентами, между которыми заранее 
 </ol>
 <p>Встроенный «Демо-тур» знакомит с экранами. <a href="https://github.com/temurysega/vibe_code/blob/main/docs/JURY_GUIDE.md">Маршрут жюри</a> дополняет его
 полным циклом с двумя ролями, названиями кнопок и ожидаемыми результатами.</p>
-<p><strong>Материалы, которые можно проверить:</strong> исходники, метаданные Git, развёрнутые
-реконструкции задач, четыре скриншота реальных диалогов, снимки интерфейса, автоматические
-и браузерные сценарии, сохранённые журналы и пример демонстрационного документа.
+<p><strong>Материалы, которые можно проверить:</strong> исходники, метаданные Git, комплект файлов для
+ИИ-агентов, журнал промптов и ошибок, диалоги с субагентами 19 ноября, методичка промптов,
+снимки интерфейса, автоматические и браузерные сценарии, сохранённые журналы и пример
+демонстрационного документа.
 Видео по условиям конкурса необязательно и пока не приложено.</p>
 <h2>Приложение. Подробные постановки задач</h2>
 <p>Шесть карточек раскрывают требования и способы проверки по этапам. На каждой указано происхождение текста; оригинальные чаты ими не заменяются. Полный текст доступен также во вложенном <code>PROMPTS.json</code>.</p>
