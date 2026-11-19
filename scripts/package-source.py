@@ -8,8 +8,8 @@ root = Path(__file__).resolve().parents[1]
 paths = subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard', '-z'], cwd=root).decode('utf-8').split('\0')
 target = root / 'artifacts' / 'mgimo-mania-source.zip'
 target.parent.mkdir(exist_ok=True)
-allowed_dirs = {'server', 'public', 'docs', 'test', 'scripts', 'deploy'}
-allowed_root = {'AGENTS.md', 'README.md', 'THIRD_PARTY.md', 'LICENSE', 'Dockerfile', 'compose.yaml', 'render.yaml', 'package.json', 'package-lock.json', 'requirements-qa.txt', '.gitignore', '.dockerignore', '.env.example'}
+allowed_dirs = {'server', 'public', 'docs', 'test', 'scripts', 'deploy', '.claude'}
+allowed_root = {'AGENTS.md', 'CLAUDE.md', 'QWEN.md', 'README.md', 'THIRD_PARTY.md', 'LICENSE', 'Dockerfile', 'compose.yaml', 'render.yaml', 'package.json', 'package-lock.json', 'requirements-qa.txt', '.gitignore', '.dockerignore', '.env.example'}
 with zipfile.ZipFile(target, 'w', compression=zipfile.ZIP_DEFLATED) as archive:
     for name in sorted(set(paths)):
         path = Path(name)
