@@ -1,7 +1,7 @@
 # Поручение C · промпт П-09 «Собери комплект для агентов» — по-настоящему, в репозиторий
 
 Сначала прочитай общие правила:
-`C:\Users\alsutem\AppData\Local\Temp\claude\0a3aa9fcc53171ff\7ffe118e-0954-4950-8ed7-5b845f0e0ba6\scratchpad\sonnet\briefs\00-common.md`.
+`<scratchpad>\sonnet\briefs\00-common.md`.
 
 **Роль:** комплект файлов для ИИ-агентов. **Твои файлы:** `AGENTS.md`, `CLAUDE.md`, `QWEN.md`,
 `.claude/agents/*.md`, `.claude/commands/*.md`, `.claude/settings.json`, `docs/ai/*.md`.

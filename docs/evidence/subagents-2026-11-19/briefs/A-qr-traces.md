@@ -1,7 +1,7 @@
 # Поручение A · промпт О-9 «Найди все следы» — исправление по-настоящему
 
 Сначала прочитай общие правила: `...\scratchpad\sonnet\briefs\00-common.md` (полный путь —
-`C:\Users\alsutem\AppData\Local\Temp\claude\0a3aa9fcc53171ff\7ffe118e-0954-4950-8ed7-5b845f0e0ba6\scratchpad\sonnet\briefs\00-common.md`).
+`<scratchpad>\sonnet\briefs\00-common.md`).
 
 **Роль:** исправление ошибки. **Твои файлы:** `public/js/shared/catalog.js`; любые файлы в `public/`
 и `server/`, где пользователю обещан QR-код; новый тест `test/qr-mentions.test.js`.
@@ -32,7 +32,7 @@
 4. Проверь: `npm test` (в Windows может понадобиться `npm.cmd test`). Затем подними локальный сервер
    на порту 3931 с временной базой и пустыми ключами ИИ и под первокурсником `t.aliev` (пароль
    `mgimo2026`) открой квиз на ширине 360 px. Сохрани снимки до и после в
-   `C:\Users\alsutem\AppData\Local\Temp\claude\0a3aa9fcc53171ff\7ffe118e-0954-4950-8ed7-5b845f0e0ba6\scratchpad\sonnet\out\A-quiz-after.png`
+   `<scratchpad>\sonnet\out\A-quiz-after.png`
    (снимок «до» — с исходным текстом, если успеешь сделать его до правки: `A-quiz-before.png`).
    Сервер после проверки останови.
 5. Пункты 3–4 промпта (шаг в `/bugfix`, правило для AGENTS.md, запись в ERRORS.md) выполни как

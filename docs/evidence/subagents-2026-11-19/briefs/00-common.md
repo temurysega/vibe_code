@@ -1,16 +1,16 @@
 # Общие правила для всех субагентов (18 ноября 2026)
 
-**Проект:** `C:\Users\alsutem\Desktop\вайбкод\vibe_code` — «МГИМО Мания», конкурсный прототип личного
+**Проект:** `<проект>` — «МГИМО Мания», конкурсный прототип личного
 кабинета студента для конкурса «Цифровой деканат будущего». Node.js без фреймворков (`node:http`,
 `node:sqlite`, `node:crypto`, `node:test`), фронтенд на ES-модулях без сборки, браузерные проверки —
 Python + Playwright (`test/browser-*.py`, сборщик `scripts/collect-evidence.py`).
 Опубликованный стенд: https://ai.neblanki.tech/. Текст задания и критерии жюри —
-`C:\Users\alsutem\AppData\Local\Temp\claude\0a3aa9fcc53171ff\7ffe118e-0954-4950-8ed7-5b845f0e0ba6\scratchpad\sonnet\briefs\contest.md`.
+`<scratchpad>\sonnet\briefs\contest.md`.
 
 **Сначала прочитай** `AGENTS.md`, `README.md`, `docs/CONTEST_AUDIT.md`.
 
 **Методичка промптов** распакована в
-`C:\Users\alsutem\AppData\Local\Temp\claude\0a3aa9fcc53171ff\7ffe118e-0954-4950-8ed7-5b845f0e0ba6\scratchpad\prmt-src\x`
+`<scratchpad>\prmt-src\x`
 (файлы `00-principles.md` … `09-process-story.md`, папка `agent-kit/`). По её собственному README она
 написана **после** создания проекта, по коду и журналам: это методичка, а не журнал работы. Ты сейчас
 выполняешь её промпты по-настоящему — твой ответ попадёт в описание процесса как реальный диалог

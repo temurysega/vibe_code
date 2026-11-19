@@ -1,7 +1,7 @@
 # Поручение G · контраст текста по итогам сверки П-10
 
 Сначала прочитай общие правила:
-`C:\Users\alsutem\AppData\Local\Temp\claude\0a3aa9fcc53171ff\7ffe118e-0954-4950-8ed7-5b845f0e0ba6\scratchpad\sonnet\briefs\00-common.md`.
+`<scratchpad>\sonnet\briefs\00-common.md`.
 Сегодня 19 ноября 2026.
 
 **Откуда задача.** Субагент, выполнивший промпт П-10 «Визуальное направление и дизайн-токены», сверил

@@ -1,7 +1,7 @@
 # Поручение E · методичка промптов в репозиторий — с честным происхождением
 
 Сначала прочитай общие правила:
-`C:\Users\alsutem\AppData\Local\Temp\claude\0a3aa9fcc53171ff\7ffe118e-0954-4950-8ed7-5b845f0e0ba6\scratchpad\sonnet\briefs\00-common.md`.
+`<scratchpad>\sonnet\briefs\00-common.md`.
 
 **Роль:** редактор документов. **Твои файлы:** только новая папка `docs/prompts/`.
 Корневые файлы комплекта агентов (`AGENTS.md`, `CLAUDE.md`, `QWEN.md`, `.claude/`, `docs/ai/`) сейчас
