@@ -1,17 +1,17 @@
 {
   "source": "git log --reverse --date=iso-strict",
-  "snapshot_head": "0bf2fc059ac2731ed493bf853cb5b202c7d98dc4",
+  "snapshot_head": "ce5a8a2184d919da2ae5b2dcc0ad4b55fe9db9d2",
   "interpretation": "Метаданные репозитория, а не стенограмма работы с ИИ. Коммиты 4 ноября созданы скриптом за 2–3 минуты в конце первой сессии и показывают устройство кода; с 8 ноября каждый коммит — отдельная итерация. Трейлер Co-Authored-By не удостоверяет текст промптов или версию модели.",
   "summary": {
-    "commits": 683,
+    "commits": 730,
     "by_day": {
       "2026-11-04": 629,
       "2026-11-08": 11,
       "2026-11-09": 7,
       "2026-11-19": 10,
-      "2026-11-21": 26
+      "2026-11-21": 73
     },
-    "commits_with_claude_coauthor": 670,
+    "commits_with_claude_coauthor": 717,
     "replayed_on_2026_11_04": {
       "commits": 629,
       "first": "2026-11-04T22:09:47+03:00",
@@ -6137,6 +6137,429 @@
       "date": "2026-11-21T15:18:22+03:00",
       "author": "re3per",
       "subject": "docs(ai): журнал промптов — дословные просьбы 21 ноября и ошибка агента",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "cf367885d99f717232f4c6c3ac6d5d3b31b14f3f",
+      "date": "2026-11-21T15:19:03+03:00",
+      "author": "re3per",
+      "subject": "fix(scripts): итоговая строка render-process-evidence.py без удалённого списка карточек",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8667f285233398707bd81f3a5e34e497044f5447",
+      "date": "2026-11-21T15:19:16+03:00",
+      "author": "re3per",
+      "subject": "docs(evidence): экспорт истории Git и карточки журналов на 21 ноября",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "62154d4be070a9d7be6443ef033d0c0b7c320363",
+      "date": "2026-11-21T15:20:13+03:00",
+      "author": "re3per",
+      "subject": "docs(pdf): пересобрать описание процесса для жюри на 21 ноября",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "06d1e7e046e5434e32bb034aed622a96e5bcfd0f",
+      "date": "2026-11-21T16:23:53+03:00",
+      "author": "re3per",
+      "subject": "fix(assistant): ответ о группе, курсе и факультете из профиля без внешней модели",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b2b6e03e896e1ec581d094fcbdd1ca2eed3744a8",
+      "date": "2026-11-21T16:26:00+03:00",
+      "author": "re3per",
+      "subject": "fix(requests): срок в рабочих днях, дубли с учётом формата, длинный код проверки",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "475dbd3f04ab5548867a5d120cc28b2c33d9087a",
+      "date": "2026-11-21T16:26:00+03:00",
+      "author": "re3per",
+      "subject": "fix(verify): лимит частоты публичной проверки справки, коды обоих форматов",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1fde12c0a5c8da99c973006616cdb68ef3586af3",
+      "date": "2026-11-21T16:26:00+03:00",
+      "author": "re3per",
+      "subject": "feat(dean): поиск заявки по номеру, прямая ссылка, готовые электронные — в завершённых",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "2e7a6d77b2709e59fac4e560882a74ad7d984ddb",
+      "date": "2026-11-21T16:26:00+03:00",
+      "author": "re3per",
+      "subject": "test(requests): срок, дубли, очередь деканата, поиск и код проверки",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c33b509dd3f9c2a73c26000f7f41822260b73764",
+      "date": "2026-11-21T16:27:17+03:00",
+      "author": "re3per",
+      "subject": "fix(notifications): срок дедлайна пересчитывается при показе, напоминание в день срока",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "fc973b518dcf790001ce7ad0d304c646ead20ce5",
+      "date": "2026-11-21T16:27:17+03:00",
+      "author": "re3per",
+      "subject": "feat(schedule): уведомление об изменении ведёт на дату и пару",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "fe3432e82f4ad8fc07476da795f2a7c21aed789d",
+      "date": "2026-11-21T16:27:17+03:00",
+      "author": "re3per",
+      "subject": "test(notifications): актуальный срок у старых записей, напоминание в день срока, ссылка на пару",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5a1844e3c88ce97ff6a2a13a8f939751aea99cbf",
+      "date": "2026-11-21T16:31:21+03:00",
+      "author": "re3per",
+      "subject": "feat(demo): отдельный демо-кабинет для каждого проверяющего",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "367d8fdeea9e65fcbe1a22b8902130758db9bd85",
+      "date": "2026-11-21T16:31:21+03:00",
+      "author": "re3per",
+      "subject": "fix(auth): в общем демо чужие сеансы скрыты и не закрываются",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "2f061e8181e977f0e6d34d86ff2ca91483a79e92",
+      "date": "2026-11-21T16:31:21+03:00",
+      "author": "re3per",
+      "subject": "fix(limits): лимиты помощника и публикаций деканата считаются по кабинету",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "20128743a8b2f769b534e2d249c1ac2b4027c13f",
+      "date": "2026-11-21T16:31:21+03:00",
+      "author": "re3per",
+      "subject": "test(demo): изоляция кабинетов, ссылка для второго окна, перезапуск, готовность базы",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1472549b008dffb2a721f776f2766b7d7937c363",
+      "date": "2026-11-21T16:31:34+03:00",
+      "author": "re3per",
+      "subject": "chore(deploy): проверка готовности по /api/health, демо-кабинеты на стенде",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "cd64f249f75538cb899f06fa0ff3bbbaaab01dd3",
+      "date": "2026-11-21T16:39:47+03:00",
+      "author": "re3per",
+      "subject": "feat(ui): игровой слой не блокирует вход, демо-кабинет в меню, ручной демо-тур",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "99e71cba23376832c16f865d92b9b19659e4df88",
+      "date": "2026-11-21T16:39:47+03:00",
+      "author": "re3per",
+      "subject": "feat(ui): пара по ссылке, «Сегодня пар нет», поиск в очереди деканата, честные подписи",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "33ad8d8ca98eafc425befb0b3666883404051fd8",
+      "date": "2026-11-21T16:39:47+03:00",
+      "author": "re3per",
+      "subject": "test(flows): готовая электронная справка — в «Завершённых» очереди деканата",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d4390aaa21e3957df1f051b4e6d18e7e66494764",
+      "date": "2026-11-21T19:34:20+03:00",
+      "author": "re3per",
+      "subject": "feat(grades): «Пока нет данных для прогноза», прогноз допуска, ближайшее действие в риске",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "2c6a34b3a8f5d5ba2c97ff593515ec419f567bf8",
+      "date": "2026-11-21T19:49:49+03:00",
+      "author": "re3per",
+      "subject": "docs(decisions): ADR-012 — отдельный демо-кабинет для каждого проверяющего",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ac62bcddd95cb91e0df1771b09bebf6f356593f8",
+      "date": "2026-11-21T19:50:12+03:00",
+      "author": "re3per",
+      "subject": "fix(requests): грамотный текст справки, перевод дисциплин в выписке, дата по Москве",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "24c060c977d8570d66f247d7e05625ddd3bd6c26",
+      "date": "2026-11-21T19:50:49+03:00",
+      "author": "re3per",
+      "subject": "build(deps): pdf-lib и @pdf-lib/fontkit для справки файлом PDF, ADR-013",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a4ab9551b38da60c3ce2fbb99c9116f151908dce",
+      "date": "2026-11-21T19:52:18+03:00",
+      "author": "re3per",
+      "subject": "build(pdf): шрифт Onest в TTF для встраивания в PDF-справку",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e479e6ccbf1ab33f6c0c7a7146ee148d2c36d1d3",
+      "date": "2026-11-21T19:52:26+03:00",
+      "author": "re3per",
+      "subject": "feat(requests): справка скачивается файлом PDF",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a95ec6307a448f8bfd37c5cd9609dbfd6ec345af",
+      "date": "2026-11-21T20:06:53+03:00",
+      "author": "re3per",
+      "subject": "fix(profile): время предыдущего входа — в профиле, раз на телефоне нет сообщения о входе",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "faf9a11bab879facebc013cfd46a6c6572727e74",
+      "date": "2026-11-21T20:06:54+03:00",
+      "author": "re3per",
+      "subject": "feat(dean): номер заявки в очереди — прямая ссылка на неё",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d0b609ec7d6768b12da7791459f930f8313a615f",
+      "date": "2026-11-21T20:06:54+03:00",
+      "author": "re3per",
+      "subject": "test(browser): вкладка «Сессия» — по точному селектору",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3355226e98e9f0ab9e20983a8a35873e691f0d70",
+      "date": "2026-11-21T20:06:54+03:00",
+      "author": "re3per",
+      "subject": "test(home): дождаться события toggle и смены медиазапроса",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "44f685d2e9528d5a2694d1074776d228428e7203",
+      "date": "2026-11-21T20:06:54+03:00",
+      "author": "re3per",
+      "subject": "test(stipend): готовая справка — в «Завершённых», скачанный PDF читается",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "584af2bfb7b1c32c0846afde5fdebb67289098bb",
+      "date": "2026-11-21T20:07:52+03:00",
+      "author": "re3per",
+      "subject": "test(review): браузерный набор по исправлениям рецензии 21 ноября",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "aa27f37dfb170617628070f38901b7e60e5fcce0",
+      "date": "2026-11-21T20:14:23+03:00",
+      "author": "re3per",
+      "subject": "feat(scripts): замер нагрузки на локальном сервере",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9a2181b09fe80e59b358451400cc9189f11b884b",
+      "date": "2026-11-21T20:14:23+03:00",
+      "author": "re3per",
+      "subject": "docs(evidence): замер нагрузки 21 ноября — локально, четыре режима",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "931f5257578862f80646f756d48fc79d84320346",
+      "date": "2026-11-21T20:14:23+03:00",
+      "author": "re3per",
+      "subject": "docs(evidence): версия 4 ноября и итоговая на одинаковых кадрах",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "a0dcf46dc616bb0983744d0a1c2b284af2ea1df9",
+      "date": "2026-11-21T20:19:25+03:00",
+      "author": "re3per",
+      "subject": "test(polish): дождаться события toggle и смены медиазапроса",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "abaef0286fbc70363b92a1ee1fc97b7b5bdb4b0a",
+      "date": "2026-11-21T20:19:25+03:00",
+      "author": "re3per",
+      "subject": "fix(evidence): путь Python-окружения в журналах заменяется на <venv>",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ce7cc2b97c6cd3fb45e511248f161dafd35ffb8b",
+      "date": "2026-11-21T20:25:15+03:00",
+      "author": "re3per",
+      "subject": "docs(evidence): прогон из чистой копии 21 ноября — 100/100 и 562/562",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c37c69aafe3cd95113d6f66e1317197d8fece076",
+      "date": "2026-11-21T20:27:13+03:00",
+      "author": "re3per",
+      "subject": "style(schedule): зазор между «Сегодня пар нет» и строкой о следующей неделе",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f7d227522114437c3324b714bbd7fdcc77ced7a2",
+      "date": "2026-11-21T20:36:42+03:00",
+      "author": "re3per",
+      "subject": "docs(evidence): итоговый прогон из чистой копии — код c37c69a, 100/100 и 562/562",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "fad7e8041f03113c91a54eef24d8510c596a406b",
+      "date": "2026-11-21T20:36:43+03:00",
+      "author": "re3per",
+      "subject": "docs(video): ролик на итоговой версии — поиск по номеру и «Скачать PDF»",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "64e223ff8177019c23b63ae21c7c8b4aac084d96",
+      "date": "2026-11-21T20:42:23+03:00",
+      "author": "re3per",
+      "subject": "docs(jury): маршрут жюри и пакет капитана — свой кабинет, поиск по номеру, PDF",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "5839da158d35fe9a7f0656335cac7c55d8ea5315",
+      "date": "2026-11-21T20:42:23+03:00",
+      "author": "re3per",
+      "subject": "docs(readme): итоговые проверки, свой демо-кабинет и PDF-справка",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "52fdd68ad995a5beecab2cf69bedacca07968708",
+      "date": "2026-11-21T20:42:23+03:00",
+      "author": "re3per",
+      "subject": "docs(deploy): демо-кабинеты, проверка готовности и приёмка после обновления",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "43ac54b2444e7b8591aeb349f3dd1a53dd7024ca",
+      "date": "2026-11-21T20:42:23+03:00",
+      "author": "re3per",
+      "subject": "docs(security): демо-кабинеты, PDF и публичная проверка справки; архитектура",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e41c6c243cfc3b1c1efc6bf7e22819802179bd42",
+      "date": "2026-11-21T20:42:23+03:00",
+      "author": "re3per",
+      "subject": "docs(ai): поручение 21 ноября, журнал ошибок E-38–E-43, прогресс и промпты",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "fc5a44f7844440eb110342c8883dfc277e1a120e",
+      "date": "2026-11-21T20:42:35+03:00",
+      "author": "re3per",
+      "subject": "docs(process): указатель, три примера работы с ИИ, ранняя и итоговая версии",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ce5a8a2184d919da2ae5b2dcc0ad4b55fe9db9d2",
+      "date": "2026-11-21T20:42:35+03:00",
+      "author": "re3per",
+      "subject": "docs(audit): итоговый прогон, статус стенда и границы проверки на 21 ноября",
       "coauthors": [
         "Claude Opus 5.5 <noreply@anthropic.com>"
       ]
