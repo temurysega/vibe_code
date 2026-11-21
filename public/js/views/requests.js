@@ -1,13 +1,14 @@
 // Заявки и справки: каталог, форма с автозаполнением, статус «как у посылки» и электронная справка.
 import { get, post } from '../lib/api.js';
 import { session, setPlay, on } from '../lib/bus.js';
-import { esc, plural, stamp, when, dayShort, dateLong } from '../lib/format.js';
+import { esc, plural, stamp, when, dayShort } from '../lib/format.js';
 import { icon } from '../ui/icons.js';
 import { modal, toast, confirm } from '../ui/overlay.js';
 import { replaceKeepingFocus } from '../ui/focus.js';
 import * as fx from '../ui/fx.js';
 import { logoMark } from '../art/logo.js';
 import { skeleton, errorBox, statusPill, pipe, STATUS_ICON } from './common.js';
+import { documentModel, codeGroups } from '../shared/document.js';
 
 const STEP_LABEL = { submitted: 'Подана', in_work: 'В работе', ready: 'Готова', issued: 'Выдана', approved: 'Одобрена' };
 const DELIVERY = { electronic: ['Электронная', 'Справка с кодом проверки, сразу в кабинете'], paper: ['Бумажная', 'Получение образца в демо-деканате'] };
@@ -111,61 +112,42 @@ function detailView(r) {
 }
 
 // ---------- электронная справка ----------
-const FAC_EN = { 'Факультет международных отношений': 'School of International Relations', 'Международно-правовой факультет': 'International Law School', 'Факультет международных экономических отношений': 'School of International Economic Relations' };
-const PROGRAM_EN = { 'Международные отношения': 'International Relations', 'Экономика': 'Economics', 'Юриспруденция': 'Law' };
-const COUNTRY_EN = { 'сербия': 'Serbia', 'китай': 'China', 'франция': 'France', 'оаэ': 'the UAE', 'индия': 'India', 'бразилия': 'Brazil', 'германия': 'Germany', 'италия': 'Italy', 'испания': 'Spain', 'турция': 'Turkey', 'египет': 'Egypt', 'япония': 'Japan', 'корея': 'Korea', 'вьетнам': 'Vietnam', 'армения': 'Armenia', 'казахстан': 'Kazakhstan', 'узбекистан': 'Uzbekistan', 'беларусь': 'Belarus' };
-const programEn = (p) => p.replace(/^(\S+)\s+(.+)$/, (m, code, name) => `${code} ${PROGRAM_EN[name] || translit(name)}`);
-const countryEn = (c) => COUNTRY_EN[String(c || '').trim().toLowerCase()] || translit(c || '');
-const TR = { а: 'a', б: 'b', в: 'v', г: 'g', д: 'd', е: 'e', ё: 'e', ж: 'zh', з: 'z', и: 'i', й: 'i', к: 'k', л: 'l', м: 'm', н: 'n', о: 'o', п: 'p', р: 'r', с: 's', т: 't', у: 'u', ф: 'f', х: 'kh', ц: 'ts', ч: 'ch', ш: 'sh', щ: 'shch', ъ: 'ie', ы: 'y', ь: '', э: 'e', ю: 'iu', я: 'ia' };
-const translit = (s) => String(s).split('').map((c) => { const l = c.toLowerCase(); const t = TR[l]; if (t == null) return c; return c === l ? t : t.charAt(0).toUpperCase() + t.slice(1); }).join('');
-
-function stipendTable(statement) {
-  const month = (value) => new Date(`${value}-01T12:00:00Z`).toLocaleDateString('ru-RU', { month: 'long', year: 'numeric', timeZone: 'UTC' });
-  const money = (value) => new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 2 }).format(value);
-  return `<section aria-label="Начисления стипендии">
-    <p class="mt-16">Академическая стипендия за шесть завершённых месяцев перед подачей заявки: <b>${esc(month(statement.from))} — ${esc(month(statement.to))}</b>.</p>
-    <table class="tbl mt-16" style="font-size:13px" aria-label="Стипендия по месяцам">
-      <thead><tr><th scope="col" style="white-space:normal">Месяц и основание</th><th scope="col" class="num">Начислено</th></tr></thead>
-      <tbody>${statement.months.map((row) => `<tr><td>${esc(month(row.month))}<br><span class="small muted">${esc(row.reason)}</span></td><td class="num">${esc(money(row.amount))}</td></tr>`).join('')}</tbody>
-      <tfoot><tr><th scope="row" style="white-space:normal">Итого за 6 месяцев</th><td class="num"><b>${esc(money(statement.total))}</b></td></tr></tfoot>
-    </table>
-    ${statement.total === 0 ? '<p class="mt-16">За указанный период академическая стипендия не начислялась.</p>' : ''}
-    <p class="small mt-16">${esc(statement.note)}</p>
-  </section>`;
-}
-
 // Код проверки читается группами по четыре знака; ссылка ведёт в тот же демо-кабинет, где выдана справка
-const codeGroups = (code) => String(code || '').match(/.{1,4}/g).join('-');
 const verifyLink = (code) => `${location.origin}/${session.sandbox && session.sandbox.id ? `?demo=${session.sandbox.id}` : ''}#/verify/${codeGroups(code)}`;
 
+const runs = (list) => list.map((r) => (r.b ? `<b>${esc(r.t)}</b>` : esc(r.t))).join('');
+
 function docView(d, grades) {
-  const fio = `${d.student.lastName} ${d.student.firstName} ${d.student.middleName || ''}`.trim();
-  const f = d.student.gender === 'f';
-  const en = d.lang === 'en';
-  let text;
-  if (en) {
-    const name = translit(`${d.student.firstName} ${d.student.lastName}`);
-    text = `<p>This is to certify that <b>${esc(name)}</b> is a full-time ${d.course}${['st', 'nd', 'rd'][d.course - 1] || 'th'}-year student of the ${esc(FAC_EN[d.faculty] || translit(d.faculty))}, bachelor's programme «${esc(programEn(d.program))}», academic year ${esc(d.academicYear)}.</p>
-      <p>Expected graduation: ${d.graduationYear}. ${d.type === 'visa' ? `The certificate is issued for submission to the consular office for a trip to ${esc(countryEn(d.payload.country))}${d.payload.dates ? ` (${esc(d.payload.dates)})` : ''}. The student is granted academic leave for the period of travel.` : 'The certificate is issued upon request.'}</p>`;
-  } else {
-    text = `<p>Дана <b>${esc(fio)}</b> в том, что ${f ? 'она' : 'он'} действительно является ${f ? 'студенткой' : 'студентом'} ${d.course} курса (${esc(d.faculty.toLowerCase())}), направление подготовки «${esc(d.program)}», профиль «${esc(d.profile)}», форма обучения — ${esc(d.studyForm)}, основа — ${esc(d.funding === 'бюджет' ? 'бюджетная' : 'договорная')}.</p>
-      <p>Срок обучения: ${d.admissionYear}–${d.graduationYear}. Номер зачётной книжки: ${esc(d.recordBook)}.</p>
-      ${d.payload.place ? `<p>Справка выдана для предоставления: ${esc(d.payload.place)}.</p>` : '<p>Справка выдана по месту требования.</p>'}`;
+  const m = documentModel(d, grades && grades.history);
+  const en = m.en;
+  let text = m.paragraphs.map((p) => `<p>${runs(p)}</p>`).join('');
+  if (m.stipend) {
+    const s = m.stipend;
+    text += `<section aria-label="Начисления стипендии">
+    <p class="mt-16">${runs(s.intro)}</p>
+    <table class="tbl mt-16" style="font-size:13px" aria-label="Стипендия по месяцам">
+      <thead><tr><th scope="col" style="white-space:normal">${esc(s.head[0])}</th><th scope="col" class="num">${esc(s.head[1])}</th></tr></thead>
+      <tbody>${s.rows.map((row) => `<tr><td>${esc(row.month)}<br><span class="small muted">${esc(row.reason)}</span></td><td class="num">${esc(row.amount)}</td></tr>`).join('')}</tbody>
+      <tfoot><tr><th scope="row" style="white-space:normal">${esc(s.total.label)}</th><td class="num"><b>${esc(s.total.amount)}</b></td></tr></tfoot>
+    </table>
+    ${s.zero ? `<p class="mt-16">${esc(s.zero)}</p>` : ''}
+    <p class="small mt-16">${esc(s.note)}</p>
+  </section>`;
   }
-  if (d.type === 'stipend' && d.stipend) text += stipendTable(d.stipend);
-  if (d.type === 'transcript' && grades) {
-    text += `<table class="tbl" style="font-size:13px;margin-top:14px"><thead><tr><th>${en ? 'Course' : 'Дисциплина'}</th><th class="num">${en ? 'Term' : 'Семестр'}</th><th class="num">${en ? 'Points' : 'Баллы'}</th><th class="num">ECTS</th></tr></thead><tbody>${grades.history.flatMap((h) => h.list.map((x) => `<tr><td>${esc(en ? translit(x.name) : x.name)}</td><td class="num">${h.semester}</td><td class="num">${x.points}</td><td class="num">${x.verdict.letter}</td></tr>`)).join('')}</tbody></table>`;
+  if (m.transcript) {
+    text += `<table class="tbl" style="font-size:13px;margin-top:14px"><thead><tr>${m.transcript.head.map((h, i) => `<th${i ? ' class="num"' : ''}>${esc(h)}</th>`).join('')}</tr></thead><tbody>${m.transcript.rows.map((r) => `<tr>${r.map((c, i) => `<td${i ? ' class="num"' : ''}>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
   }
+  const id = location.hash.split('/')[2];
   return `<div class="doc-wrap">
-    <div class="doc-actions"><button class="btn btn-primary" data-print>${icon('print', 18)} Скачать PDF или распечатать</button><a class="btn btn-secondary" href="#/requests/${location.hash.split('/')[2]}">${icon('back', 18)} К заявке</a></div>
+    <div class="doc-actions"><button class="btn btn-primary" data-print>${icon('print', 18)} Скачать PDF или распечатать</button><a class="btn btn-secondary" href="#/requests/${esc(id)}">${icon('back', 18)} К заявке</a></div>
     <article class="doc" aria-label="Электронная справка (демо)">
-      <div class="doc-head">${logoMark()}<div class="doc-org"><b>МГИМО Мания — демонстрационный концепт</b><br>${en ? 'Sample of an electronic certificate · not an official document' : 'Образец электронной справки · не является официальным документом'}</div></div>
-      <div class="doc-title">${en ? 'Certificate' : esc(d.title)}</div>
-      <div class="doc-no">№ ${esc(d.number)} ${en ? 'of' : 'от'} ${esc(en ? new Date(d.issuedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : dateLong(new Date(d.issuedAt).toISOString().slice(0, 10)))}</div>
+      <div class="doc-head">${logoMark()}<div class="doc-org"><b>${esc(m.org)}</b><br>${esc(m.sample)}</div></div>
+      <div class="doc-title">${esc(m.title)}</div>
+      <div class="doc-no">${esc(m.numberLine)}</div>
       ${text}
-      <div class="doc-foot"><div class="doc-sign">${en ? 'Demo dean’s office' : 'Демонстрационный деканат'}<span class="line"></span><span class="small">${en ? 'Sample, without an electronic signature' : 'Образец без электронной подписи'}</span></div>
-        <div class="doc-qr"><span>${en ? 'Verify this sample' : 'Проверка образца'}:<br><b style="font-size:14px;letter-spacing:.08em">${esc(codeGroups(d.verifyCode))}</b><br><a class="link" href="${esc(verifyLink(d.verifyCode))}">${esc(verifyLink(d.verifyCode))}</a></span></div></div>
-      <div class="doc-stamp">МГИМО Мания<br>демо<br>образец</div>
+      <div class="doc-foot"><div class="doc-sign">${esc(m.sign)}<span class="line"></span><span class="small">${esc(m.unsigned)}</span></div>
+        <div class="doc-qr"><span>${esc(m.verifyLabel)}:<br><b style="font-size:14px;letter-spacing:.08em">${esc(codeGroups(d.verifyCode))}</b><br><a class="link" href="${esc(verifyLink(d.verifyCode))}">${esc(verifyLink(d.verifyCode))}</a></span></div></div>
+      <div class="doc-stamp">${esc(m.brand)}<br>${en ? 'demo' : 'демо'}<br>${en ? 'sample' : 'образец'}</div>
     </article></div>`;
 }
 
