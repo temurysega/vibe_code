@@ -103,7 +103,7 @@ function detailView(r) {
       <div class="card"><div class="card-title">История</div><div class="timeline mt-16">${r.events.slice().reverse().map((e) => `<div class="tl-item"><span class="when">${esc(stamp(e.created_at))}</span><span><b>${esc(STEP_LABEL[e.status] || ({ rejected: 'Отклонена', cancelled: 'Отменена' })[e.status] || e.status)}</b> · <span class="muted">${esc(e.actor)}</span>${e.comment ? `<br>${esc(e.comment)}` : ''}</span></div>`).join('')}</div></div>
     </div>
     <aside class="sticky-side">
-      ${r.downloadable ? `<div class="card card-navy"><div class="card-title">Справка готова</div><p class="muted mt-8">Демонстрационный образец с кодом проверки. Можно сохранить в PDF через печать</p><a class="btn btn-gold btn-block mt-16" href="#/requests/${r.id}/doc">${icon('download', 18)} Открыть и скачать</a></div>` : ''}
+      ${r.downloadable ? `<div class="card card-navy"><div class="card-title">Справка готова</div><p class="muted mt-8">Демонстрационный образец с кодом проверки. Можно скачать PDF или распечатать</p><a class="btn btn-gold btn-block mt-16" href="#/requests/${r.id}/doc">${icon('download', 18)} Открыть и скачать</a></div>` : ''}
       ${r.pickup && r.status === 'ready' ? `<div class="pickup">${icon('pin', 20)}<span><b style="font-weight:500">Готово — можно забирать</b><br>${esc(r.pickup)}<br><span class="small">Возьмите студенческий билет</span></span></div>` : ''}
       ${payloadRows ? `<div class="card"><div class="card-title">Что указано в заявке</div><dl class="kv mt-16" style="grid-template-columns:110px minmax(0,1fr);font-size:14px">${payloadRows}</dl></div>` : ''}
       ${r.cancellable ? `<button class="btn btn-danger btn-block" data-cancel data-focus-key="request-cancel">${icon('undo', 18)} Отменить заявку</button>` : ''}
@@ -139,7 +139,7 @@ function docView(d, grades) {
   }
   const id = location.hash.split('/')[2];
   return `<div class="doc-wrap">
-    <div class="doc-actions"><button class="btn btn-primary" data-print>${icon('print', 18)} Скачать PDF или распечатать</button><a class="btn btn-secondary" href="#/requests/${esc(id)}">${icon('back', 18)} К заявке</a></div>
+    <div class="doc-actions"><a class="btn btn-primary" href="/api/requests/${esc(id)}/document.pdf" download data-pdf>${icon('download', 18)} Скачать PDF</a><button class="btn btn-secondary" data-print>${icon('print', 18)} Распечатать</button><a class="btn btn-ghost" href="#/requests/${esc(id)}">${icon('back', 18)} К заявке</a></div>
     <article class="doc" aria-label="Электронная справка (демо)">
       <div class="doc-head">${logoMark()}<div class="doc-org"><b>${esc(m.org)}</b><br>${esc(m.sample)}</div></div>
       <div class="doc-title">${esc(m.title)}</div>
