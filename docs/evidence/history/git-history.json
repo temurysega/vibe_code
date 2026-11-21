@@ -1,16 +1,17 @@
 {
   "source": "git log --reverse --date=iso-strict",
-  "snapshot_head": "4045f08d11abf0ceebc6dcc4b4feb904a386254f",
+  "snapshot_head": "0bf2fc059ac2731ed493bf853cb5b202c7d98dc4",
   "interpretation": "Метаданные репозитория, а не стенограмма работы с ИИ. Коммиты 4 ноября созданы скриптом за 2–3 минуты в конце первой сессии и показывают устройство кода; с 8 ноября каждый коммит — отдельная итерация. Трейлер Co-Authored-By не удостоверяет текст промптов или версию модели.",
   "summary": {
-    "commits": 656,
+    "commits": 683,
     "by_day": {
       "2026-11-04": 629,
       "2026-11-08": 11,
       "2026-11-09": 7,
-      "2026-11-19": 9
+      "2026-11-19": 10,
+      "2026-11-21": 26
     },
-    "commits_with_claude_coauthor": 643,
+    "commits_with_claude_coauthor": 670,
     "replayed_on_2026_11_04": {
       "commits": 629,
       "first": "2026-11-04T22:09:47+03:00",
@@ -5893,6 +5894,249 @@
       "date": "2026-11-19T22:23:20+03:00",
       "author": "temurysega",
       "subject": "Publish the 19 November release and record its verification",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "56efafc4517fea277fc9fe796276bc9d3afbccbf",
+      "date": "2026-11-19T22:24:44+03:00",
+      "author": "temurysega",
+      "subject": "Rebuild the jury PDF with the November 19 dialogues and release",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "de4b0f866d341d1aa6057ad2c2a3498970dfad42",
+      "date": "2026-11-21T14:08:37+03:00",
+      "author": "re3per",
+      "subject": "docs(submission): убрать неподтверждённый Qwen Code из текста для жюри",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c0c86ef75afdc9b92339df3492ac5595f89d1162",
+      "date": "2026-11-21T14:08:37+03:00",
+      "author": "re3per",
+      "subject": "docs(process): перечень инструментов без Qwen Code",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6ba631b8cc3f21371fd875295bee76716d0303fa",
+      "date": "2026-11-21T14:08:37+03:00",
+      "author": "re3per",
+      "subject": "docs(prompts): роли методички по истории Git, П-21 — у Claude Code",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "36d1940138b4d6f4a59a6a6768d74f14d509cddf",
+      "date": "2026-11-21T14:10:08+03:00",
+      "author": "re3per",
+      "subject": "docs(process): убрать приложение с шестью карточками-реконструкциями",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "560d8582ed50a2476f45c1431a8bbafd7b589870",
+      "date": "2026-11-21T14:10:08+03:00",
+      "author": "re3per",
+      "subject": "chore(scripts): сборка PDF и карточек без PROMPTS.json",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b52b174e30eb74987980a90d599ba790aac4d689",
+      "date": "2026-11-21T14:10:08+03:00",
+      "author": "re3per",
+      "subject": "docs(ai): ссылки на удалённые реконструкции в SPEC, журнале промптов и методичке",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "c53bfe2cb5198db236fe092e73d26846de4e6846",
+      "date": "2026-11-21T14:11:21+03:00",
+      "author": "re3per",
+      "subject": "docs(errors): происхождение E-11 без непроверяемой даты",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ba17ab598b73f0aa06e571c1888f52bd6ce6449b",
+      "date": "2026-11-21T14:12:02+03:00",
+      "author": "re3per",
+      "subject": "docs(process): описание процесса от первого лица",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3a5029cf4e8a02eca4bf179216f78ac936ff3a72",
+      "date": "2026-11-21T14:12:02+03:00",
+      "author": "re3per",
+      "subject": "docs(audit): ручная проверка с телефона и из России — от первого лица",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "02c64f400bedb92f4bd33208df6180b9ce0d9dbf",
+      "date": "2026-11-21T14:13:18+03:00",
+      "author": "re3per",
+      "subject": "docs(process): раздел «Коротко для жюри», обложка текущей версии",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f41bcc89e0717a931add37439b8cedffe1bd9784",
+      "date": "2026-11-21T14:13:18+03:00",
+      "author": "re3per",
+      "subject": "docs(submission): точная формулировка про материалы 19 ноября",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0947176e90dd9aaa6b072ffe5b32fc760c3b7ccd",
+      "date": "2026-11-21T14:13:18+03:00",
+      "author": "re3per",
+      "subject": "chore(build): дата в колонтитуле PDF — день сборки по Москве",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3e45e30cf45d9b899f2d0cf49f508579b493505e",
+      "date": "2026-11-21T14:14:41+03:00",
+      "author": "re3per",
+      "subject": "fix(evidence): сборщик журналов не пишет домашнюю папку пользователя",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "10d73491eadbd4b885a6fdd9c827fe04b4688138",
+      "date": "2026-11-21T14:15:23+03:00",
+      "author": "re3per",
+      "subject": "docs(evidence): обезличить имя учётной записи Windows в журналах",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3873ce8b36836782ae6626ec04c4d5cd9f631cc9",
+      "date": "2026-11-21T14:15:23+03:00",
+      "author": "re3per",
+      "subject": "test(privacy): регрессия на пути с именем пользователя в docs/evidence",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3342e1a3f446f13e51f3415c17d6314e6f77a614",
+      "date": "2026-11-21T14:15:52+03:00",
+      "author": "re3per",
+      "subject": "docs(errors): записи E-36 и E-37 — имя пользователя в журналах и неподтверждённый Qwen",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0f698ab9e60c2e7147b931f11488c09b0919573d",
+      "date": "2026-11-21T14:15:52+03:00",
+      "author": "re3per",
+      "subject": "docs(agents): правила о следе инструмента и путях без имени пользователя",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d0de86e7821b8f02fe0113f86eae339ee051fd52",
+      "date": "2026-11-21T14:16:54+03:00",
+      "author": "re3per",
+      "subject": "docs(prompts): число записей в ERRORS.md в таблице критериев — 37",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "b47b95d323f0054a61cc348668aac67c6a1ed76c",
+      "date": "2026-11-21T15:16:50+03:00",
+      "author": "re3per",
+      "subject": "feat(demo): сценарий записи видео с мобильного экрана",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6f4b6a0c40099d6fe91f4e3417b46d0f5bfd0afd",
+      "date": "2026-11-21T15:16:50+03:00",
+      "author": "re3per",
+      "subject": "docs(video): видео-демонстрация с мобильного экрана, 2:08",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f1223a0f64d8a664360cc49c9972727b3d199676",
+      "date": "2026-11-21T15:17:54+03:00",
+      "author": "re3per",
+      "subject": "docs(process): итерация 21 ноября и видео с мобильного экрана",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ff84c4d9d2f5e31181638822c265fbb322e0b7ba",
+      "date": "2026-11-21T15:17:54+03:00",
+      "author": "re3per",
+      "subject": "docs(readme): ссылка на видео с мобильного экрана",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "bc0260f18487561e94fd61f90566fac65339f486",
+      "date": "2026-11-21T15:17:54+03:00",
+      "author": "re3per",
+      "subject": "docs(submission): видео в тексте для жюри",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3f7ffbb3a1751370b6760fbc182977dd6cc091a9",
+      "date": "2026-11-21T15:17:54+03:00",
+      "author": "re3per",
+      "subject": "docs(jury): ссылка на видео в маршруте жюри",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "07c864e661bba8c6951e04719e3100ebcde063f6",
+      "date": "2026-11-21T15:18:22+03:00",
+      "author": "re3per",
+      "subject": "docs(ai): PROGRESS.md — состояние на 21 ноября и открытые вопросы",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0bf2fc059ac2731ed493bf853cb5b202c7d98dc4",
+      "date": "2026-11-21T15:18:22+03:00",
+      "author": "re3per",
+      "subject": "docs(ai): журнал промптов — дословные просьбы 21 ноября и ошибка агента",
       "coauthors": [
         "Claude Opus 5.5 <noreply@anthropic.com>"
       ]
