@@ -102,11 +102,12 @@ with sync_playwright() as p:
         page.keyboard.press('Escape')
         expect(page.locator('.modal-overlay')).to_have_count(0)
 
-    visit(page, 'grades', 'a[href="#/grades/session"]')
-    page.locator('a[href="#/grades/session"]').click()
+    # Вкладка «Сессия», а не подсказка «Первый зачёт через N дней»: она появляется за 30 дней до сессии
+    visit(page, 'grades', '.grades-tabs a[href="#/grades/session"]')
+    page.locator('.grades-tabs a[href="#/grades/session"]').click()
     page.locator('.exam-row').first.wait_for()
     check('360px: session is reachable from grades', '#/grades/session' in page.url and page.locator('.exam-row').count() > 0)
-    page.locator('a[href="#/grades/history"]').click()
+    page.locator('.grades-tabs a[href="#/grades/history"]').click()
     page.locator('.sem-tabs').wait_for()
     check('360px: record book is reachable from grades', page.locator('.tbl tbody tr').count() > 0)
 

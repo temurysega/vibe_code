@@ -144,10 +144,10 @@ try:
                   expected != second_ids and ids(page) == second_ids
                   and page.locator('[data-grade-filter="all"]').get_attribute('aria-pressed') == 'true')
             check(f'{width}: new account receives the default overview state', overview.evaluate('(el) => el.open') == (width > 720))
-            page.locator('a[href="#/grades/session"]').click()
+            page.locator('.grades-tabs a[href="#/grades/session"]').click()
             page.locator('.exam-row').first.wait_for()
             check(f'{width}: session remains one tab away', page.locator('.exam-row').count() > 0)
-            page.locator('a[href="#/grades/history"]').click()
+            page.locator('.grades-tabs a[href="#/grades/history"]').click()
             expect(page.locator('#main')).to_contain_text('Зачётка пока пустая')
             check(f'{width}: first-year record book has its correct empty state', True)
             ctx.close()

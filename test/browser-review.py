@@ -147,10 +147,10 @@ try:
             check(f'{width}: account switch resets the filter and shows only the new student courses',
                   visible_ids(page) == second_ids and page.locator('[data-grade-filter="all"]').get_attribute('aria-pressed') == 'true'
                   and expected != second_ids)
-            page.locator('a[href="#/grades/session"]').click()
+            page.locator('.grades-tabs a[href="#/grades/session"]').click()
             page.locator('.exam-row').first.wait_for()
             check(f'{width}: session remains reachable', page.locator('.exam-row').count() > 0)
-            page.locator('a[href="#/grades/history"]').click()
+            page.locator('.grades-tabs a[href="#/grades/history"]').click()
             expect(page.locator('#main')).to_contain_text('Зачётка пока пустая')
             check(f'{width}: first-year empty record book remains reachable', True)
 
