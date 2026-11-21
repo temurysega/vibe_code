@@ -127,3 +127,23 @@ test('известный пустой день и отсутствующие д�
   assert.doesNotMatch(answer.text, /пар нет/);
   assert.equal(answer.link.href, '#/schedule');
 });
+
+test('без модели помощник отвечает на «Какая у меня группа?» из профиля каждого студента', async () => {
+  const alina = ruleAnswer(studentSnapshot('a.morozova'), 'Какая у меня группа?');
+  const timur = ruleAnswer(studentSnapshot('t.aliev'), 'Какая у меня группа?');
+  assert.match(alina.text, /МО-25-03/);
+  assert.match(alina.text, /Алина Морозова/);
+  assert.doesNotMatch(alina.text, /МЭО-26-07|Тимур/);
+  assert.match(timur.text, /МЭО-26-07/);
+  assert.doesNotMatch(timur.text, /МО-25-03|Алина/);
+  assert.equal(alina.link.href, '#/profile');
+  // Курсовая работа — не вопрос о курсе: правило профиля не перехватывает её
+  assert.doesNotMatch(ruleAnswer(studentSnapshot('a.morozova'), 'Когда сдать курсовую?').text, /^Вы — /);
+  // Через API без ключей провайдера ответ даёт встроенное правило с источником
+  const c = client(app.base);
+  await c.login('t.aliev');
+  const r = await c.req('POST', '/api/assistant', { message: 'Какая у меня группа?', history: [] });
+  assert.equal(r.status, 200);
+  assert.match(r.data.text, /МЭО-26-07/);
+  assert.equal(r.data.source, 'rules');
+});

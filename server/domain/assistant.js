@@ -126,6 +126,13 @@ export function ruleAnswer(snap, question) {
     const changes = day.items.filter((it) => it.change).length;
     return { text: `${label}:\n${list}${changes ? `\nОбратите внимание: ${changes} ${plural(changes, ['изменение', 'изменения', 'изменений'])} — они отмечены в расписании.` : ''}`, link };
   }
+  // Учебные сведения — из профиля вошедшего студента: ответ не зависит от внешней модели
+  if (has(/групп|(?:^|[^а-яё])курс(?:е|а|у)?(?:$|[^а-яё])|факультет|направлени|профил|куратор|кто я|обо мне|мои данные/)) {
+    return {
+      text: `Вы — ${s.first_name} ${s.last_name}: ${s.course} курс, группа ${s.group_code}, ${s.faculty.name}. Направление — ${s.program}, профиль «${s.profile}».${s.curator ? ` Куратор группы — ${s.curator}.` : ''} Эти сведения — в разделе «Профиль».`,
+      link: { href: '#/profile', label: LINKS['#/profile'] },
+    };
+  }
   if (has(/пересда|долг|хвост|задолженн/)) {
     if (!g.debts.length) return { text: 'Академических задолженностей нет — пересдавать ничего не нужно.', link: { href: '#/grades', label: LINKS['#/grades'] } };
     const d = g.debts[0];
