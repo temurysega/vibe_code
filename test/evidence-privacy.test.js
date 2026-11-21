@@ -8,8 +8,9 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const TEXT = new Set(['.txt', '.json', '.md', '.html']);
-// C:\Users\имя, C:\\Users\\имя (JSON), C:/Users/имя, а также /Users/имя/ и /home/имя/
-const HOME_PATH = /(?:[A-Za-z]:(?:\\\\|\\|\/)Users(?:\\\\|\\|\/)|(?:^|[\s"'(`])\/(?:Users|home)\/)(?!<)[^\\/"'`\s<>]+/m;
+// C:\Users\имя, C:\\Users\\имя (JSON), C:/Users/имя, а также /Users/имя/ и /home/имя/;
+// и временная папка macOS, в имя которой вшит путь к профилю: …/-Users-имя-Library-… (E-38)
+const HOME_PATH = /(?:[A-Za-z]:(?:\\\\|\\|\/)Users(?:\\\\|\\|\/)|(?:^|[\s"'(`])\/(?:Users|home)\/|-Users-)(?!<)[^\\/"'`\s<>-]+/m;
 
 function* walk(dir) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
@@ -27,4 +28,10 @@ test('журналы docs/evidence не раскрывают имя пользо
     if (match) leaks.push(`${relative(ROOT, file)}: ${match[0].trim()}`);
   }
   assert.deepEqual(leaks, [], `пути с именем пользователя в ${leaks.length} файлах`);
+});
+
+test('шаблон ловит и путь временной папки macOS с именем пользователя', () => {
+  assert.match('Command: /private/tmp/claude-501/-Users-someone-Library-Application/qa-venv/bin/python', HOME_PATH);
+  assert.match('"C:\\\\Users\\\\someone\\\\project"', HOME_PATH);
+  assert.doesNotMatch('Command: <venv>/bin/python <project>/test/browser-smoke.py', HOME_PATH);
 });

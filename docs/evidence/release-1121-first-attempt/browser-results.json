@@ -1,0 +1,214 @@
+{
+  "base": "http://127.0.0.1:51727",
+  "checks": [
+    {
+      "check": "1366 login: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "1366 login: no error state",
+      "passed": true
+    },
+    {
+      "check": "1366-home: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "1366-home: no error state",
+      "passed": true
+    },
+    {
+      "check": "1366-profile: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "1366-profile: no error state",
+      "passed": true
+    },
+    {
+      "check": "1366-schedule: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "1366-schedule: no error state",
+      "passed": true
+    },
+    {
+      "check": "1366-grades: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "1366-grades: no error state",
+      "passed": true
+    },
+    {
+      "check": "1366-grades-session: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "1366-grades-session: no error state",
+      "passed": true
+    },
+    {
+      "check": "1366-requests: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "1366-requests: no error state",
+      "passed": true
+    },
+    {
+      "check": "1366-requests-new-study: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "1366-requests-new-study: no error state",
+      "passed": true
+    },
+    {
+      "check": "1366-notifications: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "1366-notifications: no error state",
+      "passed": true
+    },
+    {
+      "check": "1366-campus: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "1366-campus: no error state",
+      "passed": true
+    },
+    {
+      "check": "1366-wardrobe: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "1366-wardrobe: no error state",
+      "passed": true
+    },
+    {
+      "check": "1366-shop: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "1366-shop: no error state",
+      "passed": true
+    },
+    {
+      "check": "1366-game: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "1366-game: no error state",
+      "passed": true
+    },
+    {
+      "check": "360 login: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "360 login: no error state",
+      "passed": true
+    },
+    {
+      "check": "360-home: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "360-home: no error state",
+      "passed": true
+    },
+    {
+      "check": "360-profile: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "360-profile: no error state",
+      "passed": true
+    },
+    {
+      "check": "360-schedule: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "360-schedule: no error state",
+      "passed": true
+    },
+    {
+      "check": "360-grades: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "360-grades: no error state",
+      "passed": true
+    },
+    {
+      "check": "360-grades-session: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "360-grades-session: no error state",
+      "passed": true
+    },
+    {
+      "check": "360-requests: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "360-requests: no error state",
+      "passed": true
+    },
+    {
+      "check": "360-requests-new-study: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "360-requests-new-study: no error state",
+      "passed": true
+    },
+    {
+      "check": "360-notifications: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "360-notifications: no error state",
+      "passed": true
+    },
+    {
+      "check": "360-campus: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "360-campus: no error state",
+      "passed": true
+    },
+    {
+      "check": "360-wardrobe: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "360-wardrobe: no error state",
+      "passed": true
+    },
+    {
+      "check": "360-shop: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "360-shop: no error state",
+      "passed": true
+    },
+    {
+      "check": "360-game: no horizontal page overflow",
+      "passed": true
+    },
+    {
+      "check": "360-game: no error state",
+      "passed": true
+    }
+  ],
+  "browser_errors": []
+}

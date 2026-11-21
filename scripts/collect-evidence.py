@@ -34,10 +34,12 @@ def stamp():
 
 
 HOME = str(Path.home())
+# Окружение Python может лежать во временной папке, в имени которой есть имя пользователя (E-38)
+PYTHON_PATHS = sorted({(sys.prefix, '<venv>'), (sys.base_prefix, '<python>')}, key=lambda item: len(item[0]), reverse=True)
 
 
 def portable(value):
-    """Журналы публичны: корень проекта → <project>, домашняя папка → ~ (без имени пользователя, E-35)."""
+    """Журналы публичны: корень проекта → <project>, окружение Python → <venv>, домашняя папка → ~ (E-35, E-38)."""
     if isinstance(value, dict):
         return {key: portable(item) for key, item in value.items()}
     if isinstance(value, list):
@@ -45,6 +47,9 @@ def portable(value):
     if not isinstance(value, str):
         return value
     value = value.replace(str(ROOT), '<project>')
+    for path, label in PYTHON_PATHS:
+        if len(path) > 3:
+            value = value.replace(path, label)
     return value.replace(HOME, '~') if len(HOME) > 3 else value
 
 
