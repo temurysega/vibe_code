@@ -25,7 +25,21 @@ export function notify(store, n) {
 
 const AUDIENCE = `(n.audience = 'all' OR (n.audience = 'faculty' AND n.audience_id = ?) OR (n.audience = 'group' AND n.audience_id = ?) OR (n.audience = 'student' AND n.audience_id = ?))`;
 
-// Напоминания о дедлайнах за 3 дня: материализуются при чтении, по одному на дедлайн
+const fmtDue = (t) => new Date(t).toLocaleString('ru-RU', { timeZone: 'Europe/Moscow', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
+const fmtClock = (t) => new Date(t).toLocaleTimeString('ru-RU', { timeZone: 'Europe/Moscow', hour: '2-digit', minute: '2-digit' });
+
+// Относительный срок считается при каждом показе: запись от 8 ноября не скажет «послезавтра» 21-го.
+// Календарные дни — по Москве: «послезавтра» понятнее, чем «через 2,1 дня».
+export function dueLabel(now, dueAt) {
+  if (dueAt <= now) return 'срок прошёл';
+  const days = daysBetween(msk(now).date, msk(dueAt).date);
+  if (days <= 0) return `сегодня до ${fmtClock(dueAt)}`;
+  if (days === 1) return `завтра до ${fmtClock(dueAt)}`;
+  if (days === 2) return 'послезавтра';
+  return `через ${days} ${plural(days, ['день', 'дня', 'дней'])}`;
+}
+
+// Напоминания о дедлайнах: за 3 дня и отдельно в день срока. Материализуются при чтении, по одному на ключ
 export function remindDeadlines(store, student, faculty) {
   const now = Date.now();
   const list = store.all(
@@ -34,24 +48,45 @@ export function remindDeadlines(store, student, faculty) {
     student.id, student.group_code, now, now + 3 * DAY,
   );
   list.forEach((dl) => {
-    // Считаем календарные дни по Москве: «послезавтра» понятнее, чем «через 2,1 дня»
     const days = daysBetween(msk(now).date, msk(dl.due_at).date);
-    const when = days <= 0 ? 'сегодня' : days === 1 ? 'уже завтра' : days === 2 ? 'послезавтра' : `через ${days} ${plural(days, ['день', 'дня', 'дней'])}`;
+    const body = `${dl.d_name ? `${dl.d_name}. ` : ''}Срок — ${fmtDue(dl.due_at)} по Москве`;
     notify(store, {
       audience: 'student', audienceId: student.id, kind: 'deadline', important: days <= 1 ? 1 : 0, ref: `deadline:${dl.id}:${student.id}`,
-      title: `${dl.title} — ${when}`, body: dl.d_name ? `${dl.d_name}. Срок — ${new Date(dl.due_at).toLocaleString('ru-RU', { timeZone: 'Europe/Moscow', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' })}` : 'Не пропустите срок',
-      link: dl.link || '#/home',
+      title: `${dl.title} — ${dueLabel(now, dl.due_at)}`, body, link: dl.link || '#/home',
     });
+    if (days <= 0) {
+      notify(store, {
+        audience: 'student', audienceId: student.id, kind: 'deadline', important: 1, ref: `deadline-day:${dl.id}:${student.id}`,
+        title: `Сегодня срок: ${dl.title}`, body, link: dl.link || '#/home',
+      });
+    }
+  });
+}
+
+// Заголовок напоминания пересчитывается от текущего момента, даже если запись создана давно
+function freshDeadlineTitles(store, rows, now) {
+  const refs = rows.map((n) => /^(deadline|deadline-day):(\d+):/.exec(n.ref || '')).filter(Boolean);
+  if (!refs.length) return;
+  const ids = [...new Set(refs.map((m) => Number(m[2])))];
+  const byId = new Map(store.all(`SELECT id, title, due_at FROM deadlines WHERE id IN (${ids.map(() => '?').join(',')})`, ...ids).map((d) => [d.id, d]));
+  rows.forEach((n) => {
+    const m = /^(deadline|deadline-day):(\d+):/.exec(n.ref || '');
+    const dl = m && byId.get(Number(m[2]));
+    if (!dl) return;
+    if (m[1] === 'deadline') n.title = `${dl.title} — ${dueLabel(now, dl.due_at)}`;
+    else n.title = dl.due_at <= now ? `Срок прошёл: ${dl.title}` : `Сегодня срок: ${dl.title}`;
   });
 }
 
 export function listFor(store, userId, student, limit = 60) {
-  return store.all(
-    `SELECT n.id, n.kind, n.title, n.body, n.link, n.important, n.author, n.created_at, n.audience, r.read_at
+  const rows = store.all(
+    `SELECT n.id, n.kind, n.title, n.body, n.link, n.important, n.author, n.created_at, n.audience, n.ref, r.read_at
      FROM notifications n LEFT JOIN notification_reads r ON r.notification_id = n.id AND r.user_id = ?
      WHERE ${AUDIENCE} ORDER BY n.created_at DESC, n.id DESC LIMIT ?`,
     userId, student.faculty_id, student.group_code, String(student.id), limit,
-  ).map((n) => ({
+  );
+  freshDeadlineTitles(store, rows, Date.now());
+  return rows.map((n) => ({
     id: n.id, kind: n.kind, kindLabel: KINDS[n.kind] || 'Кабинет', title: n.title, body: n.body, link: n.link,
     important: !!n.important, author: n.author, at: n.created_at, read: !!n.read_at,
     scope: { all: 'Весь МГИМО', faculty: 'Факультет', group: 'Группа', student: 'Лично вам' }[n.audience],
