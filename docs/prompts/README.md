@@ -136,7 +136,7 @@ flowchart LR
 [`QWEN.md`](../../QWEN.md), `.claude/settings.json`, `.claude/agents/` (security-auditor,
 ui-mobile-reviewer, test-engineer, content-writer, docs-chronicler, release-engineer),
 `.claude/commands/` (feature, bugfix, verify), `docs/ai/` (PRODUCT, DESIGN, DECISIONS, PROGRESS,
-ERRORS — 34 записи, PROMPTS_LOG). Описание — в [03-agent-kit.md](03-agent-kit.md).
+ERRORS — 37 записей, PROMPTS_LOG). Описание — в [03-agent-kit.md](03-agent-kit.md).
 
 ## Как набор закрывает критерии
 
