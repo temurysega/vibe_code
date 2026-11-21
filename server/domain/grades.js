@@ -33,7 +33,8 @@ function current(d, items) {
   const forecast = pace == null ? null : Math.min(100, Math.round(earned + pace * remaining));
   const targets = [60, 75, 90].map((min) => ({ min, need: Math.max(0, min - earned), reachable: min - earned <= remaining }));
   const att = items.filter((a) => a.kind === 'attendance' && a.points != null);
-  let status = 'ok';
+  // Без единой оценки прогноз не строится: статус «нет данных», а не «стабильно»
+  let status = gradedMax ? 'ok' : 'nodata';
   if (forecast != null && forecast >= 90) status = 'excellent';
   else if (forecast != null && forecast >= 75) status = 'good';
   if (pace != null && (pace < 0.6 || forecast < 60)) status = 'risk';
@@ -43,7 +44,8 @@ function current(d, items) {
   const goalName = (min) => (min === 90 ? '«отлично»' : min === 75 ? '«хорошо»' : d.control === 'credit' ? 'зачёта' : '«удовлетворительно»');
   const nextItem = left.filter((a) => a.kind !== 'attendance').sort((a, b) => String(a.date || '9').localeCompare(String(b.date || '9')))[0];
   let advice;
-  if (status === 'risk') advice = `Чтобы получить ${d.control === 'credit' ? 'зачёт' : '«удовлетворительно»'}, нужно ещё ${Math.max(0, 60 - earned)} из ${remaining} оставшихся баллов`;
+  if (status === 'nodata') advice = `Пока нет данных для прогноза${nextItem ? ` — первая контрольная точка «${nextItem.title}»` : ''}`;
+  else if (status === 'risk') advice = `Чтобы получить ${d.control === 'credit' ? 'зачёт' : '«удовлетворительно»'}, нужно ещё ${Math.max(0, 60 - earned)} из ${remaining} оставшихся баллов`;
   else if (goal && goal.need > 0) advice = `До ${goalName(goal.min)} — ${goal.need} ${plural(goal.need, ['балл', 'балла', 'баллов'])} из ${remaining} возможных`;
   else if (goal) advice = `Баллов на ${goalName(goal.min).replace('зачёта', 'зачёт')} уже достаточно — держите темп`;
   else if (!remaining) advice = 'Все контрольные точки пройдены';
@@ -127,12 +129,15 @@ export function gradesFor(store, student) {
      WHERE x.group_code = ? ORDER BY x.date, x.time`, student.group_code,
   ).map((x) => ({ id: x.id, kind: x.kind, kindLabel: x.kind === 'consult' ? 'Консультация' : CONTROL[x.kind], discipline: x.name, short: x.short, color: x.color, date: x.date, time: x.time, room: x.room, teacher: x.t_short, inDays: daysBetween(now.date, x.date) }));
   const s = semesterOf(now.date);
+  // Это прогноз по текущим баллам; фактический допуск выставляет деканат перед сессией
   const admitted = risk.length === 0 && !debts.length;
+  const nodata = cur.filter((c) => c.status === 'nodata');
 
   // Короткий ответ на вопрос «как у меня дела»
   let mood, headline;
   if (debts.length) { mood = 'warn'; headline = `Есть ${debts.length} ${plural(debts.length, ['долг', 'долга', 'долгов'])} с прошлой сессии — закройте до начала зимней`; }
   else if (risk.length) { mood = 'warn'; headline = `В целом неплохо, но ${risk.length} ${plural(risk.length, ['дисциплина', 'дисциплины', 'дисциплин'])} в зоне риска`; }
+  else if (cur.length && nodata.length === cur.length) { mood = 'good'; headline = 'Семестр только начался — оценок пока нет, прогноз появится после первых контрольных точек'; }
   else if (cur.length && excellent.length >= Math.ceil(cur.length / 2)) { mood = 'great'; headline = 'Отличный семестр: идёте на «отлично» по большинству дисциплин'; }
   else { mood = 'good'; headline = 'Всё под контролем: по всем дисциплинам вы выше порога'; }
 
@@ -145,10 +150,10 @@ export function gradesFor(store, student) {
 
   return {
     semester: sem, course: Math.ceil(sem / 2), semesterLabel: s.part === 1 ? 'Осенний семестр' : 'Весенний семестр',
-    session: { start: s.sessionStart, end: s.sessionEnd, admitted, exams },
+    session: { start: s.sessionStart, end: s.sessionEnd, admitted, admission: 'forecast', exams },
     summary: {
       mood, headline, tips, avg, semPace: semPace == null ? null : Math.round(semPace * 100), attendance, rank, stipend,
-      risk: risk.length, excellent: excellent.length, total: cur.length, debts: debts.length,
+      risk: risk.length, excellent: excellent.length, total: cur.length, debts: debts.length, nodata: nodata.length,
       credits: sum(cur, (c) => c.credits), earned: sum(cur, (c) => c.earned), possible: sum(cur, (c) => c.gradedMax),
     },
     current: cur,

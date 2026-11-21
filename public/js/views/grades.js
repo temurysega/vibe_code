@@ -27,11 +27,11 @@ function scale(c) {
 }
 
 function discCard(c) {
-  const st = { excellent: ['badge-good', 'идёт на «отлично»'], good: ['badge-soft', 'хорошо'], ok: ['badge-gray', 'стабильно'], risk: ['badge-red', 'в зоне риска'] }[c.status];
+  const st = { excellent: ['badge-good', 'идёт на «отлично»'], good: ['badge-soft', 'хорошо'], ok: ['badge-gray', 'стабильно'], risk: ['badge-red', 'в зоне риска'], nodata: ['badge-gray', 'пока нет оценок'] }[c.status];
   return `<button class="disc ${c.status}" style="--c:${c.color}" data-disc="${c.id}">
     <span class="disc-head"><span><span class="disc-name" style="display:block">${esc(c.name)}</span><span class="small muted disc-meta">${esc(c.controlLabel)}<span class="disc-extra"> · ${c.credits} ЗЕ${c.teacher ? ' · ' + esc(c.teacher.short) : ''}</span></span></span>
       <span class="disc-points">${c.earned}<small> / 100</small></span></span>
-    <span class="row-wrap disc-status"><span class="badge ${st[0]}">${st[1]}</span>${c.forecast != null ? `<span class="small muted disc-forecast">прогноз ${c.forecast}<span class="disc-extra"> · ${esc(c.forecastVerdict.label)}</span></span>` : ''}${c.attendance != null ? `<span class="small muted disc-extra">посещаемость ${c.attendance}%</span>` : ''}</span>
+    <span class="row-wrap disc-status"><span class="badge ${st[0]}">${st[1]}</span>${c.forecast != null ? `<span class="small muted disc-forecast">прогноз ${c.forecast}<span class="disc-extra"> · ${esc(c.forecastVerdict.label)}</span></span>` : '<span class="small muted disc-forecast">Пока нет данных для прогноза</span>'}${c.attendance != null ? `<span class="small muted disc-extra">посещаемость ${c.attendance}%</span>` : ''}</span>
     ${scale(c)}
     <span class="disc-advice">${icon(c.status === 'risk' ? 'alert' : 'target', 16)}<span>${esc(c.advice)}${c.next ? `. Дальше: ${esc(c.next.title.toLowerCase())}${c.next.date ? ', ' + esc(relDay(c.next.date)) : ''}` : ''}</span></span>
   </button>`;
@@ -89,8 +89,8 @@ function sessionTab() {
         <span class="badge ${x.kind === 'consult' ? 'badge-gray' : x.kind === 'exam' ? 'badge-navy' : 'badge-soft'}">${x.inDays < 0 ? 'прошло' : x.inDays === 0 ? 'сегодня' : `через ${x.inDays} ${plural(x.inDays, ['день', 'дня', 'дней'])}`}</span></div>`).join('')}
     </div>
     <div class="col" style="gap:20px">
-      <div class="card ${s.admitted ? '' : 'card-gold'}"><div class="card-title">${s.admitted ? 'Допуск к сессии — идёт по плану' : 'Допуск под вопросом'}</div>
-        <p class="muted mt-8">${s.admitted ? 'Рисков и долгов нет. Допуск ставится автоматически после последней контрольной точки.' : 'Закройте риски и долги — тогда допуск поставят автоматически.'}</p>
+      <div class="card ${s.admitted ? '' : 'card-gold'}"><div class="card-title">${s.admitted ? 'Прогноз допуска: идёт по плану' : 'Прогноз допуска: под вопросом'}</div>
+        <p class="muted mt-8">${s.admitted ? 'Рисков и долгов нет — по текущим баллам вы идёте к допуску.' : 'Закройте риски и долги — по текущим баллам допуск под вопросом.'} Фактический допуск деканат выставит перед сессией, с ${esc(dayShort(s.start))}.</p>
         ${first ? `<div class="note mt-16">${icon('calendar', 18)}<span>Первое испытание — «${esc(first.discipline)}», ${esc(dayShort(first.date))} в ${first.time}</span></div>` : ''}</div>
       <div class="card"><div class="card-title">Если заболели</div><p class="muted mt-8">Перенос экзамена оформляется заявлением на индивидуальный график — без похода в деканат.</p><a class="btn btn-primary mt-16" href="#/requests/new/individual">${icon('doc', 18)} Подать заявление</a></div>
     </div></div>`;
@@ -119,7 +119,7 @@ function history() {
   const sem = h.find((x) => x.semester === semPick);
   return `${g.debts.length ? `<div class="note note-warn" style="margin-bottom:20px">${icon('alert', 18)}<span><b style="font-weight:500">Академическая задолженность:</b> ${g.debts.map((d) => `${esc(d.name)} (${d.points} баллов)${d.retake ? ` — пересдача ${esc(dayShort(d.retake.date))}, ауд. ${esc(d.retake.room)}` : ''}`).join('; ')}. <a class="link" href="#/requests/new/retake">Записаться на пересдачу</a></span></div>` : ''}
     <div class="grid g-main">
-      <div class="card"><div class="seg sem-tabs">${h.map((x) => `<button class="${x.semester === semPick ? 'on' : ''}" data-sem="${x.semester}">${x.semester} семестр</button>`).join('')}</div>
+      <div class="card"><div class="seg sem-tabs" role="tablist" aria-label="Семестры зачётки">${h.map((x) => `<button class="${x.semester === semPick ? 'on' : ''}" role="tab" aria-selected="${x.semester === semPick}" tabindex="${x.semester === semPick ? 0 : -1}" data-sem="${x.semester}">${x.semester} семестр</button>`).join('')}</div>
         <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Дисциплина</th><th class="hide-s">Форма</th><th class="num">Баллы</th><th class="num">Оценка</th></tr></thead><tbody>
           ${sem.list.map((d) => `<tr><td><b style="font-weight:500">${esc(d.name)}</b><div class="small muted">${d.credits} ЗЕ<span class="show-s"> · ${esc(d.controlLabel)}</span></div></td><td class="hide-s muted">${esc(d.controlLabel)}</td><td class="num">${d.points}</td>
             <td class="num"><span class="row" style="justify-content:flex-end;gap:8px"><span class="small ${d.status === 'debt' ? '' : 'muted'}" style="${d.status === 'debt' ? 'color:var(--red-ink)' : ''}">${esc(d.status === 'debt' ? 'долг' : d.verdict.label)}</span><span class="${LETTER_TONE(d.verdict.letter)}">${d.verdict.letter}</span></span></td></tr>`).join('')}
@@ -141,8 +141,10 @@ function discModal(c) {
     size: 'wide',
     html: `<span class="eyebrow">${esc(c.controlLabel)} · ${c.credits} ЗЕ</span><div class="modal-title mt-8">${esc(c.name)}</div>
       <div class="row-wrap mt-12">${c.teacher ? `<button class="chip" data-teacher>${icon('user', 16)} ${esc(c.teacher.name)}</button>` : ''}${c.attendance != null ? `<span class="badge badge-gray">посещаемость ${c.attendance}%</span>` : ''}</div>
-      <div class="card mt-20" style="padding:20px"><div class="row space"><span class="h3">${c.earned} <span class="muted" style="font-size:16px">из ${c.gradedMax} возможных на сегодня</span></span><span class="badge badge-soft">прогноз ${c.forecast ?? '—'}</span></div>
+      <div class="card mt-20" style="padding:20px"><div class="row space"><span class="h3">${c.earned} <span class="muted" style="font-size:16px">из ${c.gradedMax} возможных на сегодня</span></span><span class="badge badge-soft">${c.forecast == null ? 'нет данных для прогноза' : `прогноз ${c.forecast} · ${esc(c.forecastVerdict.label)}`}</span></div>
         <div class="mt-16">${scale(c)}</div><div class="disc-advice" style="margin-top:28px">${icon('target', 16)}<span>${esc(c.advice)}</span></div></div>
+      ${c.status === 'risk' && c.next ? `<div class="note note-warn mt-16" data-risk-action>${icon('alert', 18)}<span><b style="font-weight:500">Ближайшее действие:</b> ${esc(c.next.title)}${c.next.date ? ` — ${esc(dayShort(c.next.date))}` : ''}, до ${c.next.max} баллов</span></div>
+      <div class="row-wrap mt-12">${c.next.date ? `<a class="btn btn-primary" href="#/schedule/${esc(c.next.date)}">${icon('calendar', 18)} Открыть этот день в расписании</a>` : ''}${c.teacher && c.teacher.email ? `<a class="btn btn-secondary" href="mailto:${esc(c.teacher.email)}">${icon('mail', 18)} Написать преподавателю</a>` : ''}</div>` : ''}
       <div class="grid g-3 mt-16" style="gap:10px">${c.targets.map((t) => `<div class="stat" style="background:var(--surface)"><div class="stat-v">${t.need ? '+' + t.need : '✓'}</div><div class="stat-l">${t.min === 60 ? (c.control === 'credit' ? 'до зачёта' : 'до «удовл.»') : t.min === 75 ? 'до «хорошо»' : 'до «отлично»'}${t.need && !t.reachable ? ' · уже недостижимо' : ''}</div></div>`).join('')}</div>
       <div class="tbl-wrap mt-20"><table class="tbl items-tbl"><thead><tr><th>Контрольная точка</th><th class="num">Дата</th><th class="num">Баллы</th></tr></thead><tbody>
         ${c.items.map((a) => `<tr><td>${esc(a.title)}</td><td class="num muted">${a.date ? esc(dayShort(a.date).split(', ')[1]) : 'сессия'}</td><td class="num"><span class="pts ${a.points == null ? 'none' : ''}">${a.points == null ? '—' : a.points} / ${a.max}</span></td></tr>`).join('')}
@@ -199,7 +201,18 @@ export default {
       const d = e.target.closest('[data-disc]');
       if (d) { const c = g.current.find((x) => x.id === Number(d.dataset.disc)); if (c) discModal(c); return; }
       const s = e.target.closest('[data-sem]');
-      if (s) { semPick = Number(s.dataset.sem); box.innerHTML = body(); }
+      // После смены семестра фокус остаётся на выбранной вкладке, а не теряется в начале страницы
+      if (s) { semPick = Number(s.dataset.sem); box.innerHTML = body(); const sel = box.querySelector(`[data-sem="${semPick}"]`); if (sel) sel.focus(); }
+    });
+    // Вкладки семестров: стрелки, Home и End переключают семестр, как в обычном списке вкладок
+    el.addEventListener('keydown', (e) => {
+      const tab = e.target.closest('[role="tab"][data-sem]');
+      if (!tab || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+      e.preventDefault();
+      const tabs = [...tab.parentElement.querySelectorAll('[data-sem]')];
+      const i = tabs.indexOf(tab);
+      const next = e.key === 'Home' ? tabs[0] : e.key === 'End' ? tabs[tabs.length - 1] : tabs[(i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length];
+      next.click();
     });
     return () => {
       desktop.removeEventListener('change', resizeOverview);
