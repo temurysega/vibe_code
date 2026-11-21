@@ -100,7 +100,10 @@ try:
             item.locator('[data-act="ready"]').wait_for()
             item.locator('[data-comment]').fill('Демонстрационная справка готова')
             item.locator('[data-act="ready"]').click()
-            expect(item).to_contain_text('Готова')
+            # Готовая электронная справка уходит из активной очереди в «Завершённые»
+            expect(staff.locator(f'[data-req="{request_id}"]')).to_have_count(0)
+            staff.locator('[data-filter="done"]').click()
+            expect(staff.locator(f'[data-req="{request_id}"]')).to_contain_text('Готова')
             check(f'{width}: staff processes request through queue', api(staff, '/api/dean/requests?status=all')['status'] == 200)
             if width == 360:
                 staff.screenshot(path=str(OUT / '1366-dean.png'), full_page=True, animations='disabled')
