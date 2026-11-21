@@ -14,6 +14,7 @@
 - **Исходный код:** https://github.com/temurysega/vibe_code
 - **Описание процесса (PDF):** https://github.com/temurysega/vibe_code/blob/main/docs/PROCESS.pdf
 - **Маршрут для жюри:** https://github.com/temurysega/vibe_code/blob/main/docs/JURY_GUIDE.md
+- **Видео с мобильного экрана (2 мин):** https://github.com/temurysega/vibe_code/blob/main/docs/video/demo-mobile.mp4
 
 **Тестовые аккаунты, пароль у всех — `mgimo2026`** (на странице входа выбираются одним нажатием):
 
