@@ -38,6 +38,8 @@ body {font-family:Onest,Arial,sans-serif;color:#17243c;font-size:9.5pt;line-heig
 h1 {font-size:28pt;line-height:1.18;color:#132f6a;margin:0 0 20pt;padding-bottom:18pt;border-bottom:4pt solid #d7b34d}
 h2 {font-size:17pt;color:#132f6a;margin:22pt 0 10pt;break-after:avoid}
 h3 {font-size:12pt;line-height:1.3;color:#132f6a;break-after:avoid}
+h4 {font-size:10.5pt;line-height:1.3;color:#132f6a;margin:14pt 0 6pt;break-after:avoid}
+h4 + ul {break-before:avoid}
 p {orphans:3;widows:3}
 a {color:#214d9f;text-decoration:none;overflow-wrap:anywhere}
 table {width:100%;border-collapse:collapse;font-size:8pt;line-height:1.4;margin:12pt 0;break-inside:avoid}
@@ -118,6 +120,11 @@ attachments += sorted((DOCS / 'evidence/deployment/finalization-browser').glob('
 for run in ['finalization-first-attempt', 'finalization-schedule-attempt', 'finalization-first-actions-attempt', 'finalization-first-actions-retry']:
     attachments += sorted((DOCS / 'evidence' / run).glob('*.json'))
     attachments += sorted((DOCS / 'evidence' / run).glob('*.txt'))
+# Итоговая версия 21 ноября: журналы прогона из чистой копии, замер нагрузки и текст поручения
+attachments += sorted((DOCS / 'evidence/release-1121-final').glob('*.txt'))
+attachments += sorted((DOCS / 'evidence/release-1121-final').glob('*.json'))
+attachments += sorted((DOCS / 'evidence/load-2026-11-21').glob('*.json'))
+attachments += [DOCS / 'evidence/review-2026-11-21/prompt.md']
 attachments += [DOCS / 'evidence/deployment' / name for name in
                 ['openrouter-live.json', 'assistant-browser-live.json', 'production-persistence.json', 'migration-deployed.json']]
 for attachment in attachments:
