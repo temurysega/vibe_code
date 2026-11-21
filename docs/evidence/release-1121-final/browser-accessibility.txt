@@ -1,0 +1,29 @@
+Command: <venv>/bin/python <project>/test/browser-accessibility.py http://127.0.0.1:52556
+Started (MSK): 2026-11-21T20:28:09+03:00
+Finished (MSK): 2026-11-21T20:28:12+03:00
+Exit code: 0
+
+PASS 503 renders a readable error
+PASS Retry recovers grades without a manual reload
+PASS Modal blocks interaction with background
+PASS Tab and Shift+Tab stay in the modal
+PASS Escape restores focus to the opener
+PASS Background is available after closing modal
+PASS 360px: every schedule day switches with Enter
+PASS Calendar downloads a valid non-empty ICS
+PASS Nested dialog makes lower dialog inert
+PASS Closing nested dialog restores teacher button focus
+PASS 360px: session is reachable from grades
+PASS 360px: record book is reachable from grades
+PASS profile: fields have accessible labels
+PASS profile: fits 360px
+PASS requests/new/study: fields have accessible labels
+PASS requests/new/study: fits 360px
+PASS notifications: fields have accessible labels
+PASS notifications: fits 360px
+PASS Skip link focuses content and keeps current route
+PASS Malformed escaped route does not crash app
+PASS Reduced-motion interaction creates no tap particles
+PASS No external font or asset requests
+PASS No uncaught browser errors
+{"checks": 23, "failed": []}
