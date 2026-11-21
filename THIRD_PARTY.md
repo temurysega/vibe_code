@@ -14,6 +14,12 @@
 | `json-schema-to-ts` 3.1.1 | Транзитивная зависимость SDK | MIT |
 | `standardwebhooks` 1.1.1 | Транзитивная зависимость SDK | MIT |
 | `ts-algebra` 2.0.0 | Транзитивная зависимость SDK | MIT |
+| `pdf-lib` 1.17.1 | Сборка PDF-справки на сервере (ADR-013) | MIT; `node_modules/pdf-lib/LICENSE.md` |
+| `@pdf-lib/fontkit` 1.1.1 | Встраивание шрифта с кириллицей в PDF | MIT |
+| `@pdf-lib/standard-fonts` 1.0.0 | Транзитивная зависимость `pdf-lib` | MIT |
+| `@pdf-lib/upng` 1.0.1 | Транзитивная зависимость `pdf-lib` | MIT |
+| `pako` 1.0.11 | Транзитивная зависимость `pdf-lib` и `@pdf-lib/fontkit` | MIT AND Zlib |
+| `tslib` 1.14.1 | Транзитивная зависимость `pdf-lib` | 0BSD |
 | `pypdf` 6.16.2 | Инструмент подготовки PDF: встраивание журналов и метаданных; не входит в сервер приложения | BSD-3-Clause, лицензия в установленном Python-пакете; версия закреплена в `requirements-qa.txt` |
 
 Файлы Onest получены из официальной выдачи Google Fonts 8 ноября 2026 года:
