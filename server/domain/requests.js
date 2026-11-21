@@ -4,7 +4,7 @@ import { randomBytes } from 'node:crypto';
 import { config } from '../config.js';
 import { str, int, isDate } from '../http/body.js';
 import { fail } from '../http/router.js';
-import { msk, addDays, semesterNumber, DAY } from './time.js';
+import { msk, addDays, addWorkdays, mskTime, semesterNumber, DAY } from './time.js';
 import { verdictOf } from './grades.js';
 import { notify } from './notifications.js';
 
@@ -168,6 +168,9 @@ function validate(type, body, catalog) {
   return { data, errors };
 }
 
+// Срок заявки — конец N-го рабочего дня после подачи, как обещает форма: «до N рабочих дней»
+export const dueFor = (now, days) => mskTime(addWorkdays(msk(now).date, days), '18:00');
+
 function nextNumber(store) {
   const seq = Number(store.meta('seq_requests') || 1200) + 1;
   store.meta('seq_requests', seq);
@@ -201,8 +204,8 @@ export function createRequest(store, student, faculty, body) {
   const { data, errors } = validate(type, body.fields || {}, catalog);
   if (Object.keys(errors).length) fail(422, 'Проверьте поля формы', { fields: errors });
 
-  // Защита от дублей: та же справка в работе — не создаём вторую
-  const open = store.get(`SELECT id, number FROM requests WHERE student_id = ? AND type = ? AND status IN ('submitted', 'in_work') AND json_remove(payload, '$._stipend') = ?`, student.id, type.id, JSON.stringify(Object.assign({ lang }, data)));
+  // Защита от дублей: та же справка того же формата в работе — не создаём вторую
+  const open = store.get(`SELECT id, number FROM requests WHERE student_id = ? AND type = ? AND delivery = ? AND status IN ('submitted', 'in_work') AND json_remove(payload, '$._stipend') = ?`, student.id, type.id, delivery, JSON.stringify(Object.assign({ lang }, data)));
   if (open) fail(409, `Такая заявка уже в работе: № ${open.number}`, { id: open.id });
 
   return insertRequest(store, student, faculty, type, Object.assign({ lang }, data), delivery);
@@ -217,8 +220,8 @@ export function insertRequest(store, student, faculty, type, payload, delivery, 
     const id = store.insert(
       `INSERT INTO requests (number, student_id, type, title, payload, delivery, status, created_at, updated_at, due_at, plan, verify_code)
        VALUES (?, ?, ?, ?, ?, ?, 'submitted', ?, ?, ?, ?, ?)`,
-      number, student.id, type.id, title || type.title, JSON.stringify(storedPayload), delivery, now, now, now + type.days * DAY,
-      JSON.stringify(plan), type.group === 'cert' ? randomBytes(4).toString('hex').toUpperCase() : null,
+      number, student.id, type.id, title || type.title, JSON.stringify(storedPayload), delivery, now, now, dueFor(now, type.days),
+      JSON.stringify(plan), type.group === 'cert' ? randomBytes(8).toString('hex').toUpperCase() : null,
     );
     store.run('INSERT INTO request_events (request_id, status, comment, actor, created_at) VALUES (?, ?, ?, ?, ?)', id, 'submitted',
       delivery === 'electronic' ? 'Электронная справка придёт сюда — с кодом для проверки' : delivery === 'paper' ? `Оригинал можно будет забрать: ${PICKUP(faculty)}` : 'Заявление отправлено в деканат', 'Вы', now);

@@ -85,3 +85,14 @@ const HOLIDAYS = {
   '05-09': 'День Победы', '06-12': 'День России', '11-04': 'День народного единства', '12-31': 'Новогодние каникулы',
 };
 export const holidayOf = (date) => HOLIDAYS[date.slice(5)] || null;
+
+// Рабочие дни для сроков заявок: без суббот, воскресений и праздников
+export function addWorkdays(date, n) {
+  let d = date;
+  let left = n;
+  while (left > 0) {
+    d = addDays(d, 1);
+    if (weekday(d) <= 5 && !holidayOf(d)) left -= 1;
+  }
+  return d;
+}
