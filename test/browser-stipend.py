@@ -8,6 +8,7 @@ import traceback
 from pathlib import Path
 from urllib.parse import urlparse
 from playwright.sync_api import sync_playwright, expect
+from pypdf import PdfReader
 
 if len(sys.argv) != 2 or urlparse(sys.argv[1]).hostname not in ('127.0.0.1', 'localhost', '::1'):
     raise SystemExit('Pass the URL of an isolated local QA server; this test creates applications.')
@@ -82,6 +83,20 @@ def inspect_document(page, width, request_id, zero=False):
         check(prefix + ' exports a PDF', pdf.startswith(b'%PDF-'))
         if width == 360:
             (OUT / 'stipend-certificate.pdf').write_bytes(pdf)
+        # «Скачать PDF» отдаёт готовый файл с сервера, без диалога печати
+        with page.expect_download() as info:
+            page.locator('[data-pdf]').click()
+        download = info.value
+        check(prefix + ' downloads a PDF file directly', bool(re.fullmatch(r'spravka-\d{4}-\d{5}\.pdf', download.suggested_filename)))
+        path = OUT / f'{width}-stipend-download.pdf'
+        download.save_as(str(path))
+        reader = PdfReader(str(path))
+        text = '\n'.join(p.extract_text() for p in reader.pages).replace('\xa0', ' ').replace('\u202f', ' ')
+        total_rub = formatted_total.replace('\xa0', ' ').replace('\u202f', ' ').replace(' ₽', ' руб.')
+        check(prefix + ' downloaded PDF has Cyrillic text, the total in roubles and the sample mark',
+              'СПРАВКА О СТИПЕНДИИ' in text and total_rub in text and 'ОБРАЗЕЦ' in text and 'Морозова Алина' in text)
+        links = [a.get_object()['/A']['/URI'] for p in reader.pages for a in p.get('/Annots', [])]
+        check(prefix + ' downloaded PDF links to the public verification page', any('#/verify/' in str(u) for u in links))
     page.reload()
     page.locator('article.doc').wait_for()
     check(prefix + ' retains the same snapshot after reload', api(page, f'/api/requests/{request_id}/document')['data']['document']['stipend'] == data)
@@ -110,7 +125,10 @@ try:
             item.locator('[data-act="ready"]').wait_for()
             item.locator('[data-comment]').fill('Демонстрационная справка о стипендии готова')
             item.locator('[data-act="ready"]').click()
-            expect(item).to_contain_text('Готова')
+            # Готовая электронная справка уходит из активной очереди в «Завершённые»
+            expect(item).to_have_count(0)
+            staff.locator('[data-filter="done"]').click()
+            expect(staff.locator(f'[data-req="{request_id}"]')).to_contain_text('Готова')
             check(f'{width}: staff completes stipend through queue', True)
             staff_context.close()
             page.reload()
