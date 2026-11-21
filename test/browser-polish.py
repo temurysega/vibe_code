@@ -36,7 +36,10 @@ with sync_playwright() as p:
         if width == 360:
             check('360: secondary game content starts collapsed', not play.evaluate('(el) => el.open'))
             play.locator('summary').focus()
+            # Событие toggle приходит асинхронно: ждём его, иначе смена ширины ниже опередит обработчик страницы
+            page.evaluate('''() => { window.__playToggled = new Promise((r) => document.querySelector('[data-home-more="play"]').addEventListener('toggle', r, {once: true})); }''')
             page.keyboard.press('Enter')
+            page.evaluate('() => window.__playToggled')
             expect(play.locator('[data-focus-start]')).to_be_visible()
             check('360: keyboard reveals the pet and study timer', play.evaluate('(el) => el.open'))
             expanded_height = page.evaluate('document.documentElement.scrollHeight')
@@ -45,6 +48,8 @@ with sync_playwright() as p:
             expect(play.locator('[data-focus-start]')).to_be_visible()
             check('Resize: desktop retains access to all game content', play.evaluate('(el) => el.open'))
             page.set_viewport_size({'width': 360, 'height': 800})
+            # Смена медиазапроса доходит до страницы в следующем кадре: ждём его до нажатия
+            page.evaluate('() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)))')
             play.locator('summary').click()
             expect(play.locator('[data-focus-start]')).not_to_be_visible()
             check('Resize: mobile disclosure remains operable', not play.evaluate('(el) => el.open'))
