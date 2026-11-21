@@ -5,6 +5,7 @@ Install requirements-qa.txt; collect evidence and render its cards before rebuil
 from pathlib import Path
 from html import escape, unescape
 import json
+from datetime import datetime, timedelta, timezone
 import re
 import sys
 from urllib.parse import urljoin, urlsplit
@@ -16,6 +17,8 @@ from playwright.sync_api import sync_playwright
 from pypdf import PdfReader, PdfWriter
 
 DOCS = ROOT / 'docs'
+# Дата сборки по Москве (UTC+3 без перехода на летнее время) — в колонтитуле PDF
+BUILD_DATE = datetime.now(timezone(timedelta(hours=3))).strftime('%d.%m.%Y')
 body = markdown.markdown((DOCS / 'PROCESS.md').read_text(encoding='utf-8'), extensions=['tables', 'fenced_code'])
 # PDF readers must not receive links to the author's local checkout. Images stay
 # local for rendering; document/evidence links open the same files in the repo.
@@ -77,7 +80,7 @@ with sync_playwright() as p:
     page.evaluate('document.fonts.ready')
     assert page.locator('img').evaluate_all('(images) => images.every(i => i.complete && i.naturalWidth > 0)'), 'Missing screenshot'
     page.pdf(path=str(DOCS / 'PROCESS.pdf'), format='A4', print_background=True, display_header_footer=True, tagged=True, outline=True,
-             header_template='<span></span>', footer_template='<div style="font:8px Arial;color:#667085;width:100%;padding:0 15mm;display:flex;justify-content:space-between"><span>МГИМО Мания · конкурсный концепт · 19.11.2026</span><span><span class="pageNumber"></span> / <span class="totalPages"></span></span></div>',
+             header_template='<span></span>', footer_template='<div style="font:8px Arial;color:#667085;width:100%;padding:0 15mm;display:flex;justify-content:space-between"><span>МГИМО Мания · конкурсный концепт · ' + BUILD_DATE + '</span><span><span class="pageNumber"></span> / <span class="totalPages"></span></span></div>',
              margin={'top':'18mm','bottom':'20mm','left':'15mm','right':'15mm'})
     browser.close()
 
