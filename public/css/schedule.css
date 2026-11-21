@@ -84,4 +84,6 @@
 
 /* Пара, открытая по ссылке из уведомления */
 .lesson.target { box-shadow: 0 0 0 3px var(--gold); }
-.today-note { background: var(--navy-4); }
+.today-note { background: var(--navy-4); margin-bottom: 16px; }
+/* Пояснение «показана следующая неделя» под плашкой «Сегодня» — с зазором, а не вплотную */
+.today-note + .schedule-context { margin-top: -6px; }
