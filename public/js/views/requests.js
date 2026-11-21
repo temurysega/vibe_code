@@ -39,7 +39,7 @@ function listView(list, filter) {
 // ---------- каталог ----------
 function catalogView() {
   const tile = (t) => `<button class="cat-tile" data-type="${t.id}" ${t.available ? '' : 'disabled'}><span class="cat-ic">${icon(t.icon, 22)}</span><b>${esc(t.title)}</b><span class="small muted">${esc(t.hint || t.short)}</span>
-    <span class="cat-foot"><span class="badge badge-gray">${icon('clock', 12)} ${t.days} ${plural(t.days, ['день', 'дня', 'дней'])}</span>${t.delivery.includes('electronic') ? `<span class="badge badge-soft">${icon('download', 12)} электронно</span>` : ''}${t.langs && t.langs.includes('en') ? '<span class="badge badge-gold">EN</span>' : ''}</span></button>`;
+    <span class="cat-foot"><span class="badge badge-gray">${icon('clock', 12)} ${t.days} ${plural(t.days, ['рабочий день', 'рабочих дня', 'рабочих дней'])}</span>${t.delivery.includes('electronic') ? `<span class="badge badge-soft">${icon('download', 12)} электронно</span>` : ''}${t.langs && t.langs.includes('en') ? '<span class="badge badge-gold">EN</span>' : ''}</span></button>`;
   return `<div class="section-head"><h2 class="h3">Справки</h2><span class="small muted">Готовятся без визита в деканат</span></div>
     <div class="cat-grid">${types.filter((t) => t.group === 'cert').map(tile).join('')}</div>
     <div class="section-head mt-32"><h2 class="h3">Заявления</h2><span class="small muted">Решение принимает деканат — статус придёт уведомлением</span></div>
@@ -62,7 +62,7 @@ function fieldHtml(f) {
 function formView(t) {
   const p = me;
   return `<div class="req-form"><form class="card" data-form novalidate>
-      <div><span class="eyebrow">${t.group === 'cert' ? 'Справка' : 'Заявление'} · до ${t.days} ${plural(t.days, ['дня', 'дней', 'дней'])}</span><p class="mt-8" style="font-size:17px">${esc(t.short)}</p></div>
+      <div><span class="eyebrow">${t.group === 'cert' ? 'Справка' : 'Заявление'} · до ${t.days} ${plural(t.days, ['рабочего дня', 'рабочих дней', 'рабочих дней'])}</span><p class="mt-8" style="font-size:17px">${esc(t.short)}</p></div>
       <details class="prefill" data-prefill ${matchMedia('(max-width: 720px)').matches ? '' : 'open'}>
         <summary><span><span class="field-hint">Данные подставлены из профиля</span><strong>${esc(`${p.lastName} ${p.firstName} ${p.middleName || ''}`)}</strong><span class="small muted">${esc(p.group)} · ${p.course} курс</span></span>${icon('down', 18)}</summary>
         <div class="prefill-details"><dl class="kv"><dt>Факультет</dt><dd>${esc(p.faculty.name)}</dd></dl><span class="badge badge-gray">${icon('lock', 12)} только для деканата</span></div>
@@ -134,6 +134,10 @@ function stipendTable(statement) {
   </section>`;
 }
 
+// Код проверки читается группами по четыре знака; ссылка ведёт в тот же демо-кабинет, где выдана справка
+const codeGroups = (code) => String(code || '').match(/.{1,4}/g).join('-');
+const verifyLink = (code) => `${location.origin}/${session.sandbox && session.sandbox.id ? `?demo=${session.sandbox.id}` : ''}#/verify/${codeGroups(code)}`;
+
 function docView(d, grades) {
   const fio = `${d.student.lastName} ${d.student.firstName} ${d.student.middleName || ''}`.trim();
   const f = d.student.gender === 'f';
@@ -160,7 +164,7 @@ function docView(d, grades) {
       <div class="doc-no">№ ${esc(d.number)} ${en ? 'of' : 'от'} ${esc(en ? new Date(d.issuedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : dateLong(new Date(d.issuedAt).toISOString().slice(0, 10)))}</div>
       ${text}
       <div class="doc-foot"><div class="doc-sign">${en ? 'Demo dean’s office' : 'Демонстрационный деканат'}<span class="line"></span><span class="small">${en ? 'Sample, without an electronic signature' : 'Образец без электронной подписи'}</span></div>
-        <div class="doc-qr"><span>${en ? 'Verify this sample' : 'Проверка образца'}:<br><b style="font-size:14px;letter-spacing:.08em">${esc(d.verifyCode)}</b><br><a class="link" href="#/verify/${esc(d.verifyCode)}">${esc(location.origin)}/#/verify/${esc(d.verifyCode)}</a></span></div></div>
+        <div class="doc-qr"><span>${en ? 'Verify this sample' : 'Проверка образца'}:<br><b style="font-size:14px;letter-spacing:.08em">${esc(codeGroups(d.verifyCode))}</b><br><a class="link" href="${esc(verifyLink(d.verifyCode))}">${esc(verifyLink(d.verifyCode))}</a></span></div></div>
       <div class="doc-stamp">МГИМО Мания<br>демо<br>образец</div>
     </article></div>`;
 }
@@ -221,6 +225,12 @@ export default {
         } catch (er) {
           btn.disabled = false;
           btn.innerHTML = `${icon('send', 18)} Отправить в деканат`;
+          // Та же заявка уже в работе — сразу открываем её, а не вторую копию
+          if (er.status === 409 && er.data && er.data.id) {
+            toast(`${esc(er.message)} — открываем её`, { icon: 'info', ms: 4500 });
+            location.hash = `#/requests/${er.data.id}`;
+            return;
+          }
           const fe = er.data && er.data.fields;
           if (fe) {
             Object.entries(fe).forEach(([k, msg]) => {

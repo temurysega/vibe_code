@@ -37,7 +37,8 @@ function accounts(demo) {
       <span class="acc-dean" style="${a.role === 'student' ? 'background:var(--navy-3);color:var(--navy)' : ''}">${icon(a.role === 'dean' ? 'building' : 'cap', 20)}</span>
       <span class="grow"><span class="acc-top"><b>${esc(a.who)}</b>${a.role === 'dean' ? '<span class="badge badge-gold">Деканат</span>' : ''}</span><small>${esc(a.note)}</small></span>
       ${icon('arrow', 18)}</button>`).join('')}</div>
-    <div class="demo-hint">${icon('key', 15)} Пароль всех демо-аккаунтов: <code>${esc(demo.password)}</code></div>`;
+    <div class="demo-hint">${icon('key', 15)} Пароль всех демо-аккаунтов: <code>${esc(demo.password)}</code></div>
+    ${demo.sandboxes ? `<div class="demo-hint" data-sandbox-note>${icon('shieldOk', 15)} ${demo.sandbox ? 'Вы в своём демо-кабинете: заявки и действия других проверяющих его не затрагивают' : 'При входе стенд создаст ваш личный демо-кабинет — заявки и действия других проверяющих его не затронут'}. Ссылку для второго окна или телефона найдёте в меню «Ещё» или профиля.</div>` : ''}`;
 }
 
 export default {

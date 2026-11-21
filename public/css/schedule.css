@@ -81,3 +81,7 @@
   .schedule-changes-title { font-size: 14px; }
   .schedule-changes-action { font-size: 12px; gap: 4px; }
 }
+
+/* Пара, открытая по ссылке из уведомления */
+.lesson.target { box-shadow: 0 0 0 3px var(--gold); }
+.today-note { background: var(--navy-4); }

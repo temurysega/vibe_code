@@ -20,6 +20,8 @@ let ov = null;
 let list = [];
 let filter = 'active';
 let tab = 'queue';
+let query = '';   // поиск по номеру заявки
+let single = null; // прямая ссылка #/dean/<id>
 
 function kpis() {
   const c = ov.counts;
@@ -33,15 +35,23 @@ function payload(p) {
 
 function queue() {
   const shown = list;
-  return `<div class="row-wrap" style="justify-content:space-between;margin-bottom:14px"><div class="seg">${[['active', 'Активные'], ['done', 'Завершённые'], ['all', 'Все']].map(([id, n]) => `<button class="${filter === id ? 'on' : ''}" data-filter="${id}">${n}</button>`).join('')}</div>
-      <span class="small muted">${icon('refresh', 14)} обновляется сама каждые 10 секунд</span></div>
+  const search = `<form class="row-wrap dean-search" data-search role="search" style="gap:8px;margin-bottom:12px">
+      <label class="sr" for="dean-q">Номер заявки</label>
+      <input class="input" id="dean-q" name="q" value="${esc(query)}" placeholder="Номер заявки, например 2026/01212" autocomplete="off" style="max-width:320px">
+      <button class="btn btn-secondary btn-sm" type="submit">${icon('search', 16)} Найти</button>
+      ${query ? '<button class="btn btn-ghost btn-sm" type="button" data-search-clear>Вся очередь</button>' : ''}</form>`;
+  const head = single
+    ? `<div class="row-wrap" style="justify-content:space-between;margin-bottom:14px"><a class="btn btn-ghost btn-sm" href="#/dean">${icon('back', 16)} Вся очередь</a><span class="small muted">Заявка по прямой ссылке</span></div>`
+    : `${search}<div class="row-wrap" style="justify-content:space-between;margin-bottom:14px">${query ? `<span class="small muted" role="status">Найдено по номеру «${esc(query)}»: ${list.length}</span>` : `<div class="seg">${[['active', 'Активные'], ['done', 'Завершённые'], ['all', 'Все']].map(([id, n]) => `<button class="${filter === id ? 'on' : ''}" data-filter="${id}">${n}</button>`).join('')}</div>`}
+      <span class="small muted">${icon('refresh', 14)} обновляется сама каждые 10 секунд — набранный комментарий сохранится</span></div>`;
+  return `${head}
     ${shown.length ? `<div class="queue">${shown.map((r) => `<div class="q-item ${r.overdue ? 'overdue' : ''}" data-req="${r.id}">
       <div class="q-top"><span class="cat-ic" style="width:42px;height:42px;background:#fff">${icon(r.icon || 'doc', 20)}</span>
         <div class="grow"><b>${esc(r.title)}</b><div class="small muted">№ ${esc(r.number)} · ${esc(r.student.name)} · ${esc(r.student.group)} · ${esc(when(r.createdAt))}${r.delivery !== 'none' ? ` · ${r.delivery === 'electronic' ? 'электронная' : 'бумажная'}` : ''}</div></div>
         ${r.overdue ? `<span class="badge badge-red">${icon('alert', 12)} срок ${esc(stamp(r.dueAt))}</span>` : ''}${statusPill(r.status, r.statusLabel)}</div>
       ${Object.keys(r.payload).length ? `<div class="q-payload">${payload(r.payload)}</div>` : ''}
-      ${r.actions.length ? `<div class="q-actions"><input class="input" data-comment placeholder="Комментарий студенту${r.actions.includes('rejected') ? ' (обязателен при отказе)' : ''}" maxlength="500">${r.actions.map((a) => `<button class="btn btn-sm ${ACTION[a][1]}" data-act="${a}">${icon(ACTION[a][2], 16)} ${ACTION[a][0]}</button>`).join('')}</div>` : r.deanComment ? `<div class="small muted">${icon('chat', 14)} ${esc(r.deanComment)}</div>` : ''}
-    </div>`).join('')}</div>` : '<div class="card empty"><span class="emoji">🎉</span>Очередь пуста — все заявки обработаны</div>'}`;
+      ${r.actions.length ? `<label class="small muted q-comment-label" for="c-${r.id}">Комментарий студенту по заявке № ${esc(r.number)}${r.actions.includes('rejected') ? ' — обязателен при отказе' : ''}</label><div class="q-actions"><input class="input" id="c-${r.id}" data-comment placeholder="Например: данные проверены" maxlength="500">${r.actions.map((a) => `<button class="btn btn-sm ${ACTION[a][1]}" data-act="${a}">${icon(ACTION[a][2], 16)} ${ACTION[a][0]}</button>`).join('')}</div>` : r.deanComment ? `<div class="small muted">${icon('chat', 14)} ${esc(r.deanComment)}</div>` : ''}
+    </div>`).join('')}</div>` : (query ? `<div class="card empty" role="status">Заявка с номером «${esc(query)}» на вашем факультете не найдена</div>` : '<div class="card empty"><span class="emoji">🎉</span>Очередь пуста — все заявки обработаны</div>')}`;
 }
 
 function announce() {
@@ -87,23 +97,48 @@ export default {
     return `<div class="container"><div class="page-head"><div><span class="eyebrow">${esc(u.facultyName || '')}</span><h1 class="h1 mt-4">Деканат ${esc(u.faculty)}</h1><p class="lead">${esc(u.name)} · ${esc(u.position || '')}. Видны только заявки и группы своего факультета</p></div></div>
       <div data-body>${skeleton(1, 100)}${skeleton(3, 120)}</div></div>`;
   },
-  async mount(el) {
+  async mount(el, params) {
     const box = el.querySelector('[data-body]');
+    single = params && /^\d+$/.test(params[0] || '') ? Number(params[0]) : null;
+    if (single) tab = 'queue';
+    // Автообновление не теряет набранный комментарий и фокус сотрудника
+    const keep = () => {
+      const drafts = new Map([...box.querySelectorAll('[data-comment]')].filter((x) => x.value).map((x) => [x.id, x.value]));
+      const a = document.activeElement;
+      const focus = a && box.contains(a) && a.id ? { id: a.id, start: a.selectionStart, end: a.selectionEnd } : a && box.contains(a) && a.closest('[data-req]') && a.dataset.act ? { req: a.closest('[data-req]').dataset.req, act: a.dataset.act } : null;
+      return () => {
+        drafts.forEach((v, id) => { const x = box.querySelector(`#${CSS.escape(id)}`); if (x) x.value = v; });
+        if (!focus) return;
+        const target = focus.id ? box.querySelector(`#${CSS.escape(focus.id)}`) : box.querySelector(`[data-req="${focus.req}"] [data-act="${focus.act}"]`);
+        if (target) {
+          target.focus({ preventScroll: true });
+          if (focus.id && target.setSelectionRange && focus.start != null) target.setSelectionRange(focus.start, focus.end);
+        }
+      };
+    };
     const paint = async () => {
       const tabs = `<div class="seg" style="margin:24px 0 18px">${[['queue', 'Очередь заявок'], ['news', 'Объявления и расписание'], ['audit', 'Журнал']].map(([id, n]) => `<button class="${tab === id ? 'on' : ''}" data-tab="${id}">${n}</button>`).join('')}</div>`;
       const content = tab === 'queue' ? queue() : tab === 'news' ? announce() : await audit();
+      const restore = keep();
       box.innerHTML = kpis() + tabs + `<div data-tabbody>${content}</div>`;
+      restore();
       if (tab === 'news') loadPairs(el);
     };
     const load = async (quiet) => {
       try {
-        [ov, { requests: list }] = await Promise.all([get('/api/dean/overview'), get(`/api/dean/requests?status=${filter}`)]);
+        const one = single ? get(`/api/dean/requests/${single}`).then((r) => ({ requests: [r.request] })) : null;
+        const url = query ? `/api/dean/requests?q=${encodeURIComponent(query)}` : `/api/dean/requests?status=${filter}`;
+        [ov, { requests: list }] = await Promise.all([get('/api/dean/overview'), one || get(url)]);
         if (!quiet || tab === 'queue') {
-          // Не перерисовываем очередь, пока сотрудник пишет комментарий
-          if (quiet && el.querySelector('[data-comment]:focus')) return;
+          // Пока сотрудник печатает комментарий или номер, очередь не перерисовывается
+          if (quiet && el.querySelector('[data-comment]:focus, #dean-q:focus')) return;
           await paint();
         }
-      } catch (e) { if (e.status !== 401) box.innerHTML = errorBox(e); }
+      } catch (e) {
+        // Неверный номер — подсказка, очередь остаётся на экране
+        if (query && e.status === 400) { toast(esc(e.message), { icon: 'alert' }); query = ''; return; }
+        if (e.status !== 401) box.innerHTML = errorBox(e);
+      }
     };
     await load();
     const timer = setInterval(() => load(true), 10e3);
@@ -113,6 +148,7 @@ export default {
       if (t) { tab = t.dataset.tab; paint(); return; }
       const f = e.target.closest('[data-filter]');
       if (f) { filter = f.dataset.filter; load(); return; }
+      if (e.target.closest('[data-search-clear]')) { query = ''; await load(); const q = el.querySelector('#dean-q'); if (q) q.focus(); return; }
       const ct = e.target.closest('.chg-type');
       if (ct) {
         el.querySelectorAll('.chg-type').forEach((x) => x.classList.toggle('on', x === ct));
@@ -142,6 +178,13 @@ export default {
     el.addEventListener('submit', async (e) => {
       e.preventDefault();
       const form = e.target;
+      if (form.matches('[data-search]')) {
+        query = form.elements.q.value.trim();
+        try { await load(); } catch (er) { /* ошибка показана в очереди */ }
+        const q = el.querySelector('#dean-q');
+        if (q) q.focus();
+        return;
+      }
       form.querySelectorAll('.field-error').forEach((x) => x.remove());
       form.querySelectorAll('.invalid').forEach((x) => x.classList.remove('invalid'));
       const showErr = (er) => {

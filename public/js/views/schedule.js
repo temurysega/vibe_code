@@ -1,6 +1,6 @@
 // Расписание на неделю: изменения подсвечены, на телефоне — выбор дня, экспорт в календарь.
 import { get, post } from '../lib/api.js';
-import { session, setPlay } from '../lib/bus.js';
+import { session, setPlay, on } from '../lib/bus.js';
 import { esc, mskNow, dayShort, dateNum, weekdayShort, relDay, plural, addDays } from '../lib/format.js';
 import { icon } from '../ui/icons.js';
 import { modal } from '../ui/overlay.js';
@@ -52,6 +52,18 @@ function dayCol(d, now) {
   </section>`;
 }
 
+// Явное «Сегодня»: после окончания пар и в выходной — что сегодня и какое занятие ближайшее
+function todayNote(w, now) {
+  const today = w.days.find((d) => d.date === now.date);
+  if (!today && !advancedToNextWeek) return '';
+  const active = today ? today.items.filter((x) => !['cancelled', 'moved'].includes(x.status)) : [];
+  if (active.some((x) => lessonState(x, now) !== 'past')) return '';
+  const nd = nextStudyDay(w, now);
+  const first = nd && nd.items.find((x) => !['cancelled', 'moved'].includes(x.status) && lessonState(x, now) !== 'past');
+  const head = today && today.holiday ? `Сегодня пар нет — ${esc(today.holiday.toLowerCase())}` : active.length ? 'Сегодня занятия закончились' : 'Сегодня пар нет';
+  return `<div class="note today-note mt-12" role="status">${icon('calendar', 18)}<span><b style="font-weight:500">${head}</b>${first ? `<br>Ближайшее занятие — ${esc(first.discipline)}, ${esc(relDay(nd.date))}, ${first.start}, ${/^\d+$/.test(first.room) ? 'ауд. ' : ''}${esc(first.room)}` : ''}</span></div>`;
+}
+
 function body() {
   const now = mskNow();
   const w = week;
@@ -66,6 +78,7 @@ function body() {
       ${cur ? '' : `<a class="btn btn-ghost btn-sm" href="#/schedule/${isoWeekOf(now.date)}">${icon('calendar', 16)} К текущей неделе</a>`}
       <div class="week-tools"><button class="btn btn-secondary btn-sm" data-bells data-focus-key="schedule-bells">${icon('clock', 16)} Звонки</button><a class="btn btn-secondary btn-sm" href="/api/schedule.ics" download>${icon('download', 16)} В свой календарь</a></div>
     </div>
+    ${todayNote(w, now)}
     ${advancedToNextWeek ? '<p class="schedule-context">На этой неделе больше нет предстоящих занятий — показана следующая.</p>' : ''}
     ${w.changes.length ? `<details class="schedule-changes" data-schedule-changes ${changesOpen ? 'open' : ''}>
       <summary data-focus-key="schedule-changes"><span class="schedule-changes-title">${icon('alert', 18)}<span>Изменения на неделе <b>${w.changes.length}</b></span></span><span class="schedule-changes-action"><span class="changes-show">Показать все</span><span class="changes-hide">Свернуть</span>${icon('down', 16)}</span></summary>
@@ -117,7 +130,10 @@ export default {
   },
   async mount(el, params) {
     const box = el.querySelector('[data-body]');
-    const q = params[0] && /^\d{4}-W\d{2}$/.test(params[0]) ? `?week=${params[0]}` : '';
+    // #/schedule/2026-W48 — неделя; #/schedule/2026-11-24/3 — день и пара из уведомления об изменении
+    const dateParam = params[0] && /^\d{4}-\d{2}-\d{2}$/.test(params[0]) ? params[0] : null;
+    const pairParam = dateParam ? Number(params[1]) || null : null;
+    const q = params[0] && /^\d{4}-W\d{2}$/.test(params[0]) ? `?week=${params[0]}` : dateParam ? `?week=${isoWeekOf(dateParam)}` : '';
     advancedToNextWeek = false;
     changesOpen = false;
     try {
@@ -126,7 +142,7 @@ export default {
         week = await get('/api/schedule?week=' + isoWeekOf(week.next));
         advancedToNextWeek = true;
       }
-      picked = null;
+      picked = dateParam;
       box.innerHTML = body();
     } catch (e) {
       if (e.status !== 401) box.innerHTML = errorBox(e);
@@ -136,6 +152,14 @@ export default {
     if (session.play && session.play.newcomer && !session.play.steps.schedule) post('/api/play/mark', { step: 'schedule' }).then((r) => setPlay(r.play)).catch(() => {});
 
     const find = (key) => week.days.flatMap((d) => d.items).find((x) => x.key === key);
+    // Ссылка из уведомления открывает сразу нужную пару: старая и новая аудитория или время — в карточке
+    if (dateParam && pairParam) {
+      const day = week.days.find((d) => d.date === dateParam);
+      const it = day && day.items.filter((x) => x.pair === pairParam).sort((a, b) => (b.change ? 1 : 0) - (a.change ? 1 : 0))[0];
+      const node = it && box.querySelector(`.day-col [data-lesson="${CSS.escape(it.key)}"]`);
+      if (node) { node.classList.add('target'); node.scrollIntoView({ block: 'center' }); }
+      if (it) lessonModal(it);
+    }
     el.addEventListener('toggle', (e) => {
       if (e.target.matches('[data-schedule-changes]')) changesOpen = e.target.open;
     }, true);
@@ -149,6 +173,14 @@ export default {
     });
     // Каждую минуту обновляем отметку «идёт сейчас»
     const t = setInterval(() => { if (!document.querySelector('.modal-overlay')) replaceKeepingFocus(box, body()); }, 60e3);
-    return () => clearInterval(t);
+    // Свежие изменения: при возврате во вкладку и по уведомлению об изменении расписания
+    const refreshWeek = async () => {
+      if (document.hidden || document.querySelector('.modal-overlay')) return;
+      try { week = await get(`/api/schedule?week=${week.week}`); replaceKeepingFocus(box, body()); } catch (e) { /* покажем при следующем событии */ }
+    };
+    const onVisible = () => { if (!document.hidden) refreshWeek(); };
+    document.addEventListener('visibilitychange', onVisible);
+    const offNotif = on('notif', (n) => { if (n && n.kind === 'schedule') refreshWeek(); });
+    return () => { clearInterval(t); document.removeEventListener('visibilitychange', onVisible); offNotif(); };
   },
 };
