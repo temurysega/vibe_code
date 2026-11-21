@@ -1,6 +1,6 @@
 // Каркас кабинета: полоса концепта, шапка, нижнее меню, роутер, вход и выход, живые уведомления.
 import { get, post, setCsrf } from './lib/api.js';
-import { on, emit, session, setPlay, setUnread, reset } from './lib/bus.js';
+import { on, emit, session, setPlay, setUnread, reset, NO_PLAY } from './lib/bus.js';
 import { esc, fmt, when } from './lib/format.js';
 import { icon, coin } from './ui/icons.js';
 import { modal, openMenu, closeMenu, toast, confirm } from './ui/overlay.js';
@@ -24,6 +24,13 @@ const VIEWS = {
   game: () => import('./views/game.js'),
   dean: () => import('./views/dean.js'),
   verify: () => import('./views/verify.js'),
+};
+const GAME_VIEWS = ['campus', 'wardrobe', 'shop', 'game'];
+const PLAY_OFF = {
+  title: 'Студенческая жизнь',
+  render: () => `<div class="container"><div class="card empty mt-24" role="status"><div class="h4">Игровой слой сейчас недоступен</div>
+    <p class="muted mt-8">Расписание, оценки, заявки и уведомления работают как обычно. Попробуйте открыть раздел позже.</p>
+    <a class="btn btn-secondary mt-16" href="#/home">На главную</a></div></div>`,
 };
 // Без входа доступны только экран входа и проверка подлинности справки
 const PUBLIC = ['login', 'verify'];
@@ -55,8 +62,49 @@ const homeOf = () => (session.user && session.user.role === 'dean' ? '#/dean' : 
 function paintConcept() {
   $concept.innerHTML = `<div class="container">
     <span class="concept-text"><b>Концепт для конкурса</b><span>· не официальный сервис МГИМО · все люди и данные вымышлены</span></span>
-    <span class="concept-links"><button data-about>${icon('shieldOk', 15)} <span class="hide-s">Как защищены данные</span><span class="show-s">Безопасность</span></button>${session.user ? `<button data-tour>${icon('play', 15)} Демо-тур</button>` : ''}</span>
+    <span class="concept-links"><button data-about>${icon('shieldOk', 15)} <span class="hide-s">Как защищены данные</span><span class="show-s">Безопасность</span></button>${session.user ? `<button data-tour>${icon('play', 15)} Демо-тур</button>` : ''}${session.sandbox && session.sandbox.id ? `<button class="hide-s" data-sandbox>${icon('key', 15)} Ваш демо-кабинет</button>` : ''}</span>
   </div>`;
+}
+
+// Демо-кабинет: своя копия вымышленных данных у каждого проверяющего
+function sandboxItem() {
+  return session.sandbox && session.sandbox.id ? `<button class="menu-item" data-sandbox>${icon('key', 18)} Ваш демо-кабинет</button>` : '';
+}
+
+function sandboxModal() {
+  const id = session.sandbox && session.sandbox.id;
+  if (!id) return;
+  const link = `${location.origin}/?demo=${id}`;
+  modal.open({
+    label: 'Ваш демо-кабинет',
+    html: `<div class="modal-title">Ваш демо-кабинет</div>
+      <p class="modal-sub">У каждого проверяющего своя копия вымышленных данных: ваши заявки, объявления и прочитанные уведомления не видят другие, а их действия не меняют ваш кабинет.</p>
+      <label class="field mt-20"><span class="field-label">Ссылка для приватного окна или телефона</span>
+        <input class="input" readonly value="${esc(link)}" data-sandbox-link aria-describedby="sandbox-hint"></label>
+      <p class="small muted mt-8" id="sandbox-hint">Откройте её, чтобы войти как сотрудник деканата и как студент в один и тот же кабинет.</p>
+      <div class="modal-foot"><button class="btn btn-primary btn-lg" data-sandbox-copy>${icon('docs', 18)} Скопировать ссылку</button>
+        <button class="btn btn-secondary btn-lg" data-sandbox-new>${icon('refresh', 18)} Начать с чистого кабинета</button>
+        <button class="btn btn-ghost btn-lg" data-close>Закрыть</button></div>`,
+    onMount(el) {
+      el.querySelector('[data-sandbox-copy]').onclick = async () => {
+        const input = el.querySelector('[data-sandbox-link]');
+        try { await navigator.clipboard.writeText(link); toast('Ссылка скопирована', { icon: 'check' }); } catch (e) { input.select(); toast('Выделите ссылку и скопируйте её', { icon: 'info' }); }
+      };
+      el.querySelector('[data-sandbox-new]').onclick = async () => {
+        const ok = await confirm({ title: 'Начать с чистого кабинета?', text: 'Откроется новый демо-кабинет со стартовыми данными. Текущий останется доступен по старой ссылке', yes: 'Начать' });
+        if (!ok) return;
+        try {
+          await post('/api/demo/new', {});
+          setCsrf(null);
+          reset();
+          stopPolling();
+          announceSessionChange();
+          location.hash = '#/login';
+          location.reload();
+        } catch (er) { toast(esc(er.message), { icon: 'alert' }); }
+      };
+    },
+  });
 }
 
 function paintFoot() {
@@ -87,10 +135,10 @@ function paintChrome(route) {
     <nav class="nav" aria-label="Разделы">${NAV.slice(0, 4).map(([id, name]) => `<a href="#/${id}" class="${route === id ? 'on' : ''}"${route === id ? ' aria-current="page"' : ''}>${name}</a>`).join('')}
       <button type="button" class="${LIFE.some(([id]) => id === route) ? 'on' : ''}" data-life aria-label="Студенческая жизнь" aria-haspopup="dialog" aria-expanded="false">Студенческая жизнь ${icon('down', 14)}</button></nav>
     <div class="header-right">
-      <a class="bal-pill" href="#/shop" data-bal title="М-коины — за активность, не за оценки">${coin(26)}<span class="bal-num tnum">${fmt(p ? p.coins : 0)}</span></a>
+      ${p && !p.unavailable ? `<a class="bal-pill" href="#/shop" data-bal title="М-коины — за активность, не за оценки">${coin(26)}<span class="bal-num tnum">${fmt(p.coins)}</span></a>` : ''}
       <button class="icon-btn ask-header" data-ask aria-label="Спросить деканат" title="Спросить деканат">${icon('chat', 20)}</button>
       <button class="icon-btn" data-bell aria-label="Уведомления${unread ? `: ${unread} новых` : ''}">${icon('bell', 20)}${unread ? `<span class="badge-dot">${unread > 9 ? '9+' : unread}</span>` : ''}</button>
-      <button class="me-btn" data-me aria-label="Меню профиля">${p ? ava(p, 40) : ''}</button>
+      <button class="me-btn" data-me aria-label="Меню профиля">${p && !p.unavailable ? ava(p, 40) : `<span class="me-initial">${esc((u.firstName || '?')[0])}</span>`}</button>
     </div>
   </div>`;
   $tab.className = 'tabbar';
@@ -154,8 +202,9 @@ async function go() {
   document.body.classList.toggle('is-dean', !!(session.user && session.user.role === 'dean'));
   let view;
   try {
-    if (isStudent() && !session.play) await loadPlay();
-    view = (await VIEWS[name]()).default;
+    if (isStudent() && (!session.play || (session.play.unavailable && GAME_VIEWS.includes(name)))) await loadPlay();
+    // Игровые разделы без игрового API показывают понятную заглушку, учебные работают как обычно
+    view = isStudent() && session.play.unavailable && GAME_VIEWS.includes(name) ? PLAY_OFF : (await VIEWS[name]()).default;
   } catch (e) {
     console.error(e);
     if (my !== token) return;
@@ -212,8 +261,20 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden && po
 
 // ---------- вход и выход ----------
 async function loadPlay() {
-  const r = await get('/api/play');
-  setPlay(r.play);
+  try {
+    const r = await get('/api/play');
+    setPlay(r.play);
+  } catch (e) {
+    // Сбой игрового API не мешает войти и работать с расписанием, оценками и заявками
+    if (e.status === 401) throw e;
+    setPlay(NO_PLAY);
+  }
+}
+
+// Демо-кабинет проверяющего: код нужен, чтобы показать ссылку для второго окна или телефона
+async function loadSandbox() {
+  try { session.sandbox = await get('/api/demo'); } catch (e) { session.sandbox = null; }
+  paintConcept();
 }
 
 const app = {
@@ -221,11 +282,13 @@ const app = {
     session.user = user;
     announceSessionChange();
     if (user.role === 'student') { await loadPlay(); startPolling(); }
+    loadSandbox();
     location.hash = homeOf();
     setTimeout(() => {
       if (session.user !== user || sessionReloading) return;
-      toast(`Вы вошли как ${esc(user.name)}${user.lastLogin ? ` · прошлый вход ${esc(when(user.lastLogin))}` : ''}`, { icon: 'user', ms: matchMedia('(max-width: 1100px)').matches ? 2800 : 3600 });
-      if (isStudent() && !session.play.steps.onboarded) import('./views/onboarding.js').then((m) => m.openOnboarding());
+      // На телефоне сообщение о входе перекрывало бы первую карточку — прошлый вход виден в профиле
+      if (!matchMedia('(max-width: 720px)').matches) toast(`Вы вошли как ${esc(user.name)}${user.lastLogin ? ` · прошлый вход ${esc(when(user.lastLogin))}` : ''}`, { icon: 'user', ms: 3600 });
+      if (isStudent() && session.play && !session.play.steps.onboarded) import('./views/onboarding.js').then((m) => m.openOnboarding());
     }, 350);
   },
   ask() { import('./views/assistant.js').then((m) => m.openAssistant()); },
@@ -292,6 +355,7 @@ document.addEventListener('click', (e) => {
   if (e.target.closest('[data-ask]')) { e.preventDefault(); app.ask(); return; }
   if (e.target.closest('[data-about]')) { import('./views/about.js').then((m) => m.openAbout()); return; }
   if (e.target.closest('[data-tour]')) { import('./views/about.js').then((m) => m.startTour()); }
+  if (e.target.closest('#concept [data-sandbox]')) sandboxModal();
 });
 
 // Один обработчик повторной загрузки работает и при сбое до mount раздела.
@@ -348,14 +412,20 @@ $head.addEventListener('click', async (e) => {
          <button class="menu-item" data-go="#/notifications">${icon('bell', 18)} Уведомления</button>
          <div class="menu-sep"></div>
          <button class="menu-item" data-monb>${icon('door', 18)} Знакомство заново</button>
-         <button class="menu-item" data-about>${icon('shieldOk', 18)} Как защищены данные</button>`
-      : `<button class="menu-item" data-about>${icon('shieldOk', 18)} Как защищены данные</button>`;
-    openMenu(me, `<div class="row" style="padding:10px 12px">${isStudent() ? ava(session.play, 44) : ''}<div><b style="font-weight:500">${esc(u.name)}</b><div class="small muted">${esc(u.login)}</div></div></div><div class="menu-sep"></div>${items}<div class="menu-sep"></div>
+         <button class="menu-item" data-about>${icon('shieldOk', 18)} Как защищены данные</button>${sandboxItem()}`
+      : `<button class="menu-item" data-about>${icon('shieldOk', 18)} Как защищены данные</button>${sandboxItem()}`;
+    openMenu(me, `<div class="row" style="padding:10px 12px">${isStudent() && session.play && !session.play.unavailable ? ava(session.play, 44) : ''}<div><b style="font-weight:500">${esc(u.name)}</b><div class="small muted">${esc(u.login)}</div></div></div><div class="menu-sep"></div>${items}<div class="menu-sep"></div>
       <button class="menu-item" data-out>${icon('logout', 18)} Выйти</button>`, (m) => {
       m.addEventListener('click', (ev) => {
         const g = ev.target.closest('[data-go]');
         if (g) { closeMenu(); location.hash = g.dataset.go; return; }
-        if (ev.target.closest('[data-monb]')) { closeMenu(); import('./views/onboarding.js').then((x) => x.openOnboarding()); return; }
+        if (ev.target.closest('[data-monb]')) {
+          closeMenu();
+          if (session.play && session.play.unavailable) { toast('Игровой слой сейчас недоступен — учебные разделы работают', { icon: 'info' }); return; }
+          import('./views/onboarding.js').then((x) => x.openOnboarding());
+          return;
+        }
+        if (ev.target.closest('[data-sandbox]')) { closeMenu(); sandboxModal(); return; }
         if (ev.target.closest('[data-about]')) { closeMenu(); return; }
         if (ev.target.closest('[data-out]')) signOut();
       });
@@ -373,11 +443,14 @@ $tab.addEventListener('click', (e) => {
   openMenu(more, `${[['notifications', `Уведомления${n ? ` · ${n}` : ''}`, 'bell'], ...NAV.filter(([id]) => !TABS.some((t) => t[0] === id)), ['profile', 'Профиль и безопасность', 'user']]
     .map(([id, name, ic]) => `<button class="menu-item" data-go="#/${id}">${icon(ic, 18)} ${name}</button>`).join('')}
     <button class="menu-item" data-askm>${icon('chat', 18)} Спросить деканат</button>
+    <button class="menu-item" data-tourm>${icon('play', 18)} Демо-тур по кабинету</button>${sandboxItem()}
     <div class="menu-sep"></div><button class="menu-item" data-out>${icon('logout', 18)} Выйти</button>`, (m) => {
     m.addEventListener('click', (ev) => {
       const g = ev.target.closest('[data-go]');
       if (g) { closeMenu(); location.hash = g.dataset.go; return; }
       if (ev.target.closest('[data-askm]')) { closeMenu(); app.ask(); return; }
+      if (ev.target.closest('[data-tourm]')) { closeMenu(); import('./views/about.js').then((x) => x.startTour()); return; }
+      if (ev.target.closest('[data-sandbox]')) { closeMenu(); sandboxModal(); return; }
       if (ev.target.closest('[data-out]')) signOut();
     });
   }, { up: true });
@@ -403,6 +476,7 @@ window.addEventListener('pageshow', (event) => { if (event.persisted) reloadChan
 async function boot() {
   paintConcept();
   paintFoot();
+  loadSandbox();
   try {
     const r = await get('/api/auth/session');
     session.user = r.user;

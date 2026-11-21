@@ -1,7 +1,7 @@
 // Главная: ближайшая пара, день, «как у меня дела», дедлайны, заявки, изменения и новости —
 // а ниже образ, питомец, кампус и перерыв из игрового слоя.
 import { get, post } from '../lib/api.js';
-import { session, setPlay, on } from '../lib/bus.js';
+import { session, setPlay, on, NO_PLAY } from '../lib/bus.js';
 import { esc, fmt, plural, toMin, mskNow, dayLabel, relDay, dateNum, monthShort, dueLabel, inMinutes, when, num, dateOfTs } from '../lib/format.js';
 import { icon, coin } from '../ui/icons.js';
 import { toast } from '../ui/overlay.js';
@@ -276,6 +276,12 @@ const sec = {
   },
 };
 
+// Без игрового слоя главная показывает только учебные карточки: его сбой не мешает учёбе
+for (const key of ['steps', 'look', 'pet', 'campus', 'game']) {
+  const draw = sec[key];
+  sec[key] = () => (session.play && session.play.unavailable ? `<div data-sec="${key}" hidden></div>` : draw());
+}
+
 function body() {
   return `${sec.hello()}
     <div class="home-top">${sec.next()}${sec.priority()}${sec.day()}</div>
@@ -312,7 +318,7 @@ export default {
     async function load() {
       try {
         data = await get('/api/home');
-        setPlay(data.play);
+        setPlay(data.play || NO_PLAY);
         box.innerHTML = body();
       } catch (e) {
         if (e.status === 401) return;
@@ -350,6 +356,27 @@ export default {
     }, 30e3);
     const offPlay = on('play', () => { ['look', 'pet', 'campus', 'game', 'steps'].forEach(repaint); });
     const offRefresh = on('refresh', load);
+    // Свежие данные: при возврате во вкладку, после окончания пары и при изменении расписания или заявки.
+    // Карточку, в которой стоит фокус, не перерисовываем, чтобы не сбить действие студента.
+    let fetchedAt = Date.now();
+    const refreshData = async () => {
+      if (document.hidden || !data) return;
+      try {
+        data = await get('/api/home');
+        fetchedAt = Date.now();
+        setPlay(data.play || NO_PLAY);
+        box.querySelectorAll('[data-sec]').forEach((node) => {
+          const key = node.dataset.sec;
+          if (sec[key] && !node.contains(document.activeElement) && !node.closest('[inert]')) node.outerHTML = sec[key]();
+        });
+      } catch (e) { /* следующая попытка при следующем событии */ }
+    };
+    const lessonOver = () => data && data.next && data.next.date === data.now.date && data.next.end && Date.now() - fetchedAt > 60e3
+      && mskNow().minutes >= toMin(data.next.end);
+    const onVisible = () => { if (!document.hidden && Date.now() - fetchedAt > 30e3) refreshData(); };
+    document.addEventListener('visibilitychange', onVisible);
+    const offNotif = on('notif', (n) => { if (n && ['schedule', 'request', 'deadline'].includes(n.kind)) refreshData(); });
+    const freshness = setInterval(() => { if (lessonOver() || Date.now() - fetchedAt > 5 * 60e3) refreshData(); }, 30e3);
 
     el.addEventListener('click', async (e) => {
       if (e.target.closest('[data-retry]')) { load(); return; }
@@ -393,6 +420,6 @@ export default {
       }
     });
     el.addEventListener('keydown', (e) => { if (['Enter', ' '].includes(e.key) && e.target.matches('[data-petclick]')) { e.preventDefault(); e.target.click(); } });
-    return () => { clearInterval(tick); clearInterval(minute); offPlay(); offRefresh(); viewport.removeEventListener('change', syncDisclosure); };
+    return () => { clearInterval(tick); clearInterval(minute); clearInterval(freshness); offPlay(); offRefresh(); offNotif(); document.removeEventListener('visibilitychange', onVisible); viewport.removeEventListener('change', syncDisclosure); };
   },
 };

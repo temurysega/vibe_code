@@ -53,9 +53,10 @@ function step(i) {
   if (location.hash !== hash) location.hash = hash;
   tour.bar.querySelector('.demo-t').textContent = text;
   tour.bar.querySelector('.demo-n').textContent = `${i + 1} / ${STEPS.length}`;
-  const bar = tour.bar.querySelector('.demo-p i');
-  bar.style.transition = 'none'; bar.style.width = '0%'; void bar.offsetWidth;
-  bar.style.transition = 'width 7s linear'; bar.style.width = '100%';
+  // Шаги переключаются вручную: полоса показывает, сколько пройдено, а не таймер
+  tour.bar.querySelector('.demo-p i').style.width = `${Math.round(((i + 1) / STEPS.length) * 100)}%`;
+  tour.bar.querySelector('[data-prev]').disabled = i === 0;
+  tour.bar.querySelector('[data-next]').textContent = i === STEPS.length - 1 ? 'Готово' : 'Дальше';
   let tries = 0;
   const hl = () => {
     document.querySelectorAll('.demo-hl').forEach((x) => x.classList.remove('demo-hl'));
@@ -64,8 +65,6 @@ function step(i) {
     else if (tries++ < 20) setTimeout(hl, 150);
   };
   setTimeout(hl, 350);
-  clearTimeout(tour.timer);
-  tour.timer = setTimeout(() => step(i + 1), 7000);
 }
 
 export function startTour() {
@@ -73,10 +72,13 @@ export function startTour() {
   stopTour();
   const bar = document.createElement('div');
   bar.className = 'demo-bar';
-  bar.innerHTML = `<span class="demo-n"></span><span class="demo-t"></span><button class="btn btn-sm btn-gold" data-next>Дальше</button><button class="btn btn-sm btn-ghost" data-stop style="color:#fff">Закрыть</button><span class="demo-p"><i></i></span>`;
+  bar.setAttribute('role', 'region');
+  bar.setAttribute('aria-label', 'Демо-тур');
+  bar.innerHTML = `<span class="demo-n"></span><span class="demo-t" aria-live="polite"></span><button class="btn btn-sm btn-ghost" data-prev style="color:#fff">Назад</button><button class="btn btn-sm btn-gold" data-next>Дальше</button><button class="btn btn-sm btn-ghost" data-stop style="color:#fff">Закрыть</button><span class="demo-p"><i></i></span>`;
   document.body.appendChild(bar);
   tour = { bar, i: 0, timer: null };
   bar.addEventListener('click', (e) => {
+    if (e.target.closest('[data-prev]')) step(Math.max(0, tour.i - 1));
     if (e.target.closest('[data-next]')) step(tour.i + 1);
     if (e.target.closest('[data-stop]')) stopTour();
   });

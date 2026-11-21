@@ -55,7 +55,9 @@ export default function (router) {
     const grades = gradesFor(store, s);
     const requests = store.all("SELECT * FROM requests WHERE student_id = ? AND (status NOT IN ('issued', 'approved', 'rejected', 'cancelled') OR updated_at > ?) ORDER BY updated_at DESC LIMIT 4", s.id, Date.now() - 3 * DAY)
       .map((r) => publicRequest(store, r, s.faculty));
-    const st = play.load(store, s.id);
+    // Игровой слой необязателен: его сбой не ломает учебную главную
+    let playView = null;
+    try { playView = play.view(store, s.id, play.load(store, s.id), playCtx(store, s)); } catch (e) { console.error(e); }
     return {
       now, parity: parityOf(now.date), holiday: holidayOf(now.date),
       next: upcoming(store, s.group_code, now), today, tomorrow, changes,
@@ -63,7 +65,7 @@ export default function (router) {
       requests,
       notifications: { unread: unreadCount(store, user.id, s), latest: listFor(store, user.id, s, 5) },
       grades: { summary: grades.summary, risk: grades.current.filter((c) => c.status === 'risk').map((c) => ({ id: c.id, name: c.name, earned: c.earned, forecast: c.forecast, advice: c.advice })), session: grades.session, semesterLabel: grades.semesterLabel },
-      play: play.view(store, s.id, st, playCtx(store, s)),
+      play: playView,
     };
   });
 

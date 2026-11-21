@@ -30,7 +30,7 @@ export default function (router) {
   });
 
   // Подсказки для жюри: в демо-режиме страница входа показывает тестовые учётки
-  router.get('/api/demo/accounts', () => (process.env.DEMO_MODE === '0'
+  router.get('/api/demo/accounts', (ctx) => (process.env.DEMO_MODE === '0'
     ? { accounts: [] }
-    : { password: DEMO_PASSWORD, accounts: DEMO_ACCOUNTS, ai: !!(config.openrouterKey || config.anthropicKey) }));
+    : { password: DEMO_PASSWORD, accounts: DEMO_ACCOUNTS, ai: !!(config.openrouterKey || config.anthropicKey), sandboxes: !!ctx.sandboxes, sandbox: !!ctx.sandbox }));
 }
