@@ -32,13 +32,16 @@ function hero() {
 
 function accounts(demo) {
   if (!demo || !demo.accounts || !demo.accounts.length) return '';
-  return `<div class="auth-or"><span>или тестовый аккаунт</span></div>
+  // Тестовые аккаунты — первыми: на низких экранах телефонов (iPhone SE, Android 360×640) кнопки входа
+  // одним нажатием видны без прокрутки; ручная форма — ниже, после разделителя
+  return `<p class="auth-sub">Тестовые аккаунты — вход одним нажатием</p>
     <div class="acc-list">${demo.accounts.map((a) => `<button class="acc" type="button" data-login="${esc(a.login)}">
       <span class="acc-dean" style="${a.role === 'student' ? 'background:var(--navy-3);color:var(--navy)' : ''}">${icon(a.role === 'dean' ? 'building' : 'cap', 20)}</span>
       <span class="grow"><span class="acc-top"><b>${esc(a.who)}</b>${a.role === 'dean' ? '<span class="badge badge-gold">Деканат</span>' : ''}</span><small>${esc(a.note)}</small></span>
       ${icon('arrow', 18)}</button>`).join('')}</div>
     <div class="demo-hint">${icon('key', 15)} Пароль всех демо-аккаунтов: <code>${esc(demo.password)}</code></div>
-    ${demo.sandboxes ? `<div class="demo-hint" data-sandbox-note>${icon('shieldOk', 15)} ${demo.sandbox ? 'Вы в своём демо-кабинете: заявки и действия других проверяющих его не затрагивают' : 'При входе стенд создаст ваш личный демо-кабинет — заявки и действия других проверяющих его не затронут'}. Ссылку для второго окна или телефона найдёте в меню «Ещё» или профиля.</div>` : ''}`;
+    ${demo.sandboxes ? `<div class="demo-hint" data-sandbox-note>${icon('shieldOk', 15)} ${demo.sandbox ? 'Вы в своём демо-кабинете: заявки и действия других проверяющих его не затрагивают' : 'При входе стенд создаст ваш личный демо-кабинет — заявки и действия других проверяющих его не затронут'}. Ссылку для второго окна или телефона найдёте в меню «Ещё» или профиля.</div>` : ''}
+    <div class="auth-or"><span>или по логину и паролю</span></div>`;
 }
 
 export default {
@@ -48,13 +51,13 @@ export default {
       <section class="auth-panel"><div class="auth-card">
         <div class="auth-mark">${logoMark()}${wordmark(false)}</div>
         <h2 class="h2 mt-24">Вход в кабинет</h2>
+        <div data-demo></div>
         <form class="auth-form" data-form novalidate>
           <div data-error role="alert"></div>
           <label class="field"><span class="field-label">Логин</span><input class="input" name="login" autocomplete="username" autocapitalize="none" spellcheck="false" required placeholder="Например, a.morozova"></label>
           <label class="field"><span class="field-label">Пароль</span><span class="pass-wrap"><input class="input" name="password" type="password" autocomplete="current-password" required><button class="pass-eye" type="button" data-eye aria-label="Показать пароль">${icon('eye', 20)}</button></span></label>
           <button class="btn btn-primary btn-lg btn-block" type="submit" data-submit>Войти</button>
         </form>
-        <div data-demo></div>
         <p class="auth-foot"><b>Концепт для конкурса, не официальный сервис МГИМО.</b> Не вводите здесь настоящий логин и пароль от вуза — подойдут только демо-аккаунты. Пароли хранятся в виде хеша, данные вымышлены.</p>
       </div></section></div>`;
   },
@@ -107,6 +110,8 @@ export default {
         submit();
       }
     });
-    setTimeout(() => { if (matchMedia('(hover: hover)').matches) form.login.focus(); }, 50);
+    // Фокус в поле логина для клавиатуры, но без прокрутки: на невысоком окне страница остаётся
+    // на тестовых аккаунтах, а не уезжает к форме
+    setTimeout(() => { if (matchMedia('(hover: hover)').matches) form.login.focus({ preventScroll: true }); }, 50);
   },
 };

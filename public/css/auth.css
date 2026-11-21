@@ -29,6 +29,9 @@
 .auth-form { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
 .auth-error { background: var(--red-2); color: var(--red-ink); border-radius: 12px; padding: 12px 14px; font-size: 14px; display: flex; gap: 10px; align-items: flex-start; }
 .auth-or { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 13px; margin: 26px 0 14px; }
+.auth-sub { font-size: 14px; color: var(--muted); margin: 10px 0 12px; }
+/* Форма идёт сразу за разделителем «или по логину и паролю» */
+[data-demo]:not(:empty) + .auth-form { margin-top: 0; }
 .auth-or::before, .auth-or::after { content: ''; flex: 1; height: 1px; background: var(--hair); }
 .acc-list { display: flex; flex-direction: column; gap: 8px; }
 .acc { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 16px; background: var(--surface); border: 0; cursor: pointer; text-align: left; width: 100%; transition: background .15s, transform .15s; }
@@ -43,6 +46,9 @@
 .auth-foot b { color: var(--ink); font-weight: 500; }
 .demo-hint { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); margin-top: 10px; flex-wrap: wrap; }
 .demo-hint code { background: var(--gold-3); color: var(--gold-ink); border-radius: 6px; padding: 2px 6px; font-size: 13px; }
+/* Длинная подсказка про демо-кабинет: значок слева от текста, а не отдельной строкой */
+.demo-hint[data-sandbox-note] { flex-wrap: nowrap; align-items: flex-start; }
+.demo-hint[data-sandbox-note] > svg { flex: none; margin-top: 2px; }
 @media (max-width: 1080px) {
   .auth { grid-template-columns: 1fr; }
   .auth-hero { min-height: auto; padding: 24px 20px 0; }

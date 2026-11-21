@@ -30,7 +30,9 @@ def login(page, who):
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
-    for width, height in [(360, 800), (390, 844), (1366, 768)]:
+    # 375×548 — видимая область Safari на iPhone SE, 360×640 — частый Android: до 22 ноября первый
+    # тестовый аккаунт стоял на 652–730 px и на таких экранах был ниже первого экрана
+    for width, height in [(360, 800), (390, 844), (375, 548), (360, 640), (1366, 768)]:
         ctx = browser.new_context(viewport={'width': width, 'height': height}, reduced_motion='reduce')
         page = ctx.new_page()
         page.on('pageerror', lambda e: errors.append(str(e)))
@@ -47,7 +49,7 @@ with sync_playwright() as p:
         check(f'{width}x{height}: concept marking and title stay', page.locator('#concept').is_visible() and page.locator('.auth-title').is_visible())
         check(f'{width}x{height}: login has no horizontal scroll', page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'))
 
-        if width == 360:
+        if (width, height) == (360, 800):
             # На телефоне сообщение о входе закрывало бы первую карточку (рецензия 21 ноября): его нет,
             # а время предыдущего входа показывает профиль в карточке «Безопасность»
             login(page, 'a.morozova')
