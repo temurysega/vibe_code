@@ -2,3 +2,6 @@
 playwright==1.63.0
 Markdown==3.11.3
 pypdf==6.16.2
+# Сборка TTF для PDF-справки из woff2: scripts/build-pdf-font.py
+fonttools==4.60.2
+brotli==1.2.1

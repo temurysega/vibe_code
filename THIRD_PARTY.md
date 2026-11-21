@@ -6,6 +6,7 @@
 | Материал | Использование | Лицензия и источник |
 |---|---|---|
 | Onest | Локальные файлы `public/fonts/onest-cyrillic.woff2` и `onest-latin.woff2` | SIL OFL 1.1, Copyright 2021 The Onest Project Authors; полный текст в `public/fonts/OFL-Onest.txt`, [исходная лицензия](https://github.com/google/fonts/blob/main/ofl/onest/OFL.txt) |
+| Onest, TTF для PDF | `server/assets/onest-pdf.ttf` — производный файл: те же два woff2, начертание 400 зафиксировано, подмножества объединены скриптом `scripts/build-pdf-font.py` (сборка воспроизводима); в PDF-справку встраивается подмножество глифов | SIL OFL 1.1, у шрифта нет зарезервированного имени; текст лицензии рядом — `server/assets/OFL-Onest.txt` |
 | `@anthropic-ai/sdk` 1.4.0 | Необязательный серверный клиент Anthropic | Apache-2.0; `node_modules/@anthropic-ai/sdk/LICENSE` |
 | `@opentelemetry/api` 1.10.0 | Транзитивная зависимость SDK | Apache-2.0 |
 | `@babel/runtime` 7.29.13 | Транзитивная зависимость SDK | MIT |
@@ -21,12 +22,14 @@
 | `pako` 1.0.11 | Транзитивная зависимость `pdf-lib` и `@pdf-lib/fontkit` | MIT AND Zlib |
 | `tslib` 1.14.1 | Транзитивная зависимость `pdf-lib` | 0BSD |
 | `pypdf` 6.16.2 | Инструмент подготовки PDF: встраивание журналов и метаданных; не входит в сервер приложения | BSD-3-Clause, лицензия в установленном Python-пакете; версия закреплена в `requirements-qa.txt` |
+| `fonttools` 4.60.2, `brotli` 1.2.1 | Инструмент: сборка TTF для PDF из woff2; не входит в сервер приложения | MIT; версии закреплены в `requirements-qa.txt` |
 
 Файлы Onest получены из официальной выдачи Google Fonts 8 ноября 2026 года:
 [кириллица](https://fonts.gstatic.com/s/onest/v11/gNMKW3F-SZuj7xmb-HY6EQ.woff2),
 [латиница](https://fonts.gstatic.com/s/onest/v11/gNMKW3F-SZuj7xmf-HY.woff2).
 Веб-интерфейс использует эти копии со своего сервера, без запроса к Google Fonts при открытии.
-Шрифт не модифицировался; текст OFL и уведомление об авторстве сохранены рядом с ним.
+Файлы woff2 не модифицировались; TTF для PDF собран из них и распространяется по той же OFL,
+текст лицензии и уведомление об авторстве лежат рядом с каждым файлом шрифта.
 
 Node.js используется как среда исполнения; её лицензии и уведомления поставляются с
 дистрибутивом Node.js. Если распространяется Docker-образ, в нём также остаются лицензии
