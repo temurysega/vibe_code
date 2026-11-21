@@ -49,8 +49,8 @@ img[src*="prompt-"] {max-height:220mm;margin:8pt auto}
 <p>Прототип: <a href="https://ai.neblanki.tech/">ai.neblanki.tech</a>.<br>
 Исходники: <a href="https://github.com/temurysega/vibe_code">temurysega/vibe_code</a>.</p>
 <figure class="cover-shot">
-  <img src="evidence/release-1121-final/1366-home.png" alt="Главная итоговой версии МГИМО Мании на экране 1366 px">
-  <figcaption>Главная итоговой версии. Снимок прогона из чистой копии репозитория 21 ноября, evidence/release-1121-final.</figcaption>
+  <img src="evidence/release-1122/1366-home.png" alt="Главная итоговой версии МГИМО Мании на экране 1366 px">
+  <figcaption>Главная итоговой версии. Снимок прогона из чистой копии репозитория 22 ноября, evidence/release-1122.</figcaption>
 </figure>
 
 <h2>Коротко для жюри</h2>
@@ -88,7 +88,7 @@ img[src*="prompt-"] {max-height:220mm;margin:8pt auto}
 <td><a href="#early-final">раздел 9</a></td>
 </tr>
 <tr>
-<td>Проверки: 100/100 и 562/562 в чистой копии, замер нагрузки</td>
+<td>Проверки: 100/100 и 568/568 в чистой копии, Safari на iPhone, замер нагрузки</td>
 <td><a href="#checks">раздел 10</a></td>
 </tr>
 </tbody>
@@ -112,9 +112,9 @@ img[src*="prompt-"] {max-height:220mm;margin:8pt auto}
 <li><strong>Где промпты.</strong> Наши дословные просьбы — раздел 2. Поручения субагентам целиком, с ответами —
   раздел 3 и <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/subagents-2026-11-19/briefs/">briefs/</a>. Правила для агентов —
   <a href="https://github.com/temurysega/vibe_code/blob/main/AGENTS.md">AGENTS.md</a>, <code>CLAUDE.md</code> и <code>.claude/</code>; журналы промптов и ошибок — <a href="https://github.com/temurysega/vibe_code/blob/main/docs/ai/">docs/ai/</a>.</li>
-<li><strong>Проверено.</strong> 100/100 автотестов и 562/562 браузерные проверки на 360 и 1366 px в чистой копии
-  репозитория, 21 ноября (<a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/run-summary.json">сводка</a>). Стенд пока на версии
-  19 ноября: изменения 21 ноября появятся на нём после обновления.</li>
+<li><strong>Проверено.</strong> 100/100 автотестов и 568/568 браузерные проверки на 360 и 1366 px в чистой копии
+  репозитория, 22 ноября (<a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/run-summary.json">сводка</a>); справка, форма и вход — ещё и в Safari
+  на iPhone в симуляторе iOS. Стенд пока на версии 19 ноября: изменения появятся на нём после обновления.</li>
 <li><strong>Чего нет.</strong> Ответы ассистентов на постановки 4 ноября не сохранились, поэтому восстановленных
   диалогов того времени здесь нет. Обратная связь — от двух студентов, без анкет и замеров.</li>
 </ul>
@@ -652,7 +652,7 @@ SQLite хранит профили, сеансы, заявки, уведомле
 </div>
 
 <figure class="wide-shot">
-  <img src="evidence/release-1121-final/1366-dean-direct-link.png" alt="Заявка, открытая сотрудником деканата по прямой ссылке, на экране 1366 px">
+  <img src="evidence/release-1122/1366-dean-direct-link.png" alt="Заявка, открытая сотрудником деканата по прямой ссылке, на экране 1366 px">
   <figcaption>Сотрудник открыл заявку по прямой ссылке из её номера; над очередью — поиск по номеру.</figcaption>
 </figure>
 
@@ -716,8 +716,8 @@ cookie передаётся только по защищённому соеди�
 по нажатию и с клавиатуры. Ближайшая пара, учебная ситуация и действие со справкой
 остаются в основном учебном пути. Итерации и измерения описаны в разделе 9.</p>
 <figure class="phone-shot">
-  <img src="evidence/release-1121-final/360-home-viewport.png" alt="Первый экран главной итоговой версии на телефоне 360 px" style="max-height:130mm">
-  <figcaption>Первый экран главной на 360 px, итоговый прогон 21 ноября на отдельной тестовой базе.</figcaption>
+  <img src="evidence/release-1122/360-home-viewport.png" alt="Первый экран главной итоговой версии на телефоне 360 px" style="max-height:130mm">
+  <figcaption>Первый экран главной на 360 px, итоговый прогон 22 ноября на отдельной тестовой базе.</figcaption>
 </figure>
 
 <figure class="phone-shot">
@@ -1225,7 +1225,7 @@ OpenRouter для двух студентов. Ответы о группе со
 <li><strong>Поручение (пункт 10).</strong> «Проверить скачивание справки на телефоне. Сейчас кнопка «Скачать PDF» вызывает печать, а тест подменяет этот вызов. Сделать прямую загрузку PDF, оставив просмотр и печать.»</li>
 <li><strong>Что сделал агент.</strong> Сервер собирает A4 библиотекой <code>pdf-lib</code> со встроенным шрифтом Onest (<a href="https://github.com/temurysega/vibe_code/blob/main/docs/ai/DECISIONS.md">ADR-013</a>); текст справки — один модуль для страницы и файла. В файле — пометка «Образец», код и кликабельная ссылка проверки в тот же кабинет. На странице — «Скачать PDF» и отдельно «Распечатать»</li>
 <li><strong>Где агент ошибся.</strong> Агент отрисовал первую страницу файла и посмотрел на неё — так нашлись ошибки, которых тесты не видели: адрес проверки уходил за поле; «Дана Морозова Алина Дмитриевна в том, что…» — неграмотно с 4 ноября; английская выписка транслитерировала дисциплины («Angliiskii iazyk»); «октябрь 2026 г..» (E-39); знака ₽ нет в шрифте, и суммы кончались пустыми квадратами (E-40). Первая сборка шрифта не повторялась байт в байт: fontTools пишет в заголовок время объединения</li>
-<li><strong>Что решили мы.</strong> Новая зависимость — по нашему правилу в <code>AGENTS.md</code> только с записью в <code>DECISIONS.md</code> и нашим согласием: агент записал ADR-013 и спросил нашего согласия до отправки в GitHub; мы ответили «Да, отправить». Скачивание на настоящих iPhone и Android проверяем мы: у агента нет устройств</li>
+<li><strong>Что решили мы.</strong> Новая зависимость — по нашему правилу в <code>AGENTS.md</code> только с записью в <code>DECISIONS.md</code> и нашим согласием: агент записал ADR-013 и спросил нашего согласия до отправки в GitHub; мы ответили «Да, отправить». В Safari на iPhone SE в симуляторе iOS агент проверил сам (22 ноября); на настоящих iPhone и Android проверяем мы</li>
 <li><strong>Исправление.</strong> <code>ac62bcd</code>, <code>24c060c</code>, <code>a4ab955</code>, <code>e479e6c</code></li>
 <li><strong>Тест.</strong> <code>test/document-pdf.test.js</code>: файл со встроенным шрифтом и языком, выписка и стипендия, чужую и неготовую не скачать; <code>test/document-model.test.js</code>; <code>browser-stipend.py</code> — текст скачанного файла и итог в «руб.»; <code>browser-review-fixes.py</code> — скачивание на 360 px и проверка по ссылке из файла без входа</li>
 </ul>
@@ -1321,18 +1321,37 @@ OpenRouter для двух студентов. Ответы о группе со
 6,9, 26 и 53 мс. В режиме стенда с демо-кабинетами — 2 735 в секунду, за 20 секунд под нагрузкой вошли
 10 новых проверяющих, первый вход — 60–81 мс. Стенд — другая машина, на нём нагрузку не замеряли:
 <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/load-2026-11-21/">замер и команды</a>.</p>
+<h4>22 ноября: Safari на iPhone и вход на низких экранах</h4>
+<p>После отправки мы написали «доделай». Агент прошёл пункт 10 рецензии в Safari на iPhone SE — в симуляторе iOS
+на Mac, не на настоящем телефоне: «Скачать PDF» открывает файл, кириллица читается, «Образец» виден; форма
+справки работает с русской экранной клавиатурой. Там же нашлась проблема, которую тесты пропускали: тестовые
+аккаунты стояли ниже первого экрана, потому что тест проверял только 360×800 и 390×844 (E-44). При исправлении
+нашлась вторая причина — автофокус поля логина прокручивал страницу к форме. Теперь аккаунты идут перед формой,
+автофокус не прокручивает страницу, а тест проверяет и 375×548, и 360×640: на прежней странице эти проверки
+падали (<code>3a4dd99</code>). <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/ios-simulator-2026-11-22/">Снимки симулятора</a>.</p>
+<div class="comparison-pair">
+  <figure>
+    <img src="evidence/ios-simulator-2026-11-22/01-login-before-fix.png" style="max-height:112mm" alt="Вход в Safari на iPhone SE до исправления: тестовых аккаунтов на первом экране нет">
+    <figcaption>Safari на iPhone SE, симулятор: до исправления аккаунтов на первом экране нет.</figcaption>
+  </figure>
+  <figure>
+    <img src="evidence/ios-simulator-2026-11-22/04-pdf-in-safari.png" style="max-height:112mm" alt="Скачанная справка, открытая в Safari на iPhone SE">
+    <figcaption>Скачанная справка в Safari: кириллица и «Образец» видны.</figcaption>
+  </figure>
+</div>
+
 <h2><a id="checks"></a>10. Журналы и реальные снимки проверок</h2>
 <p>Каждая проверка запускается на новой временной базе, без пользовательских данных и без
 внешнего ИИ: <code>python scripts/collect-evidence.py --output &lt;папка&gt;</code>. Сборщик сохраняет
 журналы команд, JSON-отчёты и снимки экранов. Неуспешные попытки не удаляются: они лежат
 рядом с успешными и показывают, что именно исправлялось.</p>
-<h3>Текущая версия, 21 ноября</h3>
-<p>Итоговый прогон — из чистой копии репозитория: <code>git clone</code> на коммите <code>c37c69a</code>, <code>npm ci</code> по lock-файлу,
-затем все наборы на свежих временных базах: <strong>100/100</strong> автотестов и <strong>562/562</strong> браузерных проверок
+<h3>Текущая версия, 22 ноября</h3>
+<p>Итоговый прогон — из чистой копии репозитория: <code>git clone</code> на коммите <code>9e7baad</code>, <code>npm ci</code> по lock-файлу,
+затем все наборы на свежих временных базах: <strong>100/100</strong> автотестов и <strong>568/568</strong> браузерных проверок
 в 17 наборах, без необработанных ошибок JavaScript. Набор <code>browser-review-fixes</code> шёл с демо-кабинетами,
-как на стенде; внешние ключи ИИ отключены. <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/run-summary.json">Сводка</a>
-содержит команды, время и SHA-256 проверенных исходников. Коммиты после <code>c37c69a</code> меняют только
-документы, PDF и ролик.</p>
+как на стенде; внешние ключи ИИ отключены. <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/run-summary.json">Сводка</a>
+содержит команды, время и SHA-256 проверенных исходников. Коммиты после <code>9e7baad</code> меняют только
+документы и PDF.</p>
 <table>
 <thead>
 <tr>
@@ -1345,98 +1364,99 @@ OpenRouter для двух студентов. Ответы о группе со
 <tr>
 <td>API, безопасность и предметная логика</td>
 <td style="text-align: right;">100/100</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/unit-tests.txt">unit-tests.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/unit-tests.txt">unit-tests.txt</a></td>
 </tr>
 <tr>
 <td>Экраны на 360 и 1366 px</td>
 <td style="text-align: right;">52/52</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/browser-smoke.txt">browser-smoke.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/browser-smoke.txt">browser-smoke.txt</a></td>
 </tr>
 <tr>
 <td>Путь заявки двух ролей, смена аккаунта, изоляция</td>
 <td style="text-align: right;">36/36</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/browser-flows.txt">browser-flows.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/browser-flows.txt">browser-flows.txt</a></td>
 </tr>
 <tr>
 <td>Клавиатура, фокус, восстановление после ошибок</td>
 <td style="text-align: right;">23/23</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/browser-accessibility.txt">browser-accessibility.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/browser-accessibility.txt">browser-accessibility.txt</a></td>
 </tr>
 <tr>
 <td>Мобильные доработки и состояния расписания</td>
 <td style="text-align: right;">21/21</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/browser-polish.txt">browser-polish.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/browser-polish.txt">browser-polish.txt</a></td>
 </tr>
 <tr>
 <td>Справка о стипендии: заявка, таблица, печать и скачанный PDF</td>
 <td style="text-align: right;">51/51</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/browser-stipend.txt">browser-stipend.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/browser-stipend.txt">browser-stipend.txt</a></td>
 </tr>
 <tr>
 <td>Компактные оценки, фильтр риска, меню</td>
 <td style="text-align: right;">40/40</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/browser-review.txt">browser-review.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/browser-review.txt">browser-review.txt</a></td>
 </tr>
 <tr>
 <td>Главная: приоритеты, длинные названия и текущая пара</td>
 <td style="text-align: right;">40/40</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/browser-home-priority.txt">browser-home-priority.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/browser-home-priority.txt">browser-home-priority.txt</a></td>
 </tr>
 <tr>
 <td>Успеваемость: первый экран и статистика</td>
 <td style="text-align: right;">31/31</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/browser-grades-compact.txt">browser-grades-compact.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/browser-grades-compact.txt">browser-grades-compact.txt</a></td>
 </tr>
 <tr>
 <td>Форма справки: профиль, формат, смена аккаунта</td>
 <td style="text-align: right;">19/19</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/browser-request-compact.txt">browser-request-compact.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/browser-request-compact.txt">browser-request-compact.txt</a></td>
 </tr>
 <tr>
 <td>Читаемость расписания</td>
 <td style="text-align: right;">35/35</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/browser-schedule-readability.txt">browser-schedule-readability.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/browser-schedule-readability.txt">browser-schedule-readability.txt</a></td>
 </tr>
 <tr>
 <td>«С чего начать»: первые действия</td>
 <td style="text-align: right;">34/34</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/browser-first-actions.txt">browser-first-actions.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/browser-first-actions.txt">browser-first-actions.txt</a></td>
 </tr>
 <tr>
 <td>Правки 9 ноября: вход, нажатия, уведомления, чужая ссылка</td>
 <td style="text-align: right;">14/14</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/browser-audit-fixes.txt">browser-audit-fixes.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/browser-audit-fixes.txt">browser-audit-fixes.txt</a></td>
 </tr>
 <tr>
 <td>Вкладки, пропущенные события и восстановление сеанса</td>
 <td style="text-align: right;">37/37</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/browser-session-sync.txt">browser-session-sync.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/browser-session-sync.txt">browser-session-sync.txt</a></td>
 </tr>
 <tr>
 <td>Фокус при обновлениях, меню и контраст текста</td>
 <td style="text-align: right;">65/65</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/browser-focus-contrast.txt">browser-focus-contrast.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/browser-focus-contrast.txt">browser-focus-contrast.txt</a></td>
 </tr>
 <tr>
 <td>Разметка в объявлениях и комментариях остаётся текстом</td>
 <td style="text-align: right;">21/21</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/browser-xss.txt">browser-xss.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/browser-xss.txt">browser-xss.txt</a></td>
 </tr>
 <tr>
-<td>Первый экран входа; сообщение о входе: на компьютере — всплывающее, на телефоне — в профиле</td>
-<td style="text-align: right;">14/14</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/browser-mobile-entry.txt">browser-mobile-entry.txt</a></td>
+<td>Первый экран входа, в том числе 375×548 и 360×640; сообщение о входе: на компьютере — всплывающее, на телефоне — в профиле</td>
+<td style="text-align: right;">20/20</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/browser-mobile-entry.txt">browser-mobile-entry.txt</a></td>
 </tr>
 <tr>
 <td>Правки рецензии 21 ноября: демо-кабинеты, игровой слой, деканат, PDF, расписание, тур</td>
 <td style="text-align: right;">29/29</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/browser-review-fixes.txt">browser-review-fixes.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/browser-review-fixes.txt">browser-review-fixes.txt</a></td>
 </tr>
 </tbody>
 </table>
 <p>Первая попытка из чистой копии (20:14) остановилась на <code>browser-polish</code> из-за гонки в тесте (E-41) и сохранена
 в <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-first-attempt/">release-1121-first-attempt</a>. Следующий прогон, <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121/">release-1121</a>
-на коде <code>abaef02</code>, прошёл целиком; после правки отступа в расписании прогон повторён — это итоговый.</p>
+на коде <code>abaef02</code>, прошёл целиком; после правки отступа в расписании прогон повторён — <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/">release-1121-final</a>.
+22 ноября после исправления входа на низких экранах (E-44) прогон повторён ещё раз — это итоговый.</p>
 <figure class="evidence-card">
   <img src="evidence/process/test-results.png" alt="Карточка фактического журнала автоматических тестов текущей версии">
   <figcaption>Фактический вывод запуска тестов. Карточка оформляет журнал, а не заменяет результат программы.</figcaption>
@@ -1520,7 +1540,7 @@ OpenRouter для двух студентов. Ответы о группе со
 </tr>
 <tr>
 <td>21 ноября, 20:27–20:32</td>
-<td>Чистая копия, итоговый код <code>c37c69a</code></td>
+<td>Чистая копия, код <code>c37c69a</code> (до исправления входа, E-44)</td>
 <td>100/100 и 562/562</td>
 <td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1121-final/run-summary.json">сводка</a></td>
 </tr>
@@ -1529,6 +1549,18 @@ OpenRouter для двух студентов. Ответы о группе со
 <td>Нагрузка на локальном сервере, 10–100 пользователей без пауз</td>
 <td>около 2 750 запросов в секунду, 0 ошибок</td>
 <td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/load-2026-11-21/">замер</a></td>
+</tr>
+<tr>
+<td>22 ноября</td>
+<td>Safari на iPhone SE в симуляторе iOS</td>
+<td>PDF, форма с клавиатурой, вход; найдено E-44</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/ios-simulator-2026-11-22/">снимки</a></td>
+</tr>
+<tr>
+<td>22 ноября, 01:51–01:56</td>
+<td>Чистая копия, код <code>9e7baad</code>: вход на низких экранах</td>
+<td>100/100 и 568/568</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122/run-summary.json">сводка</a></td>
 </tr>
 </tbody>
 </table>

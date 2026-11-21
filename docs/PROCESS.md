@@ -929,11 +929,11 @@ OpenRouter для двух студентов. Ответы о группе со
 
 <div class="comparison-pair">
   <figure>
-    <img src="evidence/ios-simulator-2026-11-22/01-login-before-fix.png" alt="Вход в Safari на iPhone SE до исправления: тестовых аккаунтов на первом экране нет">
+    <img src="evidence/ios-simulator-2026-11-22/01-login-before-fix.png" style="max-height:112mm" alt="Вход в Safari на iPhone SE до исправления: тестовых аккаунтов на первом экране нет">
     <figcaption>Safari на iPhone SE, симулятор: до исправления аккаунтов на первом экране нет.</figcaption>
   </figure>
   <figure>
-    <img src="evidence/ios-simulator-2026-11-22/04-pdf-in-safari.png" alt="Скачанная справка, открытая в Safari на iPhone SE">
+    <img src="evidence/ios-simulator-2026-11-22/04-pdf-in-safari.png" style="max-height:112mm" alt="Скачанная справка, открытая в Safari на iPhone SE">
     <figcaption>Скачанная справка в Safari: кириллица и «Образец» видны.</figcaption>
   </figure>
 </div>

@@ -1,17 +1,18 @@
 {
   "source": "git log --reverse --date=iso-strict",
-  "snapshot_head": "ce5a8a2184d919da2ae5b2dcc0ad4b55fe9db9d2",
+  "snapshot_head": "bb3db7951d955ada761153b04edd4adb10a7225e",
   "interpretation": "Метаданные репозитория, а не стенограмма работы с ИИ. Коммиты 4 ноября созданы скриптом за 2–3 минуты в конце первой сессии и показывают устройство кода; с 8 ноября каждый коммит — отдельная итерация. Трейлер Co-Authored-By не удостоверяет текст промптов или версию модели.",
   "summary": {
-    "commits": 730,
+    "commits": 739,
     "by_day": {
       "2026-11-04": 629,
       "2026-11-08": 11,
       "2026-11-09": 7,
       "2026-11-19": 10,
-      "2026-11-21": 73
+      "2026-11-21": 76,
+      "2026-11-22": 6
     },
-    "commits_with_claude_coauthor": 717,
+    "commits_with_claude_coauthor": 726,
     "replayed_on_2026_11_04": {
       "commits": 629,
       "first": "2026-11-04T22:09:47+03:00",
@@ -6560,6 +6561,87 @@
       "date": "2026-11-21T20:42:35+03:00",
       "author": "re3per",
       "subject": "docs(audit): итоговый прогон, статус стенда и границы проверки на 21 ноября",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "76129617ea1d875a20fd4ad4bcbdffd0a96a8dca",
+      "date": "2026-11-21T20:45:46+03:00",
+      "author": "re3per",
+      "subject": "docs(process): примеры — списками, код в подписях к рисункам виден как код",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9e064c1804032c54893dfb65cec281c6e30f570b",
+      "date": "2026-11-21T20:45:46+03:00",
+      "author": "re3per",
+      "subject": "docs(pdf): пересобрать описание процесса на вечер 21 ноября",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0241944634221ed3543d97c8266b358487137cee",
+      "date": "2026-11-21T21:04:05+03:00",
+      "author": "re3per",
+      "subject": "docs(decisions): согласие человека на pdf-lib записано в ADR-013",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3a4dd99523e17568e444de0864d87f25ba2e2b84",
+      "date": "2026-11-22T01:51:23+03:00",
+      "author": "re3per",
+      "subject": "fix(login): тестовые аккаунты перед формой — видны сразу на низких экранах",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "9e7baadbe07cb97d4d132f72c0a48dab16a4a8c3",
+      "date": "2026-11-22T01:51:23+03:00",
+      "author": "re3per",
+      "subject": "docs(evidence): iPhone Safari в симуляторе iOS — PDF, клавиатура, вход",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "cf542fdb9bbfd4abdb229e095fb7515f7bd85613",
+      "date": "2026-11-22T01:59:50+03:00",
+      "author": "re3per",
+      "subject": "docs(evidence): прогон из чистой копии 22 ноября — 100/100 и 568/568",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "0ee065bac8d73d2c78f1f461e2948222ace6386b",
+      "date": "2026-11-22T01:59:51+03:00",
+      "author": "re3per",
+      "subject": "docs(video): ролик на коде 22 ноября — тестовые аккаунты на входе первыми",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6cf51c217fb3a7e7033124e1c2dd5fc3d0be431e",
+      "date": "2026-11-22T02:00:26+03:00",
+      "author": "re3per",
+      "subject": "docs(ai): E-44 — вход на низких экранах, запись «доделай» и прогресс на 22 ноября",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "bb3db7951d955ada761153b04edd4adb10a7225e",
+      "date": "2026-11-22T02:00:26+03:00",
+      "author": "re3per",
+      "subject": "docs: проверки 22 ноября и Safari на iPhone во всех материалах для жюри",
       "coauthors": [
         "Claude Opus 5.5 <noreply@anthropic.com>"
       ]
