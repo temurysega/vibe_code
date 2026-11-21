@@ -15,7 +15,7 @@
 | П-18 | Время вуза и расписание | Claude Code | `domain/time.js`, `domain/schedule.js`, `views/schedule.js` |
 | П-19 | Успеваемость, сессия и зачётка | Claude Code | `domain/grades.js`, `views/grades.js` |
 | П-20 | Заявки и справки: от формы до документа | Claude Code → `security-auditor`, `test-engineer` | `domain/requests.js`, `routes/requests.js`, `views/requests.js`, `views/verify.js` |
-| П-21 | Кабинет деканата | **Qwen Code** через `QWEN.md` | `routes/dean.js`, `views/dean.js` |
+| П-21 | Кабинет деканата | Claude Code → `security-auditor` | `routes/dean.js`, `views/dean.js` |
 | П-22 | Уведомления | Claude Code | `domain/notifications.js`, `views/notifications.js` |
 | П-23 | Помощник «Спросить деканат» и его системный промпт | Claude Code | `domain/assistant.js`, `routes/assistant.js`, `views/assistant.js` |
 | П-24 | Игровой слой без ущерба учёбе | Claude Code | `shared/catalog.js`, `domain/play.js`, `views/campus.js` и др. |
@@ -286,7 +286,7 @@ request_events (кто, когда, комментарий) и создаёт у
 
 ## П-21 · Кабинет деканата
 
-> - **Кому:** Qwen Code в терминале — второй агент, который получает контекст через `QWEN.md` → `AGENTS.md`
+> - **Кому:** Claude Code; если модуль отдаёте второму агенту, например Qwen Code, он получает контекст через `QWEN.md` → `AGENTS.md`
 > - **Опирается на:** раздел DEAN в `SPEC.md`, готовый модуль заявок
 > - **Приёмы:** явный список файлов, которыми владеет агент · переиспользование, а не дублирование логики · защита общего стенда
 
@@ -334,8 +334,8 @@ public/css/pages.css и новых тестах. Если нужно измен�
   лимит 10 за 10 минут и тест». На деле лимит добавили после аудита 9 ноября (E-19).
 
 **В репозитории:** `server/routes/dean.js` (`e260247`), `public/js/views/dean.js`,
-`test/dean-limits.test.js`. Что этот модуль писал именно Qwen Code, не проверено: в Git все коммиты
-одного автора, а диалога с Qwen Code в репозитории нет.
+`test/dean-limits.test.js`. В первой версии модуль собрал Claude Code 4 ноября вместе с остальным
+кабинетом (коммиты `e260247`, `3126a39`).
 
 ---
 
