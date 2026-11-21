@@ -21,8 +21,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-smoke.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-smoke.py",
         "http://127.0.0.1:64309"
       ],
       "started_msk": "2026-11-19T22:14:52+03:00",
@@ -35,8 +35,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-flows.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-flows.py",
         "http://127.0.0.1:64309"
       ],
       "started_msk": "2026-11-19T22:15:17+03:00",
@@ -49,8 +49,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-accessibility.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-accessibility.py",
         "http://127.0.0.1:64309"
       ],
       "started_msk": "2026-11-19T22:15:39+03:00",
@@ -63,8 +63,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-polish.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-polish.py",
         "http://127.0.0.1:64309"
       ],
       "started_msk": "2026-11-19T22:15:46+03:00",
@@ -77,8 +77,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-stipend.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-stipend.py",
         "http://127.0.0.1:64309"
       ],
       "started_msk": "2026-11-19T22:15:52+03:00",
@@ -91,8 +91,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-review.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-review.py",
         "http://127.0.0.1:64309"
       ],
       "started_msk": "2026-11-19T22:17:26+03:00",
@@ -105,8 +105,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-home-priority.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-home-priority.py",
         "http://127.0.0.1:64309"
       ],
       "started_msk": "2026-11-19T22:17:37+03:00",
@@ -119,8 +119,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-grades-compact.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-grades-compact.py",
         "http://127.0.0.1:64309"
       ],
       "started_msk": "2026-11-19T22:17:46+03:00",
@@ -133,8 +133,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-request-compact.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-request-compact.py",
         "http://127.0.0.1:64309"
       ],
       "started_msk": "2026-11-19T22:18:03+03:00",
@@ -147,8 +147,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-schedule-readability.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-schedule-readability.py",
         "http://127.0.0.1:64309"
       ],
       "started_msk": "2026-11-19T22:18:11+03:00",
@@ -161,8 +161,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-first-actions.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-first-actions.py",
         "http://127.0.0.1:64309"
       ],
       "started_msk": "2026-11-19T22:18:26+03:00",
@@ -175,8 +175,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-audit-fixes.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-audit-fixes.py",
         "http://127.0.0.1:64309"
       ],
       "started_msk": "2026-11-19T22:18:51+03:00",
@@ -189,8 +189,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-session-sync.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-session-sync.py",
         "http://127.0.0.1:64309"
       ],
       "started_msk": "2026-11-19T22:19:14+03:00",
@@ -203,8 +203,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-focus-contrast.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-focus-contrast.py",
         "http://127.0.0.1:64309"
       ],
       "started_msk": "2026-11-19T22:19:47+03:00",
@@ -217,8 +217,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-xss.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-xss.py",
         "http://127.0.0.1:64309"
       ],
       "started_msk": "2026-11-19T22:19:54+03:00",
@@ -231,8 +231,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-mobile-entry.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-mobile-entry.py",
         "http://127.0.0.1:64309"
       ],
       "started_msk": "2026-11-19T22:20:02+03:00",

@@ -6,7 +6,7 @@
   "coordination": [
     {
       "role": "Документация",
-      "instruction_excerpt": "Скопируй 4 файла из C:/Users/alsutem/Downloads/",
+      "instruction_excerpt": "Скопируй 4 файла из C:/Users/<пользователь>/Downloads/",
       "acceptance_excerpt": "Вставь в PROCESS связно с этапами/содержанием, подпиши все 4 как иллюстрации/реконструкции диалога.",
       "owned_files": [
         "docs/PROCESS.md",

@@ -21,8 +21,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-smoke.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-smoke.py",
         "http://127.0.0.1:52384"
       ],
       "started_msk": "2026-11-09T13:47:08+03:00",
@@ -35,8 +35,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-flows.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-flows.py",
         "http://127.0.0.1:52384"
       ],
       "started_msk": "2026-11-09T13:47:33+03:00",
@@ -49,8 +49,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-accessibility.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-accessibility.py",
         "http://127.0.0.1:52384"
       ],
       "started_msk": "2026-11-09T13:47:55+03:00",
@@ -63,8 +63,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-polish.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-polish.py",
         "http://127.0.0.1:52384"
       ],
       "started_msk": "2026-11-09T13:48:01+03:00",
@@ -77,8 +77,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-stipend.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-stipend.py",
         "http://127.0.0.1:52384"
       ],
       "started_msk": "2026-11-09T13:48:07+03:00",
@@ -91,8 +91,8 @@
     },
     {
       "command": [
-        "C:\\Users\\alsutem\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-        "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\test\\browser-review.py",
+        "C:\\Users\\<пользователь>\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\test\\browser-review.py",
         "http://127.0.0.1:52384"
       ],
       "started_msk": "2026-11-09T13:49:42+03:00",

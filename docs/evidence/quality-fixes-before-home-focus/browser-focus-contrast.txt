@@ -1,4 +1,4 @@
-Command: C:\Users\alsutem\AppData\Local\Programs\Python\Python312\python.exe C:\Users\alsutem\Desktop\вайбкод\vibe_code\test\browser-focus-contrast.py http://127.0.0.1:49670
+Command: C:\Users\<пользователь>\AppData\Local\Programs\Python\Python312\python.exe C:\Users\<пользователь>\Desktop\вайбкод\vibe_code\test\browser-focus-contrast.py http://127.0.0.1:49670
 Started (MSK): 2026-11-09T14:01:56+03:00
 Finished (MSK): 2026-11-09T14:02:02+03:00
 Exit code: 0
@@ -58,4 +58,4 @@ PASS 1366px grades: muted text and status labels have contrast at least 4.5:1
 PASS 1366px profile: text colors were measured on rendered backgrounds
 PASS 1366px profile: muted text and status labels have contrast at least 4.5:1
 PASS 1366px: affected views produce no horizontal page overflow
-{"checks": 55, "failed": [], "browser_errors": [], "output": "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\docs\\evidence\\quality-fixes"}
+{"checks": 55, "failed": [], "browser_errors": [], "output": "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\docs\\evidence\\quality-fixes"}

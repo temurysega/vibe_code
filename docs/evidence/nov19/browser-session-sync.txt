@@ -1,4 +1,4 @@
-Command: C:\Users\alsutem\AppData\Local\Programs\Python\Python312\python.exe C:\Users\alsutem\Desktop\вайбкод\vibe_code\test\browser-session-sync.py http://127.0.0.1:53851
+Command: C:\Users\<пользователь>\AppData\Local\Programs\Python\Python312\python.exe C:\Users\<пользователь>\Desktop\вайбкод\vibe_code\test\browser-session-sync.py http://127.0.0.1:53851
 Started (MSK): 2026-11-19T22:04:01+03:00
 Finished (MSK): 2026-11-19T22:04:32+03:00
 Exit code: 0
@@ -40,4 +40,4 @@ PASS 1366: logout clears the inactive tab without BroadcastChannel
 PASS 1366: login synchronizes the inactive tab without BroadcastChannel
 PASS 1366: the fallback-synchronized tab submits under the new account
 PASS Cross-tab recovery has no uncaught JavaScript errors
-{"checks": 37, "failed": [], "errors": 0, "report": "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\docs\\evidence\\nov19\\browser-session-sync.json"}
+{"checks": 37, "failed": [], "errors": 0, "report": "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\docs\\evidence\\nov19\\browser-session-sync.json"}

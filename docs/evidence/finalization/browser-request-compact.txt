@@ -1,4 +1,4 @@
-Command: C:\Users\alsutem\AppData\Local\Programs\Python\Python312\python.exe C:\Users\alsutem\Desktop\вайбкод\vibe_code\test\browser-request-compact.py http://127.0.0.1:60652
+Command: C:\Users\<пользователь>\AppData\Local\Programs\Python\Python312\python.exe C:\Users\<пользователь>\Desktop\вайбкод\vibe_code\test\browser-request-compact.py http://127.0.0.1:60652
 Started (MSK): 2026-11-08T21:47:44+03:00
 Finished (MSK): 2026-11-08T21:47:51+03:00
 Exit code: 0

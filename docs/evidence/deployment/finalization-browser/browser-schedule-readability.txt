@@ -33,4 +33,4 @@ PASS 360px: teacher contacts open from lesson details
 PASS 360px: next week navigation changes the timetable
 PASS 360px: calendar export contains lessons
 PASS No uncaught browser errors
-{"checks": 35, "failed": [], "output": "C:\\Users\\alsutem\\Desktop\\вайбкод\\vibe_code\\docs\\evidence\\deployment\\finalization-browser"}
+{"checks": 35, "failed": [], "output": "C:\\Users\\<пользователь>\\Desktop\\вайбкод\\vibe_code\\docs\\evidence\\deployment\\finalization-browser"}

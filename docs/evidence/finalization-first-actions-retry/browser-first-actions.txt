@@ -32,4 +32,4 @@ PASS 1366: guide uses Timur’s profile after account switch
 PASS 1366: newcomer form has no horizontal overflow
 PASS No request submissions or profile edits
 PASS No uncaught browser errors
-{"checks": 34, "failed": [], "output": "C:\\Users\\alsutem\\AppData\\Local\\Temp\\mgimo-first-actions-sync-pcmmbt20\\2"}
+{"checks": 34, "failed": [], "output": "C:\\Users\\<пользователь>\\AppData\\Local\\Temp\\mgimo-first-actions-sync-pcmmbt20\\2"}
