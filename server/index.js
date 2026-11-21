@@ -8,6 +8,7 @@ import { applyPlans } from './domain/requests.js';
 import { perAccount, perIp } from './routes/auth.js';
 import { broadcasts } from './routes/dean.js';
 import { verifyLimit } from './routes/requests.js';
+import { Sandboxes, sandboxCreation } from './demo/sandboxes.js';
 
 const store = new Store(config.dbFile);
 
@@ -26,7 +27,12 @@ async function maybeReseed(force) {
 
 await maybeReseed(false);
 
+// Отдельный демо-кабинет для каждого проверяющего: DEMO_SANDBOXES=1
+const sandboxes = config.demoSandboxes ? new Sandboxes({ dir: config.sandboxDir }) : null;
+if (sandboxes) console.log(`Демо-кабинеты проверяющих: ${config.sandboxDir}, сейчас ${sandboxes.count()}`);
+
 const app = createApp(store, {
+  sandboxes,
   onActivity() {
     const now = Date.now();
     if (now - lastActivity > 60e3) { lastActivity = now; store.meta('last_activity', now); }
@@ -43,14 +49,18 @@ server.listen(config.port, config.host, () => {
 
 // Фоновые задачи: автоматические шаги заявок демо, чистка лимитов и пересоздание стенда
 const timers = [
-  setInterval(() => { try { applyPlans(store); } catch (e) { console.error(e); } }, 5000),
-  setInterval(() => { perAccount.sweep(); perIp.sweep(); broadcasts.sweep(); verifyLimit.sweep(); store.run('DELETE FROM sessions WHERE expires_at < ?', Date.now()); }, 10 * 60e3),
+  setInterval(() => {
+    try { applyPlans(store); } catch (e) { console.error(e); }
+    if (sandboxes) sandboxes.forEachOpen((s) => { try { applyPlans(s); } catch (e) { console.error(e); } });
+  }, 5000),
+  setInterval(() => { perAccount.sweep(); perIp.sweep(); broadcasts.sweep(); verifyLimit.sweep(); sandboxCreation.sweep(); store.run('DELETE FROM sessions WHERE expires_at < ?', Date.now()); }, 10 * 60e3),
+  setInterval(() => { if (sandboxes) { try { sandboxes.sweep(); } catch (e) { console.error(e); } } }, 60 * 60e3),
   setInterval(() => { maybeReseed(false).catch((e) => console.error(e)); }, 10 * 60e3),
 ];
 
 function shutdown() {
   timers.forEach(clearInterval);
-  server.close(() => { store.close(); process.exit(0); });
+  server.close(() => { if (sandboxes) sandboxes.closeAll(); store.close(); process.exit(0); });
   setTimeout(() => process.exit(0), 3000).unref();
 }
 process.on('SIGINT', shutdown);

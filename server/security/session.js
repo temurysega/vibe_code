@@ -33,6 +33,12 @@ export function sessionCookie(token) {
   return `${cookieName()}=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${config.cookieSecure ? '; Secure' : ''}`;
 }
 
+// Несколько cookie в одном ответе: сеанс и демо-кабинет не затирают друг друга
+export function appendCookie(res, cookie) {
+  const prev = res.getHeader('Set-Cookie');
+  res.setHeader('Set-Cookie', [].concat(prev || [], cookie));
+}
+
 export function clearSessionCookie() {
   return `${cookieName()}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${config.cookieSecure ? '; Secure' : ''}`;
 }

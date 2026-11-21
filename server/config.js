@@ -36,4 +36,9 @@ export const config = {
   // меньше 1 — быстрее, например 0.15 для браузерных проверок без участия деканата.
   demoAutopilotScale: Math.min(1, Math.max(0.01, num(env.DEMO_AUTOPILOT_SCALE, 1))),
   timeZone: 'Europe/Moscow',
+  // Отдельный демо-кабинет для каждого проверяющего (стенд): своя база на постоянном томе
+  demoSandboxes: env.DEMO_SANDBOXES === '1',
+  sandboxDir: env.SANDBOX_DIR ? resolve(ROOT, env.SANDBOX_DIR) : resolve(env.DB_FILE && env.DB_FILE !== ':memory:' ? dirname(resolve(ROOT, env.DB_FILE)) : resolve(ROOT, 'data'), 'sandboxes'),
+  sandboxLimit: num(env.SANDBOX_LIMIT, 400),
+  sandboxTtlDays: num(env.SANDBOX_TTL_DAYS, 30),
 };

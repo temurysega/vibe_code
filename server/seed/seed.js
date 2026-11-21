@@ -57,9 +57,15 @@ function workday(d) {
   return d;
 }
 
+// Хеши публичного демо-пароля считаются один раз на процесс: новый демо-кабинет создаётся быстро
+let demoHashes = null;
+
 export async function seed(store) {
-  const hashes = {};
-  for (const a of DEMO_ACCOUNTS) hashes[a.login] = await hashPassword(DEMO_PASSWORD);
+  if (!demoHashes) {
+    demoHashes = {};
+    for (const a of DEMO_ACCOUNTS) demoHashes[a.login] = await hashPassword(DEMO_PASSWORD);
+  }
+  const hashes = demoHashes;
   store.wipe();
   store.run("DELETE FROM meta WHERE key LIKE 'stock:%'");
   const now = Date.now();
