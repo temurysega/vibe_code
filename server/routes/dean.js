@@ -73,14 +73,34 @@ export default function (router) {
     applyPlans(ctx.store);
     const filter = oneOf(ctx.query.get('status') || 'active', ['active', 'done', 'all']);
     if (!filter) fail(400, 'Неизвестный фильтр');
-    const where = filter === 'active' ? "AND r.status IN ('submitted', 'in_work', 'ready')" : filter === 'done' ? "AND r.status IN ('issued', 'approved', 'rejected', 'cancelled')" : '';
+    // Готовая электронная справка уже у студента — она в «Завершённых»; бумажная ждёт выдачи
+    let where = filter === 'active' ? "AND (r.status IN ('submitted', 'in_work') OR (r.status = 'ready' AND r.delivery = 'paper'))"
+      : filter === 'done' ? "AND (r.status IN ('issued', 'approved', 'rejected', 'cancelled') OR (r.status = 'ready' AND r.delivery != 'paper'))" : '';
+    const args = [ctx.staff.faculty_id];
+    // Поиск по номеру: «2026/01212» или последние цифры «1212»; ищем во всех статусах
+    const q = str(ctx.query.get('q'), 20).replace(/\s/g, '');
+    if (q) {
+      const m = /^(?:(\d{4})\/)?(\d{1,5})$/.exec(q);
+      if (!m) fail(400, 'Введите номер заявки, например 2026/01212');
+      where = m[1] ? 'AND r.number = ?' : 'AND substr(r.number, 6) = ?';
+      args.push(m[1] ? `${m[1]}/${m[2].padStart(5, '0')}` : m[2].padStart(5, '0'));
+    }
     const fac = facultyRow(ctx.store, ctx.staff.faculty_id);
     const rows = ctx.store.all(
       `SELECT r.*, s.last_name, s.first_name, s.middle_name, s.group_code FROM requests r JOIN students s ON s.id = r.student_id JOIN groups g ON g.code = s.group_code
        WHERE g.faculty_id = ? ${where} ORDER BY CASE r.status WHEN 'submitted' THEN 0 WHEN 'in_work' THEN 1 WHEN 'ready' THEN 2 ELSE 3 END, r.created_at DESC LIMIT 200`,
-      ctx.staff.faculty_id,
+      ...args,
     );
     return { requests: rows.map((r) => Object.assign(withStudent(ctx.store, r, fac), { actions: actionsFor(r), overdue: ['submitted', 'in_work'].includes(r.status) && r.due_at < Date.now() })) };
+  });
+
+  // Прямая ссылка на заявку для сотрудника: только своего факультета
+  router.get('/api/dean/requests/:id', requireDean, (ctx) => {
+    const id = int(ctx.params.id, 1, 1e9);
+    if (!id) fail(404, 'Заявка не найдена');
+    applyPlans(ctx.store);
+    const r = scoped(ctx, id);
+    return { request: Object.assign(withStudent(ctx.store, r, facultyRow(ctx.store, ctx.staff.faculty_id)), { actions: actionsFor(r), overdue: ['submitted', 'in_work'].includes(r.status) && r.due_at < Date.now() }) };
   });
 
   router.patch('/api/dean/requests/:id', requireDean, (ctx) => {
