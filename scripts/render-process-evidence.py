@@ -1,4 +1,4 @@
-"""Render clearly labelled prompt reconstructions and actual evidence into readable cards.
+"""Render actual evidence (Git history, test and browser runs) into readable cards.
 
 These are project-owned document illustrations, not screenshots of historical AI chats.
 Inputs remain available as JSON/text beside the PDF for independent inspection.
@@ -47,17 +47,6 @@ def card(page, filename, title, tag, content, footer):
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     page = browser.new_page(viewport={'width': 1000, 'height': 700}, device_scale_factor=1)
-    prompts = json.loads((DOCS / 'PROMPTS.json').read_text(encoding='utf-8'))
-    if isinstance(prompts, dict):
-        prompts = prompts['prompts']
-    for index, item in enumerate(prompts, 1):
-        evidence = item.get('evidence', [])
-        if isinstance(evidence, list):
-            evidence = ' · '.join(str(x) for x in evidence)
-        content = f'<div class="notice"><b>Реконструкция задания по исходникам.</b> Не оригинальная переписка и не снимок интерфейса ИИ-сервиса.</div><div class="label">Контекст: {esc(item.get("tool", "ИИ-ассистент"))}</div><div class="prompt">{esc(item["prompt"])}</div><div class="result"><b>Связанный результат в проекте</b><br>{esc(item["result"])}</div><div class="sources"><b>Материалы:</b> {esc(evidence)}</div>'
-        card(page, f'prompt-{index:02}', item['title'], f'Постановка задачи / {index:02}', content,
-             'Редакционная иллюстрация для PDF · полные тексты и происхождение: docs/PROMPTS.json')
-
     history = json.loads((DOCS / 'evidence/history/git-history.json').read_text(encoding='utf-8'))
     selected = ['9c74eef', '832c17b', '26a17f0', '4f1e623', '00882b7', '969bdf4', '6376d05', '19e9672', '0e3d1c3']
     rows = [c for c in history['commits'] if c['commit'][:7] in selected]

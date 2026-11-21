@@ -28,7 +28,6 @@ def portable_link(match):
 
 
 body = re.sub(r'href="([^"]*)"', portable_link, body)
-body = re.sub(r'(<h3>Карточка [\s\S]*?</figure>)', r'<section class="prompt-page">\1</section>', body)
 css = """
 @font-face {font-family:Onest;src:url('../public/fonts/onest-cyrillic.woff2') format('woff2');font-weight:100 900}
 @font-face {font-family:Onest;src:url('../public/fonts/onest-latin.woff2') format('woff2');font-weight:100 900;unicode-range:U+0000-024F}
@@ -85,7 +84,7 @@ with sync_playwright() as p:
 # Embed the full source evidence, so the PDF can be reviewed without broken local links.
 pdf = DOCS / 'PROCESS.pdf'
 writer = PdfWriter(str(pdf), incremental=True)
-attachments = [DOCS / 'PROMPTS.json', DOCS / 'evidence/history/git-history.json']
+attachments = [DOCS / 'evidence/history/git-history.json']
 attachments += sorted((DOCS / 'evidence/subagents-2026-11-19').glob('*.json'))
 attachments += sorted((DOCS / 'ai').glob('*.md'))
 attachments += [DOCS / 'evidence/review-session.json']
