@@ -1,0 +1,11 @@
+{
+  "label": "early-2026-11-04",
+  "commit": "4f1e623",
+  "base": "http://127.0.0.1:3500",
+  "taken_at_msk": "2026-11-21T20:13+03:00",
+  "shots": [
+    "early-2026-11-04-360-login.png",
+    "early-2026-11-04-360-home.png",
+    "early-2026-11-04-1366-home.png"
+  ]
+}

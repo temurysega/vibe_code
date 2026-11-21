@@ -1,0 +1,11 @@
+{
+  "label": "final",
+  "commit": "584af2b",
+  "base": "http://127.0.0.1:3501",
+  "taken_at_msk": "2026-11-21T20:13+03:00",
+  "shots": [
+    "final-360-login.png",
+    "final-360-home.png",
+    "final-1366-home.png"
+  ]
+}
