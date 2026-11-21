@@ -14,7 +14,7 @@ export default function (router) {
   router.post('/api/assistant', requireStudent, async (ctx) => {
     const question = str(ctx.body.message, 500);
     if (question.length < 2) fail(400, 'Напишите вопрос');
-    const key = 'ai|' + ctx.user.id;
+    const key = `ai|${ctx.sandbox || ''}|${ctx.user.id}`;
     const c = perUser.check(key);
     if (!c.ok) fail(429, `Слишком много вопросов подряд. Попробуйте через ${Math.ceil(c.retryAfter / 60)} мин.`);
     perUser.hit(key);

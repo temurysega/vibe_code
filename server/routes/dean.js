@@ -15,7 +15,7 @@ const facultyRow = (store, id) => store.get('SELECT * FROM faculties WHERE id = 
 // открыт жюри, поэтому массовые публикации ограничены: 10 за 10 минут на сотрудника.
 export const broadcasts = new RateLimiter({ windowMs: 10 * 60e3, max: 10 });
 function limitBroadcast(ctx) {
-  const key = 'dean|' + ctx.user.id;
+  const key = `dean|${ctx.sandbox || ''}|${ctx.user.id}`;
   const c = broadcasts.check(key);
   if (!c.ok) fail(429, `Слишком много публикаций подряд. Попробуйте через ${Math.max(1, Math.ceil(c.retryAfter / 60))} мин.`, { retryAfter: c.retryAfter });
   return () => broadcasts.hit(key);
