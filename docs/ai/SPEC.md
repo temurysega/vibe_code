@@ -22,7 +22,7 @@
 | REQ-01 | Работающий прототип по ссылке: войти, расписание, оценки, заявка, статус | https://ai.neblanki.tech/; `deploy/compose.vps.yaml`, `docs/DEPLOYMENT.md`; демо-кабинеты — `server/demo/sandboxes.js` (ADR-012) | `docs/evidence/deployment/quality-fixes-browser/public-acceptance.json` (25/25, 9 ноября); 19 ноября — страница входа снаружи без входа (`nov19-public/`); версия 21 ноября на стенде — после обновления, «Приёмка после обновления» в `DEPLOYMENT.md` проходит человек |
 | REQ-02 | Адекватный и масштабируемый стек | `docs/ARCHITECTURE.md`, `docs/ai/DECISIONS.md` | Локальный замер `scripts/load-test.mjs` → `docs/evidence/load-2026-11-21/` (около 2 750 запросов в секунду, 0 ошибок при 10–100 пользователях); на стенде нагрузку не замеряли |
 | REQ-03 | Код пишут ИИ-ассистенты | `docs/PROCESS.md`, `AGENTS.md`, `docs/ai/PROMPTS_LOG.md`, `docs/evidence/*-session.json` | Чтение; история Git — `git log` |
-| REQ-04 | Все основные сценарии от 360 px | `public/css/responsive.css` | `scripts/collect-evidence.py`: наборы на 360 и 1366 px |
+| REQ-04 | Все основные сценарии от 360 px | `public/css/responsive.css` | `scripts/collect-evidence.py`: наборы на 360 и 1366 px; первый экран входа — ещё 375×548 и 360×640 (`browser-mobile-entry.py`); Safari на iPhone SE в симуляторе iOS — `docs/evidence/ios-simulator-2026-11-22/` |
 | REQ-05 | Только вымышленные данные, без систем вуза | `server/seed/data.js`, `server/seed/seed.js` | Вручную: чтение сида (инвариант 12) |
 | REQ-06 | Понятно, что это концепт | `public/js/app.js` (`paintConcept`), подвал, пометка на образце справки (`public/js/views/requests.js`) | Вручную: любой экран кабинета |
 | REQ-07 | Без логотипа вуза | `public/img/logo.svg`, `public/js/art/logo.js` | Вручную |
