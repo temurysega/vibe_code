@@ -33,18 +33,33 @@ def stamp():
     return datetime.now(MSK).isoformat(timespec='seconds')
 
 
+HOME = str(Path.home())
+
+
+def portable(value):
+    """Журналы публичны: корень проекта → <project>, домашняя папка → ~ (без имени пользователя, E-35)."""
+    if isinstance(value, dict):
+        return {key: portable(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [portable(item) for item in value]
+    if not isinstance(value, str):
+        return value
+    value = value.replace(str(ROOT), '<project>')
+    return value.replace(HOME, '~') if len(HOME) > 3 else value
+
+
 def run(command, name, env):
     started = stamp()
     result = subprocess.run(command, cwd=ROOT, env=env, stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT, encoding='utf-8', errors='replace', timeout=240)
-    output = result.stdout.replace(str(ROOT), '<project>')
-    journal = f'Command: {subprocess.list2cmdline(command)}\nStarted (MSK): {started}\nFinished (MSK): {stamp()}\nExit code: {result.returncode}\n\n{output}'
+    output = portable(result.stdout)
+    journal = f'Command: {portable(subprocess.list2cmdline(command))}\nStarted (MSK): {started}\nFinished (MSK): {stamp()}\nExit code: {result.returncode}\n\n{output}'
     (OUT / f'{name}.txt').write_text(journal, encoding='utf-8', newline='\n')
     print(f'{name}: exit {result.returncode}', flush=True)
     if result.returncode:
         print(output[-10000:], flush=True)
         raise RuntimeError(f'{name} failed; see {OUT / (name + ".txt")}')
-    return {'command': command, 'started_msk': started, 'finished_msk': stamp(),
+    return {'command': portable([str(part) for part in command]), 'started_msk': started, 'finished_msk': stamp(),
             'exit_code': result.returncode, 'journal': f'{name}.txt'}, output
 
 
@@ -101,7 +116,7 @@ try:
                     stage, _ = run([sys.executable, str(script), base], name, env)
                     report_name = 'browser-results' if name == 'browser-smoke' else name
                     report_path = OUT / f'{report_name}.json'
-                    report = json.loads(report_path.read_text(encoding='utf-8'))
+                    report = portable(json.loads(report_path.read_text(encoding='utf-8')))
                     # Keep committed evidence identical across Windows and Unix.
                     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
                     stage.update({'checks': len(report['checks']),
