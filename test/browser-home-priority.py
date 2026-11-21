@@ -79,7 +79,10 @@ try:
                 check('360: both shortcuts fit above the bottom navigation', positions[-1]['bottom'] <= page.locator('#tabbar').bounding_box()['y'])
                 page.screenshot(path=str(OUT / '360-home-priority.png'), animations='disabled', style='#toast-root {visibility:hidden}')
                 day.locator('summary').focus()
+                # Событие toggle приходит асинхронно: ждём его, иначе смена ширины ниже опередит обработчик страницы
+                page.evaluate('''() => { window.__dayToggled = new Promise((r) => document.querySelector('[data-sec="day"]').addEventListener('toggle', r, {once: true})); }''')
                 page.keyboard.press('Enter')
+                page.evaluate('() => window.__dayToggled')
                 expect(day).to_have_attribute('open', '')
                 visible = sorted(day.locator('.day-item:visible').evaluate_all('(els) => els.map(el => el.dataset.dayLesson)'))
                 next_key = payload['next']['key'] if payload['next'] else None
@@ -91,6 +94,8 @@ try:
                 expect(day.locator('.day-item:visible')).to_have_count(len(expected))
                 check('Resize: desktop restores the complete day without losing any lesson', True)
                 page.set_viewport_size({'width': 360, 'height': 800})
+                # Смена медиазапроса доходит до страницы в следующем кадре: ждём его, иначе пробел опередит перестройку блока
+                page.evaluate('() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)))')
                 expect(day).to_have_attribute('open', '')
                 day.locator('summary').focus()
                 page.keyboard.press('Space')
