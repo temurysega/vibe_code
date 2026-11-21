@@ -84,4 +84,4 @@ with sync_playwright() as p:
     card(page, 'browser-results', 'Один кабинет на телефоне и компьютере', 'Журнал браузерных сценариев', content,
          'Скриншоты приложения и машиночитаемые JSON-отчёты приложены к документу')
     browser.close()
-print(f'Rendered {len(prompts) + 3} evidence cards in docs/evidence/process')
+print('Rendered 3 evidence cards in docs/evidence/process')
