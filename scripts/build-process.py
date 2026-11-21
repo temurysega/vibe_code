@@ -120,9 +120,9 @@ attachments += sorted((DOCS / 'evidence/deployment/finalization-browser').glob('
 for run in ['finalization-first-attempt', 'finalization-schedule-attempt', 'finalization-first-actions-attempt', 'finalization-first-actions-retry']:
     attachments += sorted((DOCS / 'evidence' / run).glob('*.json'))
     attachments += sorted((DOCS / 'evidence' / run).glob('*.txt'))
-# Итоговая версия 21 ноября: журналы прогона из чистой копии, замер нагрузки и текст поручения
-attachments += sorted((DOCS / 'evidence/release-1121-final').glob('*.txt'))
-attachments += sorted((DOCS / 'evidence/release-1121-final').glob('*.json'))
+# Итоговая версия 22 ноября: журналы прогона из чистой копии, замер нагрузки и текст поручения
+attachments += sorted((DOCS / 'evidence/release-1122').glob('*.txt'))
+attachments += sorted((DOCS / 'evidence/release-1122').glob('*.json'))
 attachments += sorted((DOCS / 'evidence/load-2026-11-21').glob('*.json'))
 attachments += [DOCS / 'evidence/review-2026-11-21/prompt.md']
 attachments += [DOCS / 'evidence/deployment' / name for name in
