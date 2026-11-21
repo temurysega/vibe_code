@@ -73,6 +73,10 @@ test('параллельные попытки входа не обходят о�
 });
 
 test('сеанс можно отозвать только у себя; просроченная cookie не авторизует', async () => {
+  // Режим без демо: в общем демо-стенде сеансы других посетителей закрывать нельзя (sandboxes.test.js)
+  const mode = process.env.DEMO_MODE;
+  process.env.DEMO_MODE = '0';
+  try {
   const first = client(app.base);
   const second = client(app.base);
   const foreign = client(app.base);
@@ -87,6 +91,9 @@ test('сеанс можно отозвать только у себя; прос�
   const user = app.store.get("SELECT id FROM users WHERE login = 't.aliev'");
   app.store.run('UPDATE sessions SET expires_at = ? WHERE user_id = ?', Date.now() - 1, user.id);
   assert.equal((await foreign.req('GET', '/api/me')).status, 401);
+  } finally {
+    if (mode === undefined) delete process.env.DEMO_MODE; else process.env.DEMO_MODE = mode;
+  }
 });
 
 test('подстановка student_id в теле и query не меняет владельца заявки', async () => {

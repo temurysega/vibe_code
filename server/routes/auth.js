@@ -2,7 +2,7 @@
 import { fail } from '../http/router.js';
 import { str } from '../http/body.js';
 import { verifyPassword, dummyVerify, hashPassword, passwordProblems } from '../security/password.js';
-import { createSession, destroySession, sessionCookie, clearSessionCookie, deviceName, maskIp } from '../security/session.js';
+import { createSession, destroySession, sessionCookie, clearSessionCookie, appendCookie, deviceName, maskIp } from '../security/session.js';
 import { RateLimiter } from '../security/rateLimit.js';
 import { requireUser, publicUser, audit } from '../security/auth.js';
 
@@ -16,6 +16,10 @@ function limited(ctx, keys) {
     if (!c.ok) fail(429, `Слишком много попыток. Попробуйте через ${Math.max(1, Math.ceil(c.retryAfter / 60))} мин.`, { retryAfter: c.retryAfter });
   }
 }
+
+// Общий демо-стенд без отдельных кабинетов: один аккаунт открывают разные проверяющие.
+// Их сеансы не показываются и не закрываются друг у друга; в своём демо-кабинете видны все свои устройства.
+const sharedDemo = (ctx) => process.env.DEMO_MODE !== '0' && !ctx.sandbox;
 
 export default function (router) {
   router.post('/api/auth/login', async (ctx) => {
@@ -46,7 +50,7 @@ export default function (router) {
     const prev = user.last_login_at;
     ctx.store.run('UPDATE users SET last_login_at = ? WHERE id = ?', Date.now(), user.id);
     audit(ctx.store, user.id, 'login', null, ctx.ip);
-    ctx.res.setHeader('Set-Cookie', sessionCookie(token));
+    appendCookie(ctx.res, sessionCookie(token));
     return { user: Object.assign(publicUser(ctx.store, user), { lastLogin: prev }), csrf };
   });
 
@@ -60,15 +64,18 @@ export default function (router) {
       destroySession(ctx.store, ctx.session.id);
       audit(ctx.store, ctx.user.id, 'logout', null, ctx.ip);
     }
-    ctx.res.setHeader('Set-Cookie', clearSessionCookie());
+    appendCookie(ctx.res, clearSessionCookie());
     return { ok: true };
   });
 
   // Активные сеансы: видно, откуда входили, и можно закрыть чужой компьютер
   router.get('/api/auth/sessions', (ctx) => {
     requireUser(ctx);
-    const rows = ctx.store.all('SELECT id, created_at, last_seen, ip, ua FROM sessions WHERE user_id = ? ORDER BY last_seen DESC', ctx.user.id);
+    const all = ctx.store.all('SELECT id, created_at, last_seen, ip, ua FROM sessions WHERE user_id = ? ORDER BY last_seen DESC', ctx.user.id);
+    const shared = sharedDemo(ctx);
+    const rows = shared ? all.filter((s) => s.id === ctx.session.id) : all;
     return {
+      shared, hidden: all.length - rows.length,
       sessions: rows.map((s) => ({ id: s.id.slice(0, 16), current: s.id === ctx.session.id, device: deviceName(s.ua), ip: maskIp(s.ip), createdAt: s.created_at, lastSeen: s.last_seen })),
       lastLogin: ctx.user.last_login_at,
       passwordChanged: ctx.user.password_changed_at,
@@ -77,6 +84,7 @@ export default function (router) {
 
   router.delete('/api/auth/sessions/:id', (ctx) => {
     requireUser(ctx);
+    if (sharedDemo(ctx)) fail(403, 'В общем демо нельзя закрывать сеансы других проверяющих');
     const prefix = String(ctx.params.id);
     if (!/^[0-9a-f]{16}$/.test(prefix)) fail(400, 'Некорректный сеанс');
     // Закрыть можно только свой сеанс: условие по user_id не даёт тронуть чужие
@@ -90,6 +98,7 @@ export default function (router) {
 
   router.post('/api/auth/sessions/revoke-others', (ctx) => {
     requireUser(ctx);
+    if (sharedDemo(ctx)) fail(403, 'В общем демо нельзя закрывать сеансы других проверяющих');
     const r = ctx.store.run('DELETE FROM sessions WHERE user_id = ? AND id != ?', ctx.user.id, ctx.session.id);
     audit(ctx.store, ctx.user.id, 'sessions_revoked', String(r.changes), ctx.ip);
     return { closed: Number(r.changes) };
@@ -99,7 +108,7 @@ export default function (router) {
     requireUser(ctx);
     const current = typeof ctx.body.current === 'string' ? ctx.body.current.slice(0, 200) : '';
     const next = typeof ctx.body.next === 'string' ? ctx.body.next : '';
-    const key = `pw|${ctx.user.id}`;
+    const key = `pw|${ctx.sandbox || ''}|${ctx.user.id}`;
     limited(ctx, [[perAccount, key]]);
     const row = ctx.store.get('SELECT password_hash FROM users WHERE id = ?', ctx.user.id);
     const release = perAccount.reserve(key);
