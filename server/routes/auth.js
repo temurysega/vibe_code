@@ -74,10 +74,13 @@ export default function (router) {
     const all = ctx.store.all('SELECT id, created_at, last_seen, ip, ua FROM sessions WHERE user_id = ? ORDER BY last_seen DESC', ctx.user.id);
     const shared = sharedDemo(ctx);
     const rows = shared ? all.filter((s) => s.id === ctx.session.id) : all;
+    // Предыдущий вход — из журнала аудита: на телефоне сообщения о входе нет, это время показывает профиль
+    const prev = ctx.store.get("SELECT created_at FROM audit_log WHERE user_id = ? AND action = 'login' ORDER BY id DESC LIMIT 1 OFFSET 1", ctx.user.id);
     return {
       shared, hidden: all.length - rows.length,
       sessions: rows.map((s) => ({ id: s.id.slice(0, 16), current: s.id === ctx.session.id, device: deviceName(s.ua), ip: maskIp(s.ip), createdAt: s.created_at, lastSeen: s.last_seen })),
       lastLogin: ctx.user.last_login_at,
+      prevLogin: prev ? prev.created_at : null,
       passwordChanged: ctx.user.password_changed_at,
     };
   });

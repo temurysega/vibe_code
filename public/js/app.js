@@ -286,7 +286,7 @@ const app = {
     location.hash = homeOf();
     setTimeout(() => {
       if (session.user !== user || sessionReloading) return;
-      // На телефоне сообщение о входе перекрывало бы первую карточку — прошлый вход виден в профиле
+      // На телефоне сообщение о входе перекрывало бы первую карточку — время предыдущего входа есть в профиле, в карточке «Безопасность»
       if (!matchMedia('(max-width: 720px)').matches) toast(`Вы вошли как ${esc(user.name)}${user.lastLogin ? ` · прошлый вход ${esc(when(user.lastLogin))}` : ''}`, { icon: 'user', ms: 3600 });
       if (isStudent() && session.play && !session.play.steps.onboarded) import('./views/onboarding.js').then((m) => m.openOnboarding());
     }, 350);

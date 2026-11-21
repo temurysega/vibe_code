@@ -96,6 +96,20 @@ test('сеанс можно отозвать только у себя; прос�
   }
 });
 
+test('профиль знает время предыдущего входа: на телефоне сообщения о входе нет', async () => {
+  const user = app.store.get("SELECT id FROM users WHERE login = 'k.lebedeva'");
+  app.store.run("DELETE FROM audit_log WHERE user_id = ? AND action = 'login'", user.id);
+  const first = client(app.base);
+  await first.login('k.lebedeva');
+  assert.equal((await first.req('GET', '/api/auth/sessions')).data.prevLogin, null, 'первый вход — предыдущего нет');
+  const loggedAt = app.store.get("SELECT created_at FROM audit_log WHERE user_id = ? AND action = 'login' ORDER BY id DESC LIMIT 1", user.id).created_at;
+  const second = client(app.base);
+  await second.login('k.lebedeva');
+  const data = (await second.req('GET', '/api/auth/sessions')).data;
+  assert.equal(data.prevLogin, loggedAt, 'предыдущий — время первого входа');
+  assert.ok(data.lastLogin >= data.prevLogin);
+});
+
 test('подстановка student_id в теле и query не меняет владельца заявки', async () => {
   const c = client(app.base);
   await c.login('t.aliev');

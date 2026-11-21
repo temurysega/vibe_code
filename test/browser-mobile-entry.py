@@ -1,4 +1,4 @@
-"""Первый экран входа и уведомление о входе на телефоне (аудит П-28) на изолированном сервере."""
+"""Первый экран входа (аудит П-28) и сообщение о входе: на компьютере — всплывающее, на телефоне — в профиле."""
 import json
 import os
 from pathlib import Path
@@ -47,24 +47,34 @@ with sync_playwright() as p:
         check(f'{width}x{height}: concept marking and title stay', page.locator('#concept').is_visible() and page.locator('.auth-title').is_visible())
         check(f'{width}x{height}: login has no horizontal scroll', page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'))
 
-        if width in (360, 1366):
+        if width == 360:
+            # На телефоне сообщение о входе закрывало бы первую карточку (рецензия 21 ноября): его нет,
+            # а время предыдущего входа показывает профиль в карточке «Безопасность»
+            login(page, 'a.morozova')
+            page.wait_for_timeout(1500)
+            check('360: no sign-in notice over the first card on a phone', notice(page).count() == 0)
+            ctx.clear_cookies()
+            page.evaluate('sessionStorage.clear(); localStorage.clear()')
+            login(page, 'a.morozova')
+            page.goto(BASE + '/#/profile')
+            security = page.locator('#security')
+            security.wait_for()
+            text = security.inner_text()
+            check('360: profile shows the previous sign-in time', 'предыдущий:' in text and 'предыдущий: не было' not in text)
+        if width == 1366:
             login(page, 'a.morozova')
             notice(page).wait_for()
-            check(f'{width}: sign-in notice is announced via aria-live', page.locator('#toast-root').get_attribute('aria-live') == 'polite'
+            check('1366: sign-in notice is announced via aria-live', page.locator('#toast-root').get_attribute('aria-live') == 'polite'
                   and 'Вы вошли' in notice(page).inner_text())
-            if width == 360:
-                notice(page).click()
-                page.wait_for_timeout(500)
-                check('360: tapping the notice dismisses it', notice(page).count() == 0)
             # второй вход: сообщение «прошлый вход» остаётся
             page.wait_for_timeout(4000)
             ctx.clear_cookies()
             page.evaluate('sessionStorage.clear(); localStorage.clear()')
             login(page, 'a.morozova')
             notice(page).wait_for()
-            check(f'{width}: previous-login message is still shown', 'прошлый вход' in notice(page).inner_text())
-            page.wait_for_timeout(3200 if width == 360 else 4200)
-            check(f'{width}: notice leaves on its own (3.2 s on phone, 4.2 s on desktop)', notice(page).count() == 0)
+            check('1366: previous-login message is still shown', 'прошлый вход' in notice(page).inner_text())
+            page.wait_for_timeout(4200)
+            check('1366: notice leaves on its own after 4.2 s', notice(page).count() == 0)
         ctx.close()
     browser.close()
 
