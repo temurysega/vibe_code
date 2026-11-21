@@ -1,0 +1,59 @@
+{
+  "measured_at": "2026-11-21T17:09:21.395Z",
+  "base": "http://127.0.0.1:3400",
+  "users": 10,
+  "seconds": 20,
+  "machine": {
+    "cpu": "Apple M3",
+    "cores": 8,
+    "memory_gb": 16,
+    "node": "v22.23.3"
+  },
+  "requests": 55171,
+  "requests_per_second": 2758,
+  "errors": 0,
+  "error_kinds": {},
+  "latency_ms": {
+    "p50": 3.2,
+    "p95": 6.9,
+    "p99": 8.4,
+    "max": 45.3
+  },
+  "by_endpoint": {
+    "/api/home": {
+      "requests": 9931,
+      "p50": 3.9,
+      "p95": 7.6
+    },
+    "/api/schedule": {
+      "requests": 9931,
+      "p50": 3,
+      "p95": 6.7
+    },
+    "/api/grades": {
+      "requests": 9930,
+      "p50": 3.2,
+      "p95": 6.8
+    },
+    "/api/notifications": {
+      "requests": 9932,
+      "p50": 3.1,
+      "p95": 6.7
+    },
+    "/api/requests": {
+      "requests": 9931,
+      "p50": 2.9,
+      "p95": 6.5
+    },
+    "/api/dean/overview": {
+      "requests": 2758,
+      "p50": 3.1,
+      "p95": 7.1
+    },
+    "/api/dean/requests": {
+      "requests": 2758,
+      "p50": 3.2,
+      "p95": 7.2
+    }
+  }
+}
