@@ -12,6 +12,8 @@ services:
       TRUST_PROXY: ${TRUST_PROXY:-0}
       DB_FILE: /data/mgimo.db
       DEMO_RESEED_HOURS: "0"
+      DEMO_SANDBOXES: "1"
+      SANDBOX_DIR: /data/sandboxes
       OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
       OPENROUTER_MODEL: ${OPENROUTER_MODEL:-openrouter/free}
     volumes:

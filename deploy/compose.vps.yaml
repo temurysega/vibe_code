@@ -17,6 +17,9 @@ services:
       TRUST_PROXY: "1"
       DB_FILE: /data/mgimo.db
       DEMO_RESEED_HOURS: "0"
+      # Каждому проверяющему — свой демо-кабинет на том же постоянном томе
+      DEMO_SANDBOXES: "1"
+      SANDBOX_DIR: /data/sandboxes
       OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
       OPENROUTER_MODEL: ${OPENROUTER_MODEL:-openrouter/free}
       AI_TIMEOUT_MS: "15000"
