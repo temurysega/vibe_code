@@ -1,0 +1,35 @@
+Command: <venv>/bin/python <project>/test/browser-review-fixes.py http://127.0.0.1:52016
+Started (MSK): 2026-11-21T20:23:39+03:00
+Finished (MSK): 2026-11-21T20:24:13+03:00
+Exit code: 0
+
+PASS play API answers 503: sign-in still opens the study home
+PASS play API answers 503: schedule opens and the header has no broken coins or avatar
+PASS first sign-in creates a personal demo cabinet
+PASS «Ещё» → «Ваш демо-кабинет» shows a link to the same cabinet
+PASS a duplicate request opens the existing one instead of creating a copy
+PASS another reviewer gets a different cabinet
+PASS another reviewer cannot open the first reviewer's request
+PASS the link opens the same cabinet: the dean sees the reviewer's request
+PASS search «2026/01212» finds exactly this request
+PASS search «1212» finds exactly this request
+PASS search for a missing number says so instead of an empty queue
+PASS the request number is a direct link that opens only this request
+PASS the comment field has a visible label with the request number
+PASS while typing, the 10-second refresh keeps the text and the focus
+PASS after the focus leaves, the refresh repaints the queue and keeps the unsent comment
+PASS 360: «Скачать PDF» is the first action on the certificate page
+PASS 360: the certificate downloads as a PDF file
+PASS PDF: Cyrillic text is real text, with the student, the place and the sample mark
+PASS PDF: the verification link leads to the same demo cabinet
+PASS a person without an account opens the link from the PDF and sees the certificate is valid
+PASS a schedule change notification carries a link to the date and pair
+PASS one tap opens the changed lesson with its details
+PASS schedule: after the last lesson or on a day off, the page says so and names the nearest lesson
+PASS tour: no auto-advance — after 6 s the first step is still shown
+PASS tour: «Дальше», «Назад» and «Закрыть» work
+PASS grades: arrow keys switch semesters and keep the focus on the selected tab
+PASS session: admission is called a forecast, with when the dean sets the real one
+PASS assistant: «Какая у меня группа?» is answered from the profile
+PASS Review fixes: no uncaught JavaScript errors
+{"checks": 29, "failed": []}

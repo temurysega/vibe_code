@@ -1,0 +1,75 @@
+{
+  "checks": [
+    {
+      "check": "360x800: first test account fully visible without scrolling",
+      "passed": true
+    },
+    {
+      "check": "360x800: concept marking and title stay",
+      "passed": true
+    },
+    {
+      "check": "360x800: login has no horizontal scroll",
+      "passed": true
+    },
+    {
+      "check": "360: no sign-in notice over the first card on a phone",
+      "passed": true
+    },
+    {
+      "check": "360: profile shows the previous sign-in time",
+      "passed": true
+    },
+    {
+      "check": "390x844: first test account fully visible without scrolling",
+      "passed": true
+    },
+    {
+      "check": "390x844: concept marking and title stay",
+      "passed": true
+    },
+    {
+      "check": "390x844: login has no horizontal scroll",
+      "passed": true
+    },
+    {
+      "check": "1366x768: desktop hero keeps the crowd illustration",
+      "passed": true
+    },
+    {
+      "check": "1366x768: concept marking and title stay",
+      "passed": true
+    },
+    {
+      "check": "1366x768: login has no horizontal scroll",
+      "passed": true
+    },
+    {
+      "check": "1366: sign-in notice is announced via aria-live",
+      "passed": true
+    },
+    {
+      "check": "1366: previous-login message is still shown",
+      "passed": true
+    },
+    {
+      "check": "1366: notice leaves on its own after 4.2 s",
+      "passed": true
+    }
+  ],
+  "measurements": [
+    {
+      "viewport": "360x800",
+      "first_account_bottom": 730
+    },
+    {
+      "viewport": "390x844",
+      "first_account_bottom": 730
+    },
+    {
+      "viewport": "1366x768",
+      "first_account_bottom": 587
+    }
+  ],
+  "browser_errors": []
+}
