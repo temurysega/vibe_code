@@ -175,7 +175,7 @@ export default function (router) {
     );
     const d = new Date(date + 'T12:00:00Z').toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', weekday: 'short', timeZone: 'UTC' });
     notify(ctx.store, {
-      audience: 'group', audienceId: g.code, kind: 'schedule', important: type === 'cancel' ? 1 : 0, link: '#/schedule', author: `Деканат ${ctx.staff.faculty.short}`,
+      audience: 'group', audienceId: g.code, kind: 'schedule', important: type === 'cancel' ? 1 : 0, link: `#/schedule/${date}/${it.pair}`, author: `Деканат ${ctx.staff.faculty.short}`,
       title: type === 'cancel' ? `${it.short}, ${d}: пара отменена` : `${it.short}, ${d}: аудитория ${room} вместо ${it.room}`, body: reason,
     });
     counted();

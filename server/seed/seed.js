@@ -217,7 +217,7 @@ export async function seed(store) {
         move: `${name}: перенос с ${d} на ${newDate && new Date(newDate + 'T12:00:00Z').toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', weekday: 'short', timeZone: 'UTC' })}, ${opts.newPair} пара`,
         teacher: `${name}, ${d}: замена преподавателя`,
       }[type];
-      notify(store, { audience: 'group', audienceId: group, kind: 'schedule', important: type === 'cancel' || type === 'move' ? 1 : 0, title: text, body: opts.reason, link: '#/schedule', author: 'Учебный офис', at: ago(hoursAgo) });
+      notify(store, { audience: 'group', audienceId: group, kind: 'schedule', important: type === 'cancel' || type === 'move' ? 1 : 0, title: text, body: opts.reason, link: `#/schedule/${date}/${l.pair}`, author: 'Учебный офис', at: ago(hoursAgo) });
     };
     change('МО-25-03', 'МО-25-03|Теория МО|lecture', 'room', { room: '3047', reason: 'В ауд. 1023 меняют проектор' }, 3);
     change('МО-25-03', 'МО-25-03|Английский|language', 'teacher', { teacher: 'melnikova', reason: 'Кларк А. В. на стажировке — занятие проведёт Мельникова С. И.' }, 20);
@@ -228,7 +228,7 @@ export async function seed(store) {
       const d = nextOccurrence({ weekday: 4, parity: 'all' }, addDays(today, 1));
       store.run(`INSERT INTO schedule_changes (group_code, date, pair, type, discipline_id, kind, room, teacher_id, reason, author, created_at) VALUES (?, ?, 6, 'extra', ?, 'consult', '2007', ?, ?, 'Учебный офис', ?)`,
         'МО-25-03', d, PLAN['МО-25-03'][0].id, T.sokolov, 'Консультация перед контрольной по истории МО', ago(8));
-      notify(store, { audience: 'group', audienceId: 'МО-25-03', kind: 'schedule', title: 'Дополнительная консультация по истории МО', body: `${new Date(d + 'T12:00:00Z').toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', weekday: 'long', timeZone: 'UTC' })}, 6 пара, ауд. 2007`, link: '#/schedule', author: 'Соколов П. А.', at: ago(8) });
+      notify(store, { audience: 'group', audienceId: 'МО-25-03', kind: 'schedule', title: 'Дополнительная консультация по истории МО', body: `${new Date(d + 'T12:00:00Z').toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', weekday: 'long', timeZone: 'UTC' })}, 6 пара, ауд. 2007`, link: `#/schedule/${d}/6`, author: 'Соколов П. А.', at: ago(8) });
     }
     change('МЭО-26-07', 'МЭО-26-07|Математика|seminar', 'room', { room: '1050', reason: 'Аудитория 1044 занята под олимпиаду' }, 5);
     change('МЭО-26-07', 'МЭО-26-07|Эк. история|lecture', 'cancel', { offset: 1, reason: 'Пара переносится на консультацию перед зачётом' }, 30);
@@ -240,7 +240,7 @@ export async function seed(store) {
     N('all', null, 'news', 'Зимняя сессия: опубликовано расписание экзаменов', 'Даты, аудитории и консультации — в разделе «Успеваемость» → «Сессия». Допуск виден там же', '#/grades/session', 50, 1, 'Учебное управление');
     N('all', null, 'news', 'Справки теперь онлайн — за день', 'Справку об обучении можно заказать в кабинете: электронная придёт с кодом для проверки подлинности', '#/requests/new/study', 150, 0, 'Деканаты');
     N('all', null, 'news', 'Открыт приём заявок на обмен — весна 2027', 'Подайте заявку в разделе «Заявки». Понадобится выписка оценок на английском — её тоже можно заказать онлайн', '#/requests/new/exchange', 75, 0, 'Отдел академической мобильности');
-    N('all', null, 'news', 'Модель ООН: регистрация делегатов', 'Комитеты Совбеза, ЭКОСОС и МАГАТЭ. Регистрация открыта до завтра, 18:00', '#/campus', 20, 0, 'Клуб «Модель ООН»');
+    N('all', null, 'news', 'Модель ООН: регистрация делегатов', `Комитеты Совбеза, ЭКОСОС и МАГАТЭ. Регистрация открыта до ${new Date(addDays(today, 1) + 'T12:00:00Z').toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', timeZone: 'UTC' })}, 18:00`, '#/campus', 20, 0, 'Клуб «Модель ООН»');
     N('faculty', 'mo', 'news', 'Встреча с деканом для 2 курса', `${new Date(workday(addDays(today, 3)) + 'T12:00:00Z').toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', timeZone: 'UTC' })} в 15:20, ауд. 1001. Вопросы можно прислать заранее`, '#/notifications', 5, 0, 'Деканат МО');
     N('group', 'МО-25-03', 'news', 'Арабский язык: занятия весь ноябрь — в ауд. 4031', 'Кафедра закрепила за группой аудиторию на четвёртом этаже', '#/schedule', 60, 0, 'Кафедра востоковедения');
     N('faculty', 'meo', 'news', 'Посвящение в студенты МЭО', 'В субботу в 15:00, актовый зал. Первокурсники, ждём всех!', '#/notifications', 30, 0, 'Студсовет МЭО');
