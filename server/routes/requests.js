@@ -6,6 +6,10 @@ import { requireStudent } from '../security/auth.js';
 import { catalogFor, createRequest, setStatus, applyPlans, publicRequest, typeOf, stipendForRequest } from '../domain/requests.js';
 import { semesterOf, msk } from '../domain/time.js';
 import * as play from '../domain/play.js';
+import { RateLimiter } from '../security/rateLimit.js';
+
+// Публичная проверка подлинности: не больше 40 запросов за 10 минут с одного адреса
+export const verifyLimit = new RateLimiter({ windowMs: 10 * 60e3, max: 40 });
 
 function own(ctx) {
   const id = int(ctx.params.id, 1, 1e9);
@@ -69,8 +73,12 @@ export default function (router) {
 
   // Проверка подлинности справки по коду: открыта всем, но раскрывает только инициалы
   router.get('/api/verify/:code', (ctx) => {
-    const code = String(ctx.params.code || '').toUpperCase();
-    if (!/^[0-9A-F]{8}$/.test(code)) fail(404, 'Документ не найден');
+    const c = verifyLimit.check(ctx.ip);
+    if (!c.ok) fail(429, 'Слишком много проверок подряд. Попробуйте через несколько минут', { retryAfter: c.retryAfter });
+    verifyLimit.hit(ctx.ip);
+    // Новые справки получают 16-значный код; 8-значные коды прежних справок тоже проверяются
+    const code = String(ctx.params.code || '').toUpperCase().replace(/[^0-9A-F]/g, '');
+    if (!/^(?:[0-9A-F]{8}|[0-9A-F]{16})$/.test(code)) fail(404, 'Документ не найден');
     const r = ctx.store.get("SELECT r.number, r.title, r.status, r.updated_at, s.last_name, s.first_name, s.middle_name FROM requests r JOIN students s ON s.id = r.student_id WHERE r.verify_code = ? AND r.status IN ('ready', 'issued')", code);
     if (!r) fail(404, 'Документ не найден');
     const ini = [r.first_name, r.middle_name, r.last_name].filter(Boolean).map((x) => x[0] + '.').join(' ');
