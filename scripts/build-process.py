@@ -130,6 +130,7 @@ attachments += [DOCS / 'evidence/review-2026-11-21/prompt.md', DOCS / 'evidence/
 attachments += sorted((DOCS / 'evidence/review-2026-11-22').glob('sandboxes-*.txt'))
 attachments += [DOCS / 'evidence/survey-2026-11-22/responses.csv', DOCS / 'evidence/survey-2026-11-22/summary.json']
 attachments += [DOCS / 'evidence/survey-repeat-2026-11-22/responses.csv', DOCS / 'evidence/survey-repeat-2026-11-22/repeat.json']
+attachments += [DOCS / 'evidence/survey-final-2026-11-22/responses.csv', DOCS / 'evidence/survey-final-2026-11-22/final.json']
 attachments += [DOCS / 'evidence/deployment' / name for name in
                 ['openrouter-live.json', 'assistant-browser-live.json', 'production-persistence.json', 'migration-deployed.json']]
 for attachment in attachments:
