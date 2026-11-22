@@ -7,7 +7,7 @@
 ## Где мы
 - Этап: подача на конкурс. Версия **1.1.1** (`public/js/shared/release.js`, `package.json`); стенд ещё на сборке 19 ноября (`babcd1d`).
 - Последний полный зелёный прогон — из чистой копии (`git clone`, `npm ci`):
-  `docs/evidence/release-1.1.0/run-summary.json` — 115/115 автотестов, 599/599 браузерных проверок в 18 наборах (код `1c65b31`).
+  `docs/evidence/release-1.1.1/run-summary.json` — 115/115 автотестов, 604/604 браузерных проверок в 18 наборах (код `f6419db`).
 - Стенд: https://ai.neblanki.tech — `review-d7a91e220757` (код `babcd1d`), 19 ноября. Изменения 21 ноября появятся
   после обновления по `docs/DEPLOYMENT.md` (нужны `DEMO_SANDBOXES=1` и `SANDBOX_DIR`, они уже в `deploy/compose.vps.yaml`).
 - Репозиторий https://github.com/temurysega/vibe_code открыт автором 19 ноября.
