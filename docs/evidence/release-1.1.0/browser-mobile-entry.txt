@@ -1,0 +1,26 @@
+Command: <venv>/bin/python <project>/test/browser-mobile-entry.py http://127.0.0.1:59666
+Started (MSK): 2026-11-22T16:41:52+03:00
+Finished (MSK): 2026-11-22T16:42:08+03:00
+Exit code: 0
+
+PASS 360x800: first test account fully visible without scrolling
+PASS 360x800: concept marking and title stay
+PASS 360x800: login has no horizontal scroll
+PASS 360: no sign-in notice over the first card on a phone
+PASS 360: profile shows the previous sign-in time
+PASS 390x844: first test account fully visible without scrolling
+PASS 390x844: concept marking and title stay
+PASS 390x844: login has no horizontal scroll
+PASS 375x548: first test account fully visible without scrolling
+PASS 375x548: concept marking and title stay
+PASS 375x548: login has no horizontal scroll
+PASS 360x640: first test account fully visible without scrolling
+PASS 360x640: concept marking and title stay
+PASS 360x640: login has no horizontal scroll
+PASS 1366x768: desktop hero keeps the crowd illustration
+PASS 1366x768: concept marking and title stay
+PASS 1366x768: login has no horizontal scroll
+PASS 1366: sign-in notice is announced via aria-live
+PASS 1366: previous-login message is still shown
+PASS 1366: notice leaves on its own after 4.2 s
+20/20 checks passed
