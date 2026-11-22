@@ -60,9 +60,15 @@ export default function (router) {
 
   router.post('/api/requests', requireStudent, (ctx) => {
     const id = createRequest(ctx.store, ctx.student, ctx.student.faculty, ctx.body);
-    const s = play.load(ctx.store, ctx.student.id);
-    s.pet.growth += 1;
-    play.save(ctx.store, ctx.student.id, s);
+    // Игровой слой не мешает учёбе: сбой записи прогресса не отменяет уже сохранённую заявку,
+    // студент получает её номер и статус
+    try {
+      const s = play.load(ctx.store, ctx.student.id);
+      s.pet.growth += 1;
+      play.save(ctx.store, ctx.student.id, s);
+    } catch (e) {
+      console.error('Игровой прогресс не записан:', e.message);
+    }
     const r = ctx.store.get('SELECT * FROM requests WHERE id = ?', id);
     ctx.status = 201;
     return { request: publicRequest(ctx.store, r, ctx.student.faculty) };

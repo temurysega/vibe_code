@@ -201,10 +201,11 @@ export default {
         try {
           const r = await post('/api/requests', body);
           types = null;
-          fx.confetti({ n: 90 });
-          toast(`Заявка № ${esc(r.request.number)} отправлена — статус придёт уведомлением`, { icon: 'send', ms: 4500 });
-          get('/api/play').then((p) => setPlay(p.play)).catch(() => {});
+          // Заявка сохранена: сразу открываем её номер и статус. Украшения и игровой слой — после и без влияния
           location.hash = `#/requests/${r.request.id}`;
+          toast(`Заявка № ${esc(r.request.number)} отправлена — статус придёт уведомлением`, { icon: 'send', ms: 4500 });
+          try { fx.confetti({ n: 90 }); } catch (e) { /* салют не обязателен */ }
+          get('/api/play').then((p) => setPlay(p.play)).catch(() => {});
         } catch (er) {
           btn.disabled = false;
           btn.innerHTML = `${icon('send', 18)} Отправить в деканат`;

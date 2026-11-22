@@ -110,6 +110,25 @@ test('профиль знает время предыдущего входа: н
   assert.ok(data.lastLogin >= data.prevLogin);
 });
 
+test('сбой игрового слоя не мешает отправить заявку: номер и статус приходят сразу', async () => {
+  const c = client(app.base);
+  await c.login('a.morozova');
+  const u = app.store.get("SELECT student_id FROM users WHERE login = 'a.morozova'");
+  // Игровой профиль недоступен: запись прогресса после заявки падает
+  const saved = app.store.get('SELECT * FROM play_state WHERE student_id = ?', u.student_id);
+  app.store.run('DELETE FROM play_state WHERE student_id = ?', u.student_id);
+  try {
+    const r = await c.req('POST', '/api/requests', { type: 'study', delivery: 'electronic', lang: 'ru', fields: { place: 'Проверка без игры', copies: 1 } });
+    assert.equal(r.status, 201);
+    assert.match(r.data.request.number, /^\d{4}\/\d{5}$/);
+    assert.equal(r.data.request.status, 'submitted');
+    const list = (await c.req('GET', '/api/requests')).data.requests;
+    assert.equal(list.filter((x) => x.payload.place === 'Проверка без игры').length, 1, 'заявка сохранена один раз');
+  } finally {
+    app.store.run('INSERT INTO play_state (student_id, state, updated_at) VALUES (?, ?, ?)', saved.student_id, saved.state, saved.updated_at);
+  }
+});
+
 test('подстановка student_id в теле и query не меняет владельца заявки', async () => {
   const c = client(app.base);
   await c.login('t.aliev');
