@@ -6,10 +6,13 @@ import { icon } from '../ui/icons.js';
 import { modal } from '../ui/overlay.js';
 import { replaceKeepingFocus } from '../ui/focus.js';
 import { skeleton, errorBox, lessonState, changeTag, changeLine, teacherModal, KIND_ICON } from './common.js';
+import { todayState, todayHead } from '../shared/today.js';
 
 let week = null;
 let picked = null;
 let advancedToNextWeek = false;
+// Сегодняшний день из текущей недели: нужен и тогда, когда экран сам перешёл на следующую неделю
+let todayDay = null;
 let changesOpen = false;
 
 // Отменённая или уже завершённая пара не определяет день, который нужен студенту первым.
@@ -52,16 +55,16 @@ function dayCol(d, now) {
   </section>`;
 }
 
-// Явное «Сегодня»: после окончания пар и в выходной — что сегодня и какое занятие ближайшее
+// Явное «Сегодня»: после окончания пар и в выходной — что сегодня и какое занятие ближайшее.
+// Отличаем день без занятий от дня, где занятия уже прошли (рецензия 22 ноября, п. 4)
 function todayNote(w, now) {
-  const today = w.days.find((d) => d.date === now.date);
+  const today = w.days.find((d) => d.date === now.date) || (todayDay && todayDay.date === now.date ? todayDay : null);
   if (!today && !advancedToNextWeek) return '';
-  const active = today ? today.items.filter((x) => !['cancelled', 'moved'].includes(x.status)) : [];
-  if (active.some((x) => lessonState(x, now) !== 'past')) return '';
+  const head = todayHead(todayState(today, now));
+  if (!head) return '';
   const nd = nextStudyDay(w, now);
   const first = nd && nd.items.find((x) => !['cancelled', 'moved'].includes(x.status) && lessonState(x, now) !== 'past');
-  const head = today && today.holiday ? `Сегодня пар нет — ${esc(today.holiday.toLowerCase())}` : active.length ? 'Сегодня занятия закончились' : 'Сегодня пар нет';
-  return `<div class="note today-note mt-12" role="status">${icon('calendar', 18)}<span><b style="font-weight:500">${head}</b>${first ? `<br>Ближайшее занятие — ${esc(first.discipline)}, ${esc(relDay(nd.date))}, ${first.start}, ${/^\d+$/.test(first.room) ? 'ауд. ' : ''}${esc(first.room)}` : ''}</span></div>`;
+  return `<div class="note today-note mt-12" role="status">${icon('calendar', 18)}<span><b style="font-weight:500">${esc(head)}</b>${first ? `<br>Ближайшее занятие — ${esc(first.discipline)}, ${esc(relDay(nd.date))}, ${first.start}, ${/^\d+$/.test(first.room) ? 'ауд. ' : ''}${esc(first.room)}` : ''}</span></div>`;
 }
 
 function body() {
@@ -138,6 +141,7 @@ export default {
     changesOpen = false;
     try {
       week = await get('/api/schedule' + q);
+      todayDay = week.days.find((d) => d.date === mskNow().date) || null;
       if (!q && !nextStudyDay(week, mskNow())) {
         week = await get('/api/schedule?week=' + isoWeekOf(week.next));
         advancedToNextWeek = true;
