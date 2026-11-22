@@ -8,6 +8,7 @@ import { countUp } from './ui/fx.js';
 import { logoMark, wordmark, APP_NAME } from './art/logo.js';
 import { ava } from './art/avatar.js';
 import { announceSessionChange, onSessionChange } from './lib/session-sync.js';
+import { RELEASE } from './shared/release.js';
 
 // Разделы подгружаются по требованию: телефону не нужно качать весь кабинет сразу
 const VIEWS = {
@@ -110,7 +111,7 @@ function sandboxModal() {
 }
 
 function paintFoot() {
-  $foot.innerHTML = `<div class="container"><span><b>${APP_NAME}</b> — концепт личного кабинета студента для конкурса. Не является официальным сервисом МГИМО; знак — собственный, не логотип вуза. Все люди и данные вымышлены.</span><span>Шрифт Onest — SIL Open Font License 1.1</span></div>`;
+  $foot.innerHTML = `<div class="container"><span><b>${APP_NAME}</b> — концепт личного кабинета студента для конкурса. Не является официальным сервисом МГИМО; знак — собственный, не логотип вуза. Все люди и данные вымышлены.</span><span>Версия ${RELEASE.version} от ${RELEASE.label} · шрифт Onest — SIL Open Font License 1.1</span></div>`;
 }
 
 function paintChrome(route) {

@@ -285,10 +285,11 @@ test('кабинет виден только наполненным, а выте
   }
 });
 
-test('проверка готовности: наполненная база — 200, пустая — 503', async () => {
+test('проверка готовности: наполненная база — 200 и версия выпуска, пустая — 503', async () => {
   const ok = await browser(stand.base).req('GET', '/api/health');
   assert.equal(ok.status, 200);
   assert.equal(ok.data.ok, true);
+  assert.match(ok.data.version, /^\d+\.\d+\.\d+$/);
   const empty = await startApp({ seedData: false });
   try {
     assert.equal((await client(empty.base).req('GET', '/api/health')).status, 503);

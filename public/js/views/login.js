@@ -6,6 +6,7 @@ import { esc } from '../lib/format.js';
 import { icon } from '../ui/icons.js';
 import { logoMark, wordmark } from '../art/logo.js';
 import { svg as avatarSvg, pet, backdrop } from '../art/avatar.js';
+import { RELEASE } from '../shared/release.js';
 
 // Персонажи обложки — не связаны с учётными записями
 const CROWD = [
@@ -58,7 +59,7 @@ export default {
           <label class="field"><span class="field-label">Пароль</span><span class="pass-wrap"><input class="input" name="password" type="password" autocomplete="current-password" required><button class="pass-eye" type="button" data-eye aria-label="Показать пароль">${icon('eye', 20)}</button></span></label>
           <button class="btn btn-primary btn-lg btn-block" type="submit" data-submit>Войти</button>
         </form>
-        <p class="auth-foot"><b>Концепт для конкурса, не официальный сервис МГИМО.</b> Не вводите здесь настоящий логин и пароль от вуза — подойдут только демо-аккаунты. Пароли хранятся в виде хеша, данные вымышлены.</p>
+        <p class="auth-foot"><b>Концепт для конкурса, не официальный сервис МГИМО.</b> Не вводите здесь настоящий логин и пароль от вуза — подойдут только демо-аккаунты. Пароли хранятся в виде хеша, данные вымышлены.<span class="auth-version" data-release>Версия ${RELEASE.version} от ${RELEASE.label}</span></p>
       </div></section></div>`;
   },
   mount(el, params, app) {
