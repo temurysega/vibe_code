@@ -8,7 +8,8 @@
 не создаёт копию, маршрут жюри до отказа второму студенту (п. 3, 6); карточка главной открывает конкретную
 пару, «Сегодня пар нет» и «Сегодня занятия закончились» различаются при подменённых часах браузера,
 «Сессия» без оценок — «Недостаточно данных для прогноза» (п. 4); версия выпуска на входе, в подвале
-и в /api/health совпадает с package.json (п. 8).
+и в /api/health совпадает с package.json (п. 8). Проверка по критериям вечером 22 ноября добавила: на 360 px
+не обрезаны пример кода проверки, вкладки деканата и дни недели в расписании.
 """
 from datetime import datetime, timedelta
 import json
@@ -346,6 +347,36 @@ with sync_playwright() as p:
           f'Версия {VERSION}' in foot.inner_text() and health.get('version') == VERSION)
     foot.screenshot(path=str(OUT / '1366-footer-version.png'), **SHOT)
     desk_ctx.close()
+
+    # 10. На 360 px ничего не обрезано: пример кода проверки, вкладки деканата, дни недели
+    placeholder_fits = '''(el) => {
+      const cs = getComputedStyle(el);
+      const c = document.createElement('canvas').getContext('2d');
+      c.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+      const need = c.measureText(el.placeholder).width + (parseFloat(cs.letterSpacing) || 0) * el.placeholder.length
+        + parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+      return need <= el.clientWidth;
+    }'''
+    phone_ctx = browser.new_context(**PHONE)
+    phone = watch(phone_ctx.new_page())
+    phone.goto(BASE + '/#/verify')
+    code_field = phone.locator('[name="code"]')
+    code_field.wait_for()
+    check('360: the example verification code fits into the field', code_field.evaluate(placeholder_fits))
+    phone.goto(f'{BASE}/?demo={reserved}')
+    login(phone, 'dekanat.mo')
+    seg = phone.locator('.seg:has([data-tab])')
+    seg.wait_for()
+    tabs_fit = seg.evaluate('''(el) => el.scrollWidth <= el.clientWidth && [...el.querySelectorAll('[data-tab]')].every((b) => {
+      const r = b.getBoundingClientRect(), s = el.getBoundingClientRect();
+      return r.left >= s.left - 1 && r.right <= s.right + 1; })''')
+    check('360: all three dean tabs are fully visible without scrolling', tabs_fit and seg.locator('[data-tab]').count() == 3)
+    phone.screenshot(path=str(OUT / '360-dean-tabs.png'), **SHOT)
+    phone_ctx.close()
+    alina.goto(BASE + '/#/schedule')
+    days = alina.locator('.days-pick')
+    days.wait_for()
+    check('360: the six day buttons of the week fit the screen width', days.evaluate('(el) => el.scrollWidth <= el.clientWidth'))
     alina_ctx.close()
     browser.close()
 

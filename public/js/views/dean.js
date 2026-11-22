@@ -117,7 +117,8 @@ export default {
       };
     };
     const paint = async () => {
-      const tabs = `<div class="seg" style="margin:24px 0 18px">${[['queue', 'Очередь заявок'], ['news', 'Объявления и расписание'], ['audit', 'Журнал']].map(([id, n]) => `<button class="${tab === id ? 'on' : ''}" data-tab="${id}">${n}</button>`).join('')}</div>`;
+      // На телефоне подписи короче: все три вкладки видны на 360 px без прокрутки
+      const tabs = `<div class="seg" style="margin:24px 0 18px">${[['queue', 'Очередь', ' заявок'], ['news', 'Объявления', ' и расписание'], ['audit', 'Журнал', '']].map(([id, n, more]) => `<button class="${tab === id ? 'on' : ''}" data-tab="${id}">${n}${more ? `<span class="hide-s">${more}</span>` : ''}</button>`).join('')}</div>`;
       const content = tab === 'queue' ? queue() : tab === 'news' ? announce() : await audit();
       const restore = keep();
       box.innerHTML = kpis() + tabs + `<div data-tabbody>${content}</div>`;
