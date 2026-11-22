@@ -108,7 +108,7 @@ const sec = {
     } else {
       body = `<div class="day-line">${d.items.map((it) => {
         const st = lessonState(it, now);
-        return `<a class="day-item ${st} ${it.status}${it.key === data.next?.key ? ' day-item-next' : ''}" data-day-lesson="${esc(it.key)}" href="#/schedule" style="--c:${it.color}">
+        return `<a class="day-item ${st} ${it.status}${it.key === data.next?.key ? ' day-item-next' : ''}" data-day-lesson="${esc(it.key)}" href="#/schedule/${it.date}/${it.pair}" style="--c:${it.color}">
           <span class="t"><b>${it.start}</b>${it.end}</span><span class="stripe"></span>
           <span class="what"><b>${esc(it.discipline)}</b><span class="small muted">${esc(it.kindLabel)} · ауд. ${esc(it.room)}${it.teacher ? ' · ' + esc(it.teacher.short) : ''}</span>
           ${it.status === 'cancelled' ? `<span class="lesson-tag" style="background:var(--red-2);color:var(--red-ink)">${icon('ban', 12)} Отменена</span>` : it.status === 'moved' ? `<span class="lesson-tag">${icon('route', 12)} Перенесена на ${esc(relDay(it.change.to.date))}</span>` : it.change ? `<span class="lesson-tag" style="background:var(--blue-2);color:var(--blue-ink)">${icon('info', 12)} ${it.change.type === 'room' ? 'Новая аудитория' : it.change.type === 'teacher' ? 'Замена' : it.change.type === 'extra' ? 'Дополнительно' : 'Перенос'}</span>` : ''}</span></a>`;
@@ -196,7 +196,7 @@ const sec = {
   changes() {
     const list = data.changes;
     return `<div class="card" data-sec="changes"><div class="card-head"><div><div class="card-title">Изменения расписания</div><div class="card-sub">Переносы, отмены и новые аудитории на две недели</div></div></div>
-      ${list.length ? compactList('changes', list.map((it) => { const c = changeLine(it); return `<a class="chg" href="#/schedule"><span class="chg-ic ${c.cls}">${icon(c.icon, 18)}</span><span class="grow"><b>${c.title}</b>${c.sub ? `<span class="small muted" style="display:block">${esc(c.sub)}</span>` : ''}</span></a>`; }), plural(Math.max(0, list.length - 2), ['изменение', 'изменения', 'изменений']))
+      ${list.length ? compactList('changes', list.map((it) => { const c = changeLine(it); return `<a class="chg" href="#/schedule/${it.date}/${it.pair}"><span class="chg-ic ${c.cls}">${icon(c.icon, 18)}</span><span class="grow"><b>${c.title}</b>${c.sub ? `<span class="small muted" style="display:block">${esc(c.sub)}</span>` : ''}</span></a>`; }), plural(Math.max(0, list.length - 2), ['изменение', 'изменения', 'изменений']))
         : '<div class="empty"><span class="emoji">✅</span>Изменений нет — всё по плану</div>'}
     </div>`;
   },
