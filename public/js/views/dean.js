@@ -101,9 +101,9 @@ export default {
     const box = el.querySelector('[data-body]');
     single = params && /^\d+$/.test(params[0] || '') ? Number(params[0]) : null;
     if (single) tab = 'queue';
-    // Автообновление не теряет набранный комментарий и фокус сотрудника
+    // Автообновление и ответ на прежний поиск не теряют набранный комментарий, номер в поиске и фокус сотрудника
     const keep = () => {
-      const drafts = new Map([...box.querySelectorAll('[data-comment]')].filter((x) => x.value).map((x) => [x.id, x.value]));
+      const drafts = new Map([...box.querySelectorAll('[data-comment], #dean-q')].filter((x) => x.value).map((x) => [x.id, x.value]));
       const a = document.activeElement;
       const focus = a && box.contains(a) && a.id ? { id: a.id, start: a.selectionStart, end: a.selectionEnd } : a && box.contains(a) && a.closest('[data-req]') && a.dataset.act ? { req: a.closest('[data-req]').dataset.req, act: a.dataset.act } : null;
       return () => {
@@ -149,7 +149,7 @@ export default {
       if (t) { tab = t.dataset.tab; paint(); return; }
       const f = e.target.closest('[data-filter]');
       if (f) { filter = f.dataset.filter; load(); return; }
-      if (e.target.closest('[data-search-clear]')) { query = ''; await load(); const q = el.querySelector('#dean-q'); if (q) q.focus(); return; }
+      if (e.target.closest('[data-search-clear]')) { query = ''; const typed = el.querySelector('#dean-q'); if (typed) typed.value = ''; await load(); const q = el.querySelector('#dean-q'); if (q) q.focus(); return; }
       const ct = e.target.closest('.chg-type');
       if (ct) {
         el.querySelectorAll('.chg-type').forEach((x) => x.classList.toggle('on', x === ct));
