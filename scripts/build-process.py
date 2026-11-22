@@ -120,10 +120,10 @@ attachments += sorted((DOCS / 'evidence/deployment/finalization-browser').glob('
 for run in ['finalization-first-attempt', 'finalization-schedule-attempt', 'finalization-first-actions-attempt', 'finalization-first-actions-retry']:
     attachments += sorted((DOCS / 'evidence' / run).glob('*.json'))
     attachments += sorted((DOCS / 'evidence' / run).glob('*.txt'))
-# Версия 1.1.0 (release-1.1.0): журналы прогона из чистой копии, замер нагрузки, тексты обоих поручений,
+# Версия 1.1.1 (release-1.1.1): журналы прогона из чистой копии, замер нагрузки, тексты обоих поручений,
 # тест кабинетов до и после правки ссылки проверки, ответы опроса и повторного замера
-attachments += sorted((DOCS / 'evidence/release-1.1.0').glob('*.txt'))
-attachments += sorted((DOCS / 'evidence/release-1.1.0').glob('*.json'))
+attachments += sorted((DOCS / 'evidence/release-1.1.1').glob('*.txt'))
+attachments += sorted((DOCS / 'evidence/release-1.1.1').glob('*.json'))
 attachments += sorted((DOCS / 'evidence/load-2026-11-21').glob('*.json'))
 attachments += [DOCS / 'evidence/review-2026-11-21/prompt.md', DOCS / 'evidence/review-2026-11-22/prompt.md']
 attachments += sorted((DOCS / 'evidence/review-2026-11-22').glob('sandboxes-*.txt'))

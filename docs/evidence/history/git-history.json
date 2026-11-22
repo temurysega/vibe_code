@@ -1,18 +1,18 @@
 {
   "source": "git log --reverse --date=iso-strict",
-  "snapshot_head": "ce16e97a6eb7760e021604592388ab5e1db55edd",
+  "snapshot_head": "70353ac494dd19c8df0587d7ae90dd1dea10d057",
   "interpretation": "Метаданные репозитория, а не стенограмма работы с ИИ. Коммиты 4 ноября созданы скриптом за 2–3 минуты в конце первой сессии и показывают устройство кода; с 8 ноября каждый коммит — отдельная итерация. Трейлер Co-Authored-By не удостоверяет текст промптов или версию модели.",
   "summary": {
-    "commits": 760,
+    "commits": 772,
     "by_day": {
       "2026-11-04": 629,
       "2026-11-08": 11,
       "2026-11-09": 7,
       "2026-11-19": 10,
       "2026-11-21": 76,
-      "2026-11-22": 27
+      "2026-11-22": 39
     },
-    "commits_with_claude_coauthor": 747,
+    "commits_with_claude_coauthor": 759,
     "replayed_on_2026_11_04": {
       "commits": 629,
       "first": "2026-11-04T22:09:47+03:00",
@@ -6831,6 +6831,114 @@
       "date": "2026-11-22T19:15:42+03:00",
       "author": "re3per",
       "subject": "docs(survey): повторный замер — пятеро из 25, разница у тех же людей",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "adb5720197f5ef38639c1f3d195d1497476f2ead",
+      "date": "2026-11-22T19:22:43+03:00",
+      "author": "re3per",
+      "subject": "docs(ai): E-45…E-49, уточнение ADR-012, ADR-014 и инвариант 13",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "6abfceae58850efcc2bb859f47b1f440449238f0",
+      "date": "2026-11-22T19:22:43+03:00",
+      "author": "re3per",
+      "subject": "docs: версия 1.1.0 — маршрут жюри, аудит, приёмка стенда, опрос без преувеличений",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "606e6586902b82eb0146074b4682618ec0cc0e1c",
+      "date": "2026-11-22T19:22:43+03:00",
+      "author": "re3per",
+      "subject": "fix(video): запись ролика переживает перерисовку очереди деканата",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "885e36a2611fe382e8e31cdb0e56cd2525ab41cf",
+      "date": "2026-11-22T19:22:44+03:00",
+      "author": "re3per",
+      "subject": "docs(video): ролик на версии 1.1.0 — ссылка проверки без кода кабинета",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "bb44821fe2c816d161aea0feae4f397e28cfa489",
+      "date": "2026-11-22T19:22:44+03:00",
+      "author": "re3per",
+      "subject": "docs(pdf): пример 4 и повторный замер в описании процесса, PDF версии 1.1.0",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "7b8eb66429fd1163ff63b5c5a1c03b73c98b5743",
+      "date": "2026-11-22T20:28:39+03:00",
+      "author": "re3per",
+      "subject": "fix(ui): на 360 px не обрезаны пример кода проверки, вкладки деканата и дни недели",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "d992b03c6b100d9918484ade923af28a1edec0f3",
+      "date": "2026-11-22T20:29:27+03:00",
+      "author": "re3per",
+      "subject": "feat(release): версия 1.1.1 — правки вёрстки на 360 px",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "8e8f051f75826c9f0ca70d5a3dd7b4320aa16e5f",
+      "date": "2026-11-22T20:37:26+03:00",
+      "author": "re3per",
+      "subject": "fix(dean): поиск не теряет набранный номер, когда приходит ответ на прежний",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "70a381b2baa86fe7c5b4886498c7c7179a8ca835",
+      "date": "2026-11-22T20:37:26+03:00",
+      "author": "re3per",
+      "subject": "docs(evidence): неуспешная попытка прогона 1.1.1 — гонка в поиске деканата",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f6419db5132f6a439b968a54434c8872f02a454b",
+      "date": "2026-11-22T20:37:39+03:00",
+      "author": "re3per",
+      "subject": "docs: инструменты с IDE и сервисами, кто делал дизайн, версия стенда без устаревания",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "fd32d692726cf8577eb7f9c5d0a6d98f63ec7d12",
+      "date": "2026-11-22T20:43:25+03:00",
+      "author": "re3per",
+      "subject": "docs(evidence): прогон версии 1.1.1 из чистой копии — 115/115 и 604/604",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "70353ac494dd19c8df0587d7ae90dd1dea10d057",
+      "date": "2026-11-22T20:43:25+03:00",
+      "author": "re3per",
+      "subject": "docs: числа прогона 1.1.1 и итерация «проверка по критериям» в описании процесса",
       "coauthors": [
         "Claude Opus 5.5 <noreply@anthropic.com>"
       ]
