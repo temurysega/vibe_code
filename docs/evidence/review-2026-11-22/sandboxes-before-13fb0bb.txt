@@ -1,0 +1,255 @@
+Command: node --test --test-reporter=tap test/sandboxes.test.js
+Revision: код до правки (13fb0bb), файл тестов — из 1c65b31
+Recorded (MSK): 2026-11-22 16:39 МСК
+
+TAP version 13
+# (node:16162) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: каждый новый вход без кабинета получает свой демо-кабинет
+ok 1 - каждый новый вход без кабинета получает свой демо-кабинет
+  ---
+  duration_ms: 165.941625
+  type: 'test'
+  ...
+# Subtest: заявки, объявления, прочитанное и выход одного кабинета не влияют на другой
+ok 2 - заявки, объявления, прочитанное и выход одного кабинета не влияют на другой
+  ---
+  duration_ms: 63.20125
+  type: 'test'
+  ...
+# Subtest: неверный код в ссылке не открывает чужой кабинет
+ok 3 - неверный код в ссылке не открывает чужой кабинет
+  ---
+  duration_ms: 0.5655
+  type: 'test'
+  ...
+# Subtest: неверный пароль не создаёт кабинет: ни базы, ни cookie кабинета
+not ok 4 - неверный пароль не создаёт кабинет: ни базы, ни cookie кабинета
+  ---
+  duration_ms: 30.653625
+  type: 'test'
+  location: '<project>/test/sandboxes.test.js:134:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    без заготовки cookie кабинета не появляется
+    + actual - expected
+    
+    + 'll73vmux6zfhzuww'
+    - undefined
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  actual: 'll73vmux6zfhzuww'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file://<project>/test/sandboxes.test.js:139:10)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: одновременные входы из одного браузера попадают в один кабинет
+not ok 5 - одновременные входы из одного браузера попадают в один кабинет
+  ---
+  duration_ms: 46.85825
+  type: 'test'
+  location: '<project>/test/sandboxes.test.js:150:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    создан ровно один кабинет
+    
+    6 !== 4
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 4
+  actual: 6
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file://<project>/test/sandboxes.test.js:158:10)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: проверка справки не открывает кабинет: в ссылке из PDF нет кода кабинета, cookie не выдаётся
+not ok 6 - проверка справки не открывает кабинет: в ссылке из PDF нет кода кабинета, cookie не выдаётся
+  ---
+  duration_ms: 99.322917
+  type: 'test'
+  location: '<project>/test/sandboxes.test.js:174:1'
+  failureType: 'testCodeFailure'
+  error: 'в PDF ссылка вида /#/verify/<код>'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file://<project>/test/sandboxes.test.js:181:10)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: кабинет, сеанс и проверка справки переживают перезапуск сервера
+not ok 7 - кабинет, сеанс и проверка справки переживают перезапуск сервера
+  ---
+  duration_ms: 32.948208
+  type: 'test'
+  location: '<project>/test/sandboxes.test.js:201:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + undefined
+    - true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file://<project>/test/sandboxes.test.js:209:10)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: «Начать с чистого кабинета» — только из открытого сеанса
+not ok 8 - «Начать с чистого кабинета» — только из открытого сеанса
+  ---
+  duration_ms: 7.452333
+  type: 'test'
+  location: '<project>/test/sandboxes.test.js:212:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    200 !== 401
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 401
+  actual: 200
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file://<project>/test/sandboxes.test.js:217:10)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: «Начать с чистого кабинета» завершает сеанс; новый кабинет появляется при входе
+not ok 9 - «Начать с чистого кабинета» завершает сеанс; новый кабинет появляется при входе
+  ---
+  duration_ms: 9.101292
+  type: 'test'
+  location: '<project>/test/sandboxes.test.js:222:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    до входа это только заготовка
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file://<project>/test/sandboxes.test.js:229:10)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: параллельные входы с одного адреса не обходят лимит новых кабинетов
+not ok 10 - параллельные входы с одного адреса не обходят лимит новых кабинетов
+  ---
+  duration_ms: 69.159375
+  type: 'test'
+  location: '<project>/test/sandboxes.test.js:243:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+        200,
+        200,
+    +   200,
+    +   200,
+    +   200
+    -   429,
+    -   429,
+    -   429
+      ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: 200
+    1: 200
+    2: 429
+    3: 429
+    4: 429
+  actual:
+    0: 200
+    1: 200
+    2: 200
+    3: 200
+    4: 200
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file://<project>/test/sandboxes.test.js:252:12)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: кабинет виден только наполненным, а вытесненная база не закрывается под запросом
+not ok 11 - кабинет виден только наполненным, а вытесненная база не закрывается под запросом
+  ---
+  duration_ms: 11.680333
+  type: 'test'
+  location: '<project>/test/sandboxes.test.js:261:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'size')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (file://<project>/test/sandboxes.test.js:270:33)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: проверка готовности: наполненная база — 200 и версия выпуска, пустая — 503
+not ok 12 - проверка готовности: наполненная база — 200 и версия выпуска, пустая — 503
+  ---
+  duration_ms: 1.874416
+  type: 'test'
+  location: '<project>/test/sandboxes.test.js:288:1'
+  failureType: 'testCodeFailure'
+  error: 'The "string" argument must be of type string. Received type undefined (undefined)'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (file://<project>/test/sandboxes.test.js:292:10)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: в общем демо без кабинетов чужие сеансы скрыты и не закрываются
+ok 13 - в общем демо без кабинетов чужие сеансы скрыты и не закрываются
+  ---
+  duration_ms: 53.341416
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 4
+# fail 9
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 836.562208
+exit 1
