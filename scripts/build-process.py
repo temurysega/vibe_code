@@ -42,7 +42,8 @@ h4 {font-size:10.5pt;line-height:1.3;color:#132f6a;margin:14pt 0 6pt;break-after
 h4 + ul {break-before:avoid}
 p {orphans:3;widows:3}
 a {color:#214d9f;text-decoration:none;overflow-wrap:anywhere}
-table {width:100%;border-collapse:collapse;font-size:8pt;line-height:1.4;margin:12pt 0;break-inside:avoid}
+table {width:100%;border-collapse:collapse;font-size:8pt;line-height:1.4;margin:12pt 0;break-inside:auto}
+thead {display:table-header-group}
 th,td {text-align:left;vertical-align:top;border:1px solid #d8dfeb;padding:6pt;overflow-wrap:anywhere}
 th {background:#eef2fa;color:#132f6a} tr {break-inside:avoid}
 blockquote {margin:12pt 0;padding:8pt 12pt;border-left:3pt solid #d7b34d;background:#f7f8fb}
