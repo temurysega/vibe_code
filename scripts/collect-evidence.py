@@ -19,7 +19,7 @@ from urllib.request import urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.stdout.reconfigure(encoding='utf-8')
-SUITES = ['browser-smoke', 'browser-flows', 'browser-accessibility', 'browser-polish', 'browser-stipend', 'browser-review', 'browser-home-priority', 'browser-grades-compact', 'browser-request-compact', 'browser-schedule-readability', 'browser-first-actions', 'browser-audit-fixes', 'browser-session-sync', 'browser-focus-contrast', 'browser-xss', 'browser-mobile-entry', 'browser-review-fixes']
+SUITES = ['browser-smoke', 'browser-flows', 'browser-accessibility', 'browser-polish', 'browser-stipend', 'browser-review', 'browser-home-priority', 'browser-grades-compact', 'browser-request-compact', 'browser-schedule-readability', 'browser-first-actions', 'browser-audit-fixes', 'browser-session-sync', 'browser-focus-contrast', 'browser-xss', 'browser-mobile-entry', 'browser-review-fixes', 'browser-review-1122']
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--output', type=Path, default=ROOT / 'docs' / 'evidence' / 'quality-fixes', help='Directory for this run; use a new path to preserve earlier evidence.')
 parser.add_argument('--suites', nargs='+', choices=SUITES, default=SUITES, help='Browser suites to execute after the unit tests.')
@@ -104,9 +104,13 @@ try:
                 raise FileNotFoundError(script)
             env['DB_FILE'] = str(Path(temporary) / f'{name}.db')
             server_env = dict(env)
-            if name == 'browser-review-fixes':
-                # Как на стенде: у каждого проверяющего свой демо-кабинет (ADR-012)
-                server_env.update({'DEMO_SANDBOXES': '1', 'SANDBOX_DIR': str(Path(temporary) / 'sandboxes')})
+            suite_env = dict(env)
+            if name in ('browser-review-fixes', 'browser-review-1122'):
+                # Как на стенде: у каждого проверяющего свой демо-кабинет (ADR-012).
+                # Набору нужна папка кабинетов: он сам портит игровой профиль и оценки в своём кабинете
+                boxes = str(Path(temporary) / f'{name}-sandboxes')
+                server_env.update({'DEMO_SANDBOXES': '1', 'SANDBOX_DIR': boxes})
+                suite_env['QA_SANDBOX_DIR'] = boxes
             with (Path(temporary) / f'{name}-server.txt').open('w', encoding='utf-8') as server_log:
                 server = subprocess.Popen(['node', 'server/index.js'], cwd=ROOT, env=server_env,
                                           stdout=server_log, stderr=subprocess.STDOUT)
@@ -122,7 +126,7 @@ try:
                             time.sleep(.2)
                     else:
                         raise RuntimeError('Isolated server did not become ready')
-                    stage, _ = run([sys.executable, str(script), base], name, env)
+                    stage, _ = run([sys.executable, str(script), base], name, suite_env)
                     report_name = 'browser-results' if name == 'browser-smoke' else name
                     report_path = OUT / f'{report_name}.json'
                     report = portable(json.loads(report_path.read_text(encoding='utf-8')))
