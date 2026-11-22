@@ -1,0 +1,92 @@
+{
+  "base": "http://127.0.0.1:56600",
+  "checks": [
+    {
+      "check": "Dean signs in",
+      "passed": true
+    },
+    {
+      "check": "Dean announcement with markup is accepted by the server",
+      "passed": true
+    },
+    {
+      "check": "Student has a request in work for the dean comment",
+      "passed": true
+    },
+    {
+      "check": "Dean request comment with markup is accepted by the server",
+      "passed": true
+    },
+    {
+      "check": "360 notifications: markup text is shown as text",
+      "passed": true
+    },
+    {
+      "check": "360 notifications: window.__xss is undefined",
+      "passed": true
+    },
+    {
+      "check": "360 notifications: no injected img or script in the DOM",
+      "passed": true
+    },
+    {
+      "check": "360 notifications: page fits viewport",
+      "passed": true
+    },
+    {
+      "check": "360 request: markup text is shown as text",
+      "passed": true
+    },
+    {
+      "check": "360 request: window.__xss is undefined",
+      "passed": true
+    },
+    {
+      "check": "360 request: no injected img or script in the DOM",
+      "passed": true
+    },
+    {
+      "check": "360 request: page fits viewport",
+      "passed": true
+    },
+    {
+      "check": "1366 notifications: markup text is shown as text",
+      "passed": true
+    },
+    {
+      "check": "1366 notifications: window.__xss is undefined",
+      "passed": true
+    },
+    {
+      "check": "1366 notifications: no injected img or script in the DOM",
+      "passed": true
+    },
+    {
+      "check": "1366 notifications: page fits viewport",
+      "passed": true
+    },
+    {
+      "check": "1366 request: markup text is shown as text",
+      "passed": true
+    },
+    {
+      "check": "1366 request: window.__xss is undefined",
+      "passed": true
+    },
+    {
+      "check": "1366 request: no injected img or script in the DOM",
+      "passed": true
+    },
+    {
+      "check": "1366 request: page fits viewport",
+      "passed": true
+    },
+    {
+      "check": "No uncaught JavaScript errors or dialogs",
+      "passed": true
+    }
+  ],
+  "browser_errors": [],
+  "payload": "<img src=x onerror=\"window.__xss=1\"> <script>window.__xss=2</script>",
+  "scope": "Dean announcement title/body and request comment, seen by the student at 360 and 1366 px."
+}
