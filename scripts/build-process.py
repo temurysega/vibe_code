@@ -120,12 +120,15 @@ attachments += sorted((DOCS / 'evidence/deployment/finalization-browser').glob('
 for run in ['finalization-first-attempt', 'finalization-schedule-attempt', 'finalization-first-actions-attempt', 'finalization-first-actions-retry']:
     attachments += sorted((DOCS / 'evidence' / run).glob('*.json'))
     attachments += sorted((DOCS / 'evidence' / run).glob('*.txt'))
-# Итоговая версия 22 ноября (release-1122-final): журналы прогона из чистой копии, замер нагрузки и текст поручения
-attachments += sorted((DOCS / 'evidence/release-1122-final').glob('*.txt'))
-attachments += sorted((DOCS / 'evidence/release-1122-final').glob('*.json'))
+# Версия 1.1.0 (release-1.1.0): журналы прогона из чистой копии, замер нагрузки, тексты обоих поручений,
+# тест кабинетов до и после правки ссылки проверки, ответы опроса и повторного замера
+attachments += sorted((DOCS / 'evidence/release-1.1.0').glob('*.txt'))
+attachments += sorted((DOCS / 'evidence/release-1.1.0').glob('*.json'))
 attachments += sorted((DOCS / 'evidence/load-2026-11-21').glob('*.json'))
-attachments += [DOCS / 'evidence/review-2026-11-21/prompt.md']
+attachments += [DOCS / 'evidence/review-2026-11-21/prompt.md', DOCS / 'evidence/review-2026-11-22/prompt.md']
+attachments += sorted((DOCS / 'evidence/review-2026-11-22').glob('sandboxes-*.txt'))
 attachments += [DOCS / 'evidence/survey-2026-11-22/responses.csv', DOCS / 'evidence/survey-2026-11-22/summary.json']
+attachments += [DOCS / 'evidence/survey-repeat-2026-11-22/responses.csv', DOCS / 'evidence/survey-repeat-2026-11-22/repeat.json']
 attachments += [DOCS / 'evidence/deployment' / name for name in
                 ['openrouter-live.json', 'assistant-browser-live.json', 'production-persistence.json', 'migration-deployed.json']]
 for attachment in attachments:

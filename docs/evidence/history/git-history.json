@@ -1,18 +1,18 @@
 {
   "source": "git log --reverse --date=iso-strict",
-  "snapshot_head": "18146de2b938efac4899d52947b8934c808f7063",
+  "snapshot_head": "ce16e97a6eb7760e021604592388ab5e1db55edd",
   "interpretation": "Метаданные репозитория, а не стенограмма работы с ИИ. Коммиты 4 ноября созданы скриптом за 2–3 минуты в конце первой сессии и показывают устройство кода; с 8 ноября каждый коммит — отдельная итерация. Трейлер Co-Authored-By не удостоверяет текст промптов или версию модели.",
   "summary": {
-    "commits": 747,
+    "commits": 760,
     "by_day": {
       "2026-11-04": 629,
       "2026-11-08": 11,
       "2026-11-09": 7,
       "2026-11-19": 10,
       "2026-11-21": 76,
-      "2026-11-22": 14
+      "2026-11-22": 27
     },
-    "commits_with_claude_coauthor": 734,
+    "commits_with_claude_coauthor": 747,
     "replayed_on_2026_11_04": {
       "commits": 629,
       "first": "2026-11-04T22:09:47+03:00",
@@ -6714,6 +6714,123 @@
       "date": "2026-11-22T14:36:43+03:00",
       "author": "re3per",
       "subject": "docs: итоговые числа — 101/101 и 570/570, прогон release-1122-final",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e635281661d28ed998ceaba37c3cc748fbfe01b9",
+      "date": "2026-11-22T14:38:10+03:00",
+      "author": "re3per",
+      "subject": "docs(pdf): пересобрать описание процесса — опрос, итоговый прогон 22 ноября",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "13fb0bb317ead01e6b615cda5e8bd61fabeb2352",
+      "date": "2026-11-22T15:23:00+03:00",
+      "author": "re3per",
+      "subject": "docs(submission): пакет капитана — ответы на поля формы подачи",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "2d22df149152eec8c6e8ff70997c28b31f1093ad",
+      "date": "2026-11-22T16:33:14+03:00",
+      "author": "re3per",
+      "subject": "fix(demo): кабинет — после проверки пароля, проверка справки не открывает кабинет",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e229b32f4f047ac1542a71b9202240e342af8a28",
+      "date": "2026-11-22T16:33:31+03:00",
+      "author": "re3per",
+      "subject": "fix(requests): заявка сохраняется и показывает номер при сбое игрового слоя",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "81fea7be04d4542d97120dafa3039269c09800f8",
+      "date": "2026-11-22T16:33:31+03:00",
+      "author": "re3per",
+      "subject": "fix(schedule): «Сегодня занятия закончились» отличается от «Сегодня пар нет»",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "aebbdb284d683f0bfe6be423afbed207bc1a4533",
+      "date": "2026-11-22T16:33:31+03:00",
+      "author": "re3per",
+      "subject": "fix(home): изменение расписания и пары дня открывают конкретную пару",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "e456f2792210cef84777f1fa779fe83b2d85801d",
+      "date": "2026-11-22T16:33:31+03:00",
+      "author": "re3per",
+      "subject": "fix(grades): «Сессия» без оценок — «Недостаточно данных для прогноза»",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "3fc1244ca7b35bb28004aa1156a5d1842788da95",
+      "date": "2026-11-22T16:33:31+03:00",
+      "author": "re3per",
+      "subject": "feat(release): версия 1.1.0 — на странице входа, в подвале и в /api/health",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "f608bcc99384e64de3f56d398b4982e7e1933c38",
+      "date": "2026-11-22T16:33:32+03:00",
+      "author": "re3per",
+      "subject": "test(browser): набор browser-review-1122 — правки рецензии 22 ноября",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "1c65b31ddee5f3110b133b60240600ac54c5fdcd",
+      "date": "2026-11-22T16:37:50+03:00",
+      "author": "re3per",
+      "subject": "test(release): версия 1.1.0 — одна в package.json, lock-файле и документах",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "28f51bb444e43a2e8970da14a5921ab66336293d",
+      "date": "2026-11-22T19:15:42+03:00",
+      "author": "re3per",
+      "subject": "docs(evidence): прогон версии 1.1.0 из чистой копии — 115/115 и 599/599",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "04a4f88b651bab16cf90df290475e72db1112fc4",
+      "date": "2026-11-22T19:15:42+03:00",
+      "author": "re3per",
+      "subject": "docs(evidence): рецензия 22 ноября — поручение, тест до и после, снимки ссылки",
+      "coauthors": [
+        "Claude Opus 5.5 <noreply@anthropic.com>"
+      ]
+    },
+    {
+      "commit": "ce16e97a6eb7760e021604592388ab5e1db55edd",
+      "date": "2026-11-22T19:15:42+03:00",
+      "author": "re3per",
+      "subject": "docs(survey): повторный замер — пятеро из 25, разница у тех же людей",
       "coauthors": [
         "Claude Opus 5.5 <noreply@anthropic.com>"
       ]

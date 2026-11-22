@@ -41,7 +41,7 @@ img[src*="prompt-"] {max-height:220mm;margin:8pt auto}
 </style><body><h1>Как мы создали «МГИМО Манию»</h1>
 <h2>Цифровой деканат будущего</h2>
 <p><strong>История конкурсного прототипа: от учебных задач до работающего кабинета.</strong></p>
-<p>21 ноября 2026 года · Москва</p>
+<p>Версия 1.1.0 · 22 ноября 2026 года · Москва</p>
 <p>Учёба, документы и связь с деканатом в одном месте. Собственный визуальный стиль,
 мобильные сценарии, игровой кампус и помощник по данным студента.</p>
 <p><strong>«МГИМО Мания» — конкурсный концепт, а не официальный сервис МГИМО. Все персонажи,
@@ -49,8 +49,8 @@ img[src*="prompt-"] {max-height:220mm;margin:8pt auto}
 <p>Прототип: <a href="https://ai.neblanki.tech/">ai.neblanki.tech</a>.<br>
 Исходники: <a href="https://github.com/temurysega/vibe_code">temurysega/vibe_code</a>.</p>
 <figure class="cover-shot">
-  <img src="evidence/release-1122-final/1366-home.png" alt="Главная итоговой версии МГИМО Мании на экране 1366 px">
-  <figcaption>Главная итоговой версии. Снимок прогона из чистой копии репозитория 22 ноября, evidence/release-1122-final.</figcaption>
+  <img src="evidence/release-1.1.0/1366-home.png" alt="Главная итоговой версии МГИМО Мании на экране 1366 px">
+  <figcaption>Главная итоговой версии. Снимок прогона версии 1.1.0 из чистой копии репозитория 22 ноября, evidence/release-1.1.0.</figcaption>
 </figure>
 
 <h2>Коротко для жюри</h2>
@@ -76,8 +76,12 @@ img[src*="prompt-"] {max-height:220mm;margin:8pt auto}
 <td><a href="#scenario">раздел 6</a> · <a href="https://github.com/temurysega/vibe_code/blob/main/docs/JURY_GUIDE.md">маршрут жюри</a> · <a href="https://github.com/temurysega/vibe_code/blob/main/docs/video/demo-mobile.mp4">видео</a></td>
 </tr>
 <tr>
-<td>Три примера работы с ИИ: поручение → ошибка агента → решение человека → исправление → тест</td>
+<td>Примеры работы с ИИ: поручение → ошибка агента → решение человека → исправление → тест</td>
 <td><a href="#ai-examples">раздел 9</a></td>
+</tr>
+<tr>
+<td>Одна правка целиком: ссылка проверки справки — поручение, находка, решение, коммит, тест до и после</td>
+<td><a href="#review-1122">пример 4</a></td>
 </tr>
 <tr>
 <td>Защита данных простыми словами</td>
@@ -92,7 +96,7 @@ img[src*="prompt-"] {max-height:220mm;margin:8pt auto}
 <td><a href="#early-final">раздел 9</a></td>
 </tr>
 <tr>
-<td>Проверки: 101/101 и 570/570 в чистой копии, Safari на iPhone, замер нагрузки</td>
+<td>Проверки версии 1.1.0: 115/115 и 599/599 в чистой копии, Safari на iPhone, замер нагрузки</td>
 <td><a href="#checks">раздел 10</a></td>
 </tr>
 </tbody>
@@ -112,18 +116,22 @@ img[src*="prompt-"] {max-height:220mm;margin:8pt auto}
   исправления и публикацию. 9 ноября независимый аудит сделал новый агент Claude Code.
   19 ноября субагенты Claude Sonnet 5.5 выполнили девять поручений, и их находки стали исправлениями
   с тестами. 21 ноября мы убрали из материалов неподтверждённые утверждения и реконструкции,
-  а вечером Claude Code выполнил 15 правок независимого проверяющего — три из них разобраны в разделе 9.</li>
+  а вечером передали Claude Code 15 пунктов независимого проверяющего: десять он закрыл кодом и документами,
+  в пяти сделал свою часть, остальное в них — наши шаги (опрос, телефоны, стенд, ролик). 22 ноября второй
+  проверяющий нашёл пять ошибок: три агент внёс сам 21 ноября, две были с первой версии и остались
+  незамеченными (E-45…E-49). Исправление разобрано как пример 4 в разделе 9.</li>
 <li><strong>Где промпты.</strong> Наши дословные просьбы — раздел 2. Поручения субагентам целиком, с ответами —
   раздел 3 и <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/subagents-2026-11-19/briefs/">briefs/</a>. Правила для агентов —
   <a href="https://github.com/temurysega/vibe_code/blob/main/AGENTS.md">AGENTS.md</a>, <code>CLAUDE.md</code> и <code>.claude/</code>; журналы промптов и ошибок — <a href="https://github.com/temurysega/vibe_code/blob/main/docs/ai/">docs/ai/</a>.</li>
-<li><strong>Проверено.</strong> 101/101 автотест и 570/570 браузерные проверки на 360 и 1366 px в чистой копии
-  репозитория, 22 ноября (<a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/run-summary.json">сводка</a>); справка, форма и вход — ещё и в Safari
+<li><strong>Проверено.</strong> 115/115 автотестов и 599/599 браузерных проверок на 360 и 1366 px в чистой копии
+  репозитория, 22 ноября (<a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/run-summary.json">сводка</a>); справка, форма и вход — ещё и в Safari
   на iPhone в симуляторе iOS. Стенд пока на версии 19 ноября: изменения появятся на нём после обновления.</li>
 <li><strong>Опрос.</strong> 25 студентов: 24 за семестр нужна была справка, 19 получают её лично и ждут дольше двух дней,
-  до сессии точно знают, хватает ли баллов, только 4. Задания в кабинете с телефона — в среднем 4,4 из 5;
-  самое трудное — риск по дисциплине, и его объяснение мы вынесли на главную. Раздел 1.</li>
+  до сессии точно знают, хватает ли баллов, только 4. Самооценка лёгкости заданий в кабинете с телефона —
+  4,4 из 5; трудными назвали риск по дисциплине и перенос пары, по 3 голоса из 25. Причину риска мы вынесли
+  на главную; в повторном замере пятеро из тех же 25 оценили лёгкость в 4,4 против своих прежних 3,2. Раздел 1.</li>
 <li><strong>Чего нет.</strong> Ответы ассистентов на постановки 4 ноября не сохранились, поэтому восстановленных
-  диалогов того времени здесь нет. В опросе нет замеров времени, а повторного прохождения после правки ещё не было.</li>
+  диалогов того времени здесь нет. В опросе нет замеров времени: и опрос, и повторный замер — самооценка.</li>
 </ul>
 <p>Дальше: раздел 1 — продукт, разделы 2–3 — работа с ИИ, раздел 9 — ошибки и доработки,
 раздел 10 — журналы проверок. Шаблоны промптов на будущее — в <a href="https://github.com/temurysega/vibe_code/blob/main/docs/prompts/README.md">методичке</a>.</p>
@@ -242,7 +250,7 @@ img[src*="prompt-"] {max-height:220mm;margin:8pt auto}
 <tr>
 <td>Кабинет удобен с телефона</td>
 <td>«Делать всё с телефона» трудно 15 — самая частая проблема</td>
-<td>Лёгкость заданий с телефона — 4,4 из 5; «все были лёгкими» — 16 из 25</td>
+<td>Самооценка лёгкости заданий с телефона — 4,4 из 5; «все были лёгкими» — 16 из 25</td>
 </tr>
 <tr>
 <td>Необязательный игровой слой придаёт кабинету характер</td>
@@ -254,7 +262,7 @@ img[src*="prompt-"] {max-height:220mm;margin:8pt auto}
 <p>Пользоваться таким кабинетом вместо нынешних способов готовы 22 из 25 («да» и «скорее да»), не готовы трое.</p>
 <figure class="wide-shot">
   <img src="evidence/survey-2026-11-22/survey-results.png" alt="Сводка ответов 25 студентов по вопросам опроса">
-  <figcaption>Карточка построена скриптом <code>scripts/survey-summary.py</code> из таблицы ответов, а не снята с экрана.</figcaption>
+  <figcaption>Карточка построена скриптом <code>scripts/survey-summary.py</code> из таблицы ответов, а не снята с экрана. Лёгкость — самооценка участников.</figcaption>
 </figure>
 
 <p><strong>Что изменили.</strong> Чаще других самыми трудными называли «риск по дисциплине» и «перенос пары» — по три ответа;
@@ -262,10 +270,49 @@ img[src*="prompt-"] {max-height:220mm;margin:8pt auto}
 только название дисциплины, и причину приходилось искать в оценках. Теперь ярлык называет её теми же
 числами, что в успеваемости, — у Алины «Риск · нужно ещё 38 из 55 баллов» (<code>4209326</code>, проверки
 <code>grades-forecast.test.js</code> и <code>browser-home-priority.py</code>).</p>
+<p><strong>Повторный замер.</strong> Пятеро из тех же 25 участников повторили четыре задания и ответили на те же два вопроса;
+ответы мы внесли в два новых столбца таблицы (<a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/survey-repeat-2026-11-22/">survey-repeat-2026-11-22</a>).</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Исходный замер</th>
+<th>Повторный замер</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Участников</td>
+<td>25</td>
+<td>5 — из тех же 25</td>
+</tr>
+<tr>
+<td>Самооценка лёгкости, 1–5</td>
+<td>4,4 в среднем</td>
+<td>у этих пятерых было 3,2, стало 4,4</td>
+</tr>
+<tr>
+<td>«Все задания были лёгкими»</td>
+<td>16 из 25</td>
+<td>у пятерых было 1, стало 3</td>
+</tr>
+<tr>
+<td>Самым трудным назвали</td>
+<td>риск по дисциплине — 3, перенос пары — 3, заказ справки — 2, найти документ — 1</td>
+<td>стало: заказ справки — 1, найти документ — 1</td>
+</tr>
+</tbody>
+</table>
+<p>Фактическая разница — у тех же людей: +1,2 балла, у каждого на 1 или 2. Средние двух групп (4,4 и 4,4)
+напрямую не сравниваются: в пятёрку попали те, кто в исходном замере оценил задания ниже остальных (3,2 против
+4,7 у двадцати не повторявших), а такие оценки при повторе склонны расти и без изменений; добавляется
+привыкание к заданиям. Единственный в пятёрке, кто называл самым трудным риск по дисциплине, после правки
+ответил «все были лёгкими»; трудными остались «найти документ» и «заказ справки». На какой сборке повторяли
+задания, в таблице не записано.</p>
 <p><strong>Чего опрос не показывает.</strong> Время до первого верного действия и успех по каждому заданию не записывались —
 только самооценка лёгкости и одно самое трудное задание. Свободных ответов нет, поэтому правка для риска —
-наша гипотеза о причине. Повторного прохождения после неё ещё не было, а 25 ответов без описания выборки
-не репрезентативны для всех студентов. Автоматические проверки и уменьшение высоты страницы не доказывают
+наша гипотеза о причине. Повторный замер — пять человек, отобранных не случайно, а 25 ответов без описания
+выборки не репрезентативны для всех студентов. Автоматические проверки и уменьшение высоты страницы не доказывают
 сокращение времени выполнения задачи студентом.</p>
 <p>Вторая часть идеи — ощущение собственного студенческого пространства. Аватар, питомец,
 виртуальный кампус и короткая игра дают кабинету характер. При этом расписание и справки
@@ -718,7 +765,7 @@ SQLite хранит профили, сеансы, заявки, уведомле
 </div>
 
 <figure class="wide-shot">
-  <img src="evidence/release-1122-final/1366-dean-direct-link.png" alt="Заявка, открытая сотрудником деканата по прямой ссылке, на экране 1366 px">
+  <img src="evidence/release-1.1.0/1366-dean-direct-link.png" alt="Заявка, открытая сотрудником деканата по прямой ссылке, на экране 1366 px">
   <figcaption>Сотрудник открыл заявку по прямой ссылке из её номера; над очередью — поиск по номеру.</figcaption>
 </figure>
 
@@ -782,7 +829,7 @@ cookie передаётся только по защищённому соеди�
 по нажатию и с клавиатуры. Ближайшая пара, учебная ситуация и действие со справкой
 остаются в основном учебном пути. Итерации и измерения описаны в разделе 9.</p>
 <figure class="phone-shot">
-  <img src="evidence/release-1122-final/360-home-viewport.png" alt="Первый экран главной итоговой версии на телефоне 360 px" style="max-height:130mm">
+  <img src="evidence/release-1.1.0/360-home-viewport.png" alt="Первый экран главной итоговой версии на телефоне 360 px" style="max-height:130mm">
   <figcaption>Первый экран главной на 360 px, итоговый прогон 22 ноября на отдельной тестовой базе.</figcaption>
 </figure>
 
@@ -1260,14 +1307,17 @@ OpenRouter для двух студентов. Ответы о группе со
 </table>
 <p>Видео записал сценарий, а не человек с телефоном: так запись можно повторить на любой версии.
 Интерфейс кабинета в этой итерации не менялся, поэтому стенд не обновлялся.</p>
-<h3><a id="ai-examples"></a>Итерация 21 ноября, вечер: 15 правок независимого проверяющего</h3>
+<h3><a id="ai-examples"></a>Итерация 21 ноября, вечер: 15 пунктов независимого проверяющего</h3>
 <p>Вечером мы передали Claude Code (Claude Opus 5.5) рецензию независимого проверяющего — 15 пунктов
 по всем критериям — со словами <strong>«выполняй только то, что считаешь действительно нужным. и что поднимает
 итоговый балл работы и сделает ее качественней»</strong>. Агент начал выбирать главное, и через две минуты мы
 решили объём: <strong>«проверять, вероятно будут жюри с помощью ии, так что лучше правь все или почти все,
 кроме лишнего»</strong>. Дальше мы писали только «продолжи» и «доделай». Полное поручение —
 <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/review-2026-11-21/prompt.md">review-2026-11-21/prompt.md</a>; агент работал без субагентов,
-коммиты — от нашего имени с соавтором Claude. Три пункта разобраны целиком.</p>
+коммиты — от нашего имени с соавтором Claude. Итог: десять пунктов агент закрыл кодом и документами,
+в пяти (5, 8, 10, 11, 15) сделал свою часть, а остальное в них — наши шаги. 22 ноября второй проверяющий
+нашёл ошибки и пропуски агента в пунктах 1, 2, 6, 7 и 10 — исправление разобрано в <a href="#review-1122">примере 4</a>.
+Три пункта разобраны целиком.</p>
 <h4>Пример 1. Изоляция демо: свой кабинет у каждого проверяющего</h4>
 <ul>
 <li><strong>Поручение (пункт 1).</strong> «Изолировать демоданные проверяющих. Каждому проверяющему выдавать отдельный набор данных с двумя студентами и сотрудником. … Проверка: два человека одновременно входят под одинаковыми демологинами в разные демокабинеты.»</li>
@@ -1276,6 +1326,7 @@ OpenRouter для двух студентов. Ответы о группе со
 <li><strong>Что решили мы.</strong> Объём — «правь все или почти все»: изоляцию делать целиком. Обновить стенд с <code>DEMO_SANDBOXES=1</code> — наш шаг; до него стенд показывает версию 19 ноября</li>
 <li><strong>Исправление.</strong> <code>5a1844e</code>, <code>367d8fd</code>, <code>2f061e8</code>, <code>1472549</code>, <code>cd64f24</code></li>
 <li><strong>Тест.</strong> <code>test/sandboxes.test.js</code>, 7 тестов: разные кабинеты; заявки, объявления, прочитанное и выход не влияют друг на друга; чужой код не открывает кабинет; перезапуск; «чистый кабинет»; готовность базы. <code>browser-review-fixes.py</code> — три проверяющих в браузере. Под нагрузкой создано 10 новых кабинетов, первый вход — 60–81 мс</li>
+<li><strong>22 ноября.</strong> Второй проверяющий показал, чего тесты не ловили: кабинет создавался до проверки пароля, одновременные входы давали несколько кабинетов, а ссылка проверки справки открывала кабинет посторонним (E-45, E-46, пример 4). Тестов стало 13</li>
 </ul>
 <h4>Пример 2. Дедлайны и свежие данные на открытых экранах</h4>
 <ul>
@@ -1285,11 +1336,12 @@ OpenRouter для двух студентов. Ответы о группе со
 <li><strong>Что решили мы.</strong> Объём — «правь все». Общую базу стенда не пересоздавать: по нашему правилу из <code>AGENTS.md</code>, <code>npm run seed</code> — только по нашей команде, а созданные заявки должны сохраниться. Свежие даты получает каждый новый кабинет</li>
 <li><strong>Исправление.</strong> <code>c33b509</code>, <code>fc973b5</code>, <code>fe3432e</code>, <code>cd64f24</code>, <code>99e71cb</code>, <code>c37c69a</code>; тесты гонок — <code>3355226</code>, <code>a0dcf46</code></li>
 <li><strong>Тест.</strong> <code>test/deadlines-links.test.js</code>: относительный срок; старое «послезавтра» показывает актуальный срок и напоминание в день срока; ссылка на дату и пару. <code>browser-review-fixes.py</code>: из уведомления одним касанием к паре; «Сегодня» в расписании</li>
+<li><strong>22 ноября.</strong> Проверка «Сегодня» принимала любой текст, начинающийся с «Сегодня», и пропустила ошибку: вечером после последней пары недели экран сам переходил на следующую неделю и писал «Сегодня пар нет» (E-48, <code>81fea7b</code>). Теперь тест сверяет точный текст при подменённых часах браузера</li>
 </ul>
 <h4>Пример 3. Справка на телефоне: файл PDF вместо диалога печати</h4>
 <ul>
 <li><strong>Поручение (пункт 10).</strong> «Проверить скачивание справки на телефоне. Сейчас кнопка «Скачать PDF» вызывает печать, а тест подменяет этот вызов. Сделать прямую загрузку PDF, оставив просмотр и печать.»</li>
-<li><strong>Что сделал агент.</strong> Сервер собирает A4 библиотекой <code>pdf-lib</code> со встроенным шрифтом Onest (<a href="https://github.com/temurysega/vibe_code/blob/main/docs/ai/DECISIONS.md">ADR-013</a>); текст справки — один модуль для страницы и файла. В файле — пометка «Образец», код и кликабельная ссылка проверки в тот же кабинет. На странице — «Скачать PDF» и отдельно «Распечатать»</li>
+<li><strong>Что сделал агент.</strong> Сервер собирает A4 библиотекой <code>pdf-lib</code> со встроенным шрифтом Onest (<a href="https://github.com/temurysega/vibe_code/blob/main/docs/ai/DECISIONS.md">ADR-013</a>); текст справки — один модуль для страницы и файла. В файле — пометка «Образец», код и кликабельная ссылка проверки; 21 ноября она вела в тот же кабинет, и 22 ноября выяснилось, что так кабинет открывался любому, кто увидел PDF (E-45, пример 4). На странице — «Скачать PDF» и отдельно «Распечатать»</li>
 <li><strong>Где агент ошибся.</strong> Агент отрисовал первую страницу файла и посмотрел на неё — так нашлись ошибки, которых тесты не видели: адрес проверки уходил за поле; «Дана Морозова Алина Дмитриевна в том, что…» — неграмотно с 4 ноября; английская выписка транслитерировала дисциплины («Angliiskii iazyk»); «октябрь 2026 г..» (E-39); знака ₽ нет в шрифте, и суммы кончались пустыми квадратами (E-40). Первая сборка шрифта не повторялась байт в байт: fontTools пишет в заголовок время объединения</li>
 <li><strong>Что решили мы.</strong> Новая зависимость — по нашему правилу в <code>AGENTS.md</code> только с записью в <code>DECISIONS.md</code> и нашим согласием: агент записал ADR-013 и спросил нашего согласия до отправки в GitHub; мы ответили «Да, отправить». В Safari на iPhone SE в симуляторе iOS агент проверил сам (22 ноября); на настоящих iPhone и Android проверяем мы</li>
 <li><strong>Исправление.</strong> <code>ac62bcd</code>, <code>24c060c</code>, <code>a4ab955</code>, <code>e479e6c</code></li>
@@ -1362,7 +1414,8 @@ OpenRouter для двух студентов. Ответы о группе со
 опроса 25 студентов (пункт 8, раздел 1), настоящие iPhone и Android, VoiceOver или TalkBack (пункты 10–11), обновление
 стенда и оплата VPS до 28 ноября (пункт 5), ролик на площадке из задания и проверка ссылок без входа
 (пункт 15). Ролик мы перезаписали тем же сценарием на итоговой версии: 2:11, с поиском по номеру
-и «Скачать PDF».</p>
+и «Скачать PDF». 22 ноября его записали ещё раз, на версии 1.1.0: в прежнем на странице справки была видна
+ссылка проверки с кодом демо-кабинета (пример 4).</p>
 <div class="page-break"></div>
 
 <h4><a id="early-final"></a>Ранняя и итоговая версии на одном сценарии</h4>
@@ -1406,17 +1459,93 @@ OpenRouter для двух студентов. Ответы о группе со
   </figure>
 </div>
 
+<div class="page-break"></div>
+
+<h3><a id="review-1122"></a>Итерация 22 ноября: вторая рецензия и одна правка целиком</h3>
+<p>Днём 22 ноября второй независимый проверяющий прислал восемь пунктов. Мы передали их Claude Code (Claude Opus 5.5)
+вместе с таблицей повторного замера и словами <strong>«выполняй их, если считаешь их нужными и что они реально смогут
+поднять баллы за задания»</strong>. Полное поручение — <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/review-2026-11-22/prompt.md">review-2026-11-22/prompt.md</a>,
+что сделано по каждому пункту — <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/review-2026-11-22/README.md">README</a>. Повторный замер с пятью
+участниками опроса провели мы (раздел 1). Одну правку разбираем целиком.</p>
+<h4>Пример 4. Ссылка проверки справки открывала кабинет проверяющего</h4>
+<ul>
+<li><strong>Поручение (пункт 1, дословно).</strong> «Отделить проверку справки от входа в демокабинет. Убрать ключ кабинета из PDF и со страницы справки. В чистом браузере ссылка и код должны подтверждать только документ, без подключения к кабинету.»</li>
+<li><strong>Находка.</strong> Агент проверил по коду: ссылку с ключом 21 ноября написал он сам — в PDF и на странице справки адрес проверки имел вид <code>/?demo=&lt;код кабинета&gt;#/verify/&lt;код справки&gt;</code> (<code>e479e6c</code>, <code>99e71cb</code>). Адрес <code>/?demo=</code> ставит cookie кабинета, а демо-пароли опубликованы — значит, любой, кому показали PDF, входил в кабинет проверяющего и видел его заявки. Браузерный тест 21 ноября эту ссылку требовал: «ссылка из файла ведёт в этот же кабинет». Тем же чтением кода подтвердились проблемы из пункта 2: кабинет создавался до проверки пароля, три одновременных входа давали три кабинета, сброс работал без входа. Сверх рецензии агент нашёл, что лимит «20 в час» обходился параллельными запросами, а вытесненная из памяти база могла закрыться под идущим запросом (E-45, E-46)</li>
+<li><strong>Решение человека.</strong> Какие пункты выполнять, мы оставили агенту — «если считаешь их нужными»; повторный замер провели сами. Отправка в GitHub и обновление стенда — только по нашему подтверждению, по правилу <code>AGENTS.md</code></li>
+<li><strong>Коммит.</strong> <code>2d22df1</code>: ссылка — <code>/#/verify/&lt;код&gt;</code>; кабинет справки сервер находит по указателю «код → кабинет», посетитель проверки cookie кабинета не получает; кабинет создаётся после верного пароля, одновременные входы из одного браузера ждут одно создание. Правило закреплено инвариантом 13 в <code>AGENTS.md</code></li>
+<li><strong>Тест до и после.</strong> Один и тот же <code>test/sandboxes.test.js</code>: на коде до правки (<code>13fb0bb</code>) проходят 4 из 13 — падают «проверка справки не открывает кабинет» и все проверки создания кабинета; после — 13 из 13 (<a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/review-2026-11-22/">журналы</a>). В браузере <code>browser-review-1122.py</code>: человек в чистом браузере открывает ссылку из PDF, видит «Справка действительна» и остаётся без cookie кабинета; вход после этого открывает ему новый кабинет, а не кабинет владельца справки</li>
+</ul>
+<div class="comparison-pair">
+  <figure>
+    <img src="evidence/review-2026-11-22/360-verify-link-before-13fb0bb.png" alt="Ссылка проверки на странице справки до правки: в адресе есть код демо-кабинета">
+    <figcaption>До правки, <code>13fb0bb</code>: в ссылке — код демо-кабинета <code>?demo=…</code>.</figcaption>
+  </figure>
+  <figure>
+    <img src="evidence/review-2026-11-22/360-verify-link-after-1c65b31.png" style="width:77%" alt="Ссылка проверки на странице справки после правки: только код справки">
+    <figcaption>После правки, <code>1c65b31</code>: только код справки.</figcaption>
+  </figure>
+</div>
+
+<div class="page-break"></div>
+
+<p>Остальные пункты второй рецензии:</p>
+<table>
+<thead>
+<tr>
+<th>Пункт</th>
+<th>Что сделано</th>
+<th>Проверка</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2. Создание и сброс кабинетов</td>
+<td>База — после верного пароля; три одновременных входа одного браузера — один кабинет; лимит не обходится параллельными запросами; сброс — из сеанса; два кабинета с одинаковыми логинами и перезапуск (<code>2d22df1</code>)</td>
+<td><code>sandboxes.test.js</code>, <code>browser-review-1122.py</code></td>
+</tr>
+<tr>
+<td>3. Заявка без игры</td>
+<td>Без игрового профиля заявка раньше сохранялась, а студент видел 404; теперь — номер и статус (<code>e229b32</code>, E-47)</td>
+<td><code>backend-regressions.test.js</code>, <code>browser-review-1122.py</code></td>
+</tr>
+<tr>
+<td>4. Расписание и оценки</td>
+<td>Карточка изменений на главной открывает пару (<code>aebbdb2</code>); «Сегодня занятия закончились в …» отдельно от «Сегодня пар нет» (<code>81fea7b</code>, E-48); «Сессия» без оценок — «Недостаточно данных для прогноза» (<code>e456f27</code>, E-49)</td>
+<td><code>today.test.js</code>, <code>grades-forecast.test.js</code>, браузер с подменёнными часами</td>
+</tr>
+<tr>
+<td>5. Повторный замер</td>
+<td>Пятеро из 25 повторили задания; обе группы и разница у тех же людей — в разделе 1</td>
+<td><code>survey-repeat-2026-11-22/</code></td>
+</tr>
+<tr>
+<td>6. Телефоны и диктор</td>
+<td>Без устройства проверены ошибка сети и потерянный ответ сервера: повтор не создаёт копию. Настоящие iPhone, Android и экранный диктор — наш шаг</td>
+<td><code>browser-review-1122.py</code></td>
+</tr>
+<tr>
+<td>8. Одна версия</td>
+<td>1.1.0 — на странице входа, в подвале, в <code>/api/health</code>, README, маршруте жюри и этом документе (<code>3fc1244</code>, <code>1c65b31</code>)</td>
+<td><code>release.test.js</code></td>
+</tr>
+</tbody>
+</table>
+<figure class="wide-shot">
+  <img src="evidence/release-1.1.0/360-schedule-day-ended.png" style="max-height:120mm" alt="Расписание вечером после последней пары: «Сегодня занятия закончились в 11:50» и ближайшее занятие">
+  <figcaption>Часы браузера подменены на вечер субботы после пар: раньше здесь было «Сегодня пар нет». Снимок прогона версии 1.1.0.</figcaption>
+</figure>
+
 <h2><a id="checks"></a>10. Журналы и реальные снимки проверок</h2>
 <p>Каждая проверка запускается на новой временной базе, без пользовательских данных и без
 внешнего ИИ: <code>python scripts/collect-evidence.py --output &lt;папка&gt;</code>. Сборщик сохраняет
 журналы команд, JSON-отчёты и снимки экранов. Неуспешные попытки не удаляются: они лежат
 рядом с успешными и показывают, что именно исправлялось.</p>
-<h3>Текущая версия, 22 ноября</h3>
-<p>Итоговый прогон — из чистой копии репозитория: <code>git clone</code> на коммите <code>4209326</code>, <code>npm ci</code> по lock-файлу,
-затем все наборы на свежих временных базах: <strong>101/101</strong> автотест и <strong>570/570</strong> браузерных проверок
-в 17 наборах, без необработанных ошибок JavaScript. Набор <code>browser-review-fixes</code> шёл с демо-кабинетами,
-как на стенде; внешние ключи ИИ отключены. <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/run-summary.json">Сводка</a>
-содержит команды, время и SHA-256 проверенных исходников. Коммиты после <code>4209326</code> меняют только
+<h3>Текущая версия 1.1.0, 22 ноября</h3>
+<p>Итоговый прогон — из чистой копии репозитория: <code>git clone</code> на коммите <code>1c65b31</code>, <code>npm ci</code> по lock-файлу,
+затем все наборы на свежих временных базах: <strong>115/115</strong> автотестов и <strong>599/599</strong> браузерных проверок
+в 18 наборах, без необработанных ошибок JavaScript. Наборы <code>browser-review-fixes</code> и <code>browser-review-1122</code>
+шли с демо-кабинетами, как на стенде; внешние ключи ИИ отключены. <a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/run-summary.json">Сводка</a>
+содержит команды, время и SHA-256 проверенных исходников. Коммиты после <code>1c65b31</code> меняют только
 документы, PDF, ролик и материалы опроса.</p>
 <table>
 <thead>
@@ -1429,93 +1558,98 @@ OpenRouter для двух студентов. Ответы о группе со
 <tbody>
 <tr>
 <td>API, безопасность и предметная логика</td>
-<td style="text-align: right;">101/101</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/unit-tests.txt">unit-tests.txt</a></td>
+<td style="text-align: right;">115/115</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/unit-tests.txt">unit-tests.txt</a></td>
 </tr>
 <tr>
 <td>Экраны на 360 и 1366 px</td>
 <td style="text-align: right;">52/52</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/browser-smoke.txt">browser-smoke.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-smoke.txt">browser-smoke.txt</a></td>
 </tr>
 <tr>
 <td>Путь заявки двух ролей, смена аккаунта, изоляция</td>
 <td style="text-align: right;">36/36</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/browser-flows.txt">browser-flows.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-flows.txt">browser-flows.txt</a></td>
 </tr>
 <tr>
 <td>Клавиатура, фокус, восстановление после ошибок</td>
 <td style="text-align: right;">23/23</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/browser-accessibility.txt">browser-accessibility.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-accessibility.txt">browser-accessibility.txt</a></td>
 </tr>
 <tr>
 <td>Мобильные доработки и состояния расписания</td>
 <td style="text-align: right;">21/21</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/browser-polish.txt">browser-polish.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-polish.txt">browser-polish.txt</a></td>
 </tr>
 <tr>
 <td>Справка о стипендии: заявка, таблица, печать и скачанный PDF</td>
 <td style="text-align: right;">51/51</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/browser-stipend.txt">browser-stipend.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-stipend.txt">browser-stipend.txt</a></td>
 </tr>
 <tr>
 <td>Компактные оценки, фильтр риска, меню</td>
 <td style="text-align: right;">40/40</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/browser-review.txt">browser-review.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-review.txt">browser-review.txt</a></td>
 </tr>
 <tr>
 <td>Главная: приоритеты, причина риска, длинные названия и текущая пара</td>
 <td style="text-align: right;">42/42</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/browser-home-priority.txt">browser-home-priority.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-home-priority.txt">browser-home-priority.txt</a></td>
 </tr>
 <tr>
 <td>Успеваемость: первый экран и статистика</td>
 <td style="text-align: right;">31/31</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/browser-grades-compact.txt">browser-grades-compact.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-grades-compact.txt">browser-grades-compact.txt</a></td>
 </tr>
 <tr>
 <td>Форма справки: профиль, формат, смена аккаунта</td>
 <td style="text-align: right;">19/19</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/browser-request-compact.txt">browser-request-compact.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-request-compact.txt">browser-request-compact.txt</a></td>
 </tr>
 <tr>
 <td>Читаемость расписания</td>
 <td style="text-align: right;">35/35</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/browser-schedule-readability.txt">browser-schedule-readability.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-schedule-readability.txt">browser-schedule-readability.txt</a></td>
 </tr>
 <tr>
 <td>«С чего начать»: первые действия</td>
 <td style="text-align: right;">34/34</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/browser-first-actions.txt">browser-first-actions.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-first-actions.txt">browser-first-actions.txt</a></td>
 </tr>
 <tr>
 <td>Правки 9 ноября: вход, нажатия, уведомления, чужая ссылка</td>
 <td style="text-align: right;">14/14</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/browser-audit-fixes.txt">browser-audit-fixes.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-audit-fixes.txt">browser-audit-fixes.txt</a></td>
 </tr>
 <tr>
 <td>Вкладки, пропущенные события и восстановление сеанса</td>
 <td style="text-align: right;">37/37</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/browser-session-sync.txt">browser-session-sync.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-session-sync.txt">browser-session-sync.txt</a></td>
 </tr>
 <tr>
 <td>Фокус при обновлениях, меню и контраст текста</td>
 <td style="text-align: right;">65/65</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/browser-focus-contrast.txt">browser-focus-contrast.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-focus-contrast.txt">browser-focus-contrast.txt</a></td>
 </tr>
 <tr>
 <td>Разметка в объявлениях и комментариях остаётся текстом</td>
 <td style="text-align: right;">21/21</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/browser-xss.txt">browser-xss.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-xss.txt">browser-xss.txt</a></td>
 </tr>
 <tr>
 <td>Первый экран входа, в том числе 375×548 и 360×640; сообщение о входе: на компьютере — всплывающее, на телефоне — в профиле</td>
 <td style="text-align: right;">20/20</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/browser-mobile-entry.txt">browser-mobile-entry.txt</a></td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-mobile-entry.txt">browser-mobile-entry.txt</a></td>
 </tr>
 <tr>
 <td>Правки рецензии 21 ноября: демо-кабинеты, игровой слой, деканат, PDF, расписание, тур</td>
-<td style="text-align: right;">29/29</td>
-<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/browser-review-fixes.txt">browser-review-fixes.txt</a></td>
+<td style="text-align: right;">30/30</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-review-fixes.txt">browser-review-fixes.txt</a></td>
+</tr>
+<tr>
+<td>Правки рецензии 22 ноября: кабинет после пароля, проверка справки без кабинета, заявка без игры, повтор после сбоя сети, пара из главной, «Сегодня», «Сессия» без оценок, версия</td>
+<td style="text-align: right;">28/28</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/browser-review-1122.txt">browser-review-1122.txt</a></td>
 </tr>
 </tbody>
 </table>
@@ -1632,14 +1766,26 @@ OpenRouter для двух студентов. Ответы о группе со
 <tr>
 <td>22 ноября</td>
 <td>Опрос 25 студентов</td>
-<td>лёгкость заданий с телефона 4,4 из 5; самое трудное — риск по дисциплине и перенос пары</td>
+<td>самооценка лёгкости заданий с телефона 4,4 из 5; трудными назвали риск по дисциплине и перенос пары, по 3 из 25</td>
 <td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/survey-2026-11-22/">ответы и расчёт</a></td>
 </tr>
 <tr>
 <td>22 ноября, 14:24–14:29</td>
-<td>Чистая копия, итоговый код <code>4209326</code>: причина риска на главной</td>
+<td>Чистая копия, код <code>4209326</code>: причина риска на главной</td>
 <td>101/101 и 570/570</td>
 <td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1122-final/run-summary.json">сводка</a></td>
+</tr>
+<tr>
+<td>22 ноября</td>
+<td>Повторный замер: пятеро из тех же 25</td>
+<td>самооценка лёгкости у них 3,2 → 4,4</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/survey-repeat-2026-11-22/">ответы и расчёт</a></td>
+</tr>
+<tr>
+<td>22 ноября, 16:38–16:42</td>
+<td>Чистая копия, версия 1.1.0 (<code>1c65b31</code>): правки второй рецензии</td>
+<td>115/115 и 599/599</td>
+<td><a href="https://github.com/temurysega/vibe_code/blob/main/docs/evidence/release-1.1.0/run-summary.json">сводка</a></td>
 </tr>
 </tbody>
 </table>
@@ -1666,8 +1812,8 @@ OpenRouter для двух студентов. Ответы о группе со
 <tbody>
 <tr>
 <td>Claude Code в приложении Claude (модель Claude Opus 5.5)</td>
-<td>4 ноября — первая версия кабинета по тексту задания: структура, сервер, интерфейс, самопроверка во встроенном браузере; 9 ноября — независимый аудит по критериям и доводка; 21 ноября — чистка материалов и видео, вечером — 15 правок независимого проверяющего</td>
-<td>Журнал сессии 4 ноября (раздел 2); итерации 9, 19 и 21 ноября (разделы 3 и 9); поручение 21 ноября — <code>docs/evidence/review-2026-11-21/</code></td>
+<td>4 ноября — первая версия кабинета по тексту задания: структура, сервер, интерфейс, самопроверка во встроенном браузере; 9 ноября — независимый аудит по критериям и доводка; 21 ноября — чистка материалов и видео, вечером — 15 пунктов независимого проверяющего (десять закрыты целиком, в пяти — его часть); 22 ноября — восемь пунктов второго проверяющего, в том числе исправление пяти своих ошибок 21 ноября</td>
+<td>Журнал сессии 4 ноября (раздел 2); итерации 9, 19, 21 и 22 ноября (разделы 3 и 9); поручения — <code>docs/evidence/review-2026-11-21/</code> и <code>docs/evidence/review-2026-11-22/</code></td>
 </tr>
 <tr>
 <td>Codex и субагенты</td>
@@ -1749,10 +1895,12 @@ OpenRouter для двух студентов. Ответы о группе со
 <p>Мы определяли цель и ограничения, передавали требования, выбирали направление
 развития, давали обратную связь и настройки для публикации. 21 ноября мы передали агенту
 рецензию и решили объём правок; согласие на новую зависимость, обновление стенда, опрос
-однокурсников и проверку на настоящих телефонах оставили за собой. Ассистенты читали и меняли
+однокурсников и проверку на настоящих телефонах оставили за собой. 22 ноября передали вторую
+рецензию, а повторный замер с пятью участниками опроса провели сами. Ассистенты читали и меняли
 файлы, запускали команды и тесты, готовили материалы. Кабинет попробовали два студента;
 их замечание о непонятном первом действии привело к доработке начальных подсказок.
-Замеров времени и анкет у нас нет; повторной проверки после правок пока не было.</p>
+Потом прошли опрос 25 студентов и повторный замер у пятерых (раздел 1); замеров времени у нас нет —
+только самооценка.</p>
 <p>Сторонние материалы перечислены в <a href="https://github.com/temurysega/vibe_code/blob/main/THIRD_PARTY.md">THIRD_PARTY.md</a>. В процессе
 проверки исправлена ошибочная запись лицензии SDK Anthropic: установленный пакет
 использует Apache-2.0. Код проекта распространяется под MIT, шрифт Onest — под OFL.</p>
@@ -1806,5 +1954,5 @@ OpenRouter для двух студентов. Ответы о группе со
 ИИ-агентов, журнал промптов и ошибок, диалоги с субагентами 19 ноября, методичка промптов,
 снимки интерфейса, автоматические и браузерные сценарии, сохранённые журналы и пример
 демонстрационного документа.
-Видео-демонстрация с мобильного экрана (2:11) — <a href="https://github.com/temurysega/vibe_code/blob/main/docs/video/demo-mobile.mp4">docs/video/demo-mobile.mp4</a>;
+Видео-демонстрация с мобильного экрана (2:11, версия 1.1.0) — <a href="https://github.com/temurysega/vibe_code/blob/main/docs/video/demo-mobile.mp4">docs/video/demo-mobile.mp4</a>;
 её записал сценарий <code>scripts/demo/record-demo.py</code>.</p></body></html>
