@@ -1,0 +1,72 @@
+Command: <venv>/bin/python <project>/test/browser-stipend.py http://127.0.0.1:54128
+Started (MSK): 2026-11-22T20:30:22+03:00
+Finished (MSK): 2026-11-22T20:31:48+03:00
+Exit code: 0
+
+PASS 360: stipend submitted through student form
+PASS 360: staff completes stipend through queue
+PASS 360: stipend has six monthly rows
+PASS 360: stipend total matches monthly amounts
+PASS 360: stipend displays the correct total
+PASS 360: stipend is clearly marked as fictional
+PASS 360: stipend fits the page
+PASS 360: stipend table is not clipped
+PASS 360: stipend contains nonzero demo accruals
+PASS 360: stipend opens print/PDF workflow
+PASS 360: stipend exports a PDF
+PASS 360: stipend downloads a PDF file directly
+PASS 360: stipend downloaded PDF has Cyrillic text, the total in roubles and the sample mark
+PASS 360: stipend downloaded PDF links to the public verification page
+PASS 360: stipend retains the same snapshot after reload
+PASS 360: contract student cannot open another stipend
+PASS 360: contract student can request a certificate with no stipend
+WAIT zero stipend: normal demo processing (submitted)
+WAIT zero stipend: normal demo processing (submitted)
+WAIT zero stipend: normal demo processing (in_work)
+WAIT zero stipend: normal demo processing (in_work)
+WAIT zero stipend: normal demo processing (in_work)
+WAIT zero stipend: normal demo processing (in_work)
+WAIT zero stipend: normal demo processing (in_work)
+WAIT zero stipend: normal demo processing (in_work)
+WAIT zero stipend: normal demo processing (in_work)
+WAIT zero stipend: normal demo processing (in_work)
+WAIT zero stipend: normal demo processing (in_work)
+WAIT zero stipend: normal demo processing (in_work)
+WAIT zero stipend: normal demo processing (in_work)
+WAIT zero stipend: normal demo processing (in_work)
+WAIT zero stipend: normal demo processing (in_work)
+PASS 360: zero stipend reaches ready through demo processing
+PASS 360: zero stipend has six monthly rows
+PASS 360: zero stipend total matches monthly amounts
+PASS 360: zero stipend displays the correct total
+PASS 360: zero stipend is clearly marked as fictional
+PASS 360: zero stipend fits the page
+PASS 360: zero stipend table is not clipped
+PASS 360: zero stipend contains zero amounts without a false award claim
+PASS 360: zero stipend retains the same snapshot after reload
+PASS 1366: stipend submitted through student form
+PASS 1366: staff completes stipend through queue
+PASS 1366: stipend has six monthly rows
+PASS 1366: stipend total matches monthly amounts
+PASS 1366: stipend displays the correct total
+PASS 1366: stipend is clearly marked as fictional
+PASS 1366: stipend fits the page
+PASS 1366: stipend table is not clipped
+PASS 1366: stipend contains nonzero demo accruals
+PASS 1366: stipend opens print/PDF workflow
+PASS 1366: stipend exports a PDF
+PASS 1366: stipend downloads a PDF file directly
+PASS 1366: stipend downloaded PDF has Cyrillic text, the total in roubles and the sample mark
+PASS 1366: stipend downloaded PDF links to the public verification page
+PASS 1366: stipend retains the same snapshot after reload
+PASS 1366: contract student cannot open another stipend
+PASS 1366: zero stipend has six monthly rows
+PASS 1366: zero stipend total matches monthly amounts
+PASS 1366: zero stipend displays the correct total
+PASS 1366: zero stipend is clearly marked as fictional
+PASS 1366: zero stipend fits the page
+PASS 1366: zero stipend table is not clipped
+PASS 1366: zero stipend contains zero amounts without a false award claim
+PASS 1366: zero stipend retains the same snapshot after reload
+PASS No uncaught browser errors
+{"checks": 51, "failed": [], "browser_errors": []}

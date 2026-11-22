@@ -1,0 +1,249 @@
+{
+  "started_msk": "2026-11-22T20:29:36+03:00",
+  "passed": false,
+  "scope": "Local source, fresh disposable SQLite for each browser suite, external AI disabled",
+  "source_revision": "d992b03c6b100d9918484ade923af28a1edec0f3",
+  "tested_source_sha256": "cbece3333979030d40fbedaa4b11c5da4aff8a7a03589f4256a5b4e854e9165c",
+  "stages": [
+    {
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "test/*.test.js"
+      ],
+      "started_msk": "2026-11-22T20:29:36+03:00",
+      "finished_msk": "2026-11-22T20:29:39+03:00",
+      "exit_code": 0,
+      "journal": "unit-tests.txt",
+      "tests": 115,
+      "passed": 115
+    },
+    {
+      "command": [
+        "<venv>/bin/python",
+        "<project>/test/browser-smoke.py",
+        "http://127.0.0.1:54128"
+      ],
+      "started_msk": "2026-11-22T20:29:40+03:00",
+      "finished_msk": "2026-11-22T20:30:00+03:00",
+      "exit_code": 0,
+      "journal": "browser-smoke.txt",
+      "checks": 52,
+      "passed": 52,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "<venv>/bin/python",
+        "<project>/test/browser-flows.py",
+        "http://127.0.0.1:54128"
+      ],
+      "started_msk": "2026-11-22T20:30:01+03:00",
+      "finished_msk": "2026-11-22T20:30:16+03:00",
+      "exit_code": 0,
+      "journal": "browser-flows.txt",
+      "checks": 36,
+      "passed": 36,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "<venv>/bin/python",
+        "<project>/test/browser-accessibility.py",
+        "http://127.0.0.1:54128"
+      ],
+      "started_msk": "2026-11-22T20:30:16+03:00",
+      "finished_msk": "2026-11-22T20:30:19+03:00",
+      "exit_code": 0,
+      "journal": "browser-accessibility.txt",
+      "checks": 23,
+      "passed": 23,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "<venv>/bin/python",
+        "<project>/test/browser-polish.py",
+        "http://127.0.0.1:54128"
+      ],
+      "started_msk": "2026-11-22T20:30:19+03:00",
+      "finished_msk": "2026-11-22T20:30:22+03:00",
+      "exit_code": 0,
+      "journal": "browser-polish.txt",
+      "checks": 21,
+      "passed": 21,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "<venv>/bin/python",
+        "<project>/test/browser-stipend.py",
+        "http://127.0.0.1:54128"
+      ],
+      "started_msk": "2026-11-22T20:30:22+03:00",
+      "finished_msk": "2026-11-22T20:31:48+03:00",
+      "exit_code": 0,
+      "journal": "browser-stipend.txt",
+      "checks": 51,
+      "passed": 51,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "<venv>/bin/python",
+        "<project>/test/browser-review.py",
+        "http://127.0.0.1:54128"
+      ],
+      "started_msk": "2026-11-22T20:31:49+03:00",
+      "finished_msk": "2026-11-22T20:31:54+03:00",
+      "exit_code": 0,
+      "journal": "browser-review.txt",
+      "checks": 40,
+      "passed": 40,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "<venv>/bin/python",
+        "<project>/test/browser-home-priority.py",
+        "http://127.0.0.1:54128"
+      ],
+      "started_msk": "2026-11-22T20:31:54+03:00",
+      "finished_msk": "2026-11-22T20:31:59+03:00",
+      "exit_code": 0,
+      "journal": "browser-home-priority.txt",
+      "checks": 42,
+      "passed": 42,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "<venv>/bin/python",
+        "<project>/test/browser-grades-compact.py",
+        "http://127.0.0.1:54128"
+      ],
+      "started_msk": "2026-11-22T20:32:00+03:00",
+      "finished_msk": "2026-11-22T20:32:08+03:00",
+      "exit_code": 0,
+      "journal": "browser-grades-compact.txt",
+      "checks": 31,
+      "passed": 31,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "<venv>/bin/python",
+        "<project>/test/browser-request-compact.py",
+        "http://127.0.0.1:54128"
+      ],
+      "started_msk": "2026-11-22T20:32:09+03:00",
+      "finished_msk": "2026-11-22T20:32:13+03:00",
+      "exit_code": 0,
+      "journal": "browser-request-compact.txt",
+      "checks": 19,
+      "passed": 19,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "<venv>/bin/python",
+        "<project>/test/browser-schedule-readability.py",
+        "http://127.0.0.1:54128"
+      ],
+      "started_msk": "2026-11-22T20:32:13+03:00",
+      "finished_msk": "2026-11-22T20:32:18+03:00",
+      "exit_code": 0,
+      "journal": "browser-schedule-readability.txt",
+      "checks": 35,
+      "passed": 35,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "<venv>/bin/python",
+        "<project>/test/browser-first-actions.py",
+        "http://127.0.0.1:54128"
+      ],
+      "started_msk": "2026-11-22T20:32:19+03:00",
+      "finished_msk": "2026-11-22T20:32:34+03:00",
+      "exit_code": 0,
+      "journal": "browser-first-actions.txt",
+      "checks": 34,
+      "passed": 34,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "<venv>/bin/python",
+        "<project>/test/browser-audit-fixes.py",
+        "http://127.0.0.1:54128"
+      ],
+      "started_msk": "2026-11-22T20:32:34+03:00",
+      "finished_msk": "2026-11-22T20:32:52+03:00",
+      "exit_code": 0,
+      "journal": "browser-audit-fixes.txt",
+      "checks": 14,
+      "passed": 14,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "<venv>/bin/python",
+        "<project>/test/browser-session-sync.py",
+        "http://127.0.0.1:54128"
+      ],
+      "started_msk": "2026-11-22T20:32:52+03:00",
+      "finished_msk": "2026-11-22T20:33:13+03:00",
+      "exit_code": 0,
+      "journal": "browser-session-sync.txt",
+      "checks": 37,
+      "passed": 37,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "<venv>/bin/python",
+        "<project>/test/browser-focus-contrast.py",
+        "http://127.0.0.1:54128"
+      ],
+      "started_msk": "2026-11-22T20:33:13+03:00",
+      "finished_msk": "2026-11-22T20:33:17+03:00",
+      "exit_code": 0,
+      "journal": "browser-focus-contrast.txt",
+      "checks": 65,
+      "passed": 65,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "<venv>/bin/python",
+        "<project>/test/browser-xss.py",
+        "http://127.0.0.1:54128"
+      ],
+      "started_msk": "2026-11-22T20:33:17+03:00",
+      "finished_msk": "2026-11-22T20:33:21+03:00",
+      "exit_code": 0,
+      "journal": "browser-xss.txt",
+      "checks": 21,
+      "passed": 21,
+      "browser_errors": []
+    },
+    {
+      "command": [
+        "<venv>/bin/python",
+        "<project>/test/browser-mobile-entry.py",
+        "http://127.0.0.1:54128"
+      ],
+      "started_msk": "2026-11-22T20:33:21+03:00",
+      "finished_msk": "2026-11-22T20:33:37+03:00",
+      "exit_code": 0,
+      "journal": "browser-mobile-entry.txt",
+      "checks": 20,
+      "passed": 20,
+      "browser_errors": []
+    }
+  ],
+  "base": "http://127.0.0.1:54128",
+  "finished_msk": "2026-11-22T20:33:47+03:00"
+}

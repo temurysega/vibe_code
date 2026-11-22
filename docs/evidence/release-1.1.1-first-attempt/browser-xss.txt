@@ -1,0 +1,27 @@
+Command: <venv>/bin/python <project>/test/browser-xss.py http://127.0.0.1:54128
+Started (MSK): 2026-11-22T20:33:17+03:00
+Finished (MSK): 2026-11-22T20:33:21+03:00
+Exit code: 0
+
+PASS Dean signs in
+PASS Dean announcement with markup is accepted by the server
+PASS Student has a request in work for the dean comment
+PASS Dean request comment with markup is accepted by the server
+PASS 360 notifications: markup text is shown as text
+PASS 360 notifications: window.__xss is undefined
+PASS 360 notifications: no injected img or script in the DOM
+PASS 360 notifications: page fits viewport
+PASS 360 request: markup text is shown as text
+PASS 360 request: window.__xss is undefined
+PASS 360 request: no injected img or script in the DOM
+PASS 360 request: page fits viewport
+PASS 1366 notifications: markup text is shown as text
+PASS 1366 notifications: window.__xss is undefined
+PASS 1366 notifications: no injected img or script in the DOM
+PASS 1366 notifications: page fits viewport
+PASS 1366 request: markup text is shown as text
+PASS 1366 request: window.__xss is undefined
+PASS 1366 request: no injected img or script in the DOM
+PASS 1366 request: page fits viewport
+PASS No uncaught JavaScript errors or dialogs
+{"checks": 21, "failed": []}
