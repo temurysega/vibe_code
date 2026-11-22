@@ -77,6 +77,13 @@ try:
                 check('360: daily list starts collapsed instead of repeating the nearest lesson', not day.evaluate('(el) => el.open') and day.locator('.day-item:visible').count() == 0)
                 check('360: study and request shortcuts appear before the daily list', len(positions) == 2 and positions[-1]['bottom'] < day.bounding_box()['y'])
                 check('360: both shortcuts fit above the bottom navigation', positions[-1]['bottom'] <= page.locator('#tabbar').bounding_box()['y'])
+                # Опрос 22 ноября: «риск по дисциплине» — самое трудное задание; причина видна прямо на главной
+                risk = payload['grades']['risk'][0] if payload['grades']['risk'] else None
+                if risk:
+                    label = page.locator('[data-home-priority="study"] .home-priority-label')
+                    check('360: the study shortcut names the risk reason with the same numbers as grades',
+                          label.inner_text() == f"Риск · нужно ещё {risk['need']} из {risk['remaining']} баллов")
+                    check('360: the risk reason stays on one line', label.evaluate('(el) => el.scrollWidth <= el.clientWidth + 1 && el.getClientRects().length === 1'))
                 page.screenshot(path=str(OUT / '360-home-priority.png'), animations='disabled', style='#toast-root {visibility:hidden}')
                 day.locator('summary').focus()
                 # Событие toggle приходит асинхронно: ждём его, иначе смена ширины ниже опередит обработчик страницы

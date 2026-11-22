@@ -64,7 +64,7 @@ export default function (router) {
       deadlines: deadlinesOf(store, s),
       requests,
       notifications: { unread: unreadCount(store, user.id, s), latest: listFor(store, user.id, s, 5) },
-      grades: { summary: grades.summary, risk: grades.current.filter((c) => c.status === 'risk').map((c) => ({ id: c.id, name: c.name, earned: c.earned, forecast: c.forecast, advice: c.advice })), session: grades.session, semesterLabel: grades.semesterLabel },
+      grades: { summary: grades.summary, risk: grades.current.filter((c) => c.status === 'risk').map((c) => ({ id: c.id, name: c.name, earned: c.earned, forecast: c.forecast, advice: c.advice, need: Math.max(0, 60 - c.earned), remaining: c.remaining })), session: grades.session, semesterLabel: grades.semesterLabel },
       play: playView,
     };
   });

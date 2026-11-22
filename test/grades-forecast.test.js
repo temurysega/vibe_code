@@ -2,7 +2,7 @@
 // Прогноз допуска отличается от фактического, у дисциплины в риске есть ближайшее действие.
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { startApp } from './helpers.js';
+import { startApp, client } from './helpers.js';
 import { gradesFor } from '../server/domain/grades.js';
 import { studentOf } from '../server/security/auth.js';
 
@@ -45,3 +45,15 @@ test('без оценок: «Пока нет данных для прогноз�
   assert.equal(g.summary.nodata, g.current.length);
   assert.match(g.summary.headline, /оценок пока нет/);
 });
+
+test('главная называет причину риска без перехода в оценки: нужно ещё N из M баллов', async () => {
+  const s = client(app.base);
+  await s.login('a.morozova');
+  const home = (await s.req('GET', '/api/home')).data;
+  const risk = home.grades.risk[0];
+  const full = gradesOf('a.morozova').current.find((c) => c.id === risk.id);
+  assert.equal(risk.need, Math.max(0, 60 - full.earned));
+  assert.equal(risk.remaining, full.remaining);
+  assert.ok(risk.need > 0 && risk.need <= risk.remaining, 'до зачёта ещё можно добрать');
+});
+

@@ -128,7 +128,8 @@ const sec = {
     const tip = summary.tips.find((item) => ['debt', 'risk', 'att'].includes(item.kind));
     const risk = data.grades.risk[0];
     const study = tip
-      ? { label: 'Требует внимания', text: tip.kind === 'risk' && risk ? risk.name : tip.text, link: tip.link, icon: 'alert' }
+      // Причина риска — прямо в ярлыке, без перехода в оценки: по опросу 22 ноября «риск по дисциплине» был самым трудным заданием
+      ? { label: tip.kind === 'risk' && risk ? `Риск · нужно ещё ${risk.need} из ${risk.remaining} баллов` : 'Требует внимания', text: tip.kind === 'risk' && risk ? risk.name : tip.text, link: tip.link, icon: 'alert' }
       : { label: session.play.newcomer ? 'Ваш первый семестр' : 'Учебных рисков нет', text: summary.total ? 'Посмотреть успеваемость' : 'Открыть раздел учёбы', link: '#/grades', icon: 'chart' };
     const request = data.requests.find((item) => item.status === 'ready')
       || data.requests.find((item) => !['issued', 'approved', 'rejected', 'cancelled'].includes(item.status))

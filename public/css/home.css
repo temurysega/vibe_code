@@ -128,7 +128,7 @@
   .home-priority-link > .ic { flex: none; color: var(--navy); }
   .home-priority-link .grow { min-width: 0; }
   .home-priority-link b { display: block; font-size: 15px; line-height: 1.35; font-weight: 500; overflow-wrap: anywhere; }
-  .home-priority-label { display: block; font-size: 13px; line-height: 1.35; color: var(--muted); margin-bottom: 2px; }
+  .home-priority-label { display: block; font-size: 13px; line-height: 1.35; color: var(--muted); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .home-priority-icon { display: grid; place-items: center; flex: none; width: 32px; height: 32px; border-radius: 10px; background: #fff; color: var(--navy); }
   .home-priority-link.attention .home-priority-icon { background: var(--warn-2); color: var(--warn); }
   .home-day > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; list-style: none; cursor: pointer; }
