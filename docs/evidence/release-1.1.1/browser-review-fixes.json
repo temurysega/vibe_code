@@ -1,0 +1,144 @@
+{
+  "base": "http://127.0.0.1:55053",
+  "checks": [
+    {
+      "check": "play API answers 503: sign-in still opens the study home",
+      "passed": true
+    },
+    {
+      "check": "play API answers 503: schedule opens and the header has no broken coins or avatar",
+      "passed": true
+    },
+    {
+      "check": "first sign-in creates a personal demo cabinet",
+      "passed": true
+    },
+    {
+      "check": "«Ещё» → «Ваш демо-кабинет» shows a link to the same cabinet",
+      "passed": true
+    },
+    {
+      "check": "a duplicate request opens the existing one instead of creating a copy",
+      "passed": true
+    },
+    {
+      "check": "another reviewer gets a different cabinet",
+      "passed": true
+    },
+    {
+      "check": "another reviewer cannot open the first reviewer's request",
+      "passed": true
+    },
+    {
+      "check": "the link opens the same cabinet: the dean sees the reviewer's request",
+      "passed": true
+    },
+    {
+      "check": "search «2026/01212» finds exactly this request",
+      "passed": true
+    },
+    {
+      "check": "search «1212» finds exactly this request",
+      "passed": true
+    },
+    {
+      "check": "a slow answer to the previous search keeps the number the dean is already typing",
+      "passed": true
+    },
+    {
+      "check": "search for a missing number says so instead of an empty queue",
+      "passed": true
+    },
+    {
+      "check": "«Вся очередь» returns the whole queue and clears the number field",
+      "passed": true
+    },
+    {
+      "check": "the request number is a direct link that opens only this request",
+      "passed": true
+    },
+    {
+      "check": "the comment field has a visible label with the request number",
+      "passed": true
+    },
+    {
+      "check": "while typing, the 10-second refresh keeps the text and the focus",
+      "passed": true
+    },
+    {
+      "check": "after the focus leaves, the refresh repaints the queue and keeps the unsent comment",
+      "passed": true
+    },
+    {
+      "check": "360: «Скачать PDF» is the first action on the certificate page",
+      "passed": true
+    },
+    {
+      "check": "360: the certificate downloads as a PDF file",
+      "passed": true
+    },
+    {
+      "check": "PDF: Cyrillic text is real text, with the student, the place and the sample mark",
+      "passed": true
+    },
+    {
+      "check": "PDF: the verification link checks only the document — no demo cabinet code in it",
+      "passed": true
+    },
+    {
+      "check": "a person without an account opens the link from the PDF and sees the certificate is valid",
+      "passed": true
+    },
+    {
+      "check": "verifying does not hand over the cabinet: the clean browser has no demo cabinet cookie",
+      "passed": true
+    },
+    {
+      "check": "a schedule change notification carries a link to the date and pair",
+      "passed": true
+    },
+    {
+      "check": "one tap opens the changed lesson with its details",
+      "passed": true
+    },
+    {
+      "check": "schedule: after the last lesson or on a day off, the page says so and names the nearest lesson",
+      "passed": true
+    },
+    {
+      "check": "tour: no auto-advance — after 6 s the first step is still shown",
+      "passed": true
+    },
+    {
+      "check": "tour: «Дальше», «Назад» and «Закрыть» work",
+      "passed": true
+    },
+    {
+      "check": "grades: arrow keys switch semesters and keep the focus on the selected tab",
+      "passed": true
+    },
+    {
+      "check": "session: admission is called a forecast, with when the dean sets the real one",
+      "passed": true
+    },
+    {
+      "check": "assistant: «Какая у меня группа?» is answered from the profile",
+      "passed": true
+    },
+    {
+      "check": "Review fixes: no uncaught JavaScript errors",
+      "passed": true
+    }
+  ],
+  "browser_errors": [],
+  "measurements": [
+    {
+      "pdf_bytes": 11292,
+      "pdf_pages": 1
+    },
+    {
+      "schedule_checked_at_msk": "2026-11-22T20:42+03:00",
+      "lessons_ahead_today": 0
+    }
+  ]
+}

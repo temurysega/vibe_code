@@ -1,0 +1,40 @@
+Command: <venv>/bin/python <project>/test/browser-first-actions.py http://127.0.0.1:55053
+Started (MSK): 2026-11-22T20:40:33+03:00
+Finished (MSK): 2026-11-22T20:40:48+03:00
+Exit code: 0
+
+PASS 360: start guide is visible in the first screen
+PASS 360: home has no horizontal overflow
+PASS 360: Enter opens three useful study actions
+PASS 360: guide offers schedule, grades and a study certificate
+PASS 360: avatar setup remains optional
+PASS 360: guide has no horizontal overflow
+PASS 360: Escape restores focus to the guide button
+PASS 360: guide opens the real #/schedule screen
+PASS 360: #/schedule has no horizontal overflow
+PASS 360: guide opens the real #/grades screen
+PASS 360: #/grades has no horizontal overflow
+PASS 360: guide opens the real #/requests/new/study screen
+PASS 360: certificate opens with Alina’s profile
+PASS 360: #/requests/new/study has no horizontal overflow
+PASS 360: guide uses Timur’s profile after account switch
+PASS 360: newcomer form has no horizontal overflow
+PASS 1366: start guide is visible in the first screen
+PASS 1366: home has no horizontal overflow
+PASS 1366: Enter opens three useful study actions
+PASS 1366: guide offers schedule, grades and a study certificate
+PASS 1366: avatar setup remains optional
+PASS 1366: guide has no horizontal overflow
+PASS 1366: Escape restores focus to the guide button
+PASS 1366: guide opens the real #/schedule screen
+PASS 1366: #/schedule has no horizontal overflow
+PASS 1366: guide opens the real #/grades screen
+PASS 1366: #/grades has no horizontal overflow
+PASS 1366: guide opens the real #/requests/new/study screen
+PASS 1366: certificate opens with Alina’s profile
+PASS 1366: #/requests/new/study has no horizontal overflow
+PASS 1366: guide uses Timur’s profile after account switch
+PASS 1366: newcomer form has no horizontal overflow
+PASS No request submissions or profile edits
+PASS No uncaught browser errors
+{"checks": 34, "failed": [], "output": "<project>/docs/evidence/release-1.1.1"}

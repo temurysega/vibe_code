@@ -1,0 +1,37 @@
+Command: <venv>/bin/python <project>/test/browser-review-1122.py http://127.0.0.1:55053
+Started (MSK): 2026-11-22T20:42:28+03:00
+Finished (MSK): 2026-11-22T20:42:34+03:00
+Exit code: 0
+
+PASS login page: the browser holds a reserved cabinet code, the cabinet itself does not exist yet
+PASS login page names release 1.1.1
+PASS wrong password: an error and no new cabinet database
+PASS three simultaneous sign-ins from one browser: all succeed and create exactly one cabinet with the reserved code
+PASS after the simultaneous sign-ins the cabinet opens normally
+PASS without a session the cabinet cannot be reset: the API answers 401, the dialog has no reset button
+PASS game profile missing: the request is saved once, its page shows the number and the status «Подана»
+PASS offline: a clear error, the form keeps the text; the retry sends exactly one request
+PASS the answer was lost after the server saved the request: the retry opens that request, no copy
+PASS the dean opens the cabinet by its link, finds the request and issues the certificate
+PASS certificate page: the verification link has no demo cabinet code
+PASS PDF: the same link and code, no demo cabinet code anywhere in the file
+PASS a clean browser confirms the certificate by the link and is not attached to any cabinet
+PASS the code typed by hand confirms the certificate too, still without a cabinet
+PASS signing in on that browser afterwards opens a new cabinet, not the certificate owner's
+PASS second student in the same cabinet: «Заявка не найдена» for the request and the certificate, the PDF answers 404
+PASS session tab without grades: «Недостаточно данных для прогноза» instead of «идёт по плану»
+PASS current semester without grades: every discipline says «Пока нет данных для прогноза»
+PASS with a discipline at risk the session forecast stays «под вопросом»
+PASS home: every schedule change links to its date and pair
+PASS one tap on the home card opens that lesson with its change
+PASS home: lessons of the day link to their pair, not to the whole week
+PASS evening after the last lesson of the week (2026-11-21, till 11:50): «Сегодня занятия закончились в 11:50», not «пар нет»
+PASS the schedule moved to the next week by itself and says so
+PASS on Sunday: «Сегодня пар нет» and the nearest lesson
+PASS before the first lesson of a study day there is no «Сегодня» note
+PASS release 1.1.1: the footer and /api/health name the same version
+PASS 360: the example verification code fits into the field
+PASS 360: all three dean tabs are fully visible without scrolling
+PASS 360: the six day buttons of the week fit the screen width
+PASS Review 22 November: no uncaught JavaScript errors
+{"checks": 31, "failed": []}

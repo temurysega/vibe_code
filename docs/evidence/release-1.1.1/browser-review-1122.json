@@ -1,0 +1,146 @@
+{
+  "base": "http://127.0.0.1:55053",
+  "checks": [
+    {
+      "check": "login page: the browser holds a reserved cabinet code, the cabinet itself does not exist yet",
+      "passed": true
+    },
+    {
+      "check": "login page names release 1.1.1",
+      "passed": true
+    },
+    {
+      "check": "wrong password: an error and no new cabinet database",
+      "passed": true
+    },
+    {
+      "check": "three simultaneous sign-ins from one browser: all succeed and create exactly one cabinet with the reserved code",
+      "passed": true
+    },
+    {
+      "check": "after the simultaneous sign-ins the cabinet opens normally",
+      "passed": true
+    },
+    {
+      "check": "without a session the cabinet cannot be reset: the API answers 401, the dialog has no reset button",
+      "passed": true
+    },
+    {
+      "check": "game profile missing: the request is saved once, its page shows the number and the status «Подана»",
+      "passed": true
+    },
+    {
+      "check": "offline: a clear error, the form keeps the text; the retry sends exactly one request",
+      "passed": true
+    },
+    {
+      "check": "the answer was lost after the server saved the request: the retry opens that request, no copy",
+      "passed": true
+    },
+    {
+      "check": "the dean opens the cabinet by its link, finds the request and issues the certificate",
+      "passed": true
+    },
+    {
+      "check": "certificate page: the verification link has no demo cabinet code",
+      "passed": true
+    },
+    {
+      "check": "PDF: the same link and code, no demo cabinet code anywhere in the file",
+      "passed": true
+    },
+    {
+      "check": "a clean browser confirms the certificate by the link and is not attached to any cabinet",
+      "passed": true
+    },
+    {
+      "check": "the code typed by hand confirms the certificate too, still without a cabinet",
+      "passed": true
+    },
+    {
+      "check": "signing in on that browser afterwards opens a new cabinet, not the certificate owner's",
+      "passed": true
+    },
+    {
+      "check": "second student in the same cabinet: «Заявка не найдена» for the request and the certificate, the PDF answers 404",
+      "passed": true
+    },
+    {
+      "check": "session tab without grades: «Недостаточно данных для прогноза» instead of «идёт по плану»",
+      "passed": true
+    },
+    {
+      "check": "current semester without grades: every discipline says «Пока нет данных для прогноза»",
+      "passed": true
+    },
+    {
+      "check": "with a discipline at risk the session forecast stays «под вопросом»",
+      "passed": true
+    },
+    {
+      "check": "home: every schedule change links to its date and pair",
+      "passed": true
+    },
+    {
+      "check": "one tap on the home card opens that lesson with its change",
+      "passed": true
+    },
+    {
+      "check": "home: lessons of the day link to their pair, not to the whole week",
+      "passed": true
+    },
+    {
+      "check": "evening after the last lesson of the week (2026-11-21, till 11:50): «Сегодня занятия закончились в 11:50», not «пар нет»",
+      "passed": true
+    },
+    {
+      "check": "the schedule moved to the next week by itself and says so",
+      "passed": true
+    },
+    {
+      "check": "on Sunday: «Сегодня пар нет» and the nearest lesson",
+      "passed": true
+    },
+    {
+      "check": "before the first lesson of a study day there is no «Сегодня» note",
+      "passed": true
+    },
+    {
+      "check": "release 1.1.1: the footer and /api/health name the same version",
+      "passed": true
+    },
+    {
+      "check": "360: the example verification code fits into the field",
+      "passed": true
+    },
+    {
+      "check": "360: all three dean tabs are fully visible without scrolling",
+      "passed": true
+    },
+    {
+      "check": "360: the six day buttons of the week fit the screen width",
+      "passed": true
+    },
+    {
+      "check": "Review 22 November: no uncaught JavaScript errors",
+      "passed": true
+    }
+  ],
+  "browser_errors": [],
+  "measurements": [
+    {
+      "simultaneous_sign_ins": [
+        200,
+        200,
+        200
+      ],
+      "cabinets_created": 1
+    },
+    {
+      "week": "2026-W47",
+      "last_study_day": "2026-11-21",
+      "last_lesson_end": "11:50",
+      "sunday": "2026-11-22"
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+{
+  "base": "http://127.0.0.1:55053",
+  "checks": [
+    {
+      "check": "360: stipend submitted through student form",
+      "passed": true
+    },
+    {
+      "check": "360: staff completes stipend through queue",
+      "passed": true
+    },
+    {
+      "check": "360: stipend has six monthly rows",
+      "passed": true
+    },
+    {
+      "check": "360: stipend total matches monthly amounts",
+      "passed": true
+    },
+    {
+      "check": "360: stipend displays the correct total",
+      "passed": true
+    },
+    {
+      "check": "360: stipend is clearly marked as fictional",
+      "passed": true
+    },
+    {
+      "check": "360: stipend fits the page",
+      "passed": true
+    },
+    {
+      "check": "360: stipend table is not clipped",
+      "passed": true
+    },
+    {
+      "check": "360: stipend contains nonzero demo accruals",
+      "passed": true
+    },
+    {
+      "check": "360: stipend opens print/PDF workflow",
+      "passed": true
+    },
+    {
+      "check": "360: stipend exports a PDF",
+      "passed": true
+    },
+    {
+      "check": "360: stipend downloads a PDF file directly",
+      "passed": true
+    },
+    {
+      "check": "360: stipend downloaded PDF has Cyrillic text, the total in roubles and the sample mark",
+      "passed": true
+    },
+    {
+      "check": "360: stipend downloaded PDF links to the public verification page",
+      "passed": true
+    },
+    {
+      "check": "360: stipend retains the same snapshot after reload",
+      "passed": true
+    },
+    {
+      "check": "360: contract student cannot open another stipend",
+      "passed": true
+    },
+    {
+      "check": "360: contract student can request a certificate with no stipend",
+      "passed": true
+    },
+    {
+      "check": "360: zero stipend reaches ready through demo processing",
+      "passed": true
+    },
+    {
+      "check": "360: zero stipend has six monthly rows",
+      "passed": true
+    },
+    {
+      "check": "360: zero stipend total matches monthly amounts",
+      "passed": true
+    },
+    {
+      "check": "360: zero stipend displays the correct total",
+      "passed": true
+    },
+    {
+      "check": "360: zero stipend is clearly marked as fictional",
+      "passed": true
+    },
+    {
+      "check": "360: zero stipend fits the page",
+      "passed": true
+    },
+    {
+      "check": "360: zero stipend table is not clipped",
+      "passed": true
+    },
+    {
+      "check": "360: zero stipend contains zero amounts without a false award claim",
+      "passed": true
+    },
+    {
+      "check": "360: zero stipend retains the same snapshot after reload",
+      "passed": true
+    },
+    {
+      "check": "1366: stipend submitted through student form",
+      "passed": true
+    },
+    {
+      "check": "1366: staff completes stipend through queue",
+      "passed": true
+    },
+    {
+      "check": "1366: stipend has six monthly rows",
+      "passed": true
+    },
+    {
+      "check": "1366: stipend total matches monthly amounts",
+      "passed": true
+    },
+    {
+      "check": "1366: stipend displays the correct total",
+      "passed": true
+    },
+    {
+      "check": "1366: stipend is clearly marked as fictional",
+      "passed": true
+    },
+    {
+      "check": "1366: stipend fits the page",
+      "passed": true
+    },
+    {
+      "check": "1366: stipend table is not clipped",
+      "passed": true
+    },
+    {
+      "check": "1366: stipend contains nonzero demo accruals",
+      "passed": true
+    },
+    {
+      "check": "1366: stipend opens print/PDF workflow",
+      "passed": true
+    },
+    {
+      "check": "1366: stipend exports a PDF",
+      "passed": true
+    },
+    {
+      "check": "1366: stipend downloads a PDF file directly",
+      "passed": true
+    },
+    {
+      "check": "1366: stipend downloaded PDF has Cyrillic text, the total in roubles and the sample mark",
+      "passed": true
+    },
+    {
+      "check": "1366: stipend downloaded PDF links to the public verification page",
+      "passed": true
+    },
+    {
+      "check": "1366: stipend retains the same snapshot after reload",
+      "passed": true
+    },
+    {
+      "check": "1366: contract student cannot open another stipend",
+      "passed": true
+    },
+    {
+      "check": "1366: zero stipend has six monthly rows",
+      "passed": true
+    },
+    {
+      "check": "1366: zero stipend total matches monthly amounts",
+      "passed": true
+    },
+    {
+      "check": "1366: zero stipend displays the correct total",
+      "passed": true
+    },
+    {
+      "check": "1366: zero stipend is clearly marked as fictional",
+      "passed": true
+    },
+    {
+      "check": "1366: zero stipend fits the page",
+      "passed": true
+    },
+    {
+      "check": "1366: zero stipend table is not clipped",
+      "passed": true
+    },
+    {
+      "check": "1366: zero stipend contains zero amounts without a false award claim",
+      "passed": true
+    },
+    {
+      "check": "1366: zero stipend retains the same snapshot after reload",
+      "passed": true
+    },
+    {
+      "check": "No uncaught browser errors",
+      "passed": true
+    }
+  ],
+  "browser_errors": []
+}
