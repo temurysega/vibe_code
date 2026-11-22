@@ -7,7 +7,7 @@
 ## Где мы
 - Этап: подача на конкурс. Код и документы согласованы; стенд ещё на версии 19 ноября.
 - Последний полный зелёный прогон — из чистой копии (`git clone`, `npm ci`):
-  `docs/evidence/release-1122/run-summary.json` — 100/100 автотестов, 568/568 браузерных проверок в 17 наборах (код `9e7baad`).
+  `docs/evidence/release-1122-final/run-summary.json` — 101/101 автотест, 570/570 браузерных проверок в 17 наборах (код `4209326`).
 - Стенд: https://ai.neblanki.tech — `review-d7a91e220757` (код `babcd1d`), 19 ноября. Изменения 21 ноября появятся
   после обновления по `docs/DEPLOYMENT.md` (нужны `DEMO_SANDBOXES=1` и `SANDBOX_DIR`, они уже в `deploy/compose.vps.yaml`).
 - Репозиторий https://github.com/temurysega/vibe_code открыт автором 19 ноября.

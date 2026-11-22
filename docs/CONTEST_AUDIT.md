@@ -49,12 +49,12 @@
 
 ## Проверки текущей версии
 
-Итоговый прогон — из чистой копии репозитория: `git clone` на коммите `9e7baad`, `npm ci` по lock-файлу,
-затем `python scripts/collect-evidence.py --output docs/evidence/release-1122`. **100/100** автотестов
-и **568/568** браузерных проверок в 17 наборах на ширинах 360 и 1366 px (первый экран входа — ещё на 375×548
+Итоговый прогон — из чистой копии репозитория: `git clone` на коммите `4209326`, `npm ci` по lock-файлу,
+затем `python scripts/collect-evidence.py --output docs/evidence/release-1122-final`. **101/101** автотест
+и **570/570** браузерных проверок в 17 наборах на ширинах 360 и 1366 px (первый экран входа — ещё на 375×548
 и 360×640); каждый набор работает со своей
 временной базой, внешний ИИ отключён, необработанных ошибок JavaScript нет. Набор `browser-review-fixes`
-шёл с демо-кабинетами, как на стенде. [Сводка запуска](evidence/release-1122/run-summary.json).
+шёл с демо-кабинетами, как на стенде. [Сводка запуска](evidence/release-1122-final/run-summary.json).
 
 Автотесты проверяют изоляцию аккаунтов, факультетов и демо-кабинетов, CSRF и Origin, пароли, сеансы,
 сохранение после перезапуска, лимиты, ошибки ИИ-провайдера, календарные и рабочие дни, срок дедлайнов
@@ -63,28 +63,28 @@
 
 | Набор | Пройдено | Журнал |
 |---|---:|---|
-| API, безопасность и предметная логика | 100/100 | [unit-tests.txt](evidence/release-1122/unit-tests.txt) |
-| Экраны на 360 и 1366 px | 52/52 | [browser-smoke.txt](evidence/release-1122/browser-smoke.txt) |
-| Путь заявки двух ролей, смена аккаунта, изоляция | 36/36 | [browser-flows.txt](evidence/release-1122/browser-flows.txt) |
-| Клавиатура, фокус, восстановление после ошибок | 23/23 | [browser-accessibility.txt](evidence/release-1122/browser-accessibility.txt) |
-| Мобильные доработки и состояния расписания | 21/21 | [browser-polish.txt](evidence/release-1122/browser-polish.txt) |
-| Справка о стипендии: заявка, таблица, печать и скачанный PDF | 51/51 | [browser-stipend.txt](evidence/release-1122/browser-stipend.txt) |
-| Компактные оценки, фильтр риска, меню | 40/40 | [browser-review.txt](evidence/release-1122/browser-review.txt) |
-| Главная: приоритеты, длинные названия и текущая пара | 40/40 | [browser-home-priority.txt](evidence/release-1122/browser-home-priority.txt) |
-| Успеваемость: первый экран и статистика | 31/31 | [browser-grades-compact.txt](evidence/release-1122/browser-grades-compact.txt) |
-| Форма справки: профиль, формат, смена аккаунта | 19/19 | [browser-request-compact.txt](evidence/release-1122/browser-request-compact.txt) |
-| Читаемость расписания | 35/35 | [browser-schedule-readability.txt](evidence/release-1122/browser-schedule-readability.txt) |
-| «С чего начать»: первые действия | 34/34 | [browser-first-actions.txt](evidence/release-1122/browser-first-actions.txt) |
-| Правки 9 ноября: вход, нажатия, уведомления, чужая ссылка | 14/14 | [browser-audit-fixes.txt](evidence/release-1122/browser-audit-fixes.txt) |
-| Вкладки, пропущенные события и восстановление сеанса | 37/37 | [browser-session-sync.txt](evidence/release-1122/browser-session-sync.txt) |
-| Фокус при обновлениях, меню и контраст текста | 65/65 | [browser-focus-contrast.txt](evidence/release-1122/browser-focus-contrast.txt) |
-| Разметка в объявлениях и комментариях остаётся текстом | 21/21 | [browser-xss.txt](evidence/release-1122/browser-xss.txt) |
-| Первый экран входа, в том числе 375×548 и 360×640; сообщение о входе: на компьютере — всплывающее, на телефоне — в профиле | 20/20 | [browser-mobile-entry.txt](evidence/release-1122/browser-mobile-entry.txt) |
-| Правки рецензии 21 ноября: демо-кабинеты, игровой слой, деканат, PDF, расписание, тур | 29/29 | [browser-review-fixes.txt](evidence/release-1122/browser-review-fixes.txt) |
+| API, безопасность и предметная логика | 101/101 | [unit-tests.txt](evidence/release-1122-final/unit-tests.txt) |
+| Экраны на 360 и 1366 px | 52/52 | [browser-smoke.txt](evidence/release-1122-final/browser-smoke.txt) |
+| Путь заявки двух ролей, смена аккаунта, изоляция | 36/36 | [browser-flows.txt](evidence/release-1122-final/browser-flows.txt) |
+| Клавиатура, фокус, восстановление после ошибок | 23/23 | [browser-accessibility.txt](evidence/release-1122-final/browser-accessibility.txt) |
+| Мобильные доработки и состояния расписания | 21/21 | [browser-polish.txt](evidence/release-1122-final/browser-polish.txt) |
+| Справка о стипендии: заявка, таблица, печать и скачанный PDF | 51/51 | [browser-stipend.txt](evidence/release-1122-final/browser-stipend.txt) |
+| Компактные оценки, фильтр риска, меню | 40/40 | [browser-review.txt](evidence/release-1122-final/browser-review.txt) |
+| Главная: приоритеты, причина риска, длинные названия и текущая пара | 42/42 | [browser-home-priority.txt](evidence/release-1122-final/browser-home-priority.txt) |
+| Успеваемость: первый экран и статистика | 31/31 | [browser-grades-compact.txt](evidence/release-1122-final/browser-grades-compact.txt) |
+| Форма справки: профиль, формат, смена аккаунта | 19/19 | [browser-request-compact.txt](evidence/release-1122-final/browser-request-compact.txt) |
+| Читаемость расписания | 35/35 | [browser-schedule-readability.txt](evidence/release-1122-final/browser-schedule-readability.txt) |
+| «С чего начать»: первые действия | 34/34 | [browser-first-actions.txt](evidence/release-1122-final/browser-first-actions.txt) |
+| Правки 9 ноября: вход, нажатия, уведомления, чужая ссылка | 14/14 | [browser-audit-fixes.txt](evidence/release-1122-final/browser-audit-fixes.txt) |
+| Вкладки, пропущенные события и восстановление сеанса | 37/37 | [browser-session-sync.txt](evidence/release-1122-final/browser-session-sync.txt) |
+| Фокус при обновлениях, меню и контраст текста | 65/65 | [browser-focus-contrast.txt](evidence/release-1122-final/browser-focus-contrast.txt) |
+| Разметка в объявлениях и комментариях остаётся текстом | 21/21 | [browser-xss.txt](evidence/release-1122-final/browser-xss.txt) |
+| Первый экран входа, в том числе 375×548 и 360×640; сообщение о входе: на компьютере — всплывающее, на телефоне — в профиле | 20/20 | [browser-mobile-entry.txt](evidence/release-1122-final/browser-mobile-entry.txt) |
+| Правки рецензии 21 ноября: демо-кабинеты, игровой слой, деканат, PDF, расписание, тур | 29/29 | [browser-review-fixes.txt](evidence/release-1122-final/browser-review-fixes.txt) |
 
 ## Опубликованная версия
 
-**На 22 ноября стенд работает на коде 19 ноября** (`GET /api/health` на нём — 404). Итоговый код `9e7baad` с демо-кабинетами,
+**На 22 ноября стенд работает на коде 19 ноября** (`GET /api/health` на нём — 404). Итоговый код `4209326` с демо-кабинетами,
 PDF-справкой и остальными правками 21–22 ноября попадёт на стенд после обновления по [DEPLOYMENT.md](DEPLOYMENT.md);
 публикацию и приёмку на стенде выполняет человек.
 
@@ -138,6 +138,8 @@ runtime. Перед заменой создана резервная копия 
 | 21 ноября | Нагрузка на локальном сервере | около 2 750 запросов в секунду, 0 ошибок | [load-2026-11-21/](evidence/load-2026-11-21/) |
 | 22 ноября | Safari на iPhone SE в симуляторе iOS: PDF, форма с экранной клавиатурой, вход | файл открывается, кириллица и «Образец» видны; найдено E-44 | [ios-simulator-2026-11-22/](evidence/ios-simulator-2026-11-22/) |
 | 22 ноября, 01:51–01:56 | Чистая копия, код `9e7baad`: вход на низких экранах | 100/100 и 568/568 | [release-1122/](evidence/release-1122/run-summary.json) |
+| 22 ноября | Опрос 25 студентов: что мешает и как прошли задания в кабинете | лёгкость с телефона 4,4 из 5; самое трудное — риск по дисциплине и перенос пары | [survey-2026-11-22/](evidence/survey-2026-11-22/) |
+| 22 ноября, 14:24–14:29 | Чистая копия, итоговый код `4209326`: причина риска на главной | 101/101 и 570/570 | [release-1122-final/](evidence/release-1122-final/run-summary.json) |
 
 \* 333 проверки общего запуска и 34 проверки повтора одного сценария после исправления
 ожидания в тесте. Неуспешные попытки не удалялись: `evidence/finalization-first-attempt/`,
