@@ -129,9 +129,11 @@ export function gradesFor(store, student) {
      WHERE x.group_code = ? ORDER BY x.date, x.time`, student.group_code,
   ).map((x) => ({ id: x.id, kind: x.kind, kindLabel: x.kind === 'consult' ? 'Консультация' : CONTROL[x.kind], discipline: x.name, short: x.short, color: x.color, date: x.date, time: x.time, room: x.room, teacher: x.t_short, inDays: daysBetween(now.date, x.date) }));
   const s = semesterOf(now.date);
-  // Это прогноз по текущим баллам; фактический допуск выставляет деканат перед сессией
-  const admitted = risk.length === 0 && !debts.length;
+  // Это прогноз по текущим баллам; фактический допуск выставляет деканат перед сессией.
+  // Без единой оценки в семестре прогноз не строится: «Недостаточно данных для прогноза»
   const nodata = cur.filter((c) => c.status === 'nodata');
+  const forecast = risk.length || debts.length ? 'risk' : !cur.length || nodata.length === cur.length ? 'nodata' : 'ok';
+  const admitted = forecast === 'ok';
 
   // Короткий ответ на вопрос «как у меня дела»
   let mood, headline;
@@ -150,7 +152,7 @@ export function gradesFor(store, student) {
 
   return {
     semester: sem, course: Math.ceil(sem / 2), semesterLabel: s.part === 1 ? 'Осенний семестр' : 'Весенний семестр',
-    session: { start: s.sessionStart, end: s.sessionEnd, admitted, admission: 'forecast', exams },
+    session: { start: s.sessionStart, end: s.sessionEnd, admitted, admission: 'forecast', forecast, nodata: nodata.length, total: cur.length, exams },
     summary: {
       mood, headline, tips, avg, semPace: semPace == null ? null : Math.round(semPace * 100), attendance, rank, stipend,
       risk: risk.length, excellent: excellent.length, total: cur.length, debts: debts.length, nodata: nodata.length,

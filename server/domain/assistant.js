@@ -158,7 +158,7 @@ export function ruleAnswer(snap, question) {
   if (has(/экзамен|сесси|зач[её]т|допуск/)) {
     const exams = g.session.exams.filter((x) => x.kind !== 'consult');
     const first = exams.find((x) => x.inDays >= 0);
-    return { text: `${g.session.admitted ? 'Сейчас всё идёт к допуску к сессии.' : 'Допуск под угрозой: закройте риски и долги.'}${first ? ` Первый — «${first.discipline}», ${first.kindLabel.toLowerCase()} ${fmtDate(first.date)} в ${first.time}, ауд. ${first.room}.` : ''} Всего в сессии ${exams.length} ${plural(exams.length, ['испытание', 'испытания', 'испытаний'])}.`, link: { href: '#/grades/session', label: LINKS['#/grades/session'] } };
+    return { text: `${g.session.forecast === 'nodata' ? 'Оценок в семестре пока нет — недостаточно данных для прогноза допуска.' : g.session.admitted ? 'Сейчас всё идёт к допуску к сессии.' : 'Допуск под угрозой: закройте риски и долги.'}${first ? ` Первый — «${first.discipline}», ${first.kindLabel.toLowerCase()} ${fmtDate(first.date)} в ${first.time}, ауд. ${first.room}.` : ''} Всего в сессии ${exams.length} ${plural(exams.length, ['испытание', 'испытания', 'испытаний'])}.`, link: { href: '#/grades/session', label: LINKS['#/grades/session'] } };
   }
   if (has(/балл|оценк|успева|рейтинг|как (у меня )?дела|учёб|учеб|отличн/)) {
     const risk = g.current.filter((c) => c.status === 'risk');

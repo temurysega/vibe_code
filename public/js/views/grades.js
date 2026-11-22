@@ -78,6 +78,13 @@ function current() {
     <div class="disc-grid" id="grade-disciplines">${disciplines()}</div>`;
 }
 
+// Прогноз допуска: по плану, под вопросом или без данных — оценок в семестре ещё нет
+const ADMISSION = {
+  ok: { title: 'Прогноз допуска: идёт по плану', text: (s) => `Рисков и долгов нет — по текущим баллам вы идёте к допуску.${s.nodata ? ` По ${s.nodata} ${plural(s.nodata, ['дисциплине', 'дисциплинам', 'дисциплинам'])} из ${s.total} оценок пока нет.` : ''}` },
+  risk: { title: 'Прогноз допуска: под вопросом', text: () => 'Закройте риски и долги — по текущим баллам допуск под вопросом.' },
+  nodata: { title: 'Недостаточно данных для прогноза', text: () => 'Оценок в этом семестре пока нет — прогноз допуска появится после первых контрольных точек.' },
+};
+
 function sessionTab() {
   const s = g.session;
   const ex = s.exams;
@@ -89,8 +96,8 @@ function sessionTab() {
         <span class="badge ${x.kind === 'consult' ? 'badge-gray' : x.kind === 'exam' ? 'badge-navy' : 'badge-soft'}">${x.inDays < 0 ? 'прошло' : x.inDays === 0 ? 'сегодня' : `через ${x.inDays} ${plural(x.inDays, ['день', 'дня', 'дней'])}`}</span></div>`).join('')}
     </div>
     <div class="col" style="gap:20px">
-      <div class="card ${s.admitted ? '' : 'card-gold'}"><div class="card-title">${s.admitted ? 'Прогноз допуска: идёт по плану' : 'Прогноз допуска: под вопросом'}</div>
-        <p class="muted mt-8">${s.admitted ? 'Рисков и долгов нет — по текущим баллам вы идёте к допуску.' : 'Закройте риски и долги — по текущим баллам допуск под вопросом.'} Фактический допуск деканат выставит перед сессией, с ${esc(dayShort(s.start))}.</p>
+      <div class="card ${s.forecast === 'risk' ? 'card-gold' : ''}" data-admission="${s.forecast}"><div class="card-title">${ADMISSION[s.forecast].title}</div>
+        <p class="muted mt-8">${ADMISSION[s.forecast].text(s)} Фактический допуск деканат выставит перед сессией, с ${esc(dayShort(s.start))}.</p>
         ${first ? `<div class="note mt-16">${icon('calendar', 18)}<span>Первое испытание — «${esc(first.discipline)}», ${esc(dayShort(first.date))} в ${first.time}</span></div>` : ''}</div>
       <div class="card"><div class="card-title">Если заболели</div><p class="muted mt-8">Перенос экзамена оформляется заявлением на индивидуальный график — без похода в деканат.</p><a class="btn btn-primary mt-16" href="#/requests/new/individual">${icon('doc', 18)} Подать заявление</a></div>
     </div></div>`;

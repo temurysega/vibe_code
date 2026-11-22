@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { startApp, client } from './helpers.js';
 import { gradesFor } from '../server/domain/grades.js';
 import { studentOf } from '../server/security/auth.js';
+import { snapshot, ruleAnswer } from '../server/domain/assistant.js';
 
 let app;
 before(async () => { app = await startApp(); });
@@ -23,6 +24,7 @@ test('обычный семестр: прогноз считается, у ди�
   assert.ok(risk.next && risk.next.title && risk.next.date, 'есть ближайшая контрольная точка с датой');
   assert.equal(g.session.admission, 'forecast', 'допуск — прогноз, а не выставленный факт');
   assert.equal(g.session.admitted, false);
+  assert.equal(g.session.forecast, 'risk');
 });
 
 test('семестр с долгом: заголовок о долге, прогноз допуска под вопросом', () => {
@@ -32,7 +34,7 @@ test('семестр с долгом: заголовок о долге, прог
   assert.equal(g.session.admitted, false);
 });
 
-test('без оценок: «Пока нет данных для прогноза» вместо «стабильно»', () => {
+test('без оценок: «Пока нет данных для прогноза» вместо «стабильно», в «Сессии» — «Недостаточно данных»', async () => {
   const u = app.store.get("SELECT student_id FROM users WHERE login = 't.aliev'");
   app.store.run('UPDATE assessments SET points = NULL, graded_at = NULL WHERE student_id = ?', u.student_id);
   const g = gradesOf('t.aliev');
@@ -44,6 +46,18 @@ test('без оценок: «Пока нет данных для прогноз�
   }
   assert.equal(g.summary.nodata, g.current.length);
   assert.match(g.summary.headline, /оценок пока нет/);
+  // «Сессия»: без оценок нет и прогноза допуска — не «идёт по плану» (рецензия 22 ноября, п. 4)
+  assert.equal(g.session.forecast, 'nodata');
+  assert.equal(g.session.admitted, false);
+  assert.equal(g.session.nodata, g.session.total);
+  const user = app.store.get("SELECT * FROM users WHERE login = 't.aliev'");
+  const answer = ruleAnswer(snapshot(app.store, user, studentOf(app.store, u.student_id)), 'Я допущен к сессии?');
+  assert.match(answer.text, /^Оценок в семестре пока нет — недостаточно данных для прогноза допуска\./);
+  // API отдаёт то же состояние экрану «Сессия»
+  const c = client(app.base);
+  await c.login('t.aliev');
+  const api = (await c.req('GET', '/api/grades')).data;
+  assert.equal(api.session.forecast, 'nodata');
 });
 
 test('главная называет причину риска без перехода в оценки: нужно ещё N из M баллов', async () => {
