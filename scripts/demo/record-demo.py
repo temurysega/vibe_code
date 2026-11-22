@@ -177,7 +177,15 @@ async def main():
         await search.press('Enter')
         item = page.locator(f'[data-req="{request_id}"]')
         await item.wait_for()
-        await item.scroll_into_view_if_needed()
+        # Очередь деканата перерисовывается после поиска и по автообновлению: элемент ищется заново
+        for attempt in range(4):
+            try:
+                await item.scroll_into_view_if_needed()
+                break
+            except Exception:
+                if attempt == 3:
+                    raise
+                await pause(0.4)
         await pause(2.4)
         if await item.locator('[data-act="in_work"]').count():
             comment = item.locator('[data-comment]')
