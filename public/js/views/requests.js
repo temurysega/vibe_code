@@ -113,7 +113,8 @@ function detailView(r) {
 
 // ---------- электронная справка ----------
 // Код проверки читается группами по четыре знака; ссылка ведёт в тот же демо-кабинет, где выдана справка
-const verifyLink = (code) => `${location.origin}/${session.sandbox && session.sandbox.id ? `?demo=${session.sandbox.id}` : ''}#/verify/${codeGroups(code)}`;
+// Ссылка проверяет только документ: кода демо-кабинета в ней нет
+const verifyLink = (code) => `${location.origin}/#/verify/${codeGroups(code)}`;
 
 const runs = (list) => list.map((r) => (r.b ? `<b>${esc(r.t)}</b>` : esc(r.t))).join('');
 

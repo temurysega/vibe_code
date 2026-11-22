@@ -176,7 +176,7 @@ with sync_playwright() as p:
     expect(dean.locator(f'[data-req="{rid}"]')).to_have_count(0)
     dean_ctx.close()
 
-    # 6. Справка файлом PDF прямо на телефоне, ссылка из файла ведёт в этот же кабинет (п. 10)
+    # 6. Справка файлом PDF прямо на телефоне; ссылка из файла проверяет только документ (п. 10; рецензия 22 ноября, п. 1)
     alina.goto(f'{BASE}/#/requests/{rid}/doc')
     alina.locator('article.doc').wait_for()
     pdf_link = alina.locator('[data-pdf]')
@@ -196,12 +196,15 @@ with sync_playwright() as p:
           and 'Для проверки жюри' in text and 'ОБРАЗЕЦ' in text)
     uris = [str(a.get_object()['/A']['/URI']) for page_ in reader.pages for a in page_.get('/Annots', [])]
     verify = next((u for u in uris if '#/verify/' in u), '')
-    check('PDF: the verification link leads to the same demo cabinet', verify.startswith(f'{BASE}/?demo={sid}#/verify/'))
+    check('PDF: the verification link checks only the document — no demo cabinet code in it',
+          verify.startswith(f'{BASE}/#/verify/') and 'demo=' not in verify)
     check_ctx = browser.new_context(**PHONE)
     checker = watch(check_ctx.new_page())
     checker.goto(verify)
     expect(checker.locator('text=Справка действительна')).to_be_visible()
     check('a person without an account opens the link from the PDF and sees the certificate is valid', True)
+    check('verifying does not hand over the cabinet: the clean browser has no demo cabinet cookie',
+          not [c for c in check_ctx.cookies() if c['name'].endswith('mm_demo')])
     check_ctx.close()
 
     # 7. Уведомление об изменении расписания ведёт к дате и паре (п. 6)

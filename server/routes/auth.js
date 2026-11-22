@@ -5,6 +5,7 @@ import { verifyPassword, dummyVerify, hashPassword, passwordProblems } from '../
 import { createSession, destroySession, sessionCookie, clearSessionCookie, appendCookie, deviceName, maskIp } from '../security/session.js';
 import { RateLimiter } from '../security/rateLimit.js';
 import { requireUser, publicUser, audit } from '../security/auth.js';
+import { enterNewSandbox } from '../demo/sandboxes.js';
 
 // Пять неудачных попыток на логин и тридцать на адрес за 15 минут
 export const perAccount = new RateLimiter({ windowMs: 15 * 60e3, max: 5 });
@@ -28,7 +29,7 @@ export default function (router) {
     if (!login || !password) fail(400, 'Введите логин и пароль');
     const keyA = `${ctx.ip}|${login}`;
     limited(ctx, [[perAccount, keyA], [perIp, ctx.ip]]);
-    const user = ctx.store.get('SELECT * FROM users WHERE login = ?', login);
+    let user = ctx.store.get('SELECT * FROM users WHERE login = ?', login);
     const releaseAccount = perAccount.reserve(keyA);
     const releaseIp = perIp.reserve(ctx.ip);
     let ok;
@@ -46,6 +47,13 @@ export default function (router) {
       fail(401, left.ok && left.left <= 2 ? `Неверный логин или пароль. Осталось попыток: ${left.left}` : 'Неверный логин или пароль');
     }
     perAccount.reset(keyA);
+    // Свой демо-кабинет создаётся только после верного пароля: неудачный вход не оставляет ни базы, ни cookie.
+    // Пароль проверен по общей базе; в новом кабинете те же вымышленные аккаунты.
+    if (ctx.sandboxes && !ctx.sandbox) {
+      await enterNewSandbox(ctx, ctx.reservedSandbox);
+      user = ctx.store.get('SELECT * FROM users WHERE login = ?', login);
+      if (!user) fail(401, 'Неверный логин или пароль');
+    }
     const { token, csrf } = createSession(ctx.store, user.id, { ip: ctx.ip, ua: ctx.req.headers['user-agent'] });
     const prev = user.last_login_at;
     ctx.store.run('UPDATE users SET last_login_at = ? WHERE id = ?', Date.now(), user.id);

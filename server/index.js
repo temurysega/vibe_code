@@ -8,7 +8,7 @@ import { applyPlans } from './domain/requests.js';
 import { perAccount, perIp } from './routes/auth.js';
 import { broadcasts } from './routes/dean.js';
 import { verifyLimit } from './routes/requests.js';
-import { Sandboxes, sandboxCreation } from './demo/sandboxes.js';
+import { Sandboxes } from './demo/sandboxes.js';
 
 const store = new Store(config.dbFile);
 
@@ -53,7 +53,7 @@ const timers = [
     try { applyPlans(store); } catch (e) { console.error(e); }
     if (sandboxes) sandboxes.forEachOpen((s) => { try { applyPlans(s); } catch (e) { console.error(e); } });
   }, 5000),
-  setInterval(() => { perAccount.sweep(); perIp.sweep(); broadcasts.sweep(); verifyLimit.sweep(); sandboxCreation.sweep(); store.run('DELETE FROM sessions WHERE expires_at < ?', Date.now()); }, 10 * 60e3),
+  setInterval(() => { perAccount.sweep(); perIp.sweep(); broadcasts.sweep(); verifyLimit.sweep(); if (sandboxes) sandboxes.creation.sweep(); store.run('DELETE FROM sessions WHERE expires_at < ?', Date.now()); }, 10 * 60e3),
   setInterval(() => { if (sandboxes) { try { sandboxes.sweep(); } catch (e) { console.error(e); } } }, 60 * 60e3),
   setInterval(() => { maybeReseed(false).catch((e) => console.error(e)); }, 10 * 60e3),
 ];

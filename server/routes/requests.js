@@ -33,6 +33,8 @@ function documentOf(ctx) {
   const { _stipend, ...payload } = JSON.parse(r.payload || '{}');
   const ready = ctx.store.get("SELECT created_at FROM request_events WHERE request_id = ? AND status = 'ready' ORDER BY created_at DESC LIMIT 1", r.id);
   const sem = semesterOf(msk().date);
+  // Код проверки попадает в указатель стенда: проверка по коду не требует кода кабинета
+  if (ctx.sandboxes && ctx.sandbox && r.verify_code) ctx.sandboxes.rememberCode(r.verify_code, ctx.sandbox);
   return {
     r,
     document: {
@@ -84,7 +86,8 @@ export default function (router) {
     const { r, document } = documentOf(ctx);
     const history = r.type === 'transcript' ? gradesFor(ctx.store, ctx.student).history : null;
     const proto = config.trustProxy ? String(ctx.req.headers['x-forwarded-proto'] || 'https').split(',')[0].trim() : (config.cookieSecure ? 'https' : 'http');
-    const verifyUrl = `${proto}://${ctx.req.headers.host}/${ctx.sandbox ? `?demo=${ctx.sandbox}` : ''}#/verify/${codeGroups(r.verify_code)}`;
+    // Ссылка проверяет только документ: без кода демо-кабинета, по ней нельзя войти в чужой кабинет
+    const verifyUrl = `${proto}://${ctx.req.headers.host}/#/verify/${codeGroups(r.verify_code)}`;
     const bytes = Buffer.from(await documentPdf(document, history, verifyUrl));
     ctx.res.writeHead(200, {
       'Content-Type': 'application/pdf',
@@ -103,7 +106,13 @@ export default function (router) {
     // Новые справки получают 16-значный код; 8-значные коды прежних справок тоже проверяются
     const code = String(ctx.params.code || '').toUpperCase().replace(/[^0-9A-F]/g, '');
     if (!/^(?:[0-9A-F]{8}|[0-9A-F]{16})$/.test(code)) fail(404, 'Документ не найден');
-    const r = ctx.store.get("SELECT r.number, r.title, r.status, r.updated_at, s.last_name, s.first_name, s.middle_name FROM requests r JOIN students s ON s.id = r.student_id WHERE r.verify_code = ? AND r.status IN ('ready', 'issued')", code);
+    const find = (store) => store && store.get("SELECT r.number, r.title, r.status, r.updated_at, s.last_name, s.first_name, s.middle_name FROM requests r JOIN students s ON s.id = r.student_id WHERE r.verify_code = ? AND r.status IN ('ready', 'issued')", code);
+    let r = find(ctx.store);
+    // Справка из другого демо-кабинета: кабинет находится по указателю кодов, cookie кабинета не выдаётся
+    if (!r && ctx.sandboxes) {
+      const box = ctx.sandboxes.cabinetOfCode(code);
+      if (box && box !== ctx.sandbox) r = find(ctx.sandboxes.get(box));
+    }
     if (!r) fail(404, 'Документ не найден');
     const ini = [r.first_name, r.middle_name, r.last_name].filter(Boolean).map((x) => x[0] + '.').join(' ');
     return { valid: true, number: r.number, title: r.title, issuedAt: r.updated_at, holder: ini };

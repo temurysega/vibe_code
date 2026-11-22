@@ -6,6 +6,7 @@ import { RateLimiter } from '../security/rateLimit.js';
 import { snapshot, ruleAnswer, aiAnswer } from '../domain/assistant.js';
 import { DEMO_ACCOUNTS, DEMO_PASSWORD } from '../seed/seed.js';
 import { config } from '../config.js';
+import { reserveSandbox } from '../demo/sandboxes.js';
 
 // 20 вопросов за 10 минут на студента: защищает и бюджет ИИ, и сервер
 const perUser = new RateLimiter({ windowMs: 10 * 60e3, max: 20 });
@@ -29,8 +30,11 @@ export default function (router) {
     return Object.assign(ruleAnswer(snap, question), { source: 'rules' });
   });
 
-  // Подсказки для жюри: в демо-режиме страница входа показывает тестовые учётки
-  router.get('/api/demo/accounts', (ctx) => (process.env.DEMO_MODE === '0'
-    ? { accounts: [] }
-    : { password: DEMO_PASSWORD, accounts: DEMO_ACCOUNTS, ai: !!(config.openrouterKey || config.anthropicKey), sandboxes: !!ctx.sandboxes, sandbox: !!ctx.sandbox }));
+  // Подсказки для жюри: в демо-режиме страница входа показывает тестовые учётки.
+  // Браузер без кабинета получает заготовку: все его вкладки войдут в один будущий кабинет
+  router.get('/api/demo/accounts', (ctx) => {
+    if (process.env.DEMO_MODE === '0') return { accounts: [] };
+    reserveSandbox(ctx);
+    return { password: DEMO_PASSWORD, accounts: DEMO_ACCOUNTS, ai: !!(config.openrouterKey || config.anthropicKey), sandboxes: !!ctx.sandboxes, sandbox: !!ctx.sandbox };
+  });
 }

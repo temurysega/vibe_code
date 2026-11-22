@@ -83,15 +83,17 @@ function sandboxModal() {
         <input class="input" readonly value="${esc(link)}" data-sandbox-link aria-describedby="sandbox-hint"></label>
       <p class="small muted mt-8" id="sandbox-hint">Откройте её, чтобы войти как сотрудник деканата и как студент в один и тот же кабинет.</p>
       <div class="modal-foot"><button class="btn btn-primary btn-lg" data-sandbox-copy>${icon('docs', 18)} Скопировать ссылку</button>
-        <button class="btn btn-secondary btn-lg" data-sandbox-new>${icon('refresh', 18)} Начать с чистого кабинета</button>
+        ${session.user ? `<button class="btn btn-secondary btn-lg" data-sandbox-new>${icon('refresh', 18)} Начать с чистого кабинета</button>` : ''}
         <button class="btn btn-ghost btn-lg" data-close>Закрыть</button></div>`,
     onMount(el) {
       el.querySelector('[data-sandbox-copy]').onclick = async () => {
         const input = el.querySelector('[data-sandbox-link]');
         try { await navigator.clipboard.writeText(link); toast('Ссылка скопирована', { icon: 'check' }); } catch (e) { input.select(); toast('Выделите ссылку и скопируйте её', { icon: 'info' }); }
       };
-      el.querySelector('[data-sandbox-new]').onclick = async () => {
-        const ok = await confirm({ title: 'Начать с чистого кабинета?', text: 'Откроется новый демо-кабинет со стартовыми данными. Текущий останется доступен по старой ссылке', yes: 'Начать' });
+      // Сброс — только из открытого сеанса; новый кабинет создаётся при следующем входе
+      const fresh = el.querySelector('[data-sandbox-new]');
+      if (fresh) fresh.onclick = async () => {
+        const ok = await confirm({ title: 'Начать с чистого кабинета?', text: 'Сеанс завершится, а после входа откроется новый демо-кабинет со стартовыми данными. Текущий останется доступен по старой ссылке', yes: 'Начать' });
         if (!ok) return;
         try {
           await post('/api/demo/new', {});

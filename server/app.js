@@ -4,7 +4,7 @@ import { readJson } from './http/body.js';
 import { serveStatic } from './http/static.js';
 import { securityHeaders } from './security/headers.js';
 import { safeEqual, parseCookies } from './security/session.js';
-import { demoCookieName, demoCookie, enterNewSandbox } from './demo/sandboxes.js';
+import { demoCookieName, demoCookie, validSandboxId } from './demo/sandboxes.js';
 import { appendCookie } from './security/session.js';
 import { loadUser } from './security/auth.js';
 import { config } from './config.js';
@@ -43,8 +43,10 @@ export function createApp(store, hooks = {}) {
     try {
       securityHeaders(res, config.cookieSecure);
       const url = new URL(req.url, 'http://local');
-      let sandbox = sandboxes ? parseCookies(req.headers.cookie)[demoCookieName()] || null : null;
-      if (sandbox && !sandboxes.exists(sandbox)) sandbox = null;
+      const fromCookie = sandboxes ? parseCookies(req.headers.cookie)[demoCookieName()] || null : null;
+      const sandbox = fromCookie && sandboxes.exists(fromCookie) ? fromCookie : null;
+      // Код без готовой базы — заготовка кабинета со страницы входа: база появится после верного пароля
+      const reservedSandbox = !sandbox && validSandboxId(fromCookie) ? fromCookie : null;
       if (!url.pathname.startsWith('/api/')) {
         // Ссылка /?demo=<код> открывает тот же демо-кабинет на телефоне или в приватном окне
         if (sandboxes && url.searchParams.has('demo')) {
@@ -63,7 +65,7 @@ export function createApp(store, hooks = {}) {
       if (!m) fail(404, 'Не найдено');
       if (m.wrongMethod) fail(405, 'Метод не поддерживается');
 
-      const ctx = { req, res, url, query: url.searchParams, params: m.params, body: {}, store: sandbox ? sandboxes.get(sandbox) : store, sandbox, sandboxes, ip: clientIp(req), status: 200 };
+      const ctx = { req, res, url, query: url.searchParams, params: m.params, body: {}, store: sandbox ? sandboxes.get(sandbox) : store, sandbox, reservedSandbox, sandboxes, ip: clientIp(req), status: 200 };
       loadUser(ctx);
       // Cookie общая для вкладок. Старый CSRF также связывает чтение с аккаунтом,
       // для которого открыт интерфейс: не возвращаем профиль нового владельца cookie.
@@ -76,8 +78,6 @@ export function createApp(store, hooks = {}) {
         if (ctx.session && !safeEqual(req.headers['x-csrf-token'], ctx.session.csrf)) fail(403, 'Сессия устарела — обновите страницу', { code: 'SESSION_CHANGED' });
         ctx.body = await readJson(req);
       }
-      // Первый вход без кабинета создаёт новый: данные разных проверяющих не смешиваются
-      if (sandboxes && !ctx.sandbox && req.method === 'POST' && url.pathname === '/api/auth/login') await enterNewSandbox(ctx);
       if (ctx.user && hooks.onActivity) hooks.onActivity();
 
       let out;
