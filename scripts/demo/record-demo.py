@@ -72,8 +72,17 @@ async def main():
             await asyncio.sleep(seconds)
 
         async def tap(locator, after=0.7):
-            await locator.scroll_into_view_if_needed()
-            box = await locator.bounding_box()
+            # Главная перерисовывается по уведомлениям: если элемент заменился, ищем его заново
+            for attempt in range(3):
+                try:
+                    await locator.scroll_into_view_if_needed()
+                    box = await locator.bounding_box()
+                    if box:
+                        break
+                except Exception:
+                    if attempt == 2:
+                        raise
+                await pause(0.4)
             await page.evaluate(RIPPLE, [box['x'] + box['width'] / 2, box['y'] + box['height'] / 2])
             await pause(0.3)
             await locator.tap()
